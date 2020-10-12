@@ -1,3 +1,3 @@
 # DDmarket_TeamProject
-달리자!
+Starting
 - 10.8 시작 -
