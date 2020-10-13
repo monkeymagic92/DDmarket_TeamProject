@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+/* 폰트 설정  */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500&display=swap');
+
+/*초기화*/
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, dl, dd, form, fieldset, input {margin: 0; padding: 0;}
+li {list-style: none;}
+a {text-decoration: none; color: #333;}
+fieldset {border: 0;} /*픽셀단위를 없을 때는 0*/
+.hidden {position: absolute; left: -9999px;} 
+
+/*웹폰트 적용 notosans*/
+body {font-family: 'Noto Sans KR', sans-serif; width: 100%;}
+
+/* container 설정 */ 
+#container {width: 100%; margin: 30px auto; margin-bottom: 0;}
+
+/* 메인 */
+#main {width: 1190px; margin: 0 auto; margin-bottom: 200px; display: flex; flex-flow: column; justify-content: center; align-items: center;}
+#main .div-logo {padding-right: 20px;}
+#main .div-input {height:270px; display: flex; flex-direction: column; justify-content: space-evenly; border-bottom: 1px solid #C4C4C4;}
+#main .div-input input {width: 358px; height: 50px; border: 1px solid #C4C4C4; padding-left: 20px;}
+#main .div-input input::placeholder {color: #BAB6B6;}
+#main .div-input button {width: 380px; height: 50px; background: #3B73C8; color: white; font-size: 20px; font-weight: bold; cursor: pointer;}
+
+#main .div-api {width: 380px; display: flex; justify-content: space-between; margin-top: 26px;}
+
+#main .ul-bottom {width: 380px; display: flex; justify-content: center; margin-top: 15px; }
+#main ul li {margin-right: 10px; position: relative; padding-right: 10px;}
+#main ul li a {text-decoration: none; color:#AEAEAE;}
+#main ul li::after {content: ""; position: absolute; top:8px; right: 0; height: 10px; border: 1px solid #AEAEAE;} /*::after >> 특정 문자 추가*/
+#main ul li:last-child::after {border:0;} 
