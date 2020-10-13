@@ -71,34 +71,93 @@
                     <input type="text" placeholder="닉네임">
                     <button type="button" id="nickChk">닉네임 중목체크</button>
                 </div>
-                
-                
-                
-                <!-- 주소 api (재용작업중) -->
-                <div class="form-group">                   
-				<input class="form-control" style="width: 40%; display: inline;" placeholder="우편번호" name="addr1" id="addr1" type="text" readonly="readonly" >
-				    <button type="button" class="btn btn-default" onclick="execPostCode()">우편번호 찾기</button>                               
-				</div>
-				<div class="form-group">
-				    <input class="form-control" style="top: 5px;" placeholder="도로명 주소" name="addr2" id="addr2" type="text" readonly="readonly" />
-				</div>
 				
-                <!-- id 받아오기 (우현작업한거)
-                <div>
-                    <input type="text" placeholder="우편번호" id="addr_front">
-                    <input type="text" placeholder="주소" id="addr_back">
-                </div>
-                 -->
+				<!-- 지도 -->
+				<input type="text" id="sample5_address" placeholder="주소">
+				<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
+				<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
+				
             </form>
         </div>
-        <button type="button" id="joinBtn">회원가입</button>
+        <button type="submit" id="joinBtn">회원가입</button>
         </main>
     </div>
 </body>
 
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script src="/res/js/addr/addr.js"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9996836ad8617fab6206b5bcc9625c1f&libraries=services"></script>
 <script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+mapOption = {
+    center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+    level: 6 // 지도의 확대 레벨
+};
 
+//지도를 미리 생성
+var map = new daum.maps.Map(mapContainer, mapOption);
+//주소-좌표 변환 객체를 생성
+var geocoder = new daum.maps.services.Geocoder();
+//마커를 미리 생성
+var marker = new daum.maps.Marker({
+position: new daum.maps.LatLng(37.537187, 127.005476),
+map: map
+});
+
+////////////// 아래부터는 주소검색관련 //////////////
+//아래 코드처럼 테마 객체를 생성합니다.(color값은 #F00, #FF0000 형식으로 입력하세요.)
+//변경되지 않는 색상의 경우 주석 또는 제거하시거나 값을 공백으로 하시면 됩니다.
+
+
+//위에서 생성한 themeObj객체를 우편번호 서비스 생성자에 넣습니다.
+//생성자의 자세한 설정은 예제 및 속성탭을 확인해 주세요.
+/*
+new daum.Postcode({
+   theme: themeObj
+}).open();
+
+new daum.Postcode({
+   theme: themeObj
+}).embed(target);
+*/
+
+var width = 550;
+var height = 650;
+
+function sample5_execDaumPostcode() {
+	new daum.Postcode({
+				
+		width : width,
+		height : height,
+		
+		
+	    oncomplete: function(data) {
+	        var addr = data.address; // 최종 주소 변수
+	
+	        // 주소 정보를 해당 필드에 넣는다.
+	        document.getElementById("sample5_address").value = addr;
+	        // 주소로 상세 정보를 검색
+	        geocoder.addressSearch(data.address, function(results, status) {
+	            // 정상적으로 검색이 완료됐으면
+	            if (status === daum.maps.services.Status.OK) {
+	
+	                var result = results[0]; //첫번째 결과의 값을 활용
+	
+	                // 해당 주소에 대한 좌표를 받아서
+	                var coords = new daum.maps.LatLng(result.y, result.x);
+	                // 지도를 보여준다.
+	                mapContainer.style.display = "block";
+	                map.relayout();
+	                // 지도 중심을 변경한다.
+	                map.setCenter(coords);
+	                // 마커를 결과값으로 받은 위치로 옮긴다.
+	                marker.setPosition(coords)
+	            }
+	        });
+	    }
+	}).open({
+		left: (window.screen.width / 2) - (width / 2),
+	    top: (window.screen.height / 2) - (height / 2)
+	});
+}
 </script>
 </html>
