@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>단디마켓</title>
+<!-- 인덱스 메인페이지 -->
 </head>
 <!--(header / nav) : 머리글 / (section / article ) : 본문 / (aside) : 사이드 본문 / (footer) : 바닥글-->
 <body>	

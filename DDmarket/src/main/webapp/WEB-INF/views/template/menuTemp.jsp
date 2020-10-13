@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>단디마켓</title>
+<!-- 로그인,회원 가입등  풋터와 입력부만 나오게 하는 부분 -->
 </head>
 <body>
 	<div id="container">
