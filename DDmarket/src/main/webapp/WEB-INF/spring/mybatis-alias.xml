@@ -7,5 +7,7 @@
 		<typeAlias type="com.dandi.ddmarket.user.model.UserPARAM" alias="UserPARAM" />
 		<typeAlias type="com.dandi.ddmarket.user.model.UserDMI" alias="UserDMI" />
 		
+		<typeAlias type="com.dandi.ddmarket.board.model.BoardVO" alias="BoardVO" />
+		
 	</typeAliases>	
 </configuration>

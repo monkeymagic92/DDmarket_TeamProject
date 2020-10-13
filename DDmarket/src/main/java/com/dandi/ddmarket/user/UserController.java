@@ -9,9 +9,5 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/user")
 public class UserController {
 
-	@RequestMapping(value="/test", method = RequestMethod.GET)
-	public String test(Model model) {
-		model.addAttribute("hello","테스트");
-		return "/user/test";
-	}
+	
 }
