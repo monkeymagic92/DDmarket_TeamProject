@@ -16,13 +16,13 @@ public class UserController {
 	@RequestMapping(value="/login")
 	public String login(Model model) {
 		model.addAttribute("view","/user/login");
-		return "/template/menuTemp";
+		return ViewRef.MENUTEMP;
 	}
 	
 	@RequestMapping(value="/join")
 	public String joinin(Model model) {
 		model.addAttribute("view","/user/join");
-		return "/template/menuTemp";
+		return ViewRef.MENUTEMP;
 	}
 	
 }

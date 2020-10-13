@@ -3,7 +3,8 @@ package com.dandi.ddmarket;
 // 주소관련
 public class ViewRef {	
 	//  /user = header, footer
-	public static final String DEFAULT_TEMP = "/template/defaultTemp"; // user단 body
+	public static final String DEFAULT_TEMP = "/template/defaultTemp"; 
+	public static final String MENUTEMP = "/template/menuTemp";  
 	
 	
 	// /user
