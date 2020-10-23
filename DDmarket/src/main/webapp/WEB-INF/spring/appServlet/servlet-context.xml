@@ -28,7 +28,6 @@
 	
 	<resources mapping="/res/**" location="/resources/" /><!-- src-main-webapp-resources로 가라는 의미 res안에 들어가는 파일 : 이미지 css 등 -->
 
-
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<!-- 우리가 썻던 ViewResolver라고 보면됨 views를 만약 user로 쓰고싶다 그럼 user로 바꾸면됨 그리고 기본 WEB-INF/views안에 여러주소값 적고 마지막에 .jsp를 찍어준다 -->	
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -36,12 +35,17 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.dandi.ddmarket" />
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	    <beans:property name="maxUploadSize" value="10000000" />
+	    <beans:property name="defaultEncoding" value="utf-8" />
+	</beans:bean>
+	
+	
+	<context:component-scan base-package="com.dandi.*" />
 	
 	
 	<!-- BoardWeb4에서 우리가 public static getCon() 이라고 보면됨 -->
-	<!-- 우리가 getCon할때 굳이 안썻던 내용도있지만 히카리라는 아저씨가 테스트용으로 추가적으로 넣어놓은 부가적 기능  -->
-	<!-- src/main/resources 경로안에 config.properties 파일에 있는값을 참조해서 사용하였음  -->
+	<!-- 우리가 getCon할때 굳이 안썻던 내용도있지만 히카리라는 아저씨가 테스트용으로 추가적으로 넣어놓은 부가적 기능  -->	
 	<beans:bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<beans:property name="poolName" value="springHikariCP" />
 		<beans:property name="connectionTestQuery" value="SELECT 1 FROM DUAL" />
@@ -68,13 +72,14 @@
 	</beans:bean>
 	
 	
-	<!-- 얘는 인터페이스의 @Mapper를 찾는 애 -->
-	<mybatis-spring:scan base-package="com.dandi.ddmarket"/> <!--  하단 탭에Namespace import 안해서 빨간줄 뜨는것  -->
+	<!-- 인터페이스의 @Mapper를 찾는 애 -->
+	<mybatis-spring:scan base-package="com.dandi.ddmarket"/> <!--  빨간줄 뜬다면 하단 탭Namespace import 안해서 빨간줄 뜨는것  -->
 	
 			
 			
 			
 	<!-- 이메일 관련 -->
+	<!-- 실제 이메일 보내고자 하는 컴퓨터에서 네이버 메일설정 들어간후 환경설정 smtp 사용허가로 해야됨 -->
 	<beans:bean id="mailSender"	class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<beans:property name="host" value="smtp.naver.com" />
 		<beans:property name="port" value="465" /><!-- 465 or 25 -->
@@ -94,6 +99,16 @@
 		</beans:property>
 	</beans:bean>
 	
+
+	<!-- 인터셉터 -->
+	<!-- 
+	<interceptors>
+		<interceptor>
+			<mapping path="/**"/>			
+			<beans:bean class="com.dandi.ddmarket.LoginCheckInterceptor"/>
+		</interceptor>
+	</interceptors>
+	 -->
 	
 	
 	<!-- 트랜지션 사용하기위해 등록하는 것 
@@ -104,34 +119,7 @@
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	-->
 	
+
 	
 	
-	
-	<!-- 
- 					- 	인터셉터 관련	-	
- 					url 접속시 걸러주는거 
-		인터셉터  즉, 로그인한사람이 굳이 또 로그인창가고 회원가입창 가는걸 사전에 막는거 
-		(병신같잖아 ? 로그인됬는데 로그인창누르면 로그인창이 열린다는게 ?)
-	
-	<interceptors>
-		<interceptor>
-			<mapping path="/**"/>			
-			<beans:bean class="com.#.#.LoginCheckInterceptor"/>
-		</interceptor>
-		
-		<interceptor>
-			<mapping path="/rest/*"/>			
-			<beans:bean class="com.#.#.RestInterceptor"/>
-		</interceptor>
-	</interceptors>
-	
-	
-	 file Upload 하는 Beans (참고자료 : 디테일 사진 추가할때)
-		빨리치기위해 class="Commons" ctrl+spacebar 하면 자동으로 링크목록나옴
-	
-	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<beans:property name="maxUploadSize" value="52428800" /> 
-		<beans:property name="defaultEncoding" value="utf-8" />			
-	</beans:bean>
-	 -->
 </beans:beans>

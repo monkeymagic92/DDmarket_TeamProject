@@ -1,0 +1,51 @@
+#container {
+    width: 100%; margin: 200px auto 0 auto;
+    margin-bottom: 0; }
+main {
+    width: 1190px; margin: 0 auto;
+    margin-bottom: 300px; display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center; } 
+
+#content { 
+    margin-top: 150px; 
+    margin-bottom: 480px;  }
+
+.div-logo { 
+    margin-bottom: 25px; 
+    justify-content: center;
+    align-items: center; }
+
+.div-pwFind {
+    display: flex;
+    width: 400px;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center; }
+    
+    
+    .div-pwFind > input {
+        width: 288px; height: 40px; padding: 0 30px 0 30px;
+        border: 1px solid #C4C4C4;
+        border-radius: 3px;
+        margin: 10px 0 10px 0; }
+
+.div-pwFind > input::placeholder {
+    font-style: normal;
+    font-size: 13px;
+    padding-left: 14px;
+    color: #AEAEAE; }
+
+.div-pwFind > button { 
+    margin: 10px 0;
+    border-radius: 3px; }
+
+
+.pwFindBtn {
+    font-size: 14px;
+    height: 40px; width: 350px;
+    justify-content: flex-end;
+    line-height: 1; font-weight: bold;
+    background: #3B73C8; color: snow;
+}

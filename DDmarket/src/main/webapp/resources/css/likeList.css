@@ -1,0 +1,46 @@
+@charset "UTF-8";
+
+/* container, main 설정 */ 
+#container {width: 100%; margin: 30px auto;}
+main {width: 1040px; margin: 200px auto; height: 1000px;}
+
+/* main */
+
+#div-title {
+    width: 200px;
+    height: 50px;
+    background: #3B3B3D;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+
+/* #div-wrap-buyList */
+#div-wrap-buyList {flex-flow: column wrap; margin-bottom: 50px;  padding-top: 0px; height: 900px;}
+#div-wrap-buyList .div-wrap-buyList-article {width: 100%; margin-bottom: 0px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid #EEEEEE; position: relative;}
+#div-wrap-buyList .div-wrap-buyList-article:nth-last-child(1) {border-bottom: none;}
+#div-wrap-buyList .div-wrap-buyList-article:nth-child(1) {border-top: 1px solid #C4C4C4;}
+#div-wrap-buyList .div-wrap-buyList-article .card-image {width: 20%; height:150px; margin-right: 20px;}
+#div-wrap-buyList .div-wrap-buyList-article .card-image img {width: 100%; height: 100%;}
+#div-wrap-buyList .div-wrap-buyList-article .card-right {width: 80%; padding: 10px; margin-top: 30px;}
+#div-wrap-buyList .div-wrap-buyList-article .card-right .card-title {font-size: 16px; font-weight: bold;}
+#div-wrap-buyList .div-wrap-buyList-article .card-right .card-price {font-size: 20px; font-weight: bold; margin: 5px auto 0 auto; border-bottom: 1px solid #C4C4C4; padding-bottom: 17px;}
+#div-wrap-buyList .div-wrap-buyList-article .card-right .card-addr {margin-top:10px; font-size: 14px; display: flex; align-items: center; color: #6F6A6A; margin-bottom: 10px;} 
+#div-wrap-buyList .div-wrap-buyList-article .card-right .card-addr .iconify  {margin-right:5px;}
+#div-wrap-buyList .div-wrap-buyList-article .card-right .card-date  {font-size: 14px;}
+#div-wrap-buyList .div-wrap-buyList-article .card-right .card-date .card-date-text  {font-weight: bold; margin-right:25px; color: #6F6A6A;}
+#div-wrap-buyList .div-wrap-buyList-article .card-right button  {
+    width: 80px;
+    height: 30px;
+    background: #3B73C8;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 5px;
+    margin-left: 700px;
+}

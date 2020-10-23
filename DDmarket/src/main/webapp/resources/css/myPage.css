@@ -1,0 +1,446 @@
+@charset "UTF-8";
+
+/* container, main 설정 */ 
+#container {width: 100%; margin: 30px auto 0px auto;}
+main {width: 1040px; margin: 200px auto 200px auto; height: 1500px;}
+
+
+/*작은 별점*/
+.star-ratings-css {
+    unicode-bidi: bidi-override;
+    color: #c5c5c5;
+    font-size: 15px;
+    height: 25px;
+    width: 100px;
+    position: relative;
+    padding: 0;
+    margin: 4px 0 0 15px;
+    }
+.star-ratings-css .star-ratings-css-top {
+color: #F1D05F;
+padding: 0;
+position: absolute;
+z-index: 1;
+display: block;
+top: 0;
+left: 0;
+overflow: hidden;
+}
+.star-ratings-css .star-ratings-css-bottom {
+padding: 0;
+display: block;
+z-index: 0;
+}
+
+/* 큰별점 */
+#div-top-left .star-ratings-css {
+    unicode-bidi: bidi-override;
+    color: #c5c5c5;
+    font-size: 25px;
+    height: 25px;
+    width: 100px;
+    position: relative;
+    padding: 0;
+    margin: 0 30px 10px 0;
+    }
+
+/* section-top */
+#section-top {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    border-top: 1px solid rgba(196, 196, 196, 0.3);
+    border-bottom: 1px solid rgba(196, 196, 196, 0.3);
+}
+
+/* section-top  div-top-left*/
+#section-top #div-top-left {
+    width: 35%;
+    padding: 20px 0 20px 0;
+    height: 310px;
+    background-color: rgba(196, 196, 196, 0.3);
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+#section-top #div-top-left #profile_img {
+    width: 130px;
+    height: 130px; 
+    border-radius: 70%;
+    overflow: hidden;
+    float: left;
+}
+#section-top #div-top-left #profile_img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.profile_nick {
+    font-weight: bold;
+    color: #3B3B3D;
+    font-size: 20px;
+    margin: 10px 0 5px 0;
+}
+#section-top #div-top-left #profile_star_num {
+    font-weight: bold;
+    color: #F84C4C;
+    font-size: 16px;
+    margin-bottom: 25px;
+}
+#section-top #div-top-left #profile_btn_change {
+    width: 130px;
+    height: 45px;
+    background: #3B73C8;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+/* section-top  div-top-right*/
+#section-top #div-top-right {
+    width: 65%;
+    background-color: white;
+    padding: 15px 30px 15px 30px;
+}
+#section-top #div-top-right #profile_info {
+    display: flex;
+    margin-top: 20px;
+}
+#section-top #div-top-right #profile_info .profile_info_detail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+}
+#section-top #div-top-right #profile_info .profile_info_detail:nth-last-child(1) {
+    margin-right: 0px;
+}
+#section-top #div-top-right #profile_info .profile_info_detail span {
+    margin-right: 10px;
+}
+#section-top #div-top-right #profile_info .profile_info_detail .profile_info_num {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+
+/* section-bottom */ 
+#section-bottom {
+    margin-top: 50px;
+    width: 100%;
+}
+
+/* TAP */
+.tab_basic { width: 100%; margin: auto; }
+
+.tab_list_wrap { font-size: 0; height: 35px; margin-bottom: 30px; display: flex; justify-content: center; align-items: center; flex-flow: row nowrap; }
+.tab_list { width: 20%; height: 40px; font-size: 16px; text-align: center; border: 1px solid #eee; border-right: 0; box-sizing: border-box; line-height: 35px;}
+.tab_list:last-child { border-right: 1px solid #eee; }
+.tab_list.tab_active { background: #3B3B3D; color:white;}
+.tab_list.tab_active a {color:white;}
+.tab_list a { display: block; width: 100%; height: 100%; text-decoration: none; color: #222; }
+
+.tab_content { display: none; width: 100%; min-height: 100px; padding: 20px; background: white; box-sizing: border-box; }
+.tab_content:first-child { display: block; }
+
+/* 판매목록 */
+/* #div-wrap-sellList */
+#div-wrap-sellList {display: flex; flex-flow: row wrap; margin-bottom: 30px;}
+
+#div-wrap-sellList .card-wrap {width: 18%; height: 280px; background: #EEEEEE; text-align: center; margin-bottom: 30px; margin-left: 25px; position: relative;}
+#div-wrap-sellList .card-wrap-soldOut::before {background: rgba(0, 0, 0, 0.4); z-index: 1; content:"";
+                                            width: 180px; height: 280px; position: absolute; right: 0px; text-align: center;}
+#div-wrap-sellList .card-soldOut {color: white; position: absolute; font-size: 25px; font-weight: bold; z-index: 2; left: 45px; top:110px;}
+#div-wrap-sellList .card-wrap:nth-child(5n+1) {margin-left: 0px;}
+#div-wrap-sellList .card-wrap:nth-child(1) {margin-left: 0px;}
+
+#div-wrap-sellList .card-wrap a .card-pic {width: 100%;}
+#div-wrap-sellList .card-wrap a .card-pic img {width: 100%; height: 100%;}
+
+#div-wrap-sellList .card-wrap a .card-desc {margin-top: 20px;}
+#div-wrap-sellList .card-wrap a .card-desc .card-title {font-style: normal; font-weight: normal; font-size: 16px; color: #3B3B3D;}
+#div-wrap-sellList .card-wrap a .card-desc .card-border {border-bottom: 1px dashed #A5A2A2; width: 67%; display: block; margin: 5px auto;}
+#div-wrap-sellList .card-wrap a .card-desc .card-price { font-size: 16px; margin-right: 25px; color: #3B3B3D;}
+#div-wrap-sellList .card-wrap a .card-desc .card-r_dt { font-size: 10px; color: #BAB6B6;}
+
+#div-wrap-sellList .card-wrap a .card-addr {font-size: 13px; margin-top: 15px; margin-left: 10px; position: relative; color: #3B3B3D;}
+#div-wrap-sellList .card-wrap a .card-addr .icon-map {position: absolute; left: 2px; top: -0.5px;}
+
+
+/* 구매목록 */
+
+/* #div-wrap-buyList */
+#div-wrap-buyList {flex-flow: column wrap; margin-bottom: 50px;  padding-top: 0px; height: 900px;}
+#div-wrap-buyList .div-wrap-buyList-article {width: 100%; margin-bottom: 0px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid #EEEEEE; position: relative;}
+#div-wrap-buyList .div-wrap-buyList-article:nth-last-child(1) {border-bottom: none;}
+#div-wrap-buyList .div-wrap-buyList-article .card-image {width: 20%; height:150px; margin-right: 20px;}
+#div-wrap-buyList .div-wrap-buyList-article .card-image img {width: 100%; height: 100%;}
+#div-wrap-buyList .div-wrap-buyList-article .card-right {width: 80%; padding: 10px; margin-top: 30px;}
+#div-wrap-buyList .div-wrap-buyList-article .card-right .card-title {font-size: 16px; font-weight: bold;}
+#div-wrap-buyList .div-wrap-buyList-article .card-right .card-price {font-size: 20px; font-weight: bold; margin: 5px auto 0 auto; border-bottom: 1px solid #C4C4C4; padding-bottom: 17px;}
+#div-wrap-buyList .div-wrap-buyList-article .card-right .card-addr {margin-top:10px; font-size: 14px; display: flex; align-items: center; color: #6F6A6A; margin-bottom: 10px;} 
+#div-wrap-buyList .div-wrap-buyList-article .card-right .card-addr .iconify  {margin-right:5px;}
+#div-wrap-buyList .div-wrap-buyList-article .card-right .card-date  {font-size: 14px;}
+#div-wrap-buyList .div-wrap-buyList-article .card-right .card-date .card-date-text  {font-weight: bold; margin-right:25px; color: #6F6A6A;}
+#div-wrap-buyList .div-wrap-buyList-article .card-right button  {
+    width: 80px;
+    height: 30px;
+    background: #3B73C8;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 5px;
+    margin-left: 700px;
+}
+/* .div-wrap-buyList-article-soldOut::before {background: rgba(0, 0, 0, 0.4); z-index: 1; content:"";
+    width: 180px; height: 150px; position: absolute; right: 820px;}
+.div-wrap-buyList-article-soldOut .card-soldOut {color: white; position: absolute; font-size: 25px; font-weight: bold; z-index: 2; left: 40px; top:90px;} */
+
+/* 거래후기 */
+/* div-wrap-reviewList */
+#div-wrap-reviewList { width:100%; height: 900px; flex-flow: column wrap; margin-bottom: 50px;}
+
+#div-wrap-reviewList #reviewWrap {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #EEEEEE;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    width: 100%;
+}
+#div-wrap-reviewList #reviewWrap:nth-last-child(1) {
+    display: flex;
+    align-items: center;
+    border-bottom: none;
+}
+#div-wrap-reviewList #reviewWrap .review-right-profile-img {
+    width: 50px;
+    height: 50px; 
+    border-radius: 70%;
+    overflow: hidden;
+    float: left;
+    margin-right: 20px;
+}
+#div-wrap-reviewList #reviewWrap .review-right-profile-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+#div-wrap-reviewList #reviewWrap .review-right-profile-desc .nick {
+    font-size: 18px;
+    color: #A5A2A2;
+    position: relative;
+    display: flex;
+}
+#div-wrap-reviewList #reviewWrap .review-right-profile-desc .date {
+    font-size: 13px;
+    color: #A5A2A2;
+    position: absolute;
+    width: 200px;
+    left: 800px;
+}
+#div-wrap-reviewList #reviewWrap .review-right-profile-desc .comment {
+    width: 900px;
+    font-size: 16px;
+    margin: 8px auto 10px auto;
+}
+
+
+/* MY댓글 */
+/* div-wrap-myCmtList */
+#div-wrap-myCmtList { width:100%; height: 900px; flex-flow: column wrap; margin-bottom: 50px;}
+
+#div-wrap-myCmtList #reviewWrap {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #EEEEEE;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    width: 100%;
+}
+#div-wrap-myCmtList #reviewWrap:nth-last-child(1) {
+    display: flex;
+    align-items: center;
+    border-bottom: none;
+}
+#div-wrap-myCmtList #reviewWrap .review-right-profile-img {
+    width: 50px;
+    height: 50px; 
+    border-radius: 70%;
+    overflow: hidden;
+    float: left;
+    margin-right: 20px;
+}
+#div-wrap-myCmtList #reviewWrap .review-right-profile-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+#div-wrap-myCmtList #reviewWrap .review-right-profile-desc .nick {
+    font-size: 18px;
+    color: #A5A2A2;
+    position: relative;
+}
+#div-wrap-myCmtList #reviewWrap .review-right-profile-desc .date {
+    font-size: 13px;
+    color: #A5A2A2;
+    position: absolute;
+    width: 200px;
+    left: 800px;
+}
+#div-wrap-myCmtList #reviewWrap .review-right-profile-desc .comment {
+    width: 900px;
+    font-size: 16px;
+    margin: 8px auto 10px auto;
+}
+
+
+/* MY후기 */
+/* div-wrap-myReviewList */
+#div-wrap-myReviewList { width:100%; height: 900px; flex-flow: column wrap; margin-bottom: 50px;}
+#div-wrap-myReviewList #reviewWrap {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #EEEEEE;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    width: 100%;
+}
+#div-wrap-myReviewList #reviewWrap:nth-last-child(1) {
+    display: flex;
+    align-items: center;
+    border-bottom: none;
+}
+#div-wrap-myReviewList #reviewWrap .review-right-profile-img {
+    width: 50px;
+    height: 50px; 
+    border-radius: 70%;
+    overflow: hidden;
+    float: left;
+    margin-right: 20px;
+}
+#div-wrap-myReviewList #reviewWrap .review-right-profile-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+#div-wrap-myReviewList #reviewWrap .review-right-profile-desc .nick {
+    font-size: 18px;
+    color: #A5A2A2;
+    position: relative;
+    display: flex;
+}
+#div-wrap-myReviewList #reviewWrap .review-right-profile-desc .date {
+    font-size: 13px;
+    color: #A5A2A2;
+    position: absolute;
+    width: 200px;
+    left: 800px;
+}
+#div-wrap-myReviewList #reviewWrap .review-right-profile-desc .comment {
+    width: 900px;
+    font-size: 16px;
+    margin: 8px auto 10px auto;
+}
+#div-wrap-myReviewList #reviewWrap .review-right-profile-desc .control {
+    display: flex;
+}
+#div-wrap-myReviewList #reviewWrap .review-right-profile-desc .control a {
+    font-size: 13px;
+    color: #A5A2A2;
+}
+#div-wrap-myReviewList #reviewWrap .review-right-profile-desc .control .mod {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+}
+#div-wrap-myReviewList #reviewWrap .review-right-profile-desc .control .del {
+   display: flex;
+   align-items: center;
+}
+#div-wrap-myReviewList #reviewWrap .review-right-profile-desc .control .iconify {
+ margin-right: 2px;
+}
+
+/* modal css */
+
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 4; 
+    padding-top: 300px; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); }
+  
+.modal-content {
+    position: relative;
+    margin: auto;
+    padding: 0;
+    width: 80%;
+    animation-name: animatetop;
+    animation-duration: 0.4s; }
+  
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1} }
+  
+.close {
+    border: none;
+    outline: none;
+    font-size: 16px;
+    font-weight: bold;
+    height: 40px; width: 120px;    
+    border-radius: 3px;
+    background: #3B73C8; color: snow; }
+  
+.modal-header {
+    width: 96%;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+
+.modal-header .title {
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #fff; }
+
+.modal-body {
+    width: 96%;
+    display: flex;
+    justify-content: center;   
+    align-items: center; }
+
+.modal-body textarea {
+    border: none;
+    width: 650px;
+    padding: 30px;
+    height: 150px;
+    resize: none; 
+    border-radius: 3px; }
+
+.modal-body textarea::placeholder {
+    font-style: normal;
+    font-size: 14px;
+    padding-top: 10px;
+    padding-left: 14px;
+    color: #AEAEAE; }
+  
+.modal-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 45px;
+    width: 96%; }
+  

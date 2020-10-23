@@ -1,15 +1,21 @@
 package com.dandi.ddmarket.user.model;
 
 public class UserVO {
+	// 회원가입시 등록되는 VO
 	private int i_user;
 	private String user_id;
 	private String user_pw;
+	private String salt;
 	private String nick;
 	private String nm;
 	private String email;
 	private String post;	// 우편번호
 	private String addr;    // 나머지주소
-	
+	private String road;
+	private String joinPass;
+	private String uNum;
+
+	// 추가적으로 등록되는 VO
 	private String favI_cg_1;  // 관심카테고리 
 	private String favI_cg_2;
 	private String favI_cg_3;
@@ -35,6 +41,12 @@ public class UserVO {
 	}
 	public void setUser_pw(String user_pw) {
 		this.user_pw = user_pw;
+	}
+	public String getSalt() {
+		return salt;
+	}
+	public void setSalt(String salt) {
+		this.salt = salt;
 	}
 	public String getNick() {
 		return nick;
@@ -65,6 +77,24 @@ public class UserVO {
 	}
 	public void setAddr(String addr) {
 		this.addr = addr;
+	}
+	public String getRoad() {
+		return road;
+	}
+	public void setRoad(String road) {
+		this.road = road;
+	}
+	public String getJoinPass() {
+		return joinPass;
+	}
+	public void setJoinPass(String joinPass) {
+		this.joinPass = joinPass;
+	}
+	public String getuNum() {
+		return uNum;
+	}
+	public void setuNum(String uNum) {
+		this.uNum = uNum;
 	}
 	public String getFavI_cg_1() {
 		return favI_cg_1;
@@ -108,5 +138,5 @@ public class UserVO {
 	public void setM_dt(String m_dt) {
 		this.m_dt = m_dt;
 	}
-	
+		
 }

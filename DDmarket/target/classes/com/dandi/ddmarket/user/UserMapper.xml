@@ -7,13 +7,14 @@
 							
 	<!-- n번 회원 상세정보 -->							
 	<select id="selUser" parameterType="UserPARAM" resultType="UserDMI"> 
-		SELECT i_user, user_id, user_pw, salt, nm, nick, email, myPoint
-		,myCash, sm, profile_img, r_dt, m_dt
+		SELECT i_user, user_id, user_pw, salt, nm, nick, email, post, addr, road, joinPass,
+		profile_img, r_dt, m_dt
 		FROM t_user
 		WHERE <if test="i_user > 0"> i_user = #{i_user}</if>
 		<if test="user_id != null and user_id != ''"> user_id = #{user_id}</if>
 	</select>
-
+	
+	
 	<!-- 비밀번호 찾기 -->
 	<select id="findPwChk" parameterType="UserPARAM" resultType="UserDMI">
 		SELECT i_user, user_id, user_pw, salt, email FROM t_user
@@ -26,38 +27,102 @@
 		WHERE email = #{email}
 	</select>
 	
-	<!-- 이메일 아작스 -->
+	<!-- 이메일 중복체크 (ajax) -->
 	<select id="emailChk" parameterType="UserPARAM" resultType="UserDMI">
 		SELECT email FROM t_user		
 		WHERE email = #{email}
 	</select>
+	
+	<!-- 닉네임 중복체크 (ajax) -->
+	<select id="nickChk" parameterType="UserPARAM" resultType="UserDMI">
+		SELECT nick FROM t_user		
+		WHERE nick = #{nick}
+	</select>
+	
+	<select id="selCategory" resultType="CategoryVO">
+		SELECT i_cg, cg_nm FROM t_category
+	</select>
+	
+	
 
-						<!-- insert -->
+							<!-- insert -->
 						 
 	<!-- 회원가입 -->
 	<insert id="joinUser" parameterType="UserVO">
 		INSERT INTO t_user
-		(user_id, user_pw, salt, nm, nick, uNum, email)
+		(user_id, user_pw, salt, nm, nick, uNum, email, post, addr, road, joinPass)
 		VALUES
-		(#{user_id}, #{user_pw}, #{salt}, #{nm}, #{nick}, #{uNum}, #{email})
+		(#{user_id}, #{user_pw}, #{salt}, #{nm}, #{nick}, #{uNum}, #{email}, #{post}, #{addr}, #{road}, #{joinPass})
+		returning i_user
 	</insert>		
 						
-						<!-- update -->
+							<!-- update -->
 				
 		
 	<!-- 비밀번호 변경 -->							
-	<update id="changePw" parameterType="UserVO">
+	<update id="changePw" parameterType="UserPARAM">
 		UPDATE t_user
 		SET user_pw = #{user_pw}
 		,salt = #{salt}
+		WHERE i_user = #{i_user}		
+	</update>
+	
+	<!-- 닉네임 변경 -->
+	<update id="changeNick" parameterType="UserPARAM">
+		UPDATE t_user
+		SET nick = #{nick}		
 		WHERE i_user = #{i_user}
 	</update>
 	
-						<!-- delete -->
+	<!-- 주소 변경 -->
+	<update id="changeAddr" parameterType="UserPARAM">
+		UPDATE t_user
+		SET post = #{post}
+		,addr = #{addr}
+		,road = #{road}
+		WHERE i_user = #{i_user}
+	</update>
 	
+	<!-- 이메일 변경 -->
+	<update id="changeEmail" parameterType="UserPARAM">
+		UPDATE t_user
+		SET email = #{email}
+		WHERE i_user = #{i_user}
+	</update>
+	
+	<!-- 프로필 사진 수정 / 등록 -->
+	<update id="insProfile_img" parameterType="UserVO">
+		UPDATE t_user
+		SET profile_img = #{profile_img}
+		WHERE i_user = #{i_user}
+	</update>
+	
+	<!-- 관심사 수정 / 등록 -->
+	<update id="changeCategory" parameterType="UserPARAM">
+		UPDATE t_user
+		SET favI_cg_1 = #{favI_cg_1}
+		, favI_cg_2 = #{favI_cg_2}
+		, favI_cg_3 = #{favI_cg_3}
+		WHERE i_user = #{i_user}
+	</update>
+	
+	<update id="delImg" parameterType="int">
+		UPDATE t_user
+		SET profile_img = NULL
+		WHERE i_user = #{i_user}
+	</update>
+	
+	
+	
+	
+	
+							<!-- delete -->
+	
+	<delete id="delProfile_img" parameterType="UserPARAM">
+		DELETE FROM t_user
+		WHERE profile_img = #{profile_img}
+	</delete>
 		
-	
-	
 	
 	
 </mapper>

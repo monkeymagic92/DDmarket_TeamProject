@@ -1,0 +1,229 @@
+#container {
+    width: 100%; margin: 60px auto 0 auto;
+    margin-bottom: 0; }
+main {
+    width: 1040px; margin: 0 auto;
+    margin-bottom: 180px; display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center; }
+input { border: 0; }
+input::placeholder {
+    font-style: normal;
+    font-size: 13px;
+    padding-left: 14px;
+    color: #AEAEAE; }
+
+.title { 
+    font-size: 22px;
+    width: 86%;    
+    justify-content: flex-start; }
+.line {
+    border-bottom: 1px solid #A5A2A2; 
+    width: 86%; display: block; margin: 10px 0 10px; }
+            
+.user-header { 
+    width: 98%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px; }
+  
+.div-logo {
+    width: 76%;
+    justify-content: flex-start; }
+.head-user {
+    width: 15%;
+    margin-top: 10px; }
+.head-user .head-user-txt{
+    width: 50%;
+    padding: 6px;
+    justify-content: flex-end; }
+
+/* ----------------------------------------- */
+.pro_Img { 
+    width: 80%;
+    margin: 20px 0 35px 15px; }
+.imgBtn { width: 76%; }
+.pImgbox { 
+    width: 60%;
+    position: relative; }
+.pImgbox input[type="file"]{
+    width: 0;
+    height: 0;
+    padding: 0;
+    border: 0;
+    z-index: -1;
+    overflow: hidden; }
+.pImgbox label { cursor: pointer; }
+.div-cngBtn {
+    position: absolute;
+    top: 100px;
+    right: 80px;
+    width: 72%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; }
+.img {
+    width: 170px;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 70%; }
+.cngImg {
+    font-size: 16px;
+    font-weight: bold;
+    height: 35px; width: 100px;
+    border-radius: 3px;
+    background: #3B73C8; color: snow; }
+.delBtn { 
+    position: absolute;
+    right: -50px;
+    top: 90px;
+    width: 30%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; }
+.delBtn input {    
+    font-size: 16px;
+    margin: 10px;
+    font-weight: bold;
+    height: 35px; width: 100px;
+    border-radius: 3px;
+    background: #3B73C8; color: snow; }
+/* ----------------------------------------- */
+.user-pw {
+    width: 82%;
+    margin: 20px 0 35px 15px; }
+.pw-chg { 
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: flex-start;
+    flex-flow: column wrap; }
+.pw-chg input {
+    margin-bottom: 15px; }
+.pw, .pwre{
+    width: 300px;
+    margin-right: 30px;
+    border: 1px solid #C4C4C4;
+    border-radius: 3px;
+    height: 30px; }
+.pw-chg .pwBtn {
+    font-size: 13px;
+    font-weight: bold;
+    height: 31px; width: 100px;    
+    border-radius: 3px;
+    background: #3B73C8; color: snow; }
+.pw-chg button { 
+    position: absolute;
+    top: 48px;
+    margin: 0 0 0 320px; }
+.user-nick {
+    width: 82%;
+    margin: 20px 0 35px 15px; }
+.user-nick input { 
+    width: 300px;
+    margin-right: 25px;
+    border: 1px solid #C4C4C4;
+    border-radius: 3px;
+    height: 32px; }
+
+.user-nick .nickChk {
+    font-size: 14px;
+    font-weight: bold;
+    height: 32px; 
+    width: 90px;    
+    border-radius: 3px;
+    background: #3B73C8; color: snow; }
+
+.user-nick .fixBtn {        
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 18px;
+    height: 32px; 
+    width: 90px;
+    border-radius: 3px;
+    background: #3B73C8; color: snow; }
+
+.user-email {
+    width: 82%;
+    margin: 20px 0 35px 15px; }
+.user-email input { 
+    width: 300px;
+    margin-right: 25px;
+    border: 1px solid #C4C4C4;
+    border-radius: 3px;
+    height: 32px; }
+
+.user-email .emailChk {
+    font-size: 14px;
+    font-weight: bold;
+    height: 32px; 
+    width: 90px;    
+    border-radius: 3px;
+    background: #3B73C8; color: snow; }
+
+.user-email .emailfixBtn {        
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 18px;
+    height: 32px; 
+    width: 90px;
+    border-radius: 3px;
+    background: #3B73C8; color: snow; }
+    
+.user-addr { 
+    width: 79%;
+    margin: 20px 15px 35px 0; 
+    position: relative; }
+.div-addr {
+    display: flex;
+    flex-flow: column;
+    justify-content: center; }
+.user-addr .addr_input {
+    width: 300px;
+    margin-right: 25px;
+    margin-bottom: 10px;
+    border: 1px solid #C4C4C4;
+    border-radius: 3px;
+    height: 30px; }
+.div-btn {
+    position: absolute;
+    top: 1px;
+    left: 330px; }
+.div-btn .addrBtn {
+    font-size: 16px;
+    font-weight: bold;
+    height: 30px; width: 90px;
+    border-radius: 3px;
+    background: #3B73C8; color: snow; }
+
+#category {
+    width: 84%;
+    margin: 20px 0 15px 35px; }
+.category-box { 
+    width: 80%;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap; }
+.category-box label { margin-right: 32px; }
+
+.category-box label:nth-child(6) { margin-right: 46px; }
+.category-box label:nth-child(10) { margin-right: 150px; }
+.category-box label:nth-child(12) { margin-right: 19px; }
+.category-box label:nth-child(14) { margin-right: 18px; }
+.category-box label:nth-child(16) { margin-right: 19px; }
+.category-box label:nth-child(18) { margin-right: 89px; }
+
+
+#category .categoryChg {
+    float: right;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+    height: 35px; 
+    width: 85px;
+    border-radius: 3px;
+    background: #3B73C8; color: snow; }

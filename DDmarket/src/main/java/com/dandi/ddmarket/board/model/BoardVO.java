@@ -1,5 +1,8 @@
 package com.dandi.ddmarket.board.model;
 
+/*
+ * 	테이블 완성시 수정해서 다시 빈 추가하기
+ */
 public class BoardVO {
 	private int i_board;
 	private int i_cg;

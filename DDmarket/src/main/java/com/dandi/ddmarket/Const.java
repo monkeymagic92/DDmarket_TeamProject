@@ -2,10 +2,8 @@ package com.dandi.ddmarket;
 
 public class Const {
 	
-	public static final String LOGIN_USER = "loginUser"; // 로그인한 유저의 session의 key값
-	public static final String MYPAGE_USER = "myPageUser"; // 회원가입후 바로 mypage로 갈때 사용할 session의 key값
-	
-	
+	public static String realPath = null;
+	public static final String LOGIN_USER = "loginUser"; // 로그인한 유저의 세션 key값
 	
 	// service.login() 부분 (참고 UserService.java)
 	public static final int FAIL = 0;		// 실패

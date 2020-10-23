@@ -12,7 +12,7 @@ public class FileUtils {
 	public static void makeFolder(String path) {
 		File dir = new File(path);		
 		if(!dir.exists()) { // 만약 폴더가 없다면 ? 폴더만들어라 
-			dir.mkdirs(); // mkdirs, mkdir 이있는데 그냥 무조건 midirs 만들어라(굳이 좋은거냅두고 왜 mkdir씀 ? 복수형써라 그냥)
+			dir.mkdirs(); // mkdirs, mkdir 두개가 있는데 그냥 무조건 midirs 사용해라(굳이 좋은거냅두고 왜 mkdir씀 ? 복수형써라 그냥)
 		}
 	}
 	

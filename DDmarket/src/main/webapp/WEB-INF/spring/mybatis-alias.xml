@@ -7,7 +7,11 @@
 		<typeAlias type="com.dandi.ddmarket.user.model.UserPARAM" alias="UserPARAM" />
 		<typeAlias type="com.dandi.ddmarket.user.model.UserDMI" alias="UserDMI" />
 		
+		<!-- board -->
 		<typeAlias type="com.dandi.ddmarket.board.model.BoardVO" alias="BoardVO" />
+		
+		<!-- category -->
+		<typeAlias type="com.dandi.ddmarket.category.model.CategoryVO" alias="CategoryVO" />
 		
 	</typeAliases>	
 </configuration>
