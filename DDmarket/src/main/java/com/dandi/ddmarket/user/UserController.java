@@ -133,9 +133,9 @@ public class UserController {
 		int uNumCode = (int)(Math.random() * 88888888 + 10000000); // 고유번호 8자리 랜덤으로 지정
 		model.addAttribute("uNumCode",uNumCode);
 		model.addAttribute("joinErrMsg"); // 서버에러시 띄우는 alert창 (지워도됨 POST에서 addFlash로 값을 보냈기에 바로 jsp까지 직통으로감)
-		//model.addAttribute("view",ViewRef.USER_JOIN);
+		model.addAttribute("view",ViewRef.USER_JOIN);
 		
-		return "/user/join";
+		return ViewRef.MENU_TEMP;
 	}	
 
 	@RequestMapping(value="/join", method = RequestMethod.POST) 
