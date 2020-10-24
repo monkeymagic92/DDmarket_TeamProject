@@ -1,7 +1,7 @@
 package com.dandi.ddmarket.user;
 
 
-import java.io.File;
+import java.io.File; // 여기부분 에러뜨면 빌드패스 자바jre 확인   ( 체크했을시 다시 임포트 파일 해주면 됨 )
 import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpSession;
@@ -145,6 +145,7 @@ public class UserController {
 		try {
 			result = service.joinUser(param);	// 빈값 넘어오면 DB에러뜨니까
 		} catch (Exception e) {
+			e.printStackTrace(); // 에러시 조치하기 위해 찍어놓음
 			ra.addFlashAttribute("joinErrMsg","서버에러! 회원가입을 다시 시도해 주세요");
 			return "redirect:/" + ViewRef.USER_JOIN;
 		}
@@ -228,7 +229,7 @@ public class UserController {
 	// 비밀번호 변경 (changePw)
 	@RequestMapping(value="/changePw", method = RequestMethod.GET)
 	public String changePw(Model model, UserPARAM param) {
-		model.addAttribute("view", "/user/changePw");
+		model.addAttribute("view", ViewRef.USER_CHANGEPW);
 		model.addAttribute("changePwMsg");
 		return ViewRef.MENU_TEMP; 
 	}

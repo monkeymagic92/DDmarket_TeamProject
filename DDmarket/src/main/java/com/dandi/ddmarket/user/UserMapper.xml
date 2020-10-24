@@ -53,7 +53,6 @@
 		(user_id, user_pw, salt, nm, nick, uNum, email, post, addr, road, joinPass)
 		VALUES
 		(#{user_id}, #{user_pw}, #{salt}, #{nm}, #{nick}, #{uNum}, #{email}, #{post}, #{addr}, #{road}, #{joinPass})
-		returning i_user
 	</insert>		
 						
 							<!-- update -->
