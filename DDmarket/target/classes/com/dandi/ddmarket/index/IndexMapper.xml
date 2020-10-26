@@ -3,7 +3,7 @@
 <mapper namespace="com.dandi.ddmarket.index.IndexMapper">
 	
 	<select id="selHotBoardList" parameterType="BoardPARAM" resultType="BoardVO">
-		SELECT A.image_1, A.title, A.price, A.r_dt as r_dt, A.addr
+		SELECT A.i_board, A.image_1, A.title, A.price, A.r_dt as r_dt, A.addr
 		FROM t_board A
 		LEFT JOIN (
 			SELECT i_board, COUNT(*) AS likeNum FROM t_board_like

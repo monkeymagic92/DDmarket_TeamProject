@@ -41,7 +41,7 @@
 	                                        			<img src="/res/img/lion.jpg">
 	                                        		</c:when>
 	                                        		<c:otherwise>
-	                                        			<img src="#">
+	                                        			<img src="/res/img/board/${item.i_board}/${item.image_1}">
 	                                        		</c:otherwise>
 	                                        	</c:choose>
 	                                        </div>
