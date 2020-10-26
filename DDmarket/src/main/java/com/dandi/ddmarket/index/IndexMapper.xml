@@ -2,4 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> <!-- 마이바티스 사용하려면 무조건 상단에 박아둬야하는  DOCTYPE-->
 <mapper namespace="com.dandi.ddmarket.index.IndexMapper">
 	
+	<select id="selHotBoardList" parameterType="BoardPARAM" resultType="BoardVO">
+		SELECT A.image_1, A.title, A.price, A.r_dt as r_dt, A.addr
+		FROM t_board A
+		LEFT JOIN (
+			SELECT i_board, COUNT(*) AS likeNum FROM t_board_like
+			GROUP BY i_board
+		) B
+		ON A.i_board = B.i_board
+		ORDER BY B.likeNum DESC;
+	</select>
 </mapper>

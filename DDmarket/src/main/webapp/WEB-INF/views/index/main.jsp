@@ -1,21 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>단디마켓</title>
+<title>index - main</title>
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 <link rel="stylesheet" type="text/css" href="/res/css/index.css">
 </head>
-<style>
-	
-	#test{
-		color: #fc6a6a;
-		font-size: 3.3em;
-	}
-</style>
 <body>
 <div id="container">
             <main>
@@ -35,108 +30,42 @@
                 <section id="main-section-hot" class="section-cardList">
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <article class="card-wrap">
-                                    <a href="#">
-                                        <div class="card-pic"><img src="../img/gookpap.jpg"></div>
-                                        <div class="card-desc">
-                                            <h2 class="card-title">돼지국밥 세트</h2>
-                                            <span class="card-border"></span>
-                                            <span class="card-price">10,000원</span>
-                                            <span class="card-r_dt">3시간전</span>
-                                        </div>
-                                    </a>
-                                </article>
-                                <article class="card-wrap">
-                                    <a href="#">
-                                        <div class="card-pic"><img src="../img/gookpap.jpg"></div>
-                                        <div class="card-desc">
-                                            <h2 class="card-title">돼지국밥 세트</h2>
-                                            <span class="card-border"></span>
-                                            <span class="card-price">10,000원</span>
-                                            <span class="card-r_dt">3시간전</span>
-                                        </div>
-                                    </a>
-                                </article>
-                                <article class="card-wrap">
-                                    <a href="#">
-                                        <div class="card-pic"><img src="../img/gookpap.jpg"></div>
-                                        <div class="card-desc">
-                                            <h2 class="card-title">돼지국밥 세트</h2>
-                                            <span class="card-border"></span>
-                                            <span class="card-price">10,000원</span>
-                                            <span class="card-r_dt">3시간전</span>
-                                        </div>
-                                    </a>
-                                </article>
-                                <article class="card-wrap">
-                                    <a href="#">
-                                        <div class="card-pic"><img src="../img/gookpap.jpg"></div>
-                                        <div class="card-desc">
-                                            <h2 class="card-title">돼지국밥 세트</h2>
-                                            <span class="card-border"></span>
-                                            <span class="card-price">10,000원</span>
-                                            <span class="card-r_dt">3시간전</span>
-                                        </div>
-                                    </a>
-                                </article>
-                            </div>
-                            <div class="swiper-slide">
-                                <article class="card-wrap">
-                                    <a href="#">
-                                        <div class="card-pic"><img src="../img/gookpap.jpg"></div>
-                                        <div class="card-desc">
-                                            <h2 class="card-title">돼지국밥 세트</h2>
-                                            <span class="card-border"></span>
-                                            <span class="card-price">10,000원</span>
-                                            <span class="card-r_dt">3시간전</span>
-                                        </div>
-                                    </a>
-                                </article>
-                                <article class="card-wrap">
-                                    <a href="#">
-                                        <div class="card-pic"><img src="../img/gookpap.jpg"></div>
-                                        <div class="card-desc">
-                                            <h2 class="card-title">돼지국밥 세트</h2>
-                                            <span class="card-border"></span>
-                                            <span class="card-price">10,000원</span>
-                                            <span class="card-r_dt">3시간전</span>
-                                        </div>
-                                    </a>
-                                </article>
-                                <article class="card-wrap">
-                                    <a href="#">
-                                        <div class="card-pic"><img src="../img/gookpap.jpg"></div>
-                                        <div class="card-desc">
-                                            <h2 class="card-title">돼지국밥 세트</h2>
-                                            <span class="card-border"></span>
-                                            <span class="card-price">10,000원</span>
-                                            <span class="card-r_dt">3시간전</span>
-                                        </div>
-                                    </a>
-                                </article>
-                                <article class="card-wrap">
-                                    <a href="#">
-                                        <div class="card-pic"><img src="../img/gookpap.jpg"></div>
-                                        <div class="card-desc">
-                                            <h2 class="card-title">돼지국밥 세트</h2>
-                                            <span class="card-border"></span>
-                                            <span class="card-price">10,000원</span>
-                                            <span class="card-r_dt">3시간전</span>
-                                        </div>
-                                    </a>
-                                </article>
-                            </div>
-                            <div class="swiper-slide">Slide 3</div>
+                        	<c:forEach var="i" begin="1" end="9" step="4">
+	                           	<div class="swiper-slide">
+	                            <c:forEach var="item" items="${hotBoardList}" begin="${i}" end="${i+3}">
+	                                <article class="card-wrap">
+	                                    <a href="#">  
+	                                        <div class="card-pic">
+	                                        	<c:choose>
+	                                        		<c:when test="${item.image_1 == null}">
+	                                        			<img src="/res/img/lion.jpg">
+	                                        		</c:when>
+	                                        		<c:otherwise>
+	                                        			<img src="#">
+	                                        		</c:otherwise>
+	                                        	</c:choose>
+	                                        </div>
+	                                        <div class="card-desc">
+	                                            <h2 class="card-title">${item.title}</h2>
+	                                            <span class="card-border"></span>
+	                                            <div>
+	                                            <span class="card-price">
+	                                            	<c:choose>
+		                                            	<c:when test="${item.price == 0}"><span class="card-price">무료</span></c:when>
+		                                            	<c:otherwise><span class="card-price"><fmt:formatNumber value="${item.price}" pattern="#,###" />원</span></c:otherwise>
+	                                            	</c:choose>
+	                                            <span class="card-r_dt">${item.r_dt}</span>
+	                                            </div>
+	                                        </div>
+	                                    </a>
+	                                </article>
+	                              </c:forEach>
+	                            </div>
+                            </c:forEach>
                         </div>
-                        <!-- If we need pagination -->
                         <div class="swiper-pagination"></div>
-
-                        <!-- If we need navigation buttons -->
                         <div class="swiper-button-prev"></div>
                         <div class="swiper-button-next"></div>
-
-                        <!-- If we need scrollbar -->
                         <div class="swiper-scrollbar"></div>
                     </div>
                 </section>
