@@ -32,7 +32,7 @@
                         <div class="swiper-wrapper">
                         	<c:forEach var="i" begin="1" end="9" step="4">
 	                           	<div class="swiper-slide">
-	                            <c:forEach var="item" items="${hotBoardList}" begin="${i}" end="${i+3}">
+	                            <c:forEach var="item" items="${hotBoardList}" begin="${i-1}" end="${i+3}">
 	                                <article class="card-wrap">
 	                                    <a href="#">  
 	                                        <div class="card-pic">

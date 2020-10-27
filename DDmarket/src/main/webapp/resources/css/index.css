@@ -36,8 +36,8 @@ section {overflow: hidden; margin:40px auto; background-color: white;}
 .section-cardList .swiper-container .swiper-wrapper .swiper-slide .card-wrap a .card-desc .card-title {font-style: normal; font-weight: normal; font-size: 16px; color: #3B3B3D;}
 .section-cardList .swiper-container .swiper-wrapper .swiper-slide .card-wrap a .card-desc .card-border {border-bottom: 1px dashed #A5A2A2; width: 67%; display: block; margin: 5px auto;}
 .section-cardList .swiper-container .swiper-wrapper .swiper-slide .card-wrap a .card-desc div {width:150px;}
-.section-cardList .swiper-container .swiper-wrapper .swiper-slide .card-wrap a .card-desc div .card-price { font-size: 16px; color: #3B3B3D; margin-right:5px;}
-.section-cardList .swiper-container .swiper-wrapper .swiper-slide .card-wrap a .card-desc div .card-r_dt { font-size: 10px; color: #BAB6B6; margin-left:5px;}
+.section-cardList .swiper-container .swiper-wrapper .swiper-slide .card-wrap a .card-desc div .card-price { font-size: 16px; color: #3B3B3D; margin-right:4px;}
+.section-cardList .swiper-container .swiper-wrapper .swiper-slide .card-wrap a .card-desc div .card-r_dt { font-size: 10px; color: #BAB6B6; margin-left:4px;}
 
 /* 인기 카테고리 - 텝매뉴 */
 .tab_basic { width: 1230px; margin: 0 auto;}

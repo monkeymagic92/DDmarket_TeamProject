@@ -10,6 +10,6 @@
 			GROUP BY i_board
 		) B
 		ON A.i_board = B.i_board
-		ORDER BY B.likeNum DESC;
+		ORDER BY B.likeNum DESC, r_dt DESC;
 	</select>
 </mapper>
