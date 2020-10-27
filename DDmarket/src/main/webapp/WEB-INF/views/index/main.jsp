@@ -48,13 +48,14 @@
 	                                        <div class="card-desc">
 	                                            <h2 class="card-title">${item.title}</h2>
 	                                            <span class="card-border"></span>
+	                                            <div class="card-addr"><span class="iconify icon-map" data-inline="false" data-icon="mdi-light:map-marker" style="color: #f84c4c; font-size: 21px;"></span>${item.addr}</div>
 	                                            <div>
-	                                            <span class="card-price">
-	                                            	<c:choose>
-		                                            	<c:when test="${item.price == 0}"><span class="card-price">무료</span></c:when>
-		                                            	<c:otherwise><span class="card-price"><fmt:formatNumber value="${item.price}" pattern="#,###" />원</span></c:otherwise>
-	                                            	</c:choose>
-	                                            <span class="card-r_dt">${item.r_dt}</span>
+		                                            <span class="card-price">
+		                                            	<c:choose>
+			                                            	<c:when test="${item.price == 0}"><span class="card-price">무료</span></c:when>
+			                                            	<c:otherwise><span class="card-price"><fmt:formatNumber value="${item.price}" pattern="#,###" />원</span></c:otherwise>
+		                                            	</c:choose>
+		                                            <span class="card-r_dt">${item.r_dt}</span>
 	                                            </div>
 	                                        </div>
 	                                    </a>
