@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.dandi.ddmarket.TimeMaximum;
 import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.board.model.BoardVO;
+import com.dandi.ddmarket.category.model.CategoryVO;
 
 @Service
 public class IndexService {
@@ -37,6 +38,9 @@ public class IndexService {
 		return param;
 	}
 	
+	public List<CategoryVO> selCgList(CategoryVO cparam) {
+		return mapper.selCgList(cparam);
+	}
 	
 	public List<BoardVO> selHotBoardList(BoardPARAM param) {
 		return transferR_dt(mapper.selHotBoardList(param));
@@ -51,6 +55,15 @@ public class IndexService {
 	public List<BoardVO> selNewBoardList(BoardPARAM param) {
 		return transferR_dt(mapper.selNewBoardList(param));
 	}
+	
+	public List<BoardVO> selCgBoardList(BoardPARAM param) {
+		return transferR_dt(mapper.selCgBoardList(param));
+	}
+	
+	public List<BoardVO> selFreeBoardList(BoardPARAM param) {
+		return transferR_dt(mapper.selFreeBoardList(param));
+	}
+	
 	
 	
 	}

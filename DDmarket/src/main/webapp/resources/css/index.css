@@ -40,7 +40,12 @@ section {overflow: hidden; margin:40px auto; background-color: white;}
 .section-cardList .swiper-container .swiper-wrapper .swiper-slide .card-wrap a .card-desc div .card-r_dt { font-size: 10px; color: #BAB6B6; margin-left:4px;}
 .section-cardList .swiper-container .swiper-wrapper .swiper-slide .card-wrap a .card-addr {font-size: 13px; margin: 5px 0 5px 10px; position: relative; color: #3B3B3D;}
 .section-cardList .swiper-container .swiper-wrapper .swiper-slide .card-wrap a .card-addr .icon-map {position: absolute; left: 6px; top: -0.5px;}
-
+.swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
+    bottom: 10px;
+    left: 0;
+    width: 100%;
+    margin-top: 15px;
+}
 
 /* 인기 카테고리 - 텝매뉴 */
 .tab_basic { width: 1230px; margin: 0 auto;}
