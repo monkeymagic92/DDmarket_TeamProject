@@ -40,12 +40,23 @@ public class IndexController {
 		}
 		
 		/////////////// 카테고리 탭에 따른 내용 
-		for(int i=1; i<=10; i++) {
-			param.setI_cg(i);
-			model.addAttribute("cgBoardList"+i, service.selCgBoardList(param));
-			System.out.println(service.selCgBoardList(param).size());
-		}
+//		for(int i=1; i<=10; i++) {
+//			param.setI_cg(i);
+//			model.addAttribute("cgBoardList"+i, service.selCgBoardList(param));
+//			System.out.println(service.selCgBoardList(param).size());
+//		}
 		//////////////
+		
+		int num = 0;
+		int end = 0;
+		
+		if(num <= 4) {
+			end = 1;
+		} else if(num <= 8) {
+			end = 5;
+		} else {
+			end = 9;
+		}
 		
 		model.addAttribute("cgList", service.selCgList(cparam));
 		model.addAttribute("newBoardList", service.selNewBoardList(param));

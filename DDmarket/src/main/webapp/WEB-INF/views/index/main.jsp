@@ -31,7 +31,31 @@
                 <section id="main-section-hot" class="section-cardList">
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
-                        	<c:forEach var="i" begin="1" end="9" step="4">
+                        	<c:set var="hotBoardList_endNum" value="0" />
+                        	<c:choose>
+                        		<c:when test="${fn:length(hotBoardList) <= 4}">
+                        			<c:set var="hotBoardList_endNum" value="1" />
+                        		</c:when>
+                        		<c:when test="${fn:length(hotBoardList) <= 8}">
+                        			<c:set var="hotBoardList_endNum" value="5" />
+                        		</c:when>
+                        		<c:otherwise>
+                        			<c:set var="hotBoardList_endNum" value="9" />
+                        		</c:otherwise>
+                        	</c:choose>
+                        	<c:set var="recBoardList_endNum" value="0" />
+                        	<c:choose>
+                        		<c:when test="${fn:length(recBoardList) <= 4}">
+                        			<c:set var="recBoardList_endNum" value="1" />
+                        		</c:when>
+                        		<c:when test="${fn:length(recBoardList) <= 8}">
+                        			<c:set var="recBoardList_endNum" value="5" />
+                        		</c:when>
+                        		<c:otherwise>
+                        			<c:set var="recBoardList_endNum" value="9" />
+                        		</c:otherwise>
+                        	</c:choose>
+                        	<c:forEach var="i" begin="1" end="${loginUser == null ? hotBoardList_endNum : recBoardList_endNum}" step="4">
 	                           	<div class="swiper-slide">
 	                            <c:forEach var="item" items="${loginUser == null ? hotBoardList : recBoardList}" begin="${i-1}" end="${i+2}">
 	                                <article class="card-wrap">
@@ -77,8 +101,20 @@
                 <div class="sub-title" id="sub-title-new"><span class="iconify icon-new" data-inline="false" data-icon="mdi:new-box" style="color: #f84c4c; font-size: 40.488094329833984px;"></span>새로 등록된 상품</div>
                 <section id="main-section-new" class="section-cardList">
                     <div class="swiper-container">
+                            <c:set var="newBoardList_endNum" value="0" />
+                        	<c:choose>
+                        		<c:when test="${fn:length(newBoardList) <= 4}">
+                        			<c:set var="newBoardList_endNum" value="1" />
+                        		</c:when>
+                        		<c:when test="${fn:length(newBoardList) <= 8}">
+                        			<c:set var="newBoardList_endNum" value="5" />
+                        		</c:when>
+                        		<c:otherwise>
+                        			<c:set var="newBoardList_endNum" value="9" />
+                        		</c:otherwise>
+                        	</c:choose>
                         <div class="swiper-wrapper">
-                        	<c:forEach var="i" begin="1" end="9" step="4">
+                        	<c:forEach var="i" begin="1" end="${newBoardList_endNum}" step="4">
 	                           	<div class="swiper-slide">
 	                            <c:forEach var="item" items="${newBoardList}" begin="${i-1}" end="${i+2}">
 	                                <article class="card-wrap">
@@ -141,8 +177,20 @@
                 <div class="sub-title">무료나눔</div>
                 <section id="main-section-free" class="section-cardList">
                     <div class="swiper-container">
+                            <c:set var="freeBoardList_endNum" value="0" />
+                        	<c:choose>
+                        		<c:when test="${fn:length(freeBoardList) <= 4}">
+                        			<c:set var="freeBoardList_endNum" value="1" />
+                        		</c:when>
+                        		<c:when test="${fn:length(freeBoardList) <= 8}">
+                        			<c:set var="freeBoardList_endNum" value="5" />
+                        		</c:when>
+                        		<c:otherwise>
+                        			<c:set var="freeBoardList_endNum" value="9" />
+                        		</c:otherwise>
+                        	</c:choose>
                         <div class="swiper-wrapper">
-                        	<c:forEach var="i" begin="1" end="9" step="4">
+                        	<c:forEach var="i" begin="1" end="${freeBoardList_endNum}" step="4">
 	                           	<div class="swiper-slide">
 	                            <c:forEach var="item" items="${freeBoardList}" begin="${i-1}" end="${i+2}">
 	                                <article class="card-wrap">
