@@ -10,4 +10,5 @@ import com.dandi.ddmarket.board.model.BoardVO;
 @Mapper
 public interface IndexMapper {
 	List<BoardVO> selHotBoardList(BoardPARAM param);
+	List<BoardVO> selRecBoardList(BoardPARAM param);
 }

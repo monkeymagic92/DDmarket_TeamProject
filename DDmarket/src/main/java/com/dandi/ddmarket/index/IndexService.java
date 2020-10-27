@@ -18,13 +18,10 @@ public class IndexService {
 	@Autowired
 	private IndexMapper mapper;
 	
-	
-	public List<BoardVO> selHotBoardList(BoardPARAM param) {
+	// 등록일자를 현재 시간 기준으로 바꿔주는 메소드 ex) 몇 시간전, 몇 일전..
+	public List<BoardVO> transferR_dt(List<BoardVO> param) {
 		
-		List<BoardVO> hotBoardList = mapper.selHotBoardList(param);
-		
-		// 등록일자를 현재 시간 기준으로 바꿔줌 ex) 몇 시간전, 몇 일전..
-		for(BoardVO vo : hotBoardList) {
+		for(BoardVO vo : param) {
 			String paramR_dt = vo.getR_dt();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			Date date = new Date();
@@ -37,8 +34,21 @@ public class IndexService {
 			String strR_dt = TimeMaximum.calculateTime(date);
 			vo.setR_dt(strR_dt);
 		}
-		
-		return hotBoardList;
+		return param;
 	}
 	
-}
+	
+	public List<BoardVO> selHotBoardList(BoardPARAM param) {
+		return transferR_dt(mapper.selHotBoardList(param));
+	}
+	
+	
+	
+	public List<BoardVO> selRecBoardList(BoardPARAM param) {
+		return transferR_dt(mapper.selRecBoardList(param));
+	}
+	
+	
+	}
+	
+

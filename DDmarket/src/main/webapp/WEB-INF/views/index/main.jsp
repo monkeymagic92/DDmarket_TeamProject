@@ -26,13 +26,13 @@
                         <div class="swiper-button-next"></div>
                     </div>
                 </section>
-                <div class="sub-title">단디마켓 인기상품</div>
+                <div class="sub-title">${loginUser == null ? "단디마켓 인기상품" : "단디마켓 추천상품"}</div>
                 <section id="main-section-hot" class="section-cardList">
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
                         	<c:forEach var="i" begin="1" end="9" step="4">
 	                           	<div class="swiper-slide">
-	                            <c:forEach var="item" items="${hotBoardList}" begin="${i-1}" end="${i+3}">
+	                            <c:forEach var="item" items="${loginUser == null ? hotBoardList : recBoardList}" begin="${i-1}" end="${i+2}">
 	                                <article class="card-wrap">
 	                                    <a href="#">  
 	                                        <div class="card-pic">
