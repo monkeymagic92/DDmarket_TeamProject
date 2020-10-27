@@ -43,9 +43,13 @@ public class IndexService {
 	}
 	
 	
-	
 	public List<BoardVO> selRecBoardList(BoardPARAM param) {
 		return transferR_dt(mapper.selRecBoardList(param));
+	}
+	
+	
+	public List<BoardVO> selNewBoardList(BoardPARAM param) {
+		return transferR_dt(mapper.selNewBoardList(param));
 	}
 	
 	

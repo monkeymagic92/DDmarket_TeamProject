@@ -1,7 +1,3 @@
-/**
- * 
- */
-
 // 슬라이드
 var mySwiper = new Swiper('.swiper-container', {
 

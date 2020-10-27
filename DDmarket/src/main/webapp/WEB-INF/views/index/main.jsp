@@ -75,70 +75,47 @@
                 </section>
                 <div class="sub-title" id="sub-title-new"><span class="iconify icon-new" data-inline="false" data-icon="mdi:new-box" style="color: #f84c4c; font-size: 40.488094329833984px;"></span>새로 등록된 상품</div>
                 <section id="main-section-new" class="section-cardList">
-                            <!-- Slider main container -->
-                            <div class="swiper-container">
-                                <!-- Additional required wrapper -->
-                                <div class="swiper-wrapper">
-                                    <!-- Slides -->
-                                    <div class="swiper-slide">
-                                        <article class="card-wrap">
-                                            <a href="#">
-                                                <div class="card-pic"><img src="../img/gookpap.jpg"></div>
-                                                <div class="card-desc">
-                                                    <h2 class="card-title">돼지국밥 세트</h2>
-                                                    <span class="card-border"></span>
-                                                    <span class="card-price">10,000원</span>
-                                                    <span class="card-r_dt">3시간전</span>
-                                                </div>
-                                            </a>
-                                        </article>
-                                        <article class="card-wrap">
-                                            <a href="#">
-                                                <div class="card-pic"><img src="../img/gookpap.jpg"></div>
-                                                <div class="card-desc">
-                                                    <h2 class="card-title">돼지국밥 세트</h2>
-                                                    <span class="card-border"></span>
-                                                    <span class="card-price">10,000원</span>
-                                                    <span class="card-r_dt">3시간전</span>
-                                                </div>
-                                            </a>
-                                        </article>
-                                        <article class="card-wrap">
-                                            <a href="#">
-                                                <div class="card-pic"><img src="../img/gookpap.jpg"></div>
-                                                <div class="card-desc">
-                                                    <h2 class="card-title">돼지국밥 세트</h2>
-                                                    <span class="card-border"></span>
-                                                    <span class="card-price">10,000원</span>
-                                                    <span class="card-r_dt">3시간전</span>
-                                                </div>
-                                            </a>
-                                        </article>
-                                        <article class="card-wrap">
-                                            <a href="#">
-                                                <div class="card-pic"><img src="../img/gookpap.jpg"></div>
-                                                <div class="card-desc">
-                                                    <h2 class="card-title">돼지국밥 세트</h2>
-                                                    <span class="card-border"></span>
-                                                    <span class="card-price">10,000원</span>
-                                                    <span class="card-r_dt">3시간전</span>
-                                                </div>
-                                            </a>
-                                        </article>
-                                    </div>
-                                    <div class="swiper-slide">Slide 2</div>
-                                    <div class="swiper-slide">Slide 3</div>
-                                </div>
-                                <!-- If we need pagination -->
-                                <div class="swiper-pagination"></div>
-        
-                                <!-- If we need navigation buttons -->
-                                <div class="swiper-button-prev"></div>
-                                <div class="swiper-button-next"></div>
-        
-                                <!-- If we need scrollbar -->
-                                <div class="swiper-scrollbar"></div>
-                            </div>
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                        	<c:forEach var="i" begin="1" end="9" step="4">
+	                           	<div class="swiper-slide">
+	                            <c:forEach var="item" items="${NewBoardList}" begin="${i-1}" end="${i+2}">
+	                                <article class="card-wrap">
+	                                    <a href="#">  
+	                                        <div class="card-pic">
+	                                        	<c:choose>
+	                                        		<c:when test="${item.image_1 == null}">
+	                                        			<img src="/res/img/lion.jpg">
+	                                        		</c:when>
+	                                        		<c:otherwise>
+	                                        			<img src="/res/img/board/${item.i_board}/${item.image_1}">
+	                                        		</c:otherwise>
+	                                        	</c:choose>
+	                                        </div>
+	                                        <div class="card-desc">
+	                                            <h2 class="card-title">${item.title}</h2>
+	                                            <span class="card-border"></span>
+	                                            <div class="card-addr"><span class="iconify icon-map" data-inline="false" data-icon="mdi-light:map-marker" style="color: #f84c4c; font-size: 21px;"></span>${item.addr}</div>
+	                                            <div>
+		                                            <span class="card-price">
+		                                            	<c:choose>
+			                                            	<c:when test="${item.price == 0}"><span class="card-price">무료</span></c:when>
+			                                            	<c:otherwise><span class="card-price"><fmt:formatNumber value="${item.price}" pattern="#,###" />원</span></c:otherwise>
+		                                            	</c:choose>
+		                                            <span class="card-r_dt">${item.r_dt}</span>
+	                                            </div>
+	                                        </div>
+	                                    </a>
+	                                </article>
+	                              </c:forEach>
+	                            </div>
+                            </c:forEach>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-scrollbar"></div>
+                    </div>
                 </section>
                 <div class="sub-title">카테고리별 인기상품</div>
                 <div class="tab_basic">

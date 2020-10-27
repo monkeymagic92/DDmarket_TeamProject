@@ -37,6 +37,7 @@ public class IndexController {
 			model.addAttribute("recBoardList", service.selRecBoardList(param));			
 		}
 		
+		model.addAttribute("NewBoardList", service.selNewBoardList(param));
 		model.addAttribute("view",ViewRef.INDEX_MAIN);
 		return ViewRef.DEFAULT_TEMP;
 	}
