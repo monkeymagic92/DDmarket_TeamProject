@@ -51,6 +51,16 @@
 		ORDER BY B.likeNum DESC, r_dt DESC
 	</select>
 	
+	<!-- main - 무료나눔 (무료, 최신순) -->
+	<select id="selFreeBoardList" parameterType="BoardPARAM" resultType="BoardVO">
+		SELECT A.i_board, A.image_1, A.title, A.price, A.r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr
+		FROM t_board A
+		WHERE A.price = 0
+		ORDER BY A.r_dt DESC
+	</select>
+	
+	
+	
 	
 	
 	
