@@ -4,7 +4,7 @@
 	
 	<!-- main - 인기상품(1.찜 순 2.최신글 순으로 정렬) -->
 	<select id="selHotBoardList" parameterType="BoardPARAM" resultType="BoardVO">
-		SELECT A.i_board, A.image_1, A.title, A.price, A.r_dt as r_dt, A.addr
+		SELECT A.i_board, A.image_1, A.title, A.price, A.r_dt as r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr
 		FROM t_board A
 		LEFT JOIN (
 			SELECT i_board, COUNT(*) AS likeNum FROM t_board_like
@@ -17,7 +17,7 @@
 	
 	<!-- main - 추천상품(1.사용자의 지역 기준 2.최신순)  -->
 	<select id="selRecBoardList" parameterType="BoardPARAM" resultType="BoardVO">
-		SELECT A.i_board, A.image_1, A.title, A.price, A.r_dt as r_dt, A.addr
+		SELECT A.i_board, A.image_1, A.title, A.price, A.r_dt as r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr
 		FROM t_board A
 		LEFT JOIN t_user B
 		ON A.i_user = B.i_user
