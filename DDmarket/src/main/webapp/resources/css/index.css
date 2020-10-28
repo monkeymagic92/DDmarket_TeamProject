@@ -55,7 +55,7 @@ section {overflow: hidden; margin:40px auto; background-color: white;}
 .tab_list a { display: block; width: 100%; height: 100%; text-decoration: none; color: #222; }
 
 /* 탭 글리스트 */
-.tab_container .tab_content { display: none; width: 84%; min-height: 100px; margin-left: 85px; padding: 20px; background: white; box-sizing: border-box; }
+.tab_container .tab_content { display: none ; width: 84%; min-height: 100px; margin-left: 85px; padding: 20px; background: white; box-sizing: border-box; }
 .tab_container .tab_content:first-child { display: flex; flex-flow: row wrap;}
 .tab_container .tab_content .card-wrap {width: 20%; height: 300px; background: #EEEEEE; text-align: center; margin:35px 35px 0px 10px}
 .tab_container .tab_content .card-wrap:nth-child(4n) {margin-right:0px}
