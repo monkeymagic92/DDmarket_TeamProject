@@ -118,7 +118,7 @@ public class UserService {
 		if(param.getUser_id() == "" || param.getUser_pw() == "" 
 				|| param.getEmail() == "" || param.getNick() == "" 
 				|| param.getNm() == "" || param.getPost() == ""
-				|| param.getAddr() == "" || param.getRoad() == "") {
+				) {
 			
 			System.out.println(" 1 유저아디 : " + param.getUser_id());
 			result = Const.FAIL;
@@ -202,6 +202,11 @@ public class UserService {
 		
 		MultipartFile fileList = mReq.getFile("user_profile_img");
 		
+		
+		System.out.println("------------");
+		System.out.println(fileList);
+		System.out.println("------------");
+		
 		File dir = new File(path);		
 		if(!dir.exists()) {  
 			dir.mkdirs(); 
@@ -248,7 +253,7 @@ public class UserService {
 	}
 	
 		
-	// 닉네임 변경
+	// 회원정보 변경
 	public int changeInfo(UserPARAM param, int result) {
 		if(result == 3) { // 비밀번호 변경
 			return changePw(param);
