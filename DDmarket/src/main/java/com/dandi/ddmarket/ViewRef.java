@@ -21,11 +21,6 @@ public class ViewRef {
 	
 	
 	// index 
-	public static final String INDEX_MAIN = "index/main";	 // 단디마켓 메인화면
-	
-	
-	// board
-	public static final String BOARD_DETAIL = "board/detail"; 	// 판매글 상세페이지
-	public static final String BOARD_SALEREG = "board/saleReg";	// 판매글 등록
+	public static final String INDEX_MAIN = "index/main"; // 단디마켓 메인화면
 }
 

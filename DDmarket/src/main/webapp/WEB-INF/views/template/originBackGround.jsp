@@ -9,10 +9,10 @@
 </head>
 <!-- 비밀번호 찾기 인증코드 입력할때 백그라운드 -->
 <style>		
-	.logo {
+	img {
 		background-color: #6e6868;
-		margin-left: 730px;
-		margin-top: 45px;
+		margin-left: 692px;
+		margin-top: 75px;
 		width: 480px;
 		height: 190px;
 	}

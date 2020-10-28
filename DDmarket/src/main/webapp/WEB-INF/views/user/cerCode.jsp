@@ -5,39 +5,69 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>비밀번호 찾기 인증코드 입력</title>
-<link rel="stylesheet" href="/res/css/common.css">
-<link rel="stylesheet" href="/res/css/cerCode.css">
+<title>모달테스트</title>
 </head>
+<style>
+
+	.modal {
+	    display: none;
+	    position: fixed;
+	    z-index: 1; 
+	    left: 0;
+	    top: 0;
+	    width: 100%; 
+	    height: 100%; 
+	    overflow: auto; 
+	    background-color: rgb(0,0,0); 
+	    background-color: rgba(0,0,0,0.4); 
+	}
+	
+	/* Modal Content/Box */
+	.modal-content {
+	    background-color: #fefefe;
+	    margin: 15% auto; 
+	    padding: 20px;
+	    border: 1px solid #888;
+	    width: 30%;                           
+	}
+	
+	.pop_bt {
+		margin-top: 30px;
+		width: 200px;
+		text-align: center;
+		cursor: pointer;
+	}
+	
+	#cerCodeCount {
+		color: red;
+	}
+	
+</style>
 <body>
-	<div id="myModal" class="modal"> 
+	<div id="myModal" class="modal">
+ 
 		<!-- Modal content -->
 		<div class="modal-content">
-            <div class="div-logo">
-                <img src="/res/img/logo.jpg" alt="">
-            </div>
-            <div class="div-info">
-                <span class="txt-top">회원가입시 입력된 이메일 주소로 인증코드가 전송되었습니다.</span>
-                <span class="txt-bottom">인증번호를 확인 후 아래의 인증 코드를 입력해 주세요!</span>
-            </div>
-		      	<c:if test="${cerCodeCount == null }">
-		      		<div></div>
-		      	</c:if>
-		     	<c:if test="${cerCodeCount > 0 }">
-		      		<div id="cerCodeCount">${cerCodeCount }회 실패</div>
-		        </c:if>
+		      <h2>인증번호를 입력해 주세요</h2>
+		      <c:if test="${cerCodeCount == null }">
+		      	<div></div>
+		      </c:if>
+		      <c:if test="${cerCodeCount > 0 }">
+		      	<div id="cerCodeCount">${cerCodeCount }회 실패</div>
+		      </c:if>
+		      
 		    <!-- Modal body -->
 		    <div class="modal-body">
 		    	<form id="frm" action="/user/cerCode" method="post" onsubmit="return chk()">
-		    		<input type="text" name="cerCode" placeholder="이메일 인증코드 입력">
-                    <input type="submit" class="codebtn" value="입 력">
+		    		<input type="text" name="cerCode" placeholder="코드입력">
+		    		<input type="submit" value="확인">
 		    	</form>
 		    </div>
 		    
 		    <!-- Modal bottom -->
 		    <div class="modal-bottom">
 				<button type="button" class="pop_bt" onclick="moveToLogin()">
-					종&nbsp;&nbsp;&nbsp;&nbsp;료
+					종료
 				</button>
 		    </div>
 		</div>
@@ -46,7 +76,6 @@
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-
 window.onload = function() {
 	alert('입력하신 메일로 인증코드가 발송되었습니다');
 	var url = "https://www.naver.com";
@@ -83,5 +112,4 @@ window.onload = function() {
 	
 	
 </script>
-
 </html>

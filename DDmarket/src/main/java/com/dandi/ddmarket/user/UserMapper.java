@@ -25,7 +25,6 @@ public interface UserMapper {
 	List<CategoryVO> selCategory();		// 카테고리 리스트
 	
 	
-	
 	// insert
 	int joinUser(UserVO param);		// 회원가입
 	
@@ -47,7 +46,6 @@ public interface UserMapper {
 	int delImg(int i_user);
 	
 		
-	
 	// delete 
 	int delProfile_img(UserPARAM param);
 	

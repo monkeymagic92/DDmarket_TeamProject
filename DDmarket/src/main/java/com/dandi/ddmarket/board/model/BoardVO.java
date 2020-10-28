@@ -1,7 +1,5 @@
 package com.dandi.ddmarket.board.model;
 
-import java.util.List;
-
 /*
  * 	테이블 완성시 수정해서 다시 빈 추가하기
  */
@@ -11,47 +9,18 @@ public class BoardVO {
 	private int i_user;
 	private String title;
 	private String ctnt;
-	
-	private String thumImage;
-	private String imageFile;	// 따로 Domain으로 빼기 
-	private List<BoardVO> imageFileList; // 따로 Domain으로 빼기 
-	
-
-//	private String images_1;
-//	private String images_2;
-//	private String images_3;
-//	private String images_4;
-//	private String images_5;
+	private String image_1;
+	private String image_2;
+	private String image_3;
+	private String image_4;
+	private String image_5;
 	private String post;
 	private String addr;
-	private String road;
 	private int hits;
 	private int price;
-	private int sold; // 0이면 거래 미완료, 1이면 거래완료, 2 거래중
+	private int completed; // 0이면 거래 미완료, 1이면 거래완료, 2 거래중
 	private String r_dt;
 	private String m_dt;
-	
-	
-	
-	
-	public String getThumImage() {
-		return thumImage;
-	}
-	public void setThumImage(String thumImage) {
-		this.thumImage = thumImage;
-	}
-	public String getImageFile() {
-		return imageFile;
-	}
-	public void setImageFile(String imageFile) {
-		this.imageFile = imageFile;
-	}
-	public List<BoardVO> getImageFileList() {
-		return imageFileList;
-	}
-	public void setImageFileList(List<BoardVO> imageFileList) {
-		this.imageFileList = imageFileList;
-	}
 	
 	public int getI_board() {
 		return i_board;
@@ -83,7 +52,36 @@ public class BoardVO {
 	public void setCtnt(String ctnt) {
 		this.ctnt = ctnt;
 	}
-		
+	public String getImage_1() {
+		return image_1;
+	}
+	public void setImage_1(String image_1) {
+		this.image_1 = image_1;
+	}
+	public String getImage_2() {
+		return image_2;
+	}
+	public void setImage_2(String image_2) {
+		this.image_2 = image_2;
+	}
+	public String getImage_3() {
+		return image_3;
+	}
+	public void setImage_3(String image_3) {
+		this.image_3 = image_3;
+	}
+	public String getImage_4() {
+		return image_4;
+	}
+	public void setImage_4(String image_4) {
+		this.image_4 = image_4;
+	}
+	public String getImage_5() {
+		return image_5;
+	}
+	public void setImage_5(String image_5) {
+		this.image_5 = image_5;
+	}
 	public String getPost() {
 		return post;
 	}
@@ -95,12 +93,6 @@ public class BoardVO {
 	}
 	public void setAddr(String addr) {
 		this.addr = addr;
-	}
-	public String getRoad() {
-		return road;
-	}
-	public void setRoad(String road) {
-		this.road = road;
 	}
 	public int getHits() {
 		return hits;
@@ -114,11 +106,11 @@ public class BoardVO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public int getSold() {
-		return sold;
+	public int getCompleted() {
+		return completed;
 	}
-	public void setSold(int sold) {
-		this.sold = sold;
+	public void setCompleted(int completed) {
+		this.completed = completed;
 	}
 	public String getR_dt() {
 		return r_dt;
@@ -133,6 +125,4 @@ public class BoardVO {
 		this.m_dt = m_dt;
 	}
 	
-	
-			
 }

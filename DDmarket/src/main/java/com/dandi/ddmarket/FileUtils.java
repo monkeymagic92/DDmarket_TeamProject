@@ -7,11 +7,6 @@ import java.util.UUID;
 import javax.servlet.http.Part;
 
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-import com.dandi.ddmarket.board.model.BoardPARAM;
-import com.dandi.ddmarket.board.model.BoardVO;
-
 
 public class FileUtils {
 	public static void makeFolder(String path) {
@@ -65,6 +60,4 @@ public class FileUtils {
 		}
 		return false;
 	}
-	
 }
-

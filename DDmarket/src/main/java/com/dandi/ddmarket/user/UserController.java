@@ -32,10 +32,11 @@ public class UserController {
 	static int cerCodeCount = 0; // 인증코드 틀렸을시 카운트 
 	
 	@Autowired
-	private UserService service;  // 유저 서비스
+	private UserService service;	
 	
 	@Autowired
-	private MailSendService mss;  // 이메일
+	private MailSendService mss;  
+	
 	
 			
 	/*
@@ -428,7 +429,7 @@ public class UserController {
 					return "redirect:/" + ViewRef.USER_INFO;
 					
 				} catch(Exception e) {
-					chk = 7; // 관심사 에러띄울 값
+					chk = 7; // 관심사 에러띄울 메세지
 				} 
 		}
 		

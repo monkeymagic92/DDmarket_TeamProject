@@ -10,10 +10,11 @@
 		<!-- board -->
 		<typeAlias type="com.dandi.ddmarket.board.model.BoardVO" alias="BoardVO" />
 		<typeAlias type="com.dandi.ddmarket.board.model.BoardPARAM" alias="BoardPARAM" />
-		<typeAlias type="com.dandi.ddmarket.board.model.BoardDMI" alias="BoardDMI" />
 		
 		<!-- category -->
 		<typeAlias type="com.dandi.ddmarket.category.model.CategoryVO" alias="CategoryVO" />
+		
+		
 		
 	</typeAliases>	
 </configuration>
