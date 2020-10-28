@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>index - main</title>
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+<link rel="stylesheet" type="text/css" href="/res/css/swiper.min.css">
 <link rel="stylesheet" type="text/css" href="/res/css/index.css">
 </head>
 <body>
@@ -157,7 +157,10 @@
                 <div class="sub-title">카테고리별 인기상품</div>
                 <div class="tab_basic">
                     <div class="tab_list_wrap">
-                    	<c:forEach var="item" items="${cgList}">
+                    		<div class="tab_list tab_active" data-tabnum="0">
+                                <a href="#">여성의류</a>
+                            </div>
+                    	<c:forEach var="item" items="${cgList}" begin="1">
                            	<div class="tab_list" data-tabnum="${item.i_cg-1}">
                                 <a href="#">${item.cg_nm}</a>
                             </div>
@@ -165,11 +168,37 @@
                     </div>
                     <div class="tab_container">
                     	<c:forEach var="innerList" items="${cList}">
-				                 <div class="tab_content">
-					             <c:forEach var="item" items="${innerList}">
-					             		${item.i_cg}
-		                    	</c:forEach>
-				                 </div>
+					        <div class="tab_content">
+				                    	<c:forEach var="item" items="${innerList}"  begin="0" end="7">
+										 		 <article class="card-wrap">
+				                                    <a href="#">  
+				                                        <div class="card-pic">
+				                                        	<c:choose>
+				                                        		<c:when test="${item.image_1 == null}">
+				                                        			<img src="/res/img/lion.jpg">
+				                                        		</c:when>
+				                                        		<c:otherwise>
+				                                        			<img src="/res/img/board/${item.i_board}/${item.image_1}">
+				                                        		</c:otherwise>
+				                                        	</c:choose>
+				                                        </div>
+				                                        <div class="card-desc">
+				                                            <h2 class="card-title">${item.title}</h2>
+				                                            <span class="card-border"></span>
+				                                            <div class="card-addr"><span class="iconify icon-map" data-inline="false" data-icon="mdi-light:map-marker" style="color: #f84c4c; font-size: 21px;"></span>${item.addr}</div>
+				                                            <div>
+					                                            <span class="card-price">
+					                                            	<c:choose>
+						                                            	<c:when test="${item.price == 0}"><span class="card-price">무료</span></c:when>
+						                                            	<c:otherwise><span class="card-price"><fmt:formatNumber value="${item.price}" pattern="#,###" />원</span></c:otherwise>
+					                                            	</c:choose>
+					                                            <span class="card-r_dt">${item.r_dt}</span>
+				                                            </div>
+				                                        </div>
+				                                    </a>
+				                                </article>
+								        </c:forEach>
+					        </div>
 	                    </c:forEach>
                     </div>
              	</div>
@@ -237,6 +266,6 @@
 </body>
 <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="/res/js/swiper.min.js"></script>
 <script src="/res/js/main.js"></script>
 </html>
