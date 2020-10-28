@@ -24,7 +24,7 @@ body {
 /* header */
 #headerWrap {width: 100%; display: flex; justify-content: center;}
 #header { background-color: white;  margin: 0 auto; 
-    display: flex; flex-flow: column wrap; justify-content: center; width:1190px; position:fixed; z-index: 3; padding-top: 50px;}
+    display: flex; flex-flow: column wrap; justify-content: center; width:1040px; position:fixed; z-index: 3; padding-top: 50px;}
 #header #header-title {background:white; width:100%; display: flex; justify-content:space-between; align-items: center; position: relative;}
 #header #header-title img {width: 179px; height: 54px;}
 #header #header-title #search-wrap {width: 500px; height: 50px; border: 3px solid #3B73C8; display: flex; justify-content: space-between; align-items: center; }

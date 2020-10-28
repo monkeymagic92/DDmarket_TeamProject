@@ -238,7 +238,7 @@ $('.emailChk').click(function() {
 	// 주소 체크
 	function addrChk() {
 		if(addrFrm.post.value.length == 0) {
-			alert('주소를 입력 해주세요')
+			alert('주소를 입력해 주세요')
 			return false;
 		} 
 		

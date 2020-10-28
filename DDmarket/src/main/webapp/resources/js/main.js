@@ -1,3 +1,7 @@
+/**
+ * 
+ */
+
 // 슬라이드
 var mySwiper = new Swiper('.swiper-container', {
 
@@ -47,8 +51,7 @@ var mySwiper = new Swiper('.swiper-container', {
                 tabList[i].className = 'tab_list'
                 })
                 
-                tabContent[tabNum].style.display = 'flex'
-                tabContent[tabNum].style.flexFlow = 'row wrap'
+                tabContent[tabNum].style.display = 'block'
                 
                 if(list.className.indexOf('tab_active') == -1) {
                     list.className = 'tab_list tab_active'
