@@ -32,6 +32,7 @@ public class IndexController {
 	@RequestMapping(value="/main")
 	public String index(Model model, RedirectAttributes ra, BoardPARAM param,CategoryVO cparam,HttpServletRequest request) {
 		
+		// 비로그인 - 인기글 목록, 로그인 - 추천글 목록
 		if(SecurityUtils.isLogout(request)) {
 			model.addAttribute("hotBoardList", service.selHotBoardList(param));			
 		} else {
@@ -41,13 +42,12 @@ public class IndexController {
 		
 		List<List<BoardVO>> cList = new ArrayList();
 		
-		/////////////// 카테고리 탭에 따흔 content
+		//카테고리별 글 목록
 		for(int i=1; i<=10; i++) {
 			param.setI_cg(i);
 			cList.add(service.selCgBoardList(param));
 			model.addAttribute("cList", cList);
 		}
-		//////////////
 		
 		model.addAttribute("cgList", service.selCgList(cparam));
 		model.addAttribute("newBoardList", service.selNewBoardList(param));
