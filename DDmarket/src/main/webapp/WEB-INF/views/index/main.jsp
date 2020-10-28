@@ -164,10 +164,12 @@
                         </c:forEach>
                     </div>
                     <div class="tab_container">
-                    	<c:forEach var="i" begin="1" end="10">
-	                    <div class="tab_content">
-				             ${i}
-	                    </div>
+                    	<c:forEach var="innerList" items="${cList}">
+				                 <div class="tab_content">
+					             <c:forEach var="item" items="${innerList}">
+					             		${item.i_cg}
+		                    	</c:forEach>
+				                 </div>
 	                    </c:forEach>
                     </div>
              	</div>
