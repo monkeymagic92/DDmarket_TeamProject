@@ -25,24 +25,9 @@ public class BoardController {
 	
 	@Autowired
 	private UserService userService;	// 유저 서비스
-	/*
-	 * 
-	 *	 두번째 안되서 테스트 (재용) 
-	 * 
-	 */
-	
-	///이건 테스트 ///////////////////	
-	///이건 테스트 ///////////////////	
-	
-	/*
-	 * 
-	 * 
-	 * 		재용       오전11:46 4명 
-	 * 
-	 */
 	
 		
-	// 판매글 등록
+	// 판매글 등록,수정
 	@RequestMapping(value="/saleReg", method = RequestMethod.GET)
 	public String saleReg(Model model, HttpSession hs, UserPARAM param,
 			HttpServletRequest request, BoardPARAM boardPARAM) {
@@ -75,6 +60,7 @@ public class BoardController {
 	@RequestMapping(value="/saleReg", method = RequestMethod.POST)
 	public String saleReg(Model model, BoardPARAM param, HttpSession hs, 
 			MultipartHttpServletRequest mReq, RedirectAttributes ra) {
+		
 		try {
 			int result = 0;
 			result = service.insBoard(param, mReq, hs);
