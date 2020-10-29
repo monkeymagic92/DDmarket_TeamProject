@@ -18,7 +18,7 @@
                         <div class="swiper-wrapper" id="imgSwiper">
                         	<!-- thumeImage 폴더 안만들어짐 (집에서는 학원에서 테스트해보기) -->
                             <div class="swiper-slide">
-                            	<img src="/res/img/board/${data.i_board }/thumImage/${data.thumImage}">
+                            	<img src="/res/img/board/${data.i_board }/${data.thumImage}">
                             </div>
                             <div class="swiper-slide">                            	
                             	<img src="/res/img/board/${data.i_board }/${data.image_1}">

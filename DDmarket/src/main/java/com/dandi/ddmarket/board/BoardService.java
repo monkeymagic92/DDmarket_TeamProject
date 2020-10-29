@@ -37,30 +37,24 @@ public class BoardService {
 		}
 		hs.setAttribute("i_board", i_board); // SaleReg.POST DETAIL로 값 보낼떄 등록글을 바로 띄워줄수있게 세션박기
 		
-		
 		// 혹시나 NOT NULL 부분에서 빈값이 넘어올경우 서버에서 조치
 		// 학원가서 Db t_board  price 컬럼값 타입을 varchar로 해서 테스트해보기
 		if(param.getTitle().equals("") || param.getI_cg() == 0
 				|| param.getPost().equals("") || param.getCtnt().equals("")) {
 			
 			return result = 2;
-		}
-				
-		/*
-		 * 		10_28 집에서 테스트할때 thumImage 폴더못만듬
-		 * 	테이블 지워서 다시 해보든가 아니면 thumImage 폴더 빼고 일반 폴더랑 같이 묶어버리든가 둘중 하나 하기
-		 */
+		}		
+		
+		String path = mReq.getServletContext().getRealPath("") + "/resources/img/board/" + i_board + "/";
 		
 		// 단일파일
 		MultipartFile file = mReq.getFile("image");
-		String thumPath = mReq.getServletContext().getRealPath("") + "/resources/img/board/" + i_board + "/thumImage/";
-		String saveFile = FileUtils.saveFile(thumPath, file);
-		
+		String saveFile = FileUtils.saveFile(path, file);
 				
 		// 다중파일
 		List<MultipartFile> fileList = mReq.getFiles("images");
 		
-		String path = mReq.getServletContext().getRealPath("") + "/resources/img/board/" + i_board + "/";	
+			
 
 		List<BoardVO> list = new ArrayList();
 					
@@ -116,6 +110,5 @@ public class BoardService {
 			mapper.updAddHit(param);
 			ctx.setAttribute("current_board_read_ip" + param.getI_board(), myIp);
 		}
-		
 	}
 }

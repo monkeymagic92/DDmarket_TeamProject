@@ -114,12 +114,6 @@ public class BoardController {
 	
 	
 	
-	
-	
-	
-	
-	
-	
 	//욕 필터
 	private String swearWordFilter(final String ctnt) {
 		String[] filters = {"개새끼", "미친년", "ㄱ ㅐ ㅅ ㅐ ㄲ ㅣ", "씨발년"};

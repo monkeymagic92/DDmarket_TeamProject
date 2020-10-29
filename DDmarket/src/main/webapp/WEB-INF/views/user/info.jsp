@@ -30,7 +30,7 @@
                     <div class="pImgbox">
                         <label for="file">
                         	<c:if test="${loginUser.profile_img == null }">
-                        		<img src="/res/img/yerin.jpg" onchange="setThumbnail(e)" alt="" class="img">
+                        		<img src="/res/img/lion.jpg" onchange="setThumbnail(e)" alt="" class="img">
                         	</c:if>
                         	<c:if test="${loginUser.profile_img != null }">
                                 <img src="/res/img/profile_img/user/${loginUser.i_user }/${loginUser.profile_img}" class="img">                    	
