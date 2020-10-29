@@ -63,6 +63,19 @@
 		ORDER BY A.r_dt DESC
 		LIMIT 12
 	</select>
+	
+	<!-- search - header 카테고리 선택 시 -->
+	<select id="selSearchList" parameterType="BoardPARAM" resultType="BoardVO">
+		SELECT A.i_board, A.thumImage, A.title, A.price, A.r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr
+		FROM t_board A
+		WHERE A.i_cg = #{i_cg}
+		ORDER BY A.i_board DESC
+	</select>
+	
+	<!-- search - header 카레고리 선택시 검색명 -->
+	<select id="selSearchName" parameterType="BoardPARAM" resultType="String">
+		SELECT cg_nm FROM t_category WHERE i_cg = #{i_cg}
+	</select>
 
 
 

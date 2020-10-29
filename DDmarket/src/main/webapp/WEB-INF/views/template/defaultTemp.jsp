@@ -20,13 +20,13 @@
                             <span class="iconify icon-menu dropbtn" onclick="myFunction2()" data-inline="false" data-icon="mdi-light:menu" style="color: #3b73c8; font-size: 50px;"></span>
                             <div id="myDropdown-shrimp" class="dropdown-content">
                                    <c:forEach var="item" items="${cgList}">
-                                   		<a href="#">${item.cg_nm}</a>
+                                   		<a href="/index/search?i_cg=${item.i_cg}">${item.cg_nm}</a>
                                    </c:forEach>
                             </div>
                         </div>
                     </div>    
                     <a href="/index/main"><img class="logo" src="/res/img/logo.jpg"></a>
-                    <form id="search-wrap" >
+                    <form id="search-wrap" action="/index/detail" method="post" onclick="#">
                         <input type="text" placeholder="상품명, 지역명 검색">
                         <button id="header-search-btn"><span class="iconify icon-search" data-inline="false" data-icon="mdi-light:magnify" style="color: #3b73c8; font-size: 30px;"></span></button>
                     </form>
@@ -41,7 +41,7 @@
                             <span class="iconify icon-menu dropbtn" onclick="myFunction()" data-inline="false" data-icon="mdi-light:menu" style="color: #3b73c8; font-size: 50px;"></span>
                             <div id="myDropdown" class="dropdown-content">
                                    <c:forEach var="item" items="${cgList}">
-                                   		<a href="#">${item.cg_nm}</a>
+                                   		<a href="/index/search?i_cg=${item.i_cg}">${item.cg_nm}</a>
                                    </c:forEach>
                             </div>
                         </div>

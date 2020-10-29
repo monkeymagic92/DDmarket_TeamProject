@@ -64,6 +64,15 @@ public class IndexService {
 	public List<BoardVO> selFreeBoardList(BoardPARAM param) {
 		return transferR_dt(mapper.selFreeBoardList(param));
 	}
+	
+
+	public List<BoardVO> selSearchList(BoardPARAM param) {
+		return transferR_dt(mapper.selSearchList(param));
+	}
+	
+	public String selSearchName(BoardPARAM param) {
+		return mapper.selSearchName(param);
+	}
 
 
 
