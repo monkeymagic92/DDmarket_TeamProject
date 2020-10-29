@@ -66,9 +66,19 @@ public class IndexController {
 		if(request.getParameter("i_cg") != null) {
 			int i_cg = CommonUtils.getIntParameter("i_cg", request);
 			param.setI_cg(i_cg);
-			model.addAttribute("searchName", service.selSearchName(param));
+			model.addAttribute("cdSearchNm", service.selCdSearchNm(param));
 			System.out.println("i_cg : " + param.getI_cg());
 		}
+				
+		model.addAttribute("searchList", service.selSearchList(param));
+		model.addAttribute("view","/index/search");
+		return ViewRef.DEFAULT_TEMP;
+	}
+	
+	@RequestMapping(value="/search", method = RequestMethod.POST)
+	public String search(Model model, RedirectAttributes ra, BoardPARAM param, HttpServletRequest request) {
+		String searchNm = request.getParameter("searchNm");
+		
 				
 		model.addAttribute("searchList", service.selSearchList(param));
 		model.addAttribute("view","/index/search");

@@ -73,7 +73,7 @@
 	</select>
 	
 	<!-- search - header 카레고리 선택시 검색명 -->
-	<select id="selSearchName" parameterType="BoardPARAM" resultType="String">
+	<select id="selCdSearchNm" parameterType="BoardPARAM" resultType="String">
 		SELECT cg_nm FROM t_category WHERE i_cg = #{i_cg}
 	</select>
 

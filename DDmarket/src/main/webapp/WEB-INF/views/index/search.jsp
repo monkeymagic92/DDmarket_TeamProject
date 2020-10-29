@@ -15,7 +15,7 @@
         <main>
             <div id="div-wrap-top">
                 <div id="div-search-result">
-                	<span id="span-search-reuslt-text">${searchName}</span>의 검색결과
+                	<span id="span-search-reuslt-text">${cdSearchNm}</span>의 검색결과
                 	<span id="span-search-reuslt-number">${fn:length(searchList)}개</span>
                 </div>
                 <div id="div-search-standard">

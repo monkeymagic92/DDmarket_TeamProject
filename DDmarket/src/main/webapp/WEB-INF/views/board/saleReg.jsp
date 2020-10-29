@@ -20,14 +20,9 @@
             <section class="sale-pic">
                 <div class="pics">
 					<label for="file">
-						<c:if test="${data.thumImage == null }">						
-					    	<img src="/res/img/대표이미지.jpg"  alt="" class="img">
-					    </c:if>
-					    <c:if test="${data.thumImage != null }">
-					    	<img src="/res/img/board/${data.i_board }/${data.thumImage}" class="img">
-					    </c:if>
+					    <img src="/res/img/대표이미지.jpg"  alt="" class="img">
 					</label>
-                    <input type="file" name="image"  id="file" accept="image/png, image/jpeg, image/jpg">                  
+                   <input type="file" name="image"  id="file" accept="image/png, image/jpeg, image/jpg">                  
             	</div>
                    
                 <div class="pics2">
@@ -35,26 +30,10 @@
 						<img src="/res/img/이미지등록.jpg"  alt="" class="img2"  id="imgId" >
 	                </label>
 					<input type="file" name="images"  id="mfile" multiple accept="image/png, image/jpeg, image/jpg">
-					<c:if test="${data.image_1 != null}">
-						<c:if test="${data.image_1 != '' }">
-							<img src="/res/img/board/${data.i_board }/${data.image_1}" class="selProductFile">	
-						</c:if>
-						<c:if test="${data.image_2 != '' }">
-							<img src="/res/img/board/${data.i_board }/${data.image_2}" class="selProductFile">	
-						</c:if>					
-						<c:if test="${data.image_3 != '' }">
-							<img src="/res/img/board/${data.i_board }/${data.image_3}" class="selProductFile">	
-						</c:if>
-						<c:if test="${data.image_4 != '' }">
-							<img src="/res/img/board/${data.i_board }/${data.image_4}" class="selProductFile">	
-						</c:if>
-						<c:if test="${data.image_5 != '' }">
-							<img src="/res/img/board/${data.i_board }/${data.image_5}" class="selProductFile">	
-						</c:if>
-					</c:if>
                </div>
             </section>
             <h2 class="title">제목</h2>
+            <div>${data.title == null ? '판매글 등록등록등록등록등록' : '판매글 수정수정수정수정수정'}</div>
             <span class="line"></span>
             <section class="goods-title">
                     <div class="div-title">
@@ -62,20 +41,21 @@
                     </div>
             </section>
             <h2 class="title">카테고리</h2>
+            <div>${data.title == null ? '판매글 등록등록등록등록등록' : '판매글 수정수정수정수정수정'}</div>
             <span class="line"></span>
             <section class="category">
                 <div class="category-box">
                     <c:forEach items="${categoryList}" var="item">
                        <input type="checkbox" name="i_cg" id="f-wear${item.i_cg }" value="${item.i_cg }" onclick="count_ck(this);">
                        <label for="f-wear${item.i_cg }">${item.cg_nm }</label>
-                    </c:forEach>
+                   </c:forEach>
                 </div>
             </section>
             <h2 class="title">거래지역</h2>
             <span class="line"></span>
             <section class="deal-area">
                 <div class="div-area">
-               		<input type="text" id="sample4_postcode" name="post" class="addr_input" value="${data.road }" placeholder="클릭할시 주소검색창이 나타납니다" onclick="sample4_execDaumPostcode()"><br>
+					<input type="text" id="sample4_postcode" name="post" class="addr_input" placeholder="클릭할시 주소검색창이 나타납니다" onclick="sample4_execDaumPostcode()"><br>
 					<input id="addrUnChk" name="addrUnChk" type="hidden" value="unChk">
 					<input type="text" id="sample4_jibunAddress" name="addr" class="addr_input" placeholder="지번주소" onclick="sample4_execDaumPostcode()"><br>
 					<input type="text" id="sample4_roadAddress" name="road" class="addr_input" placeholder="도로명주소" onclick="sample4_execDaumPostcode()">
@@ -83,14 +63,14 @@
 					<span id="guide" style="color:#999;display:none"></span>
 					<input type="hidden" id="sample4_detailAddress" placeholder="상세주소">
 					<input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
-					<input type="hidden" name="result" value="5">	
+					<input type="hidden" name="result" value="5">
                 </div>
             </section>
             <h2 class="title">가격</h2>
             <span class="line"></span>
             <section class="goods-price">
                 <div class="div-price">
-                    <input type="text" inputmode="numeric" name="price" id="priceInput" class="img" class="priceInput" required placeholder="가격을 입력 해 주세요" value="${data.price }">
+                    <input type="number" name="price" id="priceInput" class="priceInput" required placeholder="가격을 입력 해 주세요" value="${data.price }">
                 </div>
                 &nbsp;&nbsp;
                 <div>
@@ -107,11 +87,7 @@
             <div class="div-btn">
             	<!-- 로그인한, 즉 글쓴이의 i_user값을 같이 post로 넘김 -->
                 <input type="hidden" name="i_user" value="${loginUser.i_user }">
-                <%-- 수정 하기위한 updResult 값 --%>
-                <c:if test="${data.i_board != null }">
-                	<input type="hidden" name="updResult" value="1"> 
-                </c:if>
-                <button class="goods-btn" type="submit">${data.i_board == null ? '상품등록' : '상품수정'}</button>
+                <button class="goods-btn" type="submit">상품등록</button>
             </div>
             </form>
         </main>
@@ -147,12 +123,6 @@ $('#priceChk').click(function() {
 	}
 })
 
-// 가격 입력시 3자리 단위로 , 찍는 코드
-$(document).on('keyup','input[inputmode=numeric]',function(event){
-	this.value = this.value.replace(/[^0-9]/g,'');   // 입력값이 숫자가 아니면 공백
-	this.value = this.value.replace(/,/g,'');          // ,값 공백처리
-	this.value = this.value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-});
 
 //관심사 체크, 최대갯수 3개제한 
 function count_ck(obj){
@@ -225,7 +195,7 @@ $('#sample4_postcode').click(function() {
               });
   
           }
-        //--------@multiple image preview-----------//
+//-------------------------------
 
 
 // 주소api
