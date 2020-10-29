@@ -26,6 +26,12 @@ public class BoardController {
 	
 	@Autowired
 	private UserService userService;	// 유저 서비스
+	/*
+	 * 
+	 *	 두번째 안되서 테스트 (재용) 
+	 * 
+	 */
+	
 	
 	/*
 	 * 
