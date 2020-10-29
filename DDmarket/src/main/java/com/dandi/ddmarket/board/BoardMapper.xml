@@ -57,7 +57,6 @@
 		UPDATE t_board
 		SET hits = hits + 1
 		WHERE i_board = #{i_board}
-		AND i_user != #{i_user}
 	</update>
 				
 				
