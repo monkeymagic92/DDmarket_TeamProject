@@ -12,7 +12,8 @@
 	
 	<!-- 디테일에서 판매글 정보 나타내기 -->
 	<select id="selBoard" resultType="BoardDMI" parameterType="BoardPARAM">
-		SELECT A.i_user, A.i_board, B.nick, A.title, A.addr, A.ctnt, A.hits, C.cg_nm, A.price,
+		SELECT A.i_user, A.i_board, B.nick, A.title, A.post, A.addr, A.road,
+	    A.ctnt, A.hits, C.cg_nm, A.price,
 		A.thumImage, A.image_1, A.image_2, A.image_3, A.image_4, A.image_5
 		FROM t_board A
 		
