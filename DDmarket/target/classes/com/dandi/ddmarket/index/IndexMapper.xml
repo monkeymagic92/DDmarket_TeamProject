@@ -68,7 +68,8 @@
 	<select id="selSearchList" parameterType="BoardPARAM" resultType="BoardVO">
 		SELECT A.i_board, A.thumImage, A.title, A.price, A.r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr
 		FROM t_board A
-		WHERE A.i_cg = #{i_cg}
+			WHERE addr LIKE #{searchNm}
+			OR A.title LIKE #{searchNm}
 		ORDER BY A.i_board DESC
 	</select>
 	

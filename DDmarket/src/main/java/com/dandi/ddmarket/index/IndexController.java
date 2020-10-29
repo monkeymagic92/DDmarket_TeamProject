@@ -61,28 +61,30 @@ public class IndexController {
 		
 		// header에 카테고리 불러옴 
 		model.addAttribute("cgList", service.selCgList(cparam));
+		int i_cg = CommonUtils.getIntParameter("i_cg", request);
 		
 		// header에서 카테고리 선택 시 i_cg 값을 받는다.
-		if(request.getParameter("i_cg") != null) {
-			int i_cg = CommonUtils.getIntParameter("i_cg", request);
+		if(i_cg > 0) {
 			param.setI_cg(i_cg);
 			model.addAttribute("cdSearchNm", service.selCdSearchNm(param));
-			System.out.println("i_cg : " + param.getI_cg());
+			model.addAttribute("searchList", service.selSearchList(param));
 		}
-				
-		model.addAttribute("searchList", service.selSearchList(param));
+		
+		System.out.println("i_cg : " + param.getI_cg());
+		
 		model.addAttribute("view","/index/search");
 		return ViewRef.DEFAULT_TEMP;
 	}
 	
 	@RequestMapping(value="/search", method = RequestMethod.POST)
 	public String search(Model model, RedirectAttributes ra, BoardPARAM param, HttpServletRequest request) {
-		String searchNm = request.getParameter("searchNm");
+		String searchNm = "%" + request.getParameter("searchNm") + "%";
+		param.setSearchNm(searchNm);
+		System.out.println("searchNm : " + param.getSearchNm());
 		
-				
-		model.addAttribute("searchList", service.selSearchList(param));
-		model.addAttribute("view","/index/search");
-		return ViewRef.DEFAULT_TEMP;
+		ra.addFlashAttribute("searchList", service.selSearchList(param));
+		
+		return "redirect:/" + ViewRef.INDEX_SEARCH;
 	}
 	
 		

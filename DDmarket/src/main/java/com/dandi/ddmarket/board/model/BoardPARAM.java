@@ -6,6 +6,7 @@ public class BoardPARAM extends BoardVO{
 	private String saler_addr;
 	private int i_cg;
 	private String cg_nm;
+	private String searchNm;
 	
 	public String getSaler_addr() {
 		return saler_addr;
@@ -32,4 +33,12 @@ public class BoardPARAM extends BoardVO{
 	public void setCg_nm(String cg_nm) {
 		this.cg_nm = cg_nm;
 	}
+	public String getSearchNm() {
+		return searchNm;
+	}
+	public void setSearchNm(String searchNm) {
+		this.searchNm = searchNm;
+	}
+	
+	
 }
