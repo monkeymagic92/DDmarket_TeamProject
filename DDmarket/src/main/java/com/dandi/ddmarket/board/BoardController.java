@@ -14,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.ViewRef;
 import com.dandi.ddmarket.board.model.BoardPARAM;
-import com.dandi.ddmarket.board.model.BoardVO;
 import com.dandi.ddmarket.user.UserService;
 import com.dandi.ddmarket.user.model.UserPARAM;
 
@@ -32,6 +31,8 @@ public class BoardController {
 	 * 
 	 */
 	
+	///이건 테스트 ///////////////////	
+	///이건 테스트 ///////////////////	
 	
 	/*
 	 * 
