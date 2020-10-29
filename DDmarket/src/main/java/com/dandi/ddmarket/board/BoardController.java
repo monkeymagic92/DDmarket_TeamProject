@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.dandi.ddmarket.CommonUtils;
 import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.ViewRef;
 import com.dandi.ddmarket.board.model.BoardPARAM;
@@ -124,6 +125,26 @@ public class BoardController {
 		return ViewRef.DEFAULT_TEMP;
 	}
 	
+	@RequestMapping(value="/saleDel", method = RequestMethod.GET)
+	public String saleDel(BoardPARAM param, HttpServletRequest request, RedirectAttributes ra, 
+			MultipartHttpServletRequest mReq) {
+	
+		int i_board = CommonUtils.getIntParameter("i_board", request);
+		String path = mReq.getServletContext().getRealPath("") + "/resources/img/board/" + i_board + "/"; 
+		
+		int result = service.saleDel(param);
+		param.setI_board(i_board);
+		
+		// result = 0;  에러테스트용
+		
+		if(result == 1) {
+			ra.addFlashAttribute("delMsg", "게시글이 삭제되었습니다");
+			return "redirect:/index/origin";
+			
+		} else {
+			return "redriect:/board/detail?i_board="+i_board;
+		}
+}
 	
 	
 	//욕 필터

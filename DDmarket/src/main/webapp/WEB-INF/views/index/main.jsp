@@ -268,4 +268,11 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="/res/js/main.js"></script>
+<script>
+
+
+
+
+
+</script>
 </html>

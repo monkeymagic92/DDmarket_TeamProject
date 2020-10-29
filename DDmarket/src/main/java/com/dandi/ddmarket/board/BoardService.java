@@ -1,5 +1,6 @@
 package com.dandi.ddmarket.board;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,6 +92,8 @@ public class BoardService {
 		return result;
 	}
 	
+
+		
 	
 	// 판매글 상세페이지 정보 나타내기(detail)
 	public BoardDMI selBoard(BoardPARAM param) {
@@ -111,4 +114,11 @@ public class BoardService {
 			ctx.setAttribute("current_board_read_ip" + param.getI_board(), myIp);
 		}
 	}
+
+		public int saleDel(BoardPARAM param) {
+			
+			return mapper.saleDel(param);
+		}
+
+
 }
