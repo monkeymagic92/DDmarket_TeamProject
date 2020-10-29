@@ -77,10 +77,10 @@ public class IndexController {
 	
 		
 	// 각종 메시지 받아서 처리할 alert창 페이지
-	@RequestMapping(value="/oringin", method = RequestMethod.GET)
+	@RequestMapping(value="/origin", method = RequestMethod.GET)
 	public String origin(Model model, RedirectAttributes ra) {
 		
 		model.addAttribute("view",ViewRef.INDEX_MAIN);
 		return ViewRef.DEFAULT_TEMP;
-	}
+	}	
 }

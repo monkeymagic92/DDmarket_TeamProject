@@ -49,5 +49,9 @@ if(${loginMsg != null}) {
 	location.href="/user/login";
 }
 
+if(${delmsg != null}) {
+	alert('${delMsg}');	
+}
+
 </script>
 </html>

@@ -17,7 +17,7 @@
             <section id="section-info">
                     <div class="swiper-container">
                         <div class="swiper-wrapper" id="imgSwiper">
-                        	<!-- thumeImage 폴더 안만들어짐 (집에서는 학원에서 테스트해보기) -->
+                        	<!-- thumeImage 폴더 안만들어짐 (집에서는 학원에서 테스트해보기) -->                        	
                             <div class="swiper-slide">
                             	<img src="/res/img/board/${data.i_board }/${data.thumImage}">
                             </div>
@@ -66,7 +66,6 @@
                         <c:if test="${data.price == 0 }">
                         	<div id="product-price">무료</div>
                        	</c:if>
-                        
                         <div id="like">
                         	<span class="iconify" data-inline="false" data-icon="fa:heart" style="color: #aeaeae; font-size: 13px;"></span>
                         		&nbsp;&nbsp;2&nbsp;&nbsp;
@@ -81,7 +80,7 @@
                         <div id="buttonWrap">
                         	<c:if test="${loginUser.i_user == data.i_user }">
                         		<button onclick="moveToUpd(${data.i_board})">수정하기</button>
-                            	<button>삭제하기</button>
+                            	<button onclick="moveToDel(${data.i_board})">삭제하기</button>
                         	</c:if>
                         	<c:if test="${loginUser.i_user != data.i_user }">
                         		<button type="submit">
@@ -234,9 +233,16 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="/res/js/detail.js"></script>
 <script>
+
 	function moveToUpd(i_board) {
 		location.href="/board/saleReg?i_board="+i_board;
 	}
+	
+	function moveToDel(i_board) {
+		location.href="/board/saleDel?i_board="+i_board;
+	}
+	
+
 </script>
 </body>
 </html>
