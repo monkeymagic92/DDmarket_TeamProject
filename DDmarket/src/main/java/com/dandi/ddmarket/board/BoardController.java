@@ -27,6 +27,12 @@ public class BoardController {
 	@Autowired
 	private UserService userService;	// 유저 서비스
 	
+	/*
+	 * 
+	 * 
+	 * 		재용       오전11:46 4명 
+	 * 
+	 */
 	
 		
 	// 판매글 등록
