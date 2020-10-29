@@ -25,6 +25,6 @@ public interface BoardMapper {
 	
 	
 	// delete
-	
+	int saleDel(BoardPARAM param);
 	
 }

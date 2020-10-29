@@ -64,5 +64,8 @@
 				
 				
 						<!-- delete -->
-		
+	<delete  id="saleDel"  parameterType="BoardPARAM">
+		DELETE FROM t_board WHERE i_board = #{i_board};
+	</delete>
+	
 </mapper>

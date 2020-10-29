@@ -225,7 +225,7 @@ $('#sample4_postcode').click(function() {
               });
   
           }
-//-------------------------------
+        //--------@multiple image preview-----------//
 
 
 // 주소api

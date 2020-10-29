@@ -80,7 +80,7 @@
                         <div id="buttonWrap">
                         	<c:if test="${loginUser.i_user == data.i_user }">
                         		<button onclick="moveToUpd(${data.i_board})">수정하기</button>
-                            	<button>삭제하기</button>
+                            	<button onclick="moveToDel(${data.i_board})">삭제하기</button>
                         	</c:if>
                         	<c:if test="${loginUser.i_user != data.i_user }">
                         		<button type="submit">
@@ -233,9 +233,16 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="/res/js/detail.js"></script>
 <script>
+
 	function moveToUpd(i_board) {
 		location.href="/board/saleReg?i_board="+i_board;
-	}	
+	}
+	
+	function moveToDel(i_board) {
+		location.href="/board/saleDel?i_board="+i_board;
+	}
+	
+
 </script>
 </body>
 </html>
