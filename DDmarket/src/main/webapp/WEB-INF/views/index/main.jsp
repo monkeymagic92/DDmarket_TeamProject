@@ -13,7 +13,6 @@
 </head>
 <body>
 <div id="container">
-<!-- 테스트 -->
             <main>
                 <section class="main-section-banner">
                     <div class="swiper-container">
@@ -59,14 +58,14 @@
                                  <div class="swiper-slide">
                                <c:forEach var="item" items="${loginUser == null ? hotBoardList : recBoardList}" begin="${i-1}" end="${i+2}">
                                    <article class="card-wrap">
-                                       <a href="#">  
+                                       <a href="/board/detail?i_board=${item.i_board}">  
                                            <div class="card-pic">
                                               <c:choose>
-                                                 <c:when test="${item.image_1 == null}">
+                                                 <c:when test="${item.thumImage == null}">
                                                     <img src="/res/img/lion.jpg">
                                                  </c:when>
                                                  <c:otherwise>
-                                                    <img src="/res/img/board/${item.i_board}/${item.image_1}">
+                                                    <img src="/res/img/board/${item.i_board}/${item.thumImage}">
                                                  </c:otherwise>
                                               </c:choose>
                                            </div>
@@ -118,14 +117,14 @@
                                  <div class="swiper-slide">
                                <c:forEach var="item" items="${newBoardList}" begin="${i-1}" end="${i+2}">
                                    <article class="card-wrap">
-                                       <a href="#">  
+                                       <a href="/board/detail?i_board=${item.i_board}">  
                                            <div class="card-pic">
                                               <c:choose>
-                                                 <c:when test="${item.image_1 == null}">
+                                                 <c:when test="${item.thumImage == null}">
                                                     <img src="/res/img/lion.jpg">
                                                  </c:when>
                                                  <c:otherwise>
-                                                    <img src="/res/img/board/${item.i_board}/${item.image_1}">
+                                                    <img src="/res/img/board/${item.i_board}/${item.thumImage}">
                                                  </c:otherwise>
                                               </c:choose>
                                            </div>
@@ -171,14 +170,14 @@
                        <div class="tab_content">
                                    <c:forEach var="item" items="${innerList}"  begin="0" end="7">
                                       <article class="card-wrap">
-                                                <a href="#">  
+                                                <a href="/board/detail?i_board=${item.i_board}">  
                                                     <div class="card-pic">
                                                        <c:choose>
-                                                          <c:when test="${item.image_1 == null}">
+                                                          <c:when test="${item.thumImage == null}">
                                                              <img src="/res/img/lion.jpg">
                                                           </c:when>
                                                           <c:otherwise>
-                                                             <img src="/res/img/board/${item.i_board}/${item.image_1}">
+                                                             <img src="/res/img/board/${item.i_board}/${item.thumImage}">
                                                           </c:otherwise>
                                                        </c:choose>
                                                     </div>
@@ -225,14 +224,14 @@
                                  <div class="swiper-slide">
                                <c:forEach var="item" items="${freeBoardList}" begin="${i-1}" end="${i+2}">
                                    <article class="card-wrap">
-                                       <a href="#">  
+                                       <a href="/board/detail?i_board=${item.i_board}">  
                                            <div class="card-pic">
                                               <c:choose>
-                                                 <c:when test="${item.image_1 == null}">
+                                                 <c:when test="${item.thumImage == null}">
                                                     <img src="/res/img/lion.jpg">
                                                  </c:when>
                                                  <c:otherwise>
-                                                    <img src="/res/img/board/${item.i_board}/${item.image_1}">
+                                                    <img src="/res/img/${item.i_board}/${item.thumImage}">
                                                  </c:otherwise>
                                               </c:choose>
                                            </div>
