@@ -14,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.ViewRef;
 import com.dandi.ddmarket.board.model.BoardPARAM;
-import com.dandi.ddmarket.board.model.BoardVO;
 import com.dandi.ddmarket.user.UserService;
 import com.dandi.ddmarket.user.model.UserPARAM;
 
@@ -26,10 +25,23 @@ public class BoardController {
 	
 	@Autowired
 	private UserService userService;	// 유저 서비스
+	/*
+	 * 
+	 *	 두번째 안되서 테스트 (재용) 
+	 * 
+	 */
 	
 	///이건 테스트 ///////////////////	
 	///이건 테스트 ///////////////////	
 	
+	/*
+	 * 
+	 * 
+	 * 		재용       오전11:46 4명 
+	 * 
+	 */
+	
+		
 	// 판매글 등록
 	@RequestMapping(value="/saleReg", method = RequestMethod.GET)
 	public String saleReg(Model model, HttpSession hs, UserPARAM param,
