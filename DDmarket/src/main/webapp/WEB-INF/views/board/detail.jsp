@@ -16,17 +16,24 @@
             <section id="section-info">
                     <div class="swiper-container">
                         <div class="swiper-wrapper" id="imgSwiper">
+                        	<!-- thumeImage 폴더 안만들어짐 (집에서는 학원에서 테스트해보기) -->
                             <div class="swiper-slide">
-                            	<img src="/res/img/detail_img.jpg">
+                            	<img src="/res/img/board/${data.i_board }/thumImage/${data.thumImage}">
+                            </div>
+                            <div class="swiper-slide">                            	
+                            	<img src="/res/img/board/${data.i_board }/${data.image_1}">
                             </div>
                             <div class="swiper-slide">
-                            	<img src="/res/img/gookpap.jpg">
+                            	<img src="/res/img/board/${data.i_board }/${data.image_2}">
                             </div>
-                            <div class="swiper-slide">img3
+                            <div class="swiper-slide">
+                            	<img src="/res/img/board/${data.i_board }/${data.image_3}">
                             </div>
-                            <div class="swiper-slide">img4
+                            <div class="swiper-slide">
+                            	<img src="/res/img/board/${data.i_board }/${data.image_4}">
                             </div>
-                            <div class="swiper-slide">img5
+                            <div class="swiper-slide">
+                             	<img src="/res/img/board/${data.i_board }/${data.image_5}">
                             </div>
                         </div>
                         <div class="swiper-pagination"></div>
@@ -52,7 +59,13 @@
                             </div>
                         </div>
                         <h3 id="product-title">${data.title}</h3>
-                        <div id="product-price">20,000원</div>
+                        <c:if test="${data.price != 0 }">
+                        	<div id="product-price">${data.price}원</div>
+                        </c:if>
+                        <c:if test="${data.price == 0 }">
+                        	<div id="product-price">무료</div>
+                       	</c:if>
+                        
                         <div id="like">
                         	<span class="iconify" data-inline="false" data-icon="fa:heart" style="color: #aeaeae; font-size: 13px;"></span>
                         		&nbsp;&nbsp;2&nbsp;&nbsp;
@@ -64,12 +77,18 @@
                         	<span class="iconify" data-inline="false" data-icon="el:map-marker" style="color: #6f6a6a; font-size: 16px;"></span>
                         		&nbsp;&nbsp;${data.addr}
                         </div>
-                        <div id="buttonWrap">						
-                           	<button type="submit">
+                        <div id="buttonWrap">
+                        	<c:if test="${loginUser.i_user == data.i_user }">
+                        		<button onclick="moveToUpd(${data.i_board})">수정하기</button>
+                            	<button>삭제하기</button>
+                        	</c:if>
+                        	<c:if test="${loginUser.i_user != data.i_user }">
+                        		<button type="submit">
                  	            <span class="iconify icon-btn-heart" data-inline="false" data-icon="clarity:heart-solid" style="color: #f05454; font-size: 20px;"></span>
-                            		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;찜
-                           	</button>
-                            <button>연락하기</button>
+                            		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;찜
+                           		</button>
+                            	<button>연락하기</button>
+                        	</c:if>				
                         </div>
                     </div>
             </section>
@@ -213,5 +232,10 @@
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="/res/js/detail.js"></script>
+<script>
+	function moveToUpd(i_board) {
+		location.href="/board/saleReg?i_board="+i_board;
+	}
+</script>
 </body>
 </html>

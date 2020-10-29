@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,16 +24,19 @@ public class BoardService {
 	@Autowired
 	private BoardMapper mapper;
 
-	public int insBoard(BoardVO param, MultipartHttpServletRequest mReq) {
+	public int insBoard(BoardVO param, MultipartHttpServletRequest mReq,
+			HttpSession hs) {
 		
-		int i_board = 0;
+		int i_board = 1;
 		int result = 0;
-		try { // 만약 게시글이 없는상태에서는 xml 에러가 뜨니 i_board 값을 0으로 주겠다
+		try { // 만약 게시글이 없는상태에서는 xml 에러가 뜨니 i_board 값을 1으로 주겠다
 			i_board = mapper.maxI_board();
 			
 		} catch(Exception e) {
-			i_board = 0;
+			i_board = 1;
 		}
+		hs.setAttribute("i_board", i_board); // SaleReg.POST DETAIL로 값 보낼떄 등록글을 바로 띄워줄수있게 세션박기
+		
 		
 		// 혹시나 NOT NULL 부분에서 빈값이 넘어올경우 서버에서 조치
 		// 학원가서 Db t_board  price 컬럼값 타입을 varchar로 해서 테스트해보기
@@ -41,7 +45,11 @@ public class BoardService {
 			
 			return result = 2;
 		}
-		
+				
+		/*
+		 * 		10_28 집에서 테스트할때 thumImage 폴더못만듬
+		 * 	테이블 지워서 다시 해보든가 아니면 thumImage 폴더 빼고 일반 폴더랑 같이 묶어버리든가 둘중 하나 하기
+		 */
 		
 		// 단일파일
 		MultipartFile file = mReq.getFile("image");
@@ -102,18 +110,12 @@ public class BoardService {
 		ServletContext ctx = req.getServletContext();
 		
 		int i_user = SecurityUtils.getLoginUserPk(req);
-		
-		
 		String currentReadIp = (String)ctx.getAttribute("current_board_read_ip" + param.getI_board());
 		if(currentReadIp == null || !currentReadIp.equals(myIp)) {
 			param.setI_user(i_user);
 			mapper.updAddHit(param);
 			ctx.setAttribute("current_board_read_ip" + param.getI_board(), myIp);
-			System.out.println(myIp);
 		}
-	}
-	
-	
-	
 		
+	}
 }

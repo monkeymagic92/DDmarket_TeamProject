@@ -62,7 +62,7 @@ Top.addEventListener('click', function(el){
     var headerBottom = document.getElementById("header-bottom");
     var headerCdShrimp = document.getElementById("header-cd-shrimp");
     var threshold = header.offsetHeight;
-    console.log(threshold);
+    
 
     window.addEventListener("scroll", function(){
         if (this.pageYOffset > threshold) {

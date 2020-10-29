@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>판매글 등록</title>
+<title>여기 어떤값 넣어도 DEFAULT_TEMP 로 넘어가서 단디마켓으로 뜸</title>
 <link rel="stylesheet" href="/res/css/saleReg.css">
 <link rel="stylesheet" href="/res/css/animate.css">
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
@@ -33,13 +33,15 @@
                </div>
             </section>
             <h2 class="title">제목</h2>
+            <div>${data.title == null ? '판매글 등록등록등록등록등록' : '판매글 수정수정수정수정수정'}</div>
             <span class="line"></span>
             <section class="goods-title">
                     <div class="div-title">
-                        <input type="text" name="title" placeholder="상품 제목을 입력해 주세요">
+                        <input type="text" name="title" placeholder="상품 제목을 입력해 주세요" value="${data.title }">
                     </div>
             </section>
             <h2 class="title">카테고리</h2>
+            <div>${data.title == null ? '판매글 등록등록등록등록등록' : '판매글 수정수정수정수정수정'}</div>
             <span class="line"></span>
             <section class="category">
                 <div class="category-box">
@@ -68,7 +70,7 @@
             <span class="line"></span>
             <section class="goods-price">
                 <div class="div-price">
-                    <input type="number" name="price" id="priceInput" class="priceInput" required placeholder="가격을 입력 해 주세요">
+                    <input type="number" name="price" id="priceInput" class="priceInput" required placeholder="가격을 입력 해 주세요" value="${data.price }">
                 </div>
                 &nbsp;&nbsp;
                 <div>
@@ -79,7 +81,7 @@
             <span class="line"></span>
             <section class="goods-info">
                 <div class="info-txt">
-                    <textarea name="ctnt" rows="6" id="ctnt" placeholder="상품을 설명 해 주세요"></textarea>
+                    <textarea name="ctnt" rows="6" id="ctnt" placeholder="상품을 설명 해 주세요">${data.ctnt }</textarea>
                 </div>
             </section>
             <div class="div-btn">

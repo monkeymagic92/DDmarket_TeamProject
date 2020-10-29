@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.dandi.ddmarket.CommonUtils;
 import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.ViewRef;
 import com.dandi.ddmarket.board.model.BoardPARAM;
+import com.dandi.ddmarket.board.model.BoardVO;
 import com.dandi.ddmarket.user.UserService;
 import com.dandi.ddmarket.user.model.UserPARAM;
 
@@ -32,7 +32,9 @@ public class BoardController {
 		
 	// 판매글 등록
 	@RequestMapping(value="/saleReg", method = RequestMethod.GET)
-	public String saleReg(Model model, HttpSession hs, UserPARAM param) {
+	public String saleReg(Model model, HttpSession hs, UserPARAM param,
+			HttpServletRequest request, BoardPARAM boardPARAM) {
+		
 		try { // 비로그인 상태로 접근시 로그인페이지로		
 			int i_user = SecurityUtils.getLoginUserPk(hs);
 			param.setI_user(i_user);
@@ -42,9 +44,19 @@ public class BoardController {
 			return ViewRef.ORIGIN_TEMP;
 		}
 		
-		model.addAttribute("categoryList", userService.selCategory());
-		model.addAttribute("view", ViewRef.BOARD_SALEREG);		
-		return ViewRef.DEFAULT_TEMP;
+		try { // 디테일에서 수정버튼 눌렀을때 뜨는 부분 detail.jsp 에서 쿼리스트링으로 i_board값 보냄
+			int i_board = Integer.parseInt(request.getParameter("i_board"));
+			boardPARAM.setI_board(i_board);
+			model.addAttribute("data", service.selBoard(boardPARAM));
+			model.addAttribute("categoryList", userService.selCategory());
+			model.addAttribute("view", ViewRef.BOARD_SALEREG);
+			return ViewRef.DEFAULT_TEMP;
+			
+		} catch(Exception e) { // 글쓰기 눌렀을때 뜨는 부분 (받는값 없이 그냥 글쓰기 페이지 띄움)
+			model.addAttribute("categoryList", userService.selCategory());
+			model.addAttribute("view", ViewRef.BOARD_SALEREG);
+			return ViewRef.DEFAULT_TEMP;
+		}
 	}
 	
 	
@@ -53,9 +65,12 @@ public class BoardController {
 			MultipartHttpServletRequest mReq, RedirectAttributes ra) {
 		try {
 			int result = 0;
-			result = service.insBoard(param, mReq);
+			result = service.insBoard(param, mReq, hs);
 			
 			if(result == 1) {
+				// DETAIL.GET 에서 index/main, mypage, SalaReg 모두다 request.getParameter()로 받게하기위해
+				int i_board = (int)hs.getAttribute("i_board");
+				ra.addAttribute("i_board",i_board);
 				return "redirect:/" + ViewRef.BOARD_DETAIL;
 				
 			} else if(result == 2){
@@ -66,6 +81,7 @@ public class BoardController {
 				ra.addFlashAttribute("ImageFail","사진은 총 5장까지 등록이 가능합니다");
 				return "redirect:/" + ViewRef.BOARD_SALEREG;
 			}
+			
 		} catch(Exception e) {
 			ra.addFlashAttribute("serverErr","서버에러 다시 시도해주세요");
 			return "redirect:/" + ViewRef.BOARD_SALEREG;
@@ -75,12 +91,13 @@ public class BoardController {
 	
 	// 판매글 상세페이지 (detail)
 	@RequestMapping(value="/detail", method = RequestMethod.GET)
-	public String detail(Model model, BoardPARAM param, HttpServletRequest req) {
+	public String detail(Model model, BoardPARAM param, HttpServletRequest req,
+			HttpServletRequest request, HttpSession hs) {
 		
 		service.addHit(param, req);
 		
-		int i_board = CommonUtils.getIntParameter("i_board", req);
-		
+		int i_board = Integer.parseInt(request.getParameter("i_board"));
+		hs.removeAttribute("i_board"); // service.insBoard에서 날라온 세션값
 		param.setI_board(i_board);
 		
 		model.addAttribute("data", service.selBoard(param));
