@@ -27,8 +27,8 @@ public class BoardController {
 	@Autowired
 	private UserService userService;	// 유저 서비스
 	
+	///이건 테스트 ///////////////////	
 	
-		
 	// 판매글 등록
 	@RequestMapping(value="/saleReg", method = RequestMethod.GET)
 	public String saleReg(Model model, HttpSession hs, UserPARAM param,
