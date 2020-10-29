@@ -19,21 +19,14 @@
                         <div class="dropdown">
                             <span class="iconify icon-menu dropbtn" onclick="myFunction2()" data-inline="false" data-icon="mdi-light:menu" style="color: #3b73c8; font-size: 50px;"></span>
                             <div id="myDropdown-shrimp" class="dropdown-content">
-                                    <a href="#">여성의류</a>
-                                    <a href="#">남성의류</a>
-                                    <a href="#">패션잡화</a>
-                                    <a href="#">도서ㅣ티켓</a>
-                                    <a href="#">생활ㅣ가구</a>
-                                    <a href="#">디지털ㅣ가전</a>
-                                    <a href="#">뷰티ㅣ미용</a>
-                                    <a href="#">유아동ㅣ출산</a>
-                                    <a href="#">기타</a>
-                                    <a href="#">무료 나눔</a>
+                                   <c:forEach var="item" items="${cgList}">
+                                   		<a href="/index/search?i_cg=${item.i_cg}">${item.cg_nm}</a>
+                                   </c:forEach>
                             </div>
                         </div>
                     </div>    
                     <a href="/index/main"><img class="logo" src="/res/img/logo.jpg"></a>
-                    <form id="search-wrap" >
+                    <form id="search-wrap" action="/index/detail" method="post" onclick="#">
                         <input type="text" placeholder="상품명, 지역명 검색">
                         <button id="header-search-btn"><span class="iconify icon-search" data-inline="false" data-icon="mdi-light:magnify" style="color: #3b73c8; font-size: 30px;"></span></button>
                     </form>
@@ -47,16 +40,9 @@
                         <div class="dropdown">
                             <span class="iconify icon-menu dropbtn" onclick="myFunction()" data-inline="false" data-icon="mdi-light:menu" style="color: #3b73c8; font-size: 50px;"></span>
                             <div id="myDropdown" class="dropdown-content">
-                                <a href="#">여성의류</a>
-                                <a href="#">남성의류</a>
-                                <a href="#">패션잡화</a>
-                                <a href="#">도서ㅣ티켓</a>
-                                <a href="#">생활ㅣ가구</a>
-                                <a href="#">디지털ㅣ가전</a>
-                                <a href="#">뷰티ㅣ미용</a>
-                                <a href="#">유아동ㅣ출산</a>
-                                <a href="#">기타</a>
-                                <a href="#">무료 나눔</a>
+                                   <c:forEach var="item" items="${cgList}">
+                                   		<a href="/index/search?i_cg=${item.i_cg}">${item.cg_nm}</a>
+                                   </c:forEach>
                             </div>
                         </div>
                     </div>

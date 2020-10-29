@@ -10,7 +10,7 @@
 
 	<!-- main - 인기상품(1.찜 순 2.최신글 순으로 정렬) -->
 	<select id="selHotBoardList" parameterType="BoardPARAM" resultType="BoardVO">
-		SELECT A.i_board, A.image_1, A.title, A.price, A.r_dt as r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr
+		SELECT A.i_board, A.thumImage, A.title, A.price, A.r_dt as r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr
 		FROM t_board A
 		LEFT JOIN (
 			SELECT i_board, COUNT(*) AS likeNum FROM t_board_like
@@ -18,29 +18,32 @@
 		) B
 		ON A.i_board = B.i_board
 		ORDER BY B.likeNum DESC, r_dt DESC
+		LIMIT 12
 	</select>
 
 
 	<!-- main - 추천상품(1.사용자의 지역 기준 2.최신순)  -->
 	<select id="selRecBoardList" parameterType="BoardPARAM" resultType="BoardVO">
-		SELECT A.i_board, A.image_1, A.title, A.price, A.r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr
+		SELECT A.i_board, A.thumImage, A.title, A.price, A.r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr
 		FROM t_board A
 		LEFT JOIN t_user B
 		ON A.i_user = B.i_user
 		WHERE SUBSTRING_INDEX(A.addr," ",2) in (SELECT SUBSTRING_INDEX(B.addr," ",2) FROM t_user WHERE B.i_user = ${i_user})
 		ORDER BY A.r_dt DESC
+		LIMIT 12
 	</select>
 
 	<!-- main - 최신상품(최신순)  -->
 	<select id="selNewBoardList" parameterType="BoardPARAM" resultType="BoardVO">
-		SELECT A.i_board, A.image_1, A.title, A.price, A.r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr
+		SELECT A.i_board, A.thumImage, A.title, A.price, A.r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr
 		FROM t_board A
 		ORDER BY A.r_dt DESC
+		LIMIT 12
 	</select>
 
 	<!-- main - 카테고리별 인기상품(카테고리별, 인기순, 최신순)  -->
 	<select id="selCgBoardList" parameterType="BoardPARAM" resultType="BoardVO">
-		SELECT A.i_board, A.image_1, A.title, A.price, A.r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr, B.likeNum, A.i_cg
+		SELECT A.i_board, A.thumImage, A.title, A.price, A.r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr, B.likeNum, A.i_cg
 		FROM t_board A
 		LEFT JOIN (
 			SELECT i_board, COUNT(*) AS likeNum FROM t_board_like
@@ -49,14 +52,29 @@
 		ON A.i_board = B.i_board
 		WHERE A.i_cg = #{i_cg}
 		ORDER BY B.likeNum DESC, r_dt DESC
+		LIMIT 8
 	</select>
 
 	<!-- main - 무료나눔 (무료, 최신순) -->
 	<select id="selFreeBoardList" parameterType="BoardPARAM" resultType="BoardVO">
-		SELECT A.i_board, A.image_1, A.title, A.price, A.r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr
+		SELECT A.i_board, A.thumImage, A.title, A.price, A.r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr
 		FROM t_board A
 		WHERE A.price = 0
 		ORDER BY A.r_dt DESC
+		LIMIT 12
+	</select>
+	
+	<!-- search - header 카테고리 선택 시 -->
+	<select id="selSearchList" parameterType="BoardPARAM" resultType="BoardVO">
+		SELECT A.i_board, A.thumImage, A.title, A.price, A.r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr
+		FROM t_board A
+		WHERE A.i_cg = #{i_cg}
+		ORDER BY A.i_board DESC
+	</select>
+	
+	<!-- search - header 카레고리 선택시 검색명 -->
+	<select id="selSearchName" parameterType="BoardPARAM" resultType="String">
+		SELECT cg_nm FROM t_category WHERE i_cg = #{i_cg}
 	</select>
 
 

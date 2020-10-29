@@ -30,38 +30,16 @@ main {width: 1030px; margin: 250px auto;}
 
 /* div-wrap-article */
 #div-wrap-article {display: flex; flex-flow: row wrap; margin-bottom: 30px;}
-
-#div-wrap-article .card-wrap {width: 18%; height: 280px; background: #EEEEEE; text-align: center; margin-bottom: 30px; margin-left: 25px;}
-#div-wrap-article .card-wrap:nth-child(5n+1) {margin-left: 0px;}
-#div-wrap-article .card-wrap:nth-child(1) {margin-left: 0px;}
-
-#div-wrap-article .card-wrap a .card-pic {width: 100%;}
+#div-wrap-article .card-wrap {width: 20%; height: 300px; background: #EEEEEE; text-align: center; margin:35px 35px 0px 10px}
+#div-wrap-article .card-wrap a .card-pic {width: 100%; height: 170.44px;}
 #div-wrap-article .card-wrap a .card-pic img {width: 100%; height: 100%;}
-
-#div-wrap-article .card-wrap a .card-desc {margin-top: 20px;}
+#div-wrap-article .card-wrap a .card-desc {margin-top: 10px; display:flex; flex-flow:column wrap; justify-content: center; align-items: center; }
 #div-wrap-article .card-wrap a .card-desc .card-title {font-style: normal; font-weight: normal; font-size: 16px; color: #3B3B3D;}
 #div-wrap-article .card-wrap a .card-desc .card-border {border-bottom: 1px dashed #A5A2A2; width: 67%; display: block; margin: 5px auto;}
-#div-wrap-article .card-wrap a .card-desc .card-price { font-size: 16px; margin-right: 25px; color: #3B3B3D;}
-#div-wrap-article .card-wrap a .card-desc .card-r_dt { font-size: 10px; color: #BAB6B6;}
-
-#div-wrap-article .card-wrap a .card-addr {font-size: 13px; margin-top: 15px; margin-left: 10px; position: relative; color: #3B3B3D;}
+#div-wrap-article .card-wrap a .card-desc div {width:150px;}
+#div-wrap-article .card-wrap a .card-desc div .card-price { font-size: 16px; color: #3B3B3D; margin-right:4px;}
+#div-wrap-article .card-wrap a .card-desc div .card-r_dt { font-size: 10px; color: #BAB6B6; margin-left:4px;}
+#div-wrap-article .card-wrap a .card-addr {font-size: 13px; margin: 5px 0 5px 10px; position: relative; color: #3B3B3D;}
 #div-wrap-article .card-wrap a .card-addr .icon-map {position: absolute; left: 6px; top: -0.5px;}
 
 
-/* div-wrap-parge */
-#div-wrap-page {display: flex; justify-content: center;}
-#div-wrap-page a {
-    width: 35px;
-    height: 35px;
-    display: flex;
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    align-items: center;
-    margin-right: 12px;
-    border: 1px solid #AEAEAE;
-    background: rgb(255, 255, 255);
-    border-radius: 2px;
-    color: #3B73C8;
-    border-radius: 3px;
-}
