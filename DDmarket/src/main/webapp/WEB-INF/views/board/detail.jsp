@@ -17,7 +17,7 @@
             <section id="section-info">
                     <div class="swiper-container">
                         <div class="swiper-wrapper" id="imgSwiper">
-                        	<!-- thumeImage 폴더 안만들어짐 (집에서는 학원에서 테스트해보기) -->
+                        	<!-- thumeImage 폴더 안만들어짐 (집에서는 학원에서 테스트해보기) -->                        	
                             <div class="swiper-slide">
                             	<img src="/res/img/board/${data.i_board }/${data.thumImage}">
                             </div>
@@ -66,7 +66,6 @@
                         <c:if test="${data.price == 0 }">
                         	<div id="product-price">무료</div>
                        	</c:if>
-                        
                         <div id="like">
                         	<span class="iconify" data-inline="false" data-icon="fa:heart" style="color: #aeaeae; font-size: 13px;"></span>
                         		&nbsp;&nbsp;2&nbsp;&nbsp;
@@ -236,7 +235,7 @@
 <script>
 	function moveToUpd(i_board) {
 		location.href="/board/saleReg?i_board="+i_board;
-	}
+	}	
 </script>
 </body>
 </html>
