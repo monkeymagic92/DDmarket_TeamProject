@@ -22,6 +22,10 @@ import com.dandi.ddmarket.user.model.UserPARAM;
 @RequestMapping("/board")
 public class BoardController {
 	
+	/////////
+	
+	//테스트 러ㅑㅐㅇㄴㄹ ㅓㅑㅐㄴ얄 ㅓㅐㅇ
+	
 	@Autowired
 	private BoardService service;		// 보드 서비스
 	
