@@ -37,6 +37,9 @@ public class IndexController {
 		hs.removeAttribute("searchNm");
 		hs.removeAttribute("pSearchNm");
 		
+		// 카테고리 리스트 세션에 저장 (많은 곳에서 쓰이기때문)
+		hs.setAttribute("cgList", service.selCgList(cparam));
+		
 		// 비로그인 - 인기글 목록, 로그인 - 추천글 목록
 		if(SecurityUtils.isLogout(request)) {
 			model.addAttribute("hotBoardList", service.selHotBoardList(param));			
@@ -54,7 +57,6 @@ public class IndexController {
 			model.addAttribute("cList", cList);
 		}
 
-		model.addAttribute("cgList", service.selCgList(cparam));
 		model.addAttribute("newBoardList", service.selNewBoardList(param));
 		model.addAttribute("freeBoardList", service.selFreeBoardList(param));
 		model.addAttribute("view",ViewRef.INDEX_MAIN);
@@ -66,7 +68,7 @@ public class IndexController {
 	public String search(Model model, RedirectAttributes ra, BoardPARAM param, CategoryVO cparam, HttpServletRequest request, HttpSession hs) {
 		
 		// header에 카테고리 불러옴 
-		model.addAttribute("cgList", service.selCgList(cparam));
+//		model.addAttribute("cgList", service.selCgList(cparam));
 		
 		// header에서 카테고리 선택 시 i_cg 값을 받는다.
 		int i_cg = CommonUtils.getIntParameter("i_cg", request);
@@ -84,6 +86,7 @@ public class IndexController {
 		System.out.println("searchType : " + param.getSearchType());
 		System.out.println("searchNm : " + hs.getAttribute("searchNm"));
 		System.out.println("cdSearchNm : " + service.selCdSearchNm(param));
+		
 		model.addAttribute("searchList", service.selSearchList(param));
 		model.addAttribute("view","/index/search");
 		return ViewRef.DEFAULT_TEMP;
