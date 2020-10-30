@@ -15,14 +15,22 @@
         <main>
             <div id="div-wrap-top">
                 <div id="div-search-result">
-                	<span id="span-search-reuslt-text">${cdSearchNm}</span>의 검색결과
+                	<c:if test="${cdSearchNm != null && searchNm == null}">
+                		<span>카테고리:${cdSearchNm}</span>의 검색결과
+                	</c:if>
+                	<c:if test="${searchNm != '' && cdSearchNm == null}">
+	                	<span id="span-search-reuslt-text">${searchNm}</span>의 검색결과
+                	</c:if>
+                	<c:if test="${searchNm == '' && cdSearchNm == null}">
+	                	<span id="span-search-reuslt-text">전체</span>의 검색결과
+                	</c:if>
                 	<span id="span-search-reuslt-number">${fn:length(searchList)}개</span>
                 </div>
                 <div id="div-search-standard">
-                	<a href="#">최신순</a>ㅣ
-                	<a href="#">인기순</a>ㅣ
-                	<a href="#">저가순</a>ㅣ
-                	<a href="#">고가순</a>
+                	<a href="/index/search?searchType=new&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${pSearchNm}">최신순</a>ㅣ
+                	<a href="/index/search?searchType=hot&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${pSearchNm}">인기순</a>ㅣ
+                	<a href="/index/search?searchType=lowPrice&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${pSearchNm}">저가순</a>ㅣ
+                	<a href="/index/search?searchType=highPrice&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${pSearchNm}">고가순</a>
                 </div>
             </div>
             <div id="div-wrap-article">
@@ -36,7 +44,7 @@
                                      <img src="/res/img/lion.jpg">
                                   </c:when>
                                   <c:otherwise>
-                                     <img src="/res/img/${item.i_board}/${item.thumImage}">
+                                     <img src="/res/img/board/${item.i_board}/${item.thumImage}">
                                   </c:otherwise>
                                </c:choose>
                             </div>

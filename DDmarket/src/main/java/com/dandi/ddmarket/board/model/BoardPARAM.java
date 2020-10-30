@@ -7,6 +7,8 @@ public class BoardPARAM extends BoardVO{
 	private int i_cg;
 	private String cg_nm;
 	private String searchNm;
+	private String searchType;
+	
 	
 	public String getSaler_addr() {
 		return saler_addr;
@@ -39,6 +41,13 @@ public class BoardPARAM extends BoardVO{
 	public void setSearchNm(String searchNm) {
 		this.searchNm = searchNm;
 	}
+	public String getSearchType() {
+		return searchType;
+	}
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+	
 	
 	
 }

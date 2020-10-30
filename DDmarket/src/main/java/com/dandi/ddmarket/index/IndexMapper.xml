@@ -66,11 +66,43 @@
 	
 	<!-- search - header 카테고리 선택 시 -->
 	<select id="selSearchList" parameterType="BoardPARAM" resultType="BoardVO">
-		SELECT A.i_board, A.thumImage, A.title, A.price, A.r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr
+		SELECT A.i_board, A.thumImage, A.title, A.price, A.r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr, A.i_cg
 		FROM t_board A
-			WHERE addr LIKE #{searchNm}
-			OR A.title LIKE #{searchNm}
-		ORDER BY A.i_board DESC
+		LEFT JOIN (
+			SELECT i_board, COUNT(*) AS likeNum FROM t_board_like
+			GROUP BY i_board
+		) B
+		ON A.i_board = B.i_board
+		
+		<if test="i_cg > 0 and searchNm == null">
+		WHERE A.i_cg = #{i_cg}
+		</if>
+		<if test="i_cg == 0 and searchNm != null">
+		WHERE (SUBSTRING_INDEX(A.addr," ",3) LIKE #{searchNm}
+		OR A.title LIKE #{searchNm})
+		</if>
+		<if test="i_cg > 0 and searchNm != null">
+		WHERE (SUBSTRING_INDEX(A.addr," ",3) LIKE #{searchNm}
+		OR A.title LIKE #{searchNm})
+		AND A.i_cg = #{i_cg}
+		</if>
+		
+		ORDER BY
+		<if test="searchType == null">
+		A.i_board DESC
+		</if>
+		<if test="searchType == 'new'">
+		A.i_board DESC
+		</if>
+		<if test="searchType == 'hot'">
+		B.likeNum DESC
+		</if>
+		<if test="searchType == 'lowPrice'">
+		A.price ASC
+		</if>
+		<if test="searchType == 'highPrice'">
+		A.price DESC
+		</if>
 	</select>
 	
 	<!-- search - header 카레고리 선택시 검색명 -->
