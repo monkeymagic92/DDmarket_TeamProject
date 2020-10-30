@@ -30,15 +30,21 @@
 						<!-- insert -->				
 	
 	<!-- 판매글 등록하기 -->
-	<insert id="insBoard">
-		insert into t_board(i_user, title, i_cg, post, addr, road, price, ctnt, thumImage, image_1, image_2, image_3, image_4, image_5)
+	<select id="insBoard" resultType="Integer">
+		insert into t_board(i_user, title, i_cg, post, addr, road, price, ctnt)
 		VALUES
-		(${i_user}, '${title}', ${i_cg}, ${post}, '${addr}', '${road}', ${price}, '${ctnt}', '${thumImage}',
-		<foreach collection="imageFileList" item="item" separator=",">
-			'${item.imageFile}'
-		</foreach>
-		)
-	</insert>
+		(${i_user}, '${title}', ${i_cg}, ${post}, '${addr}', '${road}', ${price}, '${ctnt}')
+		RETURNING i_board
+	</select>
+		
+	
+	<!-- 판매글 사진등록 -->
+	<update id="insImages">
+		UPDATE t_board
+		SET thumImage = '${thumImage}',
+		${image_1} = '${imageFile}'
+		WHERE i_board = ${i_board}
+	</update>
 	
 	
 	<!-- 디테일페이지 좋아요 추가 -->
@@ -59,7 +65,22 @@
 		SET hits = hits + 1
 		WHERE i_board = #{i_board}
 	</update>
-				
+	
+	
+	<!-- 
+	판매글 수정 
+	<update id="updSaleReg" parameterType="BoardPARAM">
+		UPDATE t_board
+		SET title = #{title},
+		i_cg = #{i_cg},
+		post = #{post},
+		addr = #{addr},
+		road = #{road},
+		price = #{price},
+		ctnt = #{ctnt}
+		WHERE i_board = #{i_board}
+	</update>
+		 -->		
 				
 				
 				

@@ -20,9 +20,12 @@ public interface BoardMapper {
 	
 	int updAddHit(BoardPARAM param); // 조회수 증가
 	
+	 
 	
 	// update
+	int updSaleReg(BoardPARAM param);
 	
+	int insImages(BoardVO param); // 판매글 사진 등록
 	
 	// delete
 	int saleDel(BoardPARAM param);

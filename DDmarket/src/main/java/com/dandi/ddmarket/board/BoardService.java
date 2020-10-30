@@ -1,6 +1,5 @@
 package com.dandi.ddmarket.board;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,16 +26,120 @@ public class BoardService {
 
 	public int insBoard(BoardVO param, MultipartHttpServletRequest mReq,
 			HttpSession hs) {
-		
-		int i_board = 1;
+				
 		int result = 0;
-		try { // 만약 게시글이 없는상태에서는 xml 에러가 뜨니 i_board 값을 1으로 주겠다
-			i_board = mapper.maxI_board();
+		// 단일파일
+		MultipartFile file = mReq.getFile("image");
+		
+		int i_board = mapper.insBoard(param);
+		
+		hs.setAttribute("i_board", i_board); // SaleReg.POST DETAIL로 값 보낼떄 등록글을 바로 띄워줄수있게 세션박기
+		
+		// 혹시나 NOT NULL 부분에서 빈값이 넘어올경우 서버에서 조치
+		// 학원가서 Db t_board  price 컬럼값 타입을 varchar로 해서 테스트해보기
+		if(param.getTitle().equals("") || param.getI_cg() == 0
+				|| param.getPost().equals("") || param.getCtnt().equals("")) {
+			
+			return result = 2;
+		}		
+		
+		String path = mReq.getServletContext().getRealPath("") + "/resources/img/board/" + i_board + "/";
+		
+		String saveFile = FileUtils.saveFile(path, file);
+		param.setThumImage(saveFile);
+		
+				
+		// 다중파일
+		List<MultipartFile> fileList = mReq.getFiles("images");
+		List<BoardVO> list = new ArrayList();
+					
+		try { // 실제 사진 DB에 값 넣기
+			for (int i = 0; i < fileList.size(); i++) {
+				
+				BoardVO vo = new BoardVO();
+				MultipartFile mf = fileList.get(i);
+
+				String saveFileNm = FileUtils.saveFile(path, mf);
+				
+				System.out.println("saveFileNm: " + saveFileNm);
+				String imge = "Image_" + (i+1);
+				vo.setImage_1(imge);
+				vo.setImageFile(saveFileNm);
+				list.add(vo);
+			}
+			
+			if(list.size()<6) { // 총 사진 갯수 
+				for(int i=list.size(); i<5; i++) {
+					BoardVO vo = new BoardVO();
+					String imge = "Image_" + (i+1);
+					vo.setImage_1(imge);
+					
+					System.out.println("fsdfsd : " + vo.getImage_1());
+					vo.setImageFile("");
+					list.add(vo);
+				}
+			}
+			
+			for(BoardVO vo : list) {
+				vo.setThumImage(saveFile);
+				vo.setI_board(i_board);
+				System.out.println("1 : " + vo.getImage_1());
+				System.out.println("2 : " + vo.getImageFile());
+				result = mapper.insImages(vo);
+			}
+			
+			
+			param.setI_board(i_board);
+			param.setThumImage(saveFile);
+			param.setImageFileList(list);
+			result = mapper.insImages(param);
 			
 		} catch(Exception e) {
-			i_board = 1;
-		}
-		hs.setAttribute("i_board", i_board); // SaleReg.POST DETAIL로 값 보낼떄 등록글을 바로 띄워줄수있게 세션박기
+			e.printStackTrace();
+			result = 3;
+		}	
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 판매글 수정
+	public int updBoard(BoardVO param, MultipartHttpServletRequest mReq){
+		
+		int result = 0;
+		int i_board = mapper.insBoard(param);
+		
 		
 		// 혹시나 NOT NULL 부분에서 빈값이 넘어올경우 서버에서 조치
 		// 학원가서 Db t_board  price 컬럼값 타입을 varchar로 해서 테스트해보기
@@ -54,20 +157,18 @@ public class BoardService {
 				
 		// 다중파일
 		List<MultipartFile> fileList = mReq.getFiles("images");
-		
-			
-
 		List<BoardVO> list = new ArrayList();
 					
 		try { // 실제 사진 DB에 값 넣기
 			for (int i = 0; i < fileList.size(); i++) {
-				
+				String img = "image_" + i;
 				BoardVO vo = new BoardVO();
 				MultipartFile mf = fileList.get(i);
 
 				String saveFileNm = FileUtils.saveFile(path, mf);
 				
 				System.out.println("saveFileNm: " + saveFileNm);
+				vo.setImage_1(img);
 				vo.setImageFile(saveFileNm);
 				list.add(vo);
 			}
@@ -75,20 +176,28 @@ public class BoardService {
 			if(list.size()<6) { // 총 사진 갯수 
 				for(int i=list.size(); i<5; i++) {
 					BoardVO vo = new BoardVO();
-					vo.setImageFile("");
+					
+					String img = "image_" + i;
+					vo.setImage_1(img);
+					vo.setImageFile(null);
 					list.add(vo);
 				}
 			}
 			
+			param.setI_board(i_board);
 			param.setThumImage(saveFile);
 			param.setImageFileList(list);
-			result = mapper.insBoard(param);
+			
+			for(BoardVO vo : list) {
+				System.out.println("1 : " + vo.getImage_1());
+				System.out.println("2 : " + vo.getImageFile());
+				result = mapper.insImages(vo);
+			}
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 			result = 3;
 		}	
-		
 		return result;
 	}
 	
@@ -115,10 +224,9 @@ public class BoardService {
 		}
 	}
 
-		public int saleDel(BoardPARAM param) {
-			
-			return mapper.saleDel(param);
-		}
-
-
+	public int saleDel(BoardPARAM param) {
+		return mapper.saleDel(param);
+	}
+	
+	
 }

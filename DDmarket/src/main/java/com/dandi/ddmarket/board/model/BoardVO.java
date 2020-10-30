@@ -11,12 +11,9 @@ public class BoardVO {
 	private int i_user;
 	private String title;
 	private String ctnt;
-	
 	private String thumImage;
 	private String imageFile;	// 따로 Domain으로 빼기 
-	private List<BoardVO> imageFileList; // 따로 Domain으로 빼기 
-	
-
+	private List<BoardVO> imageFileList; // 따로 Domain으로 빼기
 	private String image_1;
 	private String image_2;
 	private String image_3;
@@ -108,6 +105,9 @@ public class BoardVO {
 	public void setHits(int hits) {
 		this.hits = hits;
 	}
+	
+	
+	
 	public int getPrice() {
 		return price;
 	}

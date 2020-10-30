@@ -62,29 +62,52 @@ public class BoardController {
 	public String saleReg(Model model, BoardPARAM param, HttpSession hs, 
 			MultipartHttpServletRequest mReq, RedirectAttributes ra) {
 		
-		try {
-			int result = 0;
-			result = service.insBoard(param, mReq, hs);
-			
-			if(result == 1) {
-				// DETAIL.GET 에서 index/main, mypage, SalaReg 모두다 request.getParameter()로 받게하기위해
-				int i_board = (int)hs.getAttribute("i_board");
-				ra.addAttribute("i_board",i_board);
-				return "redirect:/" + ViewRef.BOARD_DETAIL;
+		int saleResult = Integer.parseInt(mReq.getParameter("saleResult"));
+		System.out.println("updResult = " + saleResult);
+		if(saleResult == 1) { // 글등록
+			try {
+				int result = 0;
+				result = service.insBoard(param, mReq, hs);
 				
-			} else if(result == 2){
-				ra.addFlashAttribute("ImageFail","입력되지 않은 항목 이 있습니다");
-				return "redirect:/" + ViewRef.BOARD_SALEREG;
+				if(result == 1) {
+					// DETAIL.GET 에서 index/main, mypage, SalaReg 모두다 request.getParameter()로 받게하기위해
+					int i_board = (int)hs.getAttribute("i_board");
+					ra.addAttribute("i_board",i_board);
+					return "redirect:/" + ViewRef.BOARD_DETAIL;
+					
+				} else if(result == 2){
+					ra.addFlashAttribute("ImageFail","입력되지 않은 항목 이 있습니다");
+					return "redirect:/" + ViewRef.BOARD_SALEREG;
+					
+				} else {
+					ra.addFlashAttribute("ImageFail","사진등록 개수를 다시 확인해 주세요");
+					return "redirect:/" + ViewRef.BOARD_SALEREG;
+				}
 				
-			} else {
-				ra.addFlashAttribute("ImageFail","사진은 총 5장까지 등록이 가능합니다");
+			} catch(Exception e) {
+				ra.addFlashAttribute("serverErr","서버에러 다시 시도해주세요");
 				return "redirect:/" + ViewRef.BOARD_SALEREG;
 			}
 			
-		} catch(Exception e) {
-			ra.addFlashAttribute("serverErr","서버에러 다시 시도해주세요");
-			return "redirect:/" + ViewRef.BOARD_SALEREG;
+		} else { // 글 수정
+			System.out.println("글수정임!!");
+			int i_board = Integer.parseInt(mReq.getParameter("i_board"));
+			System.out.println("i_board 값 ; " + i_board);
+			
+			int result = service.updBoard(param, mReq); //////////////////
+			
+			
+			if(result == 1) {
+				ra.addFlashAttribute("updMsg", "판매글이 수정되었습니다");
+				return "redirect:/board/detail?i_board="+i_board;
+				
+			} else {
+				
+				return "/index/errrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr";
+			}
+			
 		}
+		
 	}
 		
 	
@@ -130,7 +153,7 @@ public class BoardController {
 		} else {
 			return "redriect:/board/detail?i_board="+i_board;
 		}
-}
+	}
 	
 	
 	//욕 필터

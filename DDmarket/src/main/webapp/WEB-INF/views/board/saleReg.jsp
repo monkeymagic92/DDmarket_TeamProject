@@ -36,19 +36,19 @@
 	                </label>
 					<input type="file" name="images"  id="mfile" multiple accept="image/png, image/jpeg, image/jpg">
 					<c:if test="${data.image_1 != null}">
-						<c:if test="${data.image_1 != '' }">
+						<c:if test="${data.image_1 != null }">
 							<img src="/res/img/board/${data.i_board }/${data.image_1}" class="selProductFile">	
 						</c:if>
-						<c:if test="${data.image_2 != '' }">
+						<c:if test="${data.image_2 != null }">
 							<img src="/res/img/board/${data.i_board }/${data.image_2}" class="selProductFile">	
 						</c:if>					
-						<c:if test="${data.image_3 != '' }">
+						<c:if test="${data.image_3 != null }">
 							<img src="/res/img/board/${data.i_board }/${data.image_3}" class="selProductFile">	
 						</c:if>
-						<c:if test="${data.image_4 != '' }">
+						<c:if test="${data.image_4 != null }">
 							<img src="/res/img/board/${data.i_board }/${data.image_4}" class="selProductFile">	
 						</c:if>
-						<c:if test="${data.image_5 != '' }">
+						<c:if test="${data.image_5 != null }">
 							<img src="/res/img/board/${data.i_board }/${data.image_5}" class="selProductFile">	
 						</c:if>
 					</c:if>
@@ -108,8 +108,12 @@
             	<!-- 로그인한, 즉 글쓴이의 i_user값을 같이 post로 넘김 -->
                 <input type="hidden" name="i_user" value="${loginUser.i_user }">
                 <%-- 수정 하기위한 updResult 값 --%>
+                <c:if test="${data.i_board == null }">
+                	<input type="hidden" name="saleResult" value="1">
+                </c:if>
                 <c:if test="${data.i_board != null }">
-                	<input type="hidden" name="updResult" value="1"> 
+                	<input type="hidden" name="saleResult" value="2">
+                	<input type="hidden" name="i_board" value="${data.i_board }">  
                 </c:if>
                 <button class="goods-btn" type="submit">${data.i_board == null ? '상품등록' : '상품수정'}</button>
             </div>
@@ -147,12 +151,14 @@ $('#priceChk').click(function() {
 	}
 })
 
+/*
 // 가격 입력시 3자리 단위로 , 찍는 코드
 $(document).on('keyup','input[inputmode=numeric]',function(event){
 	this.value = this.value.replace(/[^0-9]/g,'');   // 입력값이 숫자가 아니면 공백
 	this.value = this.value.replace(/,/g,'');          // ,값 공백처리
 	this.value = this.value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 });
+*/
 
 //관심사 체크, 최대갯수 3개제한 
 function count_ck(obj){

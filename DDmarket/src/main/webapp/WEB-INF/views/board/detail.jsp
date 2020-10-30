@@ -15,82 +15,82 @@
 	<div id="container">
 	    <main>
             <section id="section-info">
-                    <div class="swiper-container">
-                        <div class="swiper-wrapper" id="imgSwiper">
-                        	<!-- thumeImage 폴더 안만들어짐 (집에서는 학원에서 테스트해보기) -->                        	
-                            <div class="swiper-slide">
-                            	<img src="/res/img/board/${data.i_board }/${data.thumImage}">
-                            </div>
-                            <div class="swiper-slide">                            	
-                            	<img src="/res/img/board/${data.i_board }/${data.image_1}">
-                            </div>
-                            <div class="swiper-slide">
-                            	<img src="/res/img/board/${data.i_board }/${data.image_2}">
-                            </div>
-                            <div class="swiper-slide">
-                            	<img src="/res/img/board/${data.i_board }/${data.image_3}">
-                            </div>
-                            <div class="swiper-slide">
-                            	<img src="/res/img/board/${data.i_board }/${data.image_4}">
-                            </div>
-                            <div class="swiper-slide">
-                             	<img src="/res/img/board/${data.i_board }/${data.image_5}">
-                            </div>
+                <div class="swiper-container">
+                    <div class="swiper-wrapper" id="imgSwiper">
+                    	<!-- thumeImage 폴더 안만들어짐 (집에서는 학원에서 테스트해보기) -->                        	
+                        <div class="swiper-slide">
+                        	<img src="/res/img/board/${data.i_board }/${data.thumImage}">
                         </div>
-                        <div class="swiper-pagination"></div>
-                        <div class="swiper-button-prev"></div>
-                        <div class="swiper-button-next"></div>
-                    </div>            
-                    <div id="div-info-right">
-                        <div class="user-info">
-                            <div class="profile-img">
-                            	<c:if test="${loginUser.profile_img == null }">
-                        		<img src="/res/img/yerin.jpg" onchange="setThumbnail(e)" alt="" class="img">
-	                        	</c:if>
-	                        	<c:if test="${loginUser.profile_img != null }">
-	                                <img src="/res/img/profile_img/user/${loginUser.i_user }/${loginUser.profile_img}" class="img">                    	
-	                        	</c:if>
-                            </div>
-                            <div class="profile-desc">
-                                <div class="nick">${data.nick}</div>
-                                <div class="star-ratings-css">
-                                    <div class="star-ratings-css-top" style="width:80%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-                                    <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-                                </div>
-                            </div>
+                        <div class="swiper-slide">                            	
+                        	<img src="/res/img/board/${data.i_board }/${data.image_1}">
                         </div>
-                        <h3 id="product-title">${data.title}</h3>
-                        <c:if test="${data.price != 0 }">
-                        	<div id="product-price">${data.price}원</div>
-                        </c:if>
-                        <c:if test="${data.price == 0 }">
-                        	<div id="product-price">무료</div>
-                       	</c:if>
-                        <div id="like">
-                        	<span class="iconify" data-inline="false" data-icon="fa:heart" style="color: #aeaeae; font-size: 13px;"></span>
-                        		&nbsp;&nbsp;2&nbsp;&nbsp;
-                        	<span class="iconify" data-inline="false" data-icon="carbon:view-filled" style="color: #aeaeae; font-size: 15px;"></span>
-                        		&nbsp;&nbsp;${data.hits}
+                        <div class="swiper-slide">
+                        	<img src="/res/img/board/${data.i_board }/${data.image_2}">
                         </div>
-                        <div id="cd">${data.cg_nm }<span id="r_dt">3시간전</span></div>
-                        <div id="addr">
-                        	<span class="iconify" data-inline="false" data-icon="el:map-marker" style="color: #6f6a6a; font-size: 16px;"></span>
-                        		&nbsp;&nbsp;${data.addr}
+                        <div class="swiper-slide">
+                        	<img src="/res/img/board/${data.i_board }/${data.image_3}">
                         </div>
-                        <div id="buttonWrap">
-                        	<c:if test="${loginUser.i_user == data.i_user }">
-                        		<button onclick="moveToUpd(${data.i_board})">수정하기</button>
-                            	<button onclick="moveToDel(${data.i_board})">삭제하기</button>
-                        	</c:if>
-                        	<c:if test="${loginUser.i_user != data.i_user }">
-                        		<button type="submit">
-                 	            <span class="iconify icon-btn-heart" data-inline="false" data-icon="clarity:heart-solid" style="color: #f05454; font-size: 20px;"></span>
-                            		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;찜
-                           		</button>
-                            	<button>연락하기</button>
-                        	</c:if>				
+                        <div class="swiper-slide">
+                        	<img src="/res/img/board/${data.i_board }/${data.image_4}">
+                        </div>
+                        <div class="swiper-slide">
+                         	<img src="/res/img/board/${data.i_board }/${data.image_5}">
                         </div>
                     </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>            
+                <div id="div-info-right">
+                    <div class="user-info">
+                        <div class="profile-img">
+                        	<c:if test="${loginUser.profile_img == null }">
+                    		<img src="/res/img/yerin.jpg" onchange="setThumbnail(e)" alt="" class="img">
+                     	</c:if>
+                     	<c:if test="${loginUser.profile_img != null }">
+                             <img src="/res/img/profile_img/user/${loginUser.i_user }/${loginUser.profile_img}" class="img">                    	
+                     	</c:if>
+                        </div>
+                        <div class="profile-desc">
+                            <div class="nick">${data.nick}</div>
+                            <div class="star-ratings-css">
+                                <div class="star-ratings-css-top" style="width:80%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                                <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 id="product-title">${data.title}</h3>
+                    <c:if test="${data.price != 0 }">
+                    	<div id="product-price">${data.price}원</div>
+                    </c:if>
+                    <c:if test="${data.price == 0 }">
+                    	<div id="product-price">무료</div>
+                   	</c:if>
+                    <div id="like">
+                    	<span class="iconify" data-inline="false" data-icon="fa:heart" style="color: #aeaeae; font-size: 13px;"></span>
+                    		&nbsp;&nbsp;2&nbsp;&nbsp;
+                    	<span class="iconify" data-inline="false" data-icon="carbon:view-filled" style="color: #aeaeae; font-size: 15px;"></span>
+                    		&nbsp;&nbsp;${data.hits}
+                    </div>
+                    <div id="cd">${data.cg_nm }<span id="r_dt">3시간전</span></div>
+                    <div id="addr">
+                    	<span class="iconify" data-inline="false" data-icon="el:map-marker" style="color: #6f6a6a; font-size: 16px;"></span>
+                    		&nbsp;&nbsp;${data.addr}
+                    </div>
+                    <div id="buttonWrap">
+                    	<c:if test="${loginUser.i_user == data.i_user }">
+                    		<button onclick="moveToUpd(${data.i_board})">수정하기</button>
+                        	<button onclick="moveToDel(${data.i_board})">삭제하기</button>
+                    	</c:if>
+                    	<c:if test="${loginUser.i_user != data.i_user }">
+                    		<button type="submit">
+             	            <span class="iconify icon-btn-heart" data-inline="false" data-icon="clarity:heart-solid" style="color: #f05454; font-size: 20px;"></span>
+                        		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;찜
+                       		</button>
+                        	<button>연락하기</button>
+                    	</c:if>				
+                    </div>
+                </div>
             </section>
             <h2 class="h2-section-title">상품정보</h2>
             <section id="section-desc">
@@ -233,6 +233,10 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="/res/js/detail.js"></script>
 <script>
+
+	if(${updMsg != null}) {
+		alert('${updMsg}');
+	}
 
 	function moveToUpd(i_board) {
 		location.href="/board/saleReg?i_board="+i_board;
