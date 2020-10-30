@@ -49,8 +49,10 @@ if(${loginMsg != null}) {
 	location.href="/user/login";
 }
 
+//게시글이 삭제 되었을 때
 if(${delmsg != null}) {
-	alert('${delMsg}');	
+	alert('${delMsg}');
+	location.href="/index/main";
 }
 
 </script>

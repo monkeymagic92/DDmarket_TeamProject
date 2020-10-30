@@ -147,12 +147,6 @@ $('#priceChk').click(function() {
 	}
 })
 
-// 가격 입력시 3자리 단위로 , 찍는 코드
-$(document).on('keyup','input[inputmode=numeric]',function(event){
-	this.value = this.value.replace(/[^0-9]/g,'');   // 입력값이 숫자가 아니면 공백
-	this.value = this.value.replace(/,/g,'');          // ,값 공백처리
-	this.value = this.value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-});
 
 //관심사 체크, 최대갯수 3개제한 
 function count_ck(obj){
