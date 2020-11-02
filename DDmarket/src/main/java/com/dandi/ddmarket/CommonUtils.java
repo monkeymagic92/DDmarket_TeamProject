@@ -32,5 +32,12 @@ public class CommonUtils {
 		return parseStringToDouble(request.getParameter(key));
 	}
 	
+	public static String[] filter() {
+		String[] filters = {"개새끼", "미친년", "ㄱ ㅐ ㅅ ㅐ ㄲ ㅣ", "씨발년", "병신",
+			"씨발", "시발", "ㅅㅂ", "ㅄ", "좆", "존만아", "존나", "또라이", "니미", "엿"};
+		
+		return filters;
+	}
+	
 	
 }

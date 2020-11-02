@@ -117,46 +117,29 @@
             </section>
             <h2 class="h2-section-title">상품문의</h2>
             <section id="section-comment">
-                <form>
-                    <div id="inputWrap"><textarea placeholder="상품문의를 입력 해 주세요"></textarea></div>
-                    <button>등록</button>
-                </form>
-                <div id="commentWrap">
-                    <div class="comment-profile-img"><img src="/res/img/yerin.jpg"></div>
-                    <div class="comment-profile-desc">
-                        <div class="nick">yerin_back<span class="date">20-10-24 &nbsp; 20:30</span></div>
-                        <div class="comment">인형크기가 인형크기가 어떻게 되나요?인형크기가 어떻게 되나요?인형크기가 어떻게 되나요?인형크기가 어떻게 되나요?인형크기가 어떻게 되나요?인형크기가 어떻게 되나요?어떻게 되나요?</div>
-                        <div class="etc">
-                            <a href="#"><div><span class="iconify icon-cmtReg" data-inline="false" data-icon="bi:arrow-right-square" style="color: #A5A2A2; font-size: 12px;"></span><span>댓글달기</span></div></a>
-                            <a href="#"><div><span><span class="iconify icon-mod" data-inline="false" data-icon="si-glyph:arrow-change" style="color: #a5a2a2; font-size: 12px;"></span>수정하기</span></div></a>
-                            <a href="#"><div><span><span class="iconify icon-del" data-inline="false" data-icon="ant-design:delete-outlined" style="color: #A5A2A2; font-size: 12px;"></span>삭제하기</span></div></a>
-                        </div>
+            
+            	<!-- 댓글 등록 -->
+                <form id="frm" action="/cmt/insert" method="post">
+                    <div id="inputWrap">
+                    	<textarea name="ctnt" placeholder="상품문의를 입력 해 주세요"></textarea>
                     </div>
-                </div>
-                <div id="commentWrap">
-                    <div class="comment-profile-img"><img src="/res/img/yerin.jpg"></div>
-                    <div class="comment-profile-desc">
-                        <div class="nick">yerin_back<span class="date">20-10-24 &nbsp; 20:30</span></div>
-                        <div class="comment">인형크기가 어떻게 되나요?</div>
-                        <div class="etc">
-                            <a href="#"><div><span class="iconify icon-cmtReg" data-inline="false" data-icon="bi:arrow-right-square" style="color: #A5A2A2; font-size: 12px;"></span><span>댓글달기</span></div></a>
-                            <a href="#"><div><span><span class="iconify icon-mod" data-inline="false" data-icon="si-glyph:arrow-change" style="color: #a5a2a2; font-size: 12px;"></span>수정하기</span></div></a>
-                            <a href="#"><div><span><span class="iconify icon-del" data-inline="false" data-icon="ant-design:delete-outlined" style="color: #A5A2A2; font-size: 12px;"></span>삭제하기</span></div></a>
-                        </div>
-                    </div>
-                </div>                
-                <div id="commentWrap">
-                    <div class="comment-profile-img"><img src="/res/img/yerin.jpg"></div>
-                    <div class="comment-profile-desc">
-                        <div class="nick">yerin_back<span class="date">20-10-24 &nbsp; 20:30</span></div>
-                        <div class="comment">인형크기가 어떻게 되나요?</div>
-                        <div class="etc">
-                            <a href="#"><div><span class="iconify icon-cmtReg" data-inline="false" data-icon="bi:arrow-right-square" style="color: #A5A2A2; font-size: 12px;"></span><span>댓글달기</span></div></a>
-                            <a href="#"><div><span><span class="iconify icon-mod" data-inline="false" data-icon="si-glyph:arrow-change" style="color: #a5a2a2; font-size: 12px;"></span>수정하기</span></div></a>
-                            <a href="#"><div><span><span class="iconify icon-del" data-inline="false" data-icon="ant-design:delete-outlined" style="color: #A5A2A2; font-size: 12px;"></span>삭제하기</span></div></a>
-                        </div>
-                    </div>
-                </div>
+                    <button type="button" onclick="insCmt()">등록</button>
+	            </form>
+	            
+                <c:forEach items="${cmtList}" var="item">
+	               	<div id="commentWrap" class="cmtList">
+	                   <div class="comment-profile-img"><img src="/res/img/profile_img/user/${item.i_user }/${item.profile_img}" class="img"></div>
+	                   <div class="comment-profile-desc">
+	                       <div class="nick">${item.nick}<span class="date">20-10-24 &nbsp; 20:30</span></div>
+	                       <div class="comment">${item.ctnt}</div>
+	                       <div class="etc">
+	                           <a href="#"><div><span><span class="iconify icon-mod" data-inline="false" data-icon="si-glyph:arrow-change" style="color: #a5a2a2; font-size: 12px;"></span>수정하기</span></div></a>
+	                           <a href="#"><div><span><span class="iconify icon-del" data-inline="false" data-icon="ant-design:delete-outlined" style="color: #A5A2A2; font-size: 12px;"></span>삭제하기</span></div></a>
+	                       </div>
+	                   </div>
+	               </div>
+               </c:forEach>   
+     
             <div class="pageWrap">
                 <a href="#" class="hidden"><span class="iconify icon-page-left" data-inline="false" data-icon="mdi-light:chevron-double-left" style="color: #3b73c8; font-size: 47px;"></span></a>
                 <a href="#">1</a>
@@ -176,46 +159,7 @@
                     </div>
                     <div class="review-profile-reviewNum">15명의 후기</div>
                 </div>
-                <div id="div-review-right">
-                    <div id="reviewWrap">
-                        <div class="review-right-profile-img"><img src="/res/img/yerin.jpg"></div>
-                        <div class="review-right-profile-desc">
-                            <div class="nick">
-                                <span>yerin_back</span>
-                                <div class="star-ratings-css">
-                                    <div class="star-ratings-css-top" style="width:120%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-                                    <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-                                </div>
-                            </div>
-                            <div class="comment">쿨거래 감사합니다</div>
-                        </div>
-                    </div>
-                    <div id="reviewWrap">
-                        <div class="review-right-profile-img"><img src="/res/img/yerin.jpg"></div>
-                        <div class="review-right-profile-desc">
-                            <div class="nick">
-                                <span>yerin_back</span>
-                                <div class="star-ratings-css">
-                                    <div class="star-ratings-css-top" style="width:120%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-                                    <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-                                </div>
-                            </div>
-                            <div class="comment">쿨거래 감사합니다</div>
-                        </div>
-                    </div>
-                    <div id="reviewWrap">
-                        <div class="review-right-profile-img"><img src="/res/img/yerin.jpg"></div>
-                        <div class="review-right-profile-desc">
-                            <div class="nick">
-                                <span>yerin_back</span>
-                                <div class="star-ratings-css">
-                                    <div class="star-ratings-css-top" style="width:120%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-                                    <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-                                </div>
-                            </div>
-                            <div class="comment">쿨거래 감사합니다</div>
-                        </div>
-                    </div>
+                <div id="div-review-right">                    
                     <div id="reviewWrap">
                         <div class="review-right-profile-img"><img src="/res/img/yerin.jpg"></div>
                         <div class="review-right-profile-desc">
@@ -253,6 +197,10 @@
 <script src="/res/js/detail.js"></script>
 <script>
 
+	if(${updMsg != null}) {
+		alert('${updMsg}')
+	}
+	
 	function moveToUpd(i_board) {
 		location.href="/board/saleReg?i_board="+i_board;
 	}
@@ -261,7 +209,6 @@
 		location.href="/board/saleDel?i_board="+i_board;
 	}
 	
-	console.log(${data.is_tolike});
 	
 	//찜 하기
 	function ToLike(){
@@ -297,6 +244,36 @@
 		})	
     }       
 
+
+
+		
+	// 댓글 등록
+	function insCmt() {
+		const i_user = `${loginUser.i_user}`;
+		const i_board = `${data.i_board}`
+		const ctnt = frm.ctnt.value
+		
+		console.log(ctnt)
+		axios.post('/cmt/insert', {
+			
+			i_user,
+			i_board,
+			ctnt
+			
+		}).then(function(res) {
+			
+			if(res.data == '1') { // 댓글 등록 완료
+				location.reload();
+				frm.ctnt.value = '';
+			
+			} else if(res.data == '2') {
+				alert("댓글을 입력해 주세요");
+				frm.ctnt.value.focus()
+				return false;
+			}
+		})
+	}		
+	
 
 </script>
 </body>

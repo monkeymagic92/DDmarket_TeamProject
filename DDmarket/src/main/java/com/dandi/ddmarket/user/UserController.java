@@ -295,7 +295,6 @@ public class UserController {
 		
 		// service 작업하기
 		
-		
 		model.addAttribute("view",ViewRef.USER_MYPAGE);
 		return "redirect:/" + ViewRef.MENU_TEMP;
 	}
@@ -444,6 +443,7 @@ public class UserController {
 		
 		return "redirect:/" + ViewRef.USER_INFO;
 	}
+
 	
 	@RequestMapping(value="/ajaxToLike", method = RequestMethod.GET)
 	@ResponseBody
@@ -454,5 +454,5 @@ public class UserController {
 		
 		return service.ajaxToLike(param);
 	}
-	
+
 }

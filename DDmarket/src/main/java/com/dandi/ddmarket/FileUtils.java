@@ -42,8 +42,21 @@ public class FileUtils {
 		return UUID.randomUUID() + ext;
 	}
 	
-	
+	// thumFile saveFile 이랑 같은거임 saveFile 쓰면됨
 	public static String saveFile(String path, MultipartFile mf) {
+		if(mf.getOriginalFilename() == "") { return null; }
+		String saveFileNm = getRandomUUID(mf);
+		
+		try {
+			mf.transferTo(new File(path + saveFileNm));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return saveFileNm;
+	}
+	
+	public static String thumFile(String path, MultipartFile mf) {
 		if(mf.isEmpty()) { return null; }
 		String saveFileNm = getRandomUUID(mf);
 		

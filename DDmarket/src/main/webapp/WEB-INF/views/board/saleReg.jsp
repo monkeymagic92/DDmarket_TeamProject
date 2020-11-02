@@ -27,29 +27,28 @@
 					    	<img src="/res/img/board/${data.i_board }/${data.thumImage}" class="img">
 					    </c:if>
 					</label>
-                    <input type="file" name="image"  id="file" accept="image/png, image/jpeg, image/jpg">                  
-            	</div>
-                   
+                    <input type="file" name="image" id="file" accept="image/png, image/jpeg, image/jpg">                  
+            	</div>                   
                 <div class="pics2">
 	                <label for="mfile">
-						<img src="/res/img/이미지등록.jpg"  alt="" class="img2"  id="imgId" >
+						<img src="/res/img/이미지등록.jpg"  alt="" class="img2"  id="imgId">
 	                </label>
 					<input type="file" name="images"  id="mfile" multiple accept="image/png, image/jpeg, image/jpg">
-					<c:if test="${data.image_1 != null}">
+					<c:if test="${data.i_board != null}">
 						<c:if test="${data.image_1 != '' }">
-							<img src="/res/img/board/${data.i_board }/${data.image_1}" class="selProductFile">	
+							<img src="/res/img/board/${data.i_board }/${data.image_1}" class="selProductFile">
 						</c:if>
 						<c:if test="${data.image_2 != '' }">
-							<img src="/res/img/board/${data.i_board }/${data.image_2}" class="selProductFile">	
+							<img src="/res/img/board/${data.i_board }/${data.image_2}" class="selProductFile">
 						</c:if>					
 						<c:if test="${data.image_3 != '' }">
-							<img src="/res/img/board/${data.i_board }/${data.image_3}" class="selProductFile">	
+							<img src="/res/img/board/${data.i_board }/${data.image_3}" class="selProductFile">
 						</c:if>
 						<c:if test="${data.image_4 != '' }">
-							<img src="/res/img/board/${data.i_board }/${data.image_4}" class="selProductFile">	
+							<img src="/res/img/board/${data.i_board }/${data.image_4}" class="selProductFile">
 						</c:if>
 						<c:if test="${data.image_5 != '' }">
-							<img src="/res/img/board/${data.i_board }/${data.image_5}" class="selProductFile">	
+							<img src="/res/img/board/${data.i_board }/${data.image_5}" class="selProductFile">
 						</c:if>
 					</c:if>
                </div>
@@ -75,10 +74,10 @@
             <span class="line"></span>
             <section class="deal-area">
                 <div class="div-area">
-               		<input type="text" id="sample4_postcode" name="post" class="addr_input" value="${data.road }" placeholder="클릭할시 주소검색창이 나타납니다" onclick="sample4_execDaumPostcode()"><br>
+               		<input type="text" id="sample4_postcode" name="post" class="addr_input" value="${data.post }" placeholder="클릭할시 주소검색창이 나타납니다" onclick="sample4_execDaumPostcode()"><br>
 					<input id="addrUnChk" name="addrUnChk" type="hidden" value="unChk">
-					<input type="text" id="sample4_jibunAddress" name="addr" class="addr_input" placeholder="지번주소" onclick="sample4_execDaumPostcode()"><br>
-					<input type="text" id="sample4_roadAddress" name="road" class="addr_input" placeholder="도로명주소" onclick="sample4_execDaumPostcode()">
+					<input type="text" id="sample4_jibunAddress" name="addr" class="addr_input" value="${data.addr }" placeholder="지번주소" onclick="sample4_execDaumPostcode()"><br>
+					<input type="text" id="sample4_roadAddress" name="road" class="addr_input" value="${data.road }" placeholder="도로명주소" onclick="sample4_execDaumPostcode()">
 					<input id="postChk" name="postChk" type="hidden" value="unChk">
 					<span id="guide" style="color:#999;display:none"></span>
 					<input type="hidden" id="sample4_detailAddress" placeholder="상세주소">
@@ -90,7 +89,7 @@
             <span class="line"></span>
             <section class="goods-price">
                 <div class="div-price">
-                    <input type="text" inputmode="numeric" name="price" id="priceInput" class="img" class="priceInput" required placeholder="가격을 입력 해 주세요" value="${data.price }">
+                    <input type="text" name="price" id="priceInput" class="img" class="priceInput" required placeholder="가격을 입력 해 주세요" value="${data.price }">
                 </div>
                 &nbsp;&nbsp;
                 <div>
@@ -106,10 +105,13 @@
             </section>
             <div class="div-btn">
             	<!-- 로그인한, 즉 글쓴이의 i_user값을 같이 post로 넘김 -->
-                <input type="hidden" name="i_user" value="${loginUser.i_user }">
-                <%-- 수정 하기위한 updResult 값 --%>
+                <input type="hidden" name="i_user" value="${loginUser.i_user }">                  
+                <c:if test="${data.i_board == null }">
+                	<input type="hidden" name="saleResult" value="1">
+                </c:if>
                 <c:if test="${data.i_board != null }">
-                	<input type="hidden" name="updResult" value="1"> 
+                	<input type="hidden" name="saleResult" value="2">
+                	<input type="hidden" name="i_board" value="${data.i_board }"> 
                 </c:if>
                 <button class="goods-btn" type="submit">${data.i_board == null ? '상품등록' : '상품수정'}</button>
             </div>
@@ -121,7 +123,6 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
 
 if(${ImageFail != null}) {
@@ -146,13 +147,6 @@ $('#priceChk').click(function() {
 		frm.price.value = null;
 	}
 })
-
-// 가격 입력시 3자리 단위로 , 찍는 코드
-$(document).on('keyup','input[inputmode=numeric]',function(event){
-	this.value = this.value.replace(/[^0-9]/g,'');   // 입력값이 숫자가 아니면 공백
-	this.value = this.value.replace(/,/g,'');          // ,값 공백처리
-	this.value = this.value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-});
 
 //관심사 체크, 최대갯수 3개제한 
 function count_ck(obj){
