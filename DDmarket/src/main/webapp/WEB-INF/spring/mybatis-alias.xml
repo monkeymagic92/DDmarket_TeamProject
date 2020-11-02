@@ -15,5 +15,8 @@
 		<!-- category -->
 		<typeAlias type="com.dandi.ddmarket.category.model.CategoryVO" alias="CategoryVO" />
 		
+		<!-- cmt -->
+		<typeAlias type="com.dandi.ddmarket.cmt.model.CmtVO" alias="CmtVO" />
+		
 	</typeAliases>	
 </configuration>

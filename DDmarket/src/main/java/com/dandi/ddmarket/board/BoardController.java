@@ -58,6 +58,7 @@ public class BoardController {
 	}
 	
 	
+	// 판매글 등록/수정 
 	@RequestMapping(value="/saleReg", method = RequestMethod.POST)
 	public String saleReg(Model model, BoardPARAM param, HttpSession hs, 
 			MultipartHttpServletRequest mReq, RedirectAttributes ra) {
@@ -67,6 +68,16 @@ public class BoardController {
 		if(saleResult == 1) { // 글등록
 			try {
 				int result = 0;
+				// script, 욕 필터링
+				String filterCtnt = swearWordFilter(mReq.getParameter("ctnt"));
+				String filterCtnt2 = scriptFilter(filterCtnt);
+				
+				String filterTitle = swearWordFilter(mReq.getParameter("title"));
+				String filterTitle2 = scriptFilter(filterTitle);
+				
+				param.setCtnt(filterCtnt2);
+				param.setTitle(filterTitle2);
+				
 				result = service.insBoard(param, mReq, hs);
 				
 				if(result == 1) {
@@ -80,7 +91,7 @@ public class BoardController {
 					return "redirect:/" + ViewRef.BOARD_SALEREG;
 					
 				} else {
-					ra.addFlashAttribute("ImageFail","사진등록 개수를 다시 확인해 주세요");
+					ra.addFlashAttribute("ImageFail","사진은 총 5장까지 등록이 가능합니다");
 					return "redirect:/" + ViewRef.BOARD_SALEREG;
 				}
 				
@@ -90,24 +101,31 @@ public class BoardController {
 			}
 			
 		} else { // 글 수정
-			System.out.println("글수정임!!");
+			
 			int i_board = Integer.parseInt(mReq.getParameter("i_board"));
-			System.out.println("i_board 값 ; " + i_board);
+			param.setI_board(i_board);
+			hs.setAttribute("updI_board", i_board);
+			String filterCtnt = swearWordFilter(mReq.getParameter("ctnt"));
+			String filterCtnt2 = scriptFilter(filterCtnt);
 			
-			int result = service.updBoard(param, mReq); //////////////////
+			String filterTitle = swearWordFilter(mReq.getParameter("title"));
+			String filterTitle2 = scriptFilter(filterTitle);
 			
+			param.setCtnt(filterCtnt2);
+			param.setTitle(filterTitle2);
+			
+			
+			int result = service.updBoard(param,mReq,hs);
 			
 			if(result == 1) {
 				ra.addFlashAttribute("updMsg", "판매글이 수정되었습니다");
 				return "redirect:/board/detail?i_board="+i_board;
 				
 			} else {
-				
-				return "/index/errrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr";
+				return "redirect:/board/detail?i_board="+i_board;
 			}
 			
 		}
-		
 	}
 		
 	
@@ -152,13 +170,13 @@ public class BoardController {
 			
 		} else {
 			return "redriect:/board/detail?i_board="+i_board;
-		}
 	}
+}
 	
 	
 	//욕 필터
 	private String swearWordFilter(final String ctnt) {
-		String[] filters = {"개새끼", "미친년", "ㄱ ㅐ ㅅ ㅐ ㄲ ㅣ", "씨발년"};
+		String[] filters = CommonUtils.filter();
 		String result = ctnt;
 		for(int i=0; i<filters.length; i++) {
 			result = result.replace(filters[i], "***");

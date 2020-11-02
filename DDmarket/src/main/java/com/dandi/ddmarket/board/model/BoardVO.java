@@ -11,9 +11,12 @@ public class BoardVO {
 	private int i_user;
 	private String title;
 	private String ctnt;
+	private int seq;	// 사진 포문돌릴 seq
 	private String thumImage;
 	private String imageFile;	// 따로 Domain으로 빼기 
-	private List<BoardVO> imageFileList; // 따로 Domain으로 빼기
+	private List<BoardVO> imageFileList; // 따로 Domain으로 빼기 
+	
+
 	private String image_1;
 	private String image_2;
 	private String image_3;
@@ -31,6 +34,12 @@ public class BoardVO {
 	
 	
 	
+	public int getSeq() {
+		return seq;
+	}
+	public void setSeq(int seq) {
+		this.seq = seq;
+	}
 	public String getThumImage() {
 		return thumImage;
 	}
@@ -105,9 +114,6 @@ public class BoardVO {
 	public void setHits(int hits) {
 		this.hits = hits;
 	}
-	
-	
-	
 	public int getPrice() {
 		return price;
 	}

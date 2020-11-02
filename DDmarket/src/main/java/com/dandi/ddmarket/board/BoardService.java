@@ -23,17 +23,20 @@ public class BoardService {
 
 	@Autowired
 	private BoardMapper mapper;
-
 	public int insBoard(BoardVO param, MultipartHttpServletRequest mReq,
 			HttpSession hs) {
-				
+		
+		int i_board = 1;
 		int result = 0;
-		// 단일파일
-		MultipartFile file = mReq.getFile("image");
-		
-		int i_board = mapper.insBoard(param);
-		
+		try { // 만약 게시글이 없는상태에서는 xml 에러가 뜨니 i_board 값을 1으로 주겠다
+			i_board = mapper.maxI_board();
+			
+		} catch(Exception e) {
+			i_board = 1;
+		}
 		hs.setAttribute("i_board", i_board); // SaleReg.POST DETAIL로 값 보낼떄 등록글을 바로 띄워줄수있게 세션박기
+		
+		System.out.println("아이보드값 : " + i_board);
 		
 		// 혹시나 NOT NULL 부분에서 빈값이 넘어올경우 서버에서 조치
 		// 학원가서 Db t_board  price 컬럼값 타입을 varchar로 해서 테스트해보기
@@ -45,12 +48,15 @@ public class BoardService {
 		
 		String path = mReq.getServletContext().getRealPath("") + "/resources/img/board/" + i_board + "/";
 		
-		String saveFile = FileUtils.saveFile(path, file);
-		param.setThumImage(saveFile);
+		System.out.println("경로 : " + path);
 		
+		// 단일파일
+		MultipartFile file = mReq.getFile("image");
+		String saveFile = FileUtils.thumFile(path, file);
 				
 		// 다중파일
 		List<MultipartFile> fileList = mReq.getFiles("images");
+		
 		List<BoardVO> list = new ArrayList();
 					
 		try { // 실제 사진 DB에 값 넣기
@@ -59,88 +65,62 @@ public class BoardService {
 				BoardVO vo = new BoardVO();
 				MultipartFile mf = fileList.get(i);
 
-				String saveFileNm = FileUtils.saveFile(path, mf);
+				String saveFileNm = FileUtils.thumFile(path, mf);
 				
 				System.out.println("saveFileNm: " + saveFileNm);
-				String imge = "Image_" + (i+1);
-				vo.setImage_1(imge);
 				vo.setImageFile(saveFileNm);
 				list.add(vo);
 			}
 			
 			if(list.size()<6) { // 총 사진 갯수 
 				for(int i=list.size(); i<5; i++) {
+					System.out.println("리스트 사이즈 : " + list.size());
 					BoardVO vo = new BoardVO();
-					String imge = "Image_" + (i+1);
-					vo.setImage_1(imge);
-					
-					System.out.println("fsdfsd : " + vo.getImage_1());
 					vo.setImageFile("");
 					list.add(vo);
 				}
 			}
 			
-			for(BoardVO vo : list) {
-				vo.setThumImage(saveFile);
-				vo.setI_board(i_board);
-				System.out.println("1 : " + vo.getImage_1());
-				System.out.println("2 : " + vo.getImageFile());
-				result = mapper.insImages(vo);
-			}
-			
-			
-			param.setI_board(i_board);
 			param.setThumImage(saveFile);
+			
+			System.out.println("thumImage 이름 : " + param.getThumImage());
+			
 			param.setImageFileList(list);
-			result = mapper.insImages(param);
+			result = mapper.insBoard(param);
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 			result = 3;
 		}	
+		
 		return result;
 	}
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	// 판매글 수정
-	public int updBoard(BoardVO param, MultipartHttpServletRequest mReq){
 		
-		int result = 0;
-		int i_board = mapper.insBoard(param);
+	// 게시글 수정
+	public int updBoard(BoardVO param, MultipartHttpServletRequest mReq,
+			HttpSession hs) {
+		MultipartFile file = mReq.getFile("image");
+		// 다중파일
+		List<MultipartFile> fileList = mReq.getFiles("images");
+		System.out.println("1" + file.getOriginalFilename());
+		System.out.println("2" + fileList.size());
 		
-		
+		String fileChk = null;
+		if(file.getOriginalFilename() == "" && fileList.size() == 0) {
+			int result = mapper.updBoard(param);
+			
+			System.out.println("file :" + file.getOriginalFilename());
+			System.out.println("file사이즈 : " + fileList.size());
+			return result;
+		}
+					
+		System.out.println("이거뜨면 밑에실행된거@@@@@@@@@@@@@@");
+
+		int result = mapper.updBoard(param);
+		int i_board = (int)hs.getAttribute("updI_board");
 		// 혹시나 NOT NULL 부분에서 빈값이 넘어올경우 서버에서 조치
 		// 학원가서 Db t_board  price 컬럼값 타입을 varchar로 해서 테스트해보기
 		if(param.getTitle().equals("") || param.getI_cg() == 0
@@ -150,59 +130,52 @@ public class BoardService {
 		}		
 		
 		String path = mReq.getServletContext().getRealPath("") + "/resources/img/board/" + i_board + "/";
-		
-		// 단일파일
-		MultipartFile file = mReq.getFile("image");
 		String saveFile = FileUtils.saveFile(path, file);
-				
-		// 다중파일
-		List<MultipartFile> fileList = mReq.getFiles("images");
+		// 단일파일
+		
 		List<BoardVO> list = new ArrayList();
 					
 		try { // 실제 사진 DB에 값 넣기
 			for (int i = 0; i < fileList.size(); i++) {
-				String img = "image_" + i;
+				
 				BoardVO vo = new BoardVO();
 				MultipartFile mf = fileList.get(i);
-
+				System.out.println("mf값 :" + mf);
 				String saveFileNm = FileUtils.saveFile(path, mf);
-				
+				fileChk = saveFileNm;
 				System.out.println("saveFileNm: " + saveFileNm);
-				vo.setImage_1(img);
+				
+				vo.setSeq(i+1);
 				vo.setImageFile(saveFileNm);
 				list.add(vo);
 			}
 			
-			if(list.size()<6) { // 총 사진 갯수 
-				for(int i=list.size(); i<5; i++) {
-					BoardVO vo = new BoardVO();
-					
-					String img = "image_" + i;
-					vo.setImage_1(img);
-					vo.setImageFile(null);
-					list.add(vo);
+			if(fileChk != null) {
+				if(list.size()<6) { // 총 사진 갯수 
+					for(int i=list.size(); i<5; i++) {
+						BoardVO vo = new BoardVO();
+						vo.setImageFile("");
+						vo.setSeq(i+1);
+						list.add(vo);
+					}
 				}
 			}
 			
-			param.setI_board(i_board);
-			param.setThumImage(saveFile);
-			param.setImageFileList(list);
-			
 			for(BoardVO vo : list) {
-				System.out.println("1 : " + vo.getImage_1());
-				System.out.println("2 : " + vo.getImageFile());
-				result = mapper.insImages(vo);
+				vo.setI_board(i_board);
+				vo.setThumImage(saveFile);
+				result = mapper.updImage(vo);
 			}
 			
 		} catch(Exception e) {
-			e.printStackTrace();
-			result = 3;
+			result = 1;
 		}	
+		
+		hs.removeAttribute("updI_board");
 		return result;
 	}
-	
 
-		
+	
 	
 	// 판매글 상세페이지 정보 나타내기(detail)
 	public BoardDMI selBoard(BoardPARAM param) {
@@ -224,9 +197,10 @@ public class BoardService {
 		}
 	}
 
-	public int saleDel(BoardPARAM param) {
-		return mapper.saleDel(param);
-	}
-	
-	
+		public int saleDel(BoardPARAM param) {
+			
+			return mapper.saleDel(param);
+		}
+
+
 }

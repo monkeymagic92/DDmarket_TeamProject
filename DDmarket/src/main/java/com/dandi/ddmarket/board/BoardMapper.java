@@ -14,18 +14,17 @@ public interface BoardMapper {
 	
 	BoardDMI selBoard(BoardPARAM param);  // 디테일 목록 뿌리기
 	
-		
+	
 	// insert
 	int insBoard(BoardVO param);	 // 판매글 등록
 	
 	int updAddHit(BoardPARAM param); // 조회수 증가
 	
-	 
 	
 	// update
-	int updSaleReg(BoardPARAM param);
+	int updImage(BoardVO param); // 사진 등록
 	
-	int insImages(BoardVO param); // 판매글 사진 등록
+	int updBoard(BoardVO param); // 판매글 수정
 	
 	// delete
 	int saleDel(BoardPARAM param);
