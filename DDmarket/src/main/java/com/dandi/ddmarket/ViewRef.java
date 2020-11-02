@@ -22,6 +22,7 @@ public class ViewRef {
 	
 	// index 
 	public static final String INDEX_MAIN = "index/main";	 // 단디마켓 메인화면
+	public static final String INDEX_SEARCH = "index/search";	 // 단디마켓 메인화면
 	
 	
 	// board

@@ -70,8 +70,8 @@ public class IndexService {
 		return transferR_dt(mapper.selSearchList(param));
 	}
 	
-	public String selSearchName(BoardPARAM param) {
-		return mapper.selSearchName(param);
+	public String selCdSearchNm(BoardPARAM param) {
+		return mapper.selCdSearchNm(param);
 	}
 
 

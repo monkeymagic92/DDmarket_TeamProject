@@ -124,15 +124,12 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-
 if(${ImageFail != null}) {
    alert('${ImageFail}')
 }
-
 if(${serverErr != null}) {
 	alert('${serverErr}')
 }
-
 // 무료나눔 체크여부에 따라 가격을 0, 또는 직접 입력하게
 $('#priceChk').click(function() {
 	if($("input:checkbox[name=priceChk]").is(":checked") == true) {
@@ -147,7 +144,6 @@ $('#priceChk').click(function() {
 		frm.price.value = null;
 	}
 })
-
 //관심사 체크, 최대갯수 3개제한 
 function count_ck(obj){
    var chkbox = document.getElementsByName("i_cg");
@@ -163,14 +159,11 @@ function count_ck(obj){
       return false;      
    } 
 }
-
-
 $('#sample4_jibunAddress').hide();
 $('#sample4_roadAddress').hide();
 $('#sample4_postcode').click(function() {
    frm.addrUnChk.value = 'chk'
 })
-
 //--------@multiple image preview-----------//
          var sel_files = [];
          
@@ -220,8 +213,6 @@ $('#sample4_postcode').click(function() {
   
           }
         //--------@multiple image preview-----------//
-
-
 // 주소api
 function sample4_execDaumPostcode() {
     new daum.Postcode({
@@ -277,6 +268,5 @@ function sample4_execDaumPostcode() {
         }
     }).open();
 }   
-
 </script>
 </html>

@@ -19,6 +19,6 @@ public interface IndexMapper {
 	List<BoardVO> selFreeBoardList(BoardPARAM param);
 	
 	List<BoardVO> selSearchList(BoardPARAM param);
-	String selSearchName(BoardPARAM param);
+	String selCdSearchNm(BoardPARAM param);
 
 }
