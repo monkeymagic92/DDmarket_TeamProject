@@ -16,7 +16,7 @@
 	
 	
 	<!-- 댓글 갯수 -->
-	<select id="cmtCount" resultType="Integer">
+	<select id="cmtCount" resultType="Integer" parameterType="BoardPARAM">
 		SELECT COUNT(ctnt) FROM t_cmt
 		WHERE i_board = ${i_board}
 	</select>

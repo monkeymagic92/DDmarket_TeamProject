@@ -8,16 +8,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dandi.ddmarket.CommonUtils;
-import com.dandi.ddmarket.Const;
 import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.ViewRef;
 import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.cmt.CmtService;
+import com.dandi.ddmarket.cmt.model.CmtVO;
 import com.dandi.ddmarket.user.UserService;
 import com.dandi.ddmarket.user.model.UserPARAM;
 
@@ -31,7 +30,7 @@ public class BoardController {
 	private UserService userService;	// 유저 서비스
 	
 	@Autowired
-	private CmtService cmtService;
+	private CmtService cmtService;		// 댓글 서비스
 	
 	/*
 	// 댓글 뿌리기
@@ -146,7 +145,7 @@ public class BoardController {
 	
 	// 판매글 상세페이지 (detail)
 	@RequestMapping(value="/detail", method = RequestMethod.GET)
-	public String detail(Model model, BoardPARAM param, HttpServletRequest req,
+	public String detail(Model model, BoardPARAM param, CmtVO vo, HttpServletRequest req,
 			HttpServletRequest request, HttpSession hs) {
 		
 		service.addHit(param, req);
@@ -162,8 +161,7 @@ public class BoardController {
 			param.setI_user(i_user);
 		}
 	
-		model.addAttribute("data", service.selBoard(param));
-
+		model.addAttribute("cmtCount", cmtService.countCmt(param)); // 댓글 갯수
 		model.addAttribute("cmtList", cmtService.selCmt(param));	// 댓글 내용
 		model.addAttribute("data", service.selBoard(param));		// 판매글 내용
 		model.addAttribute("view", "/board/detail");

@@ -14,7 +14,7 @@ public interface CmtMapper {
 	// select
 	List<CmtDMI> selCmt(BoardPARAM param);	// 댓글 나타내기
 	
-	int cmtCount();			// 댓글 갯수
+	int cmtCount(BoardPARAM param);			// 댓글 갯수
 	
 	// insert
 	int insCmt(CmtVO vo);

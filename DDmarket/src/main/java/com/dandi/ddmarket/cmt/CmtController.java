@@ -10,10 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.dandi.ddmarket.ViewRef;
 import com.dandi.ddmarket.cmt.model.CmtVO;
+import com.dandi.ddmarket.user.model.UserPARAM;
 
 @Controller
 @RequestMapping("/cmt")
@@ -56,19 +55,17 @@ public class CmtController {
     @ResponseBody
     private String cmtDelete(@RequestBody CmtVO vo, HttpSession hs){
 		
-		int result = 0; //service 삭제 작업 해주기
+		int result = service.delCmt(vo);
+		UserPARAM param = (UserPARAM)hs.getAttribute("loginUser");
 		
+		if(hs.getAttribute("loginUser") == null) {
+			result = 2;
+			
+		} 
 		return String.valueOf(result);
     }
 	
 	
-	// 총 댓글 갯수
-	@RequestMapping(value="/count", method=RequestMethod.POST) 
-    @ResponseBody
-    private void cmtCount(@RequestBody CmtVO vo, Model model){
-		
-	}
-
 
 }
 

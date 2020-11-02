@@ -115,7 +115,7 @@
             <section id="section-desc">
                 <p>${data.ctnt }</p>
             </section>
-            <h2 class="h2-section-title">상품문의 ( 여기에 댓글수 넣기 )</h2>
+            <h2 class="h2-section-title">상품문의 (${cmtCount })</h2>
             <section id="section-comment">
             
             	<!-- 댓글 등록 -->
@@ -283,6 +283,27 @@
 			}
 		})
 	}	
+	
+	// 댓글 삭제
+	function delCmt(i_cmt) {
+				
+		axios.post('/cmt/delete', {
+			
+			i_cmt
+			
+		}).then(function(res) {
+						
+			if(res.data == '1') { // 댓글 삭제 완료
+				location.reload();
+				
+			} else if(res.data == '2') {
+				alert("잘못된 접근방식 입니다");
+				location.href="/user/login";
+				return false;
+				
+			} 
+		})
+	}
 	
 	
 </script>
