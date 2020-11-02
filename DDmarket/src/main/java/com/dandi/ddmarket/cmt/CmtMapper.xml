@@ -4,13 +4,14 @@
 	
 						<!-- select -->
 	<!-- 댓글 나타내기 -->
-	<select id="selCmt" resultType="CmtVO">
-		SELECT B.profile_img, B.nick, A.ctnt, A.r_dt FROM t_cmt A
+	<select id="selCmt" resultType="CmtDMI" parameterType="BoardPARAM">
+		SELECT B.i_user ,B.profile_img, B.nick, A.ctnt, A.r_dt FROM t_cmt A
 				
 		LEFT JOIN t_user B
 		ON A.i_user = B.i_user
 		
 		WHERE A.i_board = #{i_board}
+		ORDER BY A.r_dt DESC
 	</select>	
 	
 	

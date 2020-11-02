@@ -4,13 +4,15 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.dandi.ddmarket.board.model.BoardPARAM;
+import com.dandi.ddmarket.cmt.model.CmtDMI;
 import com.dandi.ddmarket.cmt.model.CmtVO;
 
 @Mapper
 public interface CmtMapper {
 
 	// select
-	List<CmtVO> selCmt();	// 댓글 나타내기
+	List<CmtDMI> selCmt(BoardPARAM param);	// 댓글 나타내기
 	
 	int cmtCount();			// 댓글 갯수
 	

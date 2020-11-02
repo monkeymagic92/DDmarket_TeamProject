@@ -15,6 +15,7 @@ import com.dandi.ddmarket.CommonUtils;
 import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.ViewRef;
 import com.dandi.ddmarket.board.model.BoardPARAM;
+import com.dandi.ddmarket.cmt.CmtService;
 import com.dandi.ddmarket.user.UserService;
 import com.dandi.ddmarket.user.model.UserPARAM;
 
@@ -27,6 +28,17 @@ public class BoardController {
 	@Autowired
 	private UserService userService;	// 유저 서비스
 	
+	@Autowired
+	private CmtService cmtService;
+	
+	/*
+	// 댓글 뿌리기
+	@RequestMapping(value="/select", produces="application/json; charset=UTF-8") 
+    @ResponseBody
+    private List<CmtVO> cmtSelect(CmtVO vo){
+		return cmtService.selCmt(vo);
+	}
+	*/
 		
 	// 판매글 등록,수정
 	@RequestMapping(value="/saleReg", method = RequestMethod.GET)
@@ -140,15 +152,15 @@ public class BoardController {
 		hs.removeAttribute("i_board"); // service.insBoard에서 날라온 세션값
 		param.setI_board(i_board);
 		
-		model.addAttribute("data", service.selBoard(param));
+		model.addAttribute("cmtList", cmtService.selCmt(param));	// 댓글 내용
+		model.addAttribute("data", service.selBoard(param));		// 판매글 내용
 		model.addAttribute("view", "/board/detail");
 		return ViewRef.DEFAULT_TEMP;
 	}
 	
 	@RequestMapping(value="/detail", method = RequestMethod.POST)
 	public String detail(Model model, BoardPARAM param) {
-		
-	
+			
 		return ViewRef.DEFAULT_TEMP;
 	}
 	

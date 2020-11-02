@@ -17,6 +17,8 @@
 		
 		<!-- cmt -->
 		<typeAlias type="com.dandi.ddmarket.cmt.model.CmtVO" alias="CmtVO" />
+		<typeAlias type="com.dandi.ddmarket.cmt.model.CmtPARAM" alias="CmtPARAM" />
+		<typeAlias type="com.dandi.ddmarket.cmt.model.CmtDMI" alias="CmtDMI" />
 		
 	</typeAliases>	
 </configuration>

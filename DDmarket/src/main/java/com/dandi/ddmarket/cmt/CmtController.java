@@ -1,6 +1,6 @@
 package com.dandi.ddmarket.cmt;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,14 +36,14 @@ public class CmtController {
 		return String.valueOf(result);
     }
 
-	
+	/*
 	// 댓글 뿌리기
-	@RequestMapping("/select") 
+	@RequestMapping(value="/select", produces="application/json; charset=UTF-8") 
     @ResponseBody
     private List<CmtVO> cmtSelect(@RequestBody CmtVO vo, Model model){
 		return service.selCmt(vo);
 	}
-	
+	*/
 	
 	// 댓글 삭제
 	@RequestMapping(value="/delete", method=RequestMethod.POST) 

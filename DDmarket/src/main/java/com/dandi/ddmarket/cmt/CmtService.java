@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dandi.ddmarket.board.model.BoardPARAM;
+import com.dandi.ddmarket.cmt.model.CmtDMI;
 import com.dandi.ddmarket.cmt.model.CmtVO;
 
 @Service
@@ -22,8 +24,8 @@ public class CmtService {
 	
 	
 	// 댓글 뿌리기
-	public List<CmtVO> selCmt(CmtVO vo) {
-		return mapper.selCmt();
+	public List<CmtDMI> selCmt(BoardPARAM param) {
+		return mapper.selCmt(param);
 	}
 	
 	
