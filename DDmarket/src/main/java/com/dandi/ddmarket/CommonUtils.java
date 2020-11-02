@@ -32,6 +32,7 @@ public class CommonUtils {
 		return parseStringToDouble(request.getParameter(key));
 	}
 	
+	//검색값을 공백 기준으로 문자열을 나눠줌
 	public static String[] getSearchNm(String key) {
 		String[] split = key.split(" ");
 		return split;
