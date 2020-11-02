@@ -5,7 +5,7 @@
 						<!-- select -->
 	<!-- 댓글 나타내기 -->
 	<select id="selCmt" resultType="CmtDMI" parameterType="BoardPARAM">
-		SELECT B.i_user ,B.profile_img, B.nick, A.ctnt, A.r_dt FROM t_cmt A
+		SELECT A.i_cmt, B.i_user ,B.profile_img, B.nick, A.ctnt, A.r_dt FROM t_cmt A
 				
 		LEFT JOIN t_user B
 		ON A.i_user = B.i_user
@@ -48,7 +48,7 @@
 	<!-- 댓글 삭제 -->
 	<delete id="delCmt" parameterType="CmtVO">
 		DELETE FROM t_cmt
-		WHERE i_cmt = #{i_cmt};	
+		WHERE i_cmt = #{i_cmt}
 	</delete>
 	
 	

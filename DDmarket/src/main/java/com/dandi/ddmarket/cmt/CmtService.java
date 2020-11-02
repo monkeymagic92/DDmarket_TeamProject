@@ -29,4 +29,10 @@ public class CmtService {
 	}
 	
 	
+	// 댓글 삭제
+	public int delCmt(CmtVO vo) {
+		return mapper.delCmt(vo);
+	}
+	
+	
 }
