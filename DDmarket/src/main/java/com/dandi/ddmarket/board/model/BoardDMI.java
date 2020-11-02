@@ -6,7 +6,21 @@ public class BoardDMI extends BoardVO {
 	private String nick;
 	private String category_nm;
 	private String cg_nm;
-		
+	private int tolike;
+	private int is_tolike;
+	
+	public int getIs_tolike() {
+		return is_tolike;
+	}
+	public void setIs_tolike(int is_tolike) {
+		this.is_tolike = is_tolike;
+	}
+	public int getTolike() {
+		return tolike;
+	}
+	public void setTolike(int tolike) {
+		this.tolike = tolike;
+	}
 	public String getNick() {
 		return nick;
 	}

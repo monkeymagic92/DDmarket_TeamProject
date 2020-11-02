@@ -11,22 +11,33 @@
 
 
 	<!-- 디테일에서 판매글 정보 나타내기 -->
-	<select id="selBoard" resultType="BoardDMI"
-		parameterType="BoardPARAM">
-		SELECT A.i_user, A.i_board, B.nick, A.title, A.post,
-		A.addr, A.road,
-		A.ctnt, A.hits, C.cg_nm, A.price,
-		A.thumImage, A.image_1, A.image_2,
-		A.image_3, A.image_4, A.image_5
-		FROM t_board A
 
+	<select id="selBoard" resultType="BoardDMI" parameterType="BoardPARAM">
+		SELECT A.i_user, A.i_board, B.nick, A.title, A.post, A.addr, A.road,
+	    A.ctnt, A.hits, C.cg_nm, A.price, ifnull(D.cnt, 0) as tolike,
+	    CASE WHEN E.i_board IS NULL THEN 0 ELSE 1 END AS is_tolike,
+		A.thumImage, A.image_1, A.image_2, A.image_3, A.image_4, A.image_5
+		FROM t_board A
+  
 		LEFT JOIN t_user B
 		ON A.i_user = B.i_user
-
+  
+		LEFT JOIN(
+			SELECT i_board, COUNT(i_board) as cnt
+			FROM t_board_like
+			WHERE i_board = #{i_board}
+			GROUP BY i_board
+		)D
+		ON A.i_board = D.i_board
+		
 		LEFT JOIN t_category C
 		ON A.i_cg = C.i_cg
+		
+		LEFT JOIN t_board_like E
+		ON A.i_board = E.i_board
+		AND E.i_user = #{i_user}
+		WHERE A.i_board = #{i_board} 
 
-		WHERE A.i_board = #{i_board}
 	</select>
 
 
@@ -42,9 +53,11 @@
 		</foreach>
 		)
 	</insert>
-
-
-	<!-- 디테일페이지 좋아요 추가 -->
+					
+	
+						<!-- update -->
+	
+  <!-- 디테일페이지 좋아요 추가 -->
 	<insert id="insboardLike">
 		INSERT INTO t_board_like
 		i_user, i_board
@@ -55,6 +68,7 @@
 
 
 	<!-- update -->
+
 
 	<!-- 디테일 조회수 증가 -->
 	<update id="updAddHit" parameterType="BoardPARAM">
@@ -104,5 +118,6 @@
 		DELETE FROM t_board WHERE
 		i_board = #{i_board};
 	</delete>
+
 
 </mapper>

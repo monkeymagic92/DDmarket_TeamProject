@@ -74,6 +74,9 @@ main {width: 1040px; margin: 250px auto;}
     border-radius: 3px;
 }
 
+/* 추가한 css*/
+.unheart { color: #fff; }
+.heart { color: #f00;}
 /* #section-info */
 section {margin-bottom:100px;}
 section:nth-last-child(2) {margin-bottom:0px;}

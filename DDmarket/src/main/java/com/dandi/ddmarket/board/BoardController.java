@@ -8,10 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dandi.ddmarket.CommonUtils;
+import com.dandi.ddmarket.Const;
 import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.ViewRef;
 import com.dandi.ddmarket.board.model.BoardPARAM;
@@ -139,6 +141,7 @@ public class BoardController {
 			
 		}
 	}
+	
 		
 	
 	// 판매글 상세페이지 (detail)
@@ -152,6 +155,15 @@ public class BoardController {
 		hs.removeAttribute("i_board"); // service.insBoard에서 날라온 세션값
 		param.setI_board(i_board);
 		
+
+		if(hs.getAttribute("loginUser") != null) {
+			// 찜목록용 i_user
+			int i_user = SecurityUtils.getLoginUserPk(hs);
+			param.setI_user(i_user);
+		}
+	
+		model.addAttribute("data", service.selBoard(param));
+
 		model.addAttribute("cmtList", cmtService.selCmt(param));	// 댓글 내용
 		model.addAttribute("data", service.selBoard(param));		// 판매글 내용
 		model.addAttribute("view", "/board/detail");
