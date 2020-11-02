@@ -14,7 +14,7 @@ public interface BoardMapper {
 	
 	BoardDMI selBoard(BoardPARAM param);  // 디테일 목록 뿌리기
 	
-		
+	
 	// insert
 	int insBoard(BoardVO param);	 // 판매글 등록
 	
@@ -22,7 +22,9 @@ public interface BoardMapper {
 	
 	
 	// update
+	int updImage(BoardVO param); // 사진 등록
 	
+	int updBoard(BoardVO param); // 판매글 수정
 	
 	// delete
 	int saleDel(BoardPARAM param);
