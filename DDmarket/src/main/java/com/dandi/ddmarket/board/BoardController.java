@@ -8,13 +8,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dandi.ddmarket.CommonUtils;
+import com.dandi.ddmarket.Const;
 import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.ViewRef;
 import com.dandi.ddmarket.board.model.BoardPARAM;
+import com.dandi.ddmarket.cmt.CmtService;
 import com.dandi.ddmarket.user.UserService;
 import com.dandi.ddmarket.user.model.UserPARAM;
 
@@ -27,6 +30,17 @@ public class BoardController {
 	@Autowired
 	private UserService userService;	// 유저 서비스
 	
+	@Autowired
+	private CmtService cmtService;
+	
+	/*
+	// 댓글 뿌리기
+	@RequestMapping(value="/select", produces="application/json; charset=UTF-8") 
+    @ResponseBody
+    private List<CmtVO> cmtSelect(CmtVO vo){
+		return cmtService.selCmt(vo);
+	}
+	*/
 		
 	// 판매글 등록,수정
 	@RequestMapping(value="/saleReg", method = RequestMethod.GET)
@@ -58,34 +72,76 @@ public class BoardController {
 	}
 	
 	
+	// 판매글 등록/수정 
 	@RequestMapping(value="/saleReg", method = RequestMethod.POST)
 	public String saleReg(Model model, BoardPARAM param, HttpSession hs, 
 			MultipartHttpServletRequest mReq, RedirectAttributes ra) {
 		
-		try {
-			int result = 0;
-			result = service.insBoard(param, mReq, hs);
-			
-			if(result == 1) {
-				// DETAIL.GET 에서 index/main, mypage, SalaReg 모두다 request.getParameter()로 받게하기위해
-				int i_board = (int)hs.getAttribute("i_board");
-				ra.addAttribute("i_board",i_board);
-				return "redirect:/" + ViewRef.BOARD_DETAIL;
+		int saleResult = Integer.parseInt(mReq.getParameter("saleResult"));
+		System.out.println("updResult = " + saleResult);
+		if(saleResult == 1) { // 글등록
+			try {
+				int result = 0;
+				// script, 욕 필터링
+				String filterCtnt = swearWordFilter(mReq.getParameter("ctnt"));
+				String filterCtnt2 = scriptFilter(filterCtnt);
 				
-			} else if(result == 2){
-				ra.addFlashAttribute("ImageFail","입력되지 않은 항목 이 있습니다");
-				return "redirect:/" + ViewRef.BOARD_SALEREG;
+				String filterTitle = swearWordFilter(mReq.getParameter("title"));
+				String filterTitle2 = scriptFilter(filterTitle);
 				
-			} else {
-				ra.addFlashAttribute("ImageFail","사진은 총 5장까지 등록이 가능합니다");
+				param.setCtnt(filterCtnt2);
+				param.setTitle(filterTitle2);
+				
+				result = service.insBoard(param, mReq, hs);
+				
+				if(result == 1) {
+					// DETAIL.GET 에서 index/main, mypage, SalaReg 모두다 request.getParameter()로 받게하기위해
+					int i_board = (int)hs.getAttribute("i_board");
+					ra.addAttribute("i_board",i_board);
+					return "redirect:/" + ViewRef.BOARD_DETAIL;
+					
+				} else if(result == 2){
+					ra.addFlashAttribute("ImageFail","입력되지 않은 항목 이 있습니다");
+					return "redirect:/" + ViewRef.BOARD_SALEREG;
+					
+				} else {
+					ra.addFlashAttribute("ImageFail","사진은 총 5장까지 등록이 가능합니다");
+					return "redirect:/" + ViewRef.BOARD_SALEREG;
+				}
+				
+			} catch(Exception e) {
+				ra.addFlashAttribute("serverErr","서버에러 다시 시도해주세요");
 				return "redirect:/" + ViewRef.BOARD_SALEREG;
 			}
 			
-		} catch(Exception e) {
-			ra.addFlashAttribute("serverErr","서버에러 다시 시도해주세요");
-			return "redirect:/" + ViewRef.BOARD_SALEREG;
+		} else { // 글 수정
+			
+			int i_board = Integer.parseInt(mReq.getParameter("i_board"));
+			param.setI_board(i_board);
+			hs.setAttribute("updI_board", i_board);
+			String filterCtnt = swearWordFilter(mReq.getParameter("ctnt"));
+			String filterCtnt2 = scriptFilter(filterCtnt);
+			
+			String filterTitle = swearWordFilter(mReq.getParameter("title"));
+			String filterTitle2 = scriptFilter(filterTitle);
+			
+			param.setCtnt(filterCtnt2);
+			param.setTitle(filterTitle2);
+			
+			
+			int result = service.updBoard(param,mReq,hs);
+			
+			if(result == 1) {
+				ra.addFlashAttribute("updMsg", "판매글이 수정되었습니다");
+				return "redirect:/board/detail?i_board="+i_board;
+				
+			} else {
+				return "redirect:/board/detail?i_board="+i_board;
+			}
+			
 		}
 	}
+	
 		
 	
 	// 판매글 상세페이지 (detail)
@@ -99,15 +155,24 @@ public class BoardController {
 		hs.removeAttribute("i_board"); // service.insBoard에서 날라온 세션값
 		param.setI_board(i_board);
 		
+
+		if(hs.getAttribute("loginUser") != null) {
+			// 찜목록용 i_user
+			int i_user = SecurityUtils.getLoginUserPk(hs);
+			param.setI_user(i_user);
+		}
+	
 		model.addAttribute("data", service.selBoard(param));
+
+		model.addAttribute("cmtList", cmtService.selCmt(param));	// 댓글 내용
+		model.addAttribute("data", service.selBoard(param));		// 판매글 내용
 		model.addAttribute("view", "/board/detail");
 		return ViewRef.DEFAULT_TEMP;
 	}
 	
 	@RequestMapping(value="/detail", method = RequestMethod.POST)
 	public String detail(Model model, BoardPARAM param) {
-		
-	
+			
 		return ViewRef.DEFAULT_TEMP;
 	}
 	
@@ -129,13 +194,13 @@ public class BoardController {
 			
 		} else {
 			return "redriect:/board/detail?i_board="+i_board;
-		}
+	}
 }
 	
 	
 	//욕 필터
 	private String swearWordFilter(final String ctnt) {
-		String[] filters = {"개새끼", "미친년", "ㄱ ㅐ ㅅ ㅐ ㄲ ㅣ", "씨발년"};
+		String[] filters = CommonUtils.filter();
 		String result = ctnt;
 		for(int i=0; i<filters.length; i++) {
 			result = result.replace(filters[i], "***");

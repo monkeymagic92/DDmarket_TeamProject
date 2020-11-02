@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.dandi.ddmarket.Const;
 import com.dandi.ddmarket.FileUtils;
 import com.dandi.ddmarket.SecurityUtils;
+import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.category.model.CategoryVO;
 import com.dandi.ddmarket.user.model.UserDMI;
 import com.dandi.ddmarket.user.model.UserPARAM;
@@ -276,5 +277,15 @@ public class UserService {
 		int result = mapper.changeCategory(param);
 		return result;
 	}
+	
+	public int ajaxToLike(UserPARAM param) {
+		switch(param.getProc()) {
+		case "ins":
+			return mapper.insboardLike(param);
+		case "del":
+			return mapper.delboardLike(param);
+			}
+		return 0;
+		}
 	
 }
