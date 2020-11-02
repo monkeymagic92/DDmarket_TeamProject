@@ -111,10 +111,14 @@
 		WHERE i_user = #{i_user}
 	</update>
 	
-	
-	
-	
-	
+	<!-- 디테일페이지 좋아요 추가 -->
+	<insert id="insboardLike" parameterType="UserPARAM">
+		INSERT INTO t_board_like
+		(i_user, i_board)
+		VALUES
+		(#{i_user}, #{i_board})
+	</insert>
+
 							<!-- delete -->
 	
 	<delete id="delProfile_img" parameterType="UserPARAM">
@@ -122,6 +126,11 @@
 		WHERE profile_img = #{profile_img}
 	</delete>
 		
-	
+	<!-- 디테일페이지 좋아요 제거 -->
+	<delete id="delboardLike" parameterType="UserPARAM">
+		DELETE FROM t_board_like
+		WHERE i_board = #{i_board}
+		AND i_user = #{i_user}
+	</delete>
 	
 </mapper>

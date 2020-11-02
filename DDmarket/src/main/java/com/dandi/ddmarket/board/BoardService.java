@@ -106,19 +106,20 @@ public class BoardService {
 		String myIp = req.getRemoteAddr();
 		ServletContext ctx = req.getServletContext();
 		
-		int i_user = SecurityUtils.getLoginUserPk(req);
+		//int i_user = SecurityUtils.getLoginUserPk(req);
 		String currentReadIp = (String)ctx.getAttribute("current_board_read_ip" + param.getI_board());
 		if(currentReadIp == null || !currentReadIp.equals(myIp)) {
-			param.setI_user(i_user);
+			//param.setI_user(i_user);
 			mapper.updAddHit(param);
 			ctx.setAttribute("current_board_read_ip" + param.getI_board(), myIp);
 		}
+		
 	}
+	
+	
+	public int saleDel(BoardPARAM param) {
 
-		public int saleDel(BoardPARAM param) {
-			
-			return mapper.saleDel(param);
-		}
-
+		return mapper.saleDel(param);
+	}
 
 }

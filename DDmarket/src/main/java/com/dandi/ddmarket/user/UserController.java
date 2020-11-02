@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.dandi.ddmarket.Const;
 import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.ViewRef;
+import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.mail.MailSendService;
 import com.dandi.ddmarket.mail.model.EmailVO;
 import com.dandi.ddmarket.user.model.UserDMI;
@@ -444,5 +445,14 @@ public class UserController {
 		return "redirect:/" + ViewRef.USER_INFO;
 	}
 	
+	@RequestMapping(value="/ajaxToLike", method = RequestMethod.GET)
+	@ResponseBody
+	public int ajaxToLike(UserPARAM param, HttpSession hs) {
+		
+		int i_user = SecurityUtils.getLoginUserPk(hs);
+		param.setI_user(i_user);
+		
+		return service.ajaxToLike(param);
+	}
 	
 }
