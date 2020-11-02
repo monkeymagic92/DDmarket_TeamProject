@@ -37,13 +37,15 @@ public class CommonUtils {
 	public static String[] getSearchNm(String key) {
 		String[] split = key.split(" ");
 		return split;
-
+		
+	}
+	
+	// 욕 필터링
 	public static String[] filter() {
 		String[] filters = {"개새끼", "미친년", "ㄱ ㅐ ㅅ ㅐ ㄲ ㅣ", "씨발년", "병신",
 			"씨발", "시발", "ㅅㅂ", "ㅄ", "좆", "존만아", "존나", "또라이", "니미", "엿"};
 		
 		return filters;
-
 	}
 	
 	
