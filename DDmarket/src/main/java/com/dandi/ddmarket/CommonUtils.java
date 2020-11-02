@@ -49,6 +49,7 @@ public class CommonUtils {
 	}
 	
 	// 마스터 올리고 재용 받기
+	// 브런치 테스트 2 LJY로 잘 올라가는지 ?
 	
 	
 }
