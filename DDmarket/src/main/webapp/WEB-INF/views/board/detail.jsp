@@ -105,19 +105,28 @@
                     	<textarea name="ctnt" placeholder="상품문의를 입력 해 주세요"></textarea>
                     </div>
                     <button type="button" onclick="insCmt()">등록</button>
-                </form>
+	            </form>
+	            
                 
-                <div id="commentWrap">
-                    <div class="comment-profile-img"><img src="/res/img/yerin.jpg"></div>
-                    <div class="comment-profile-desc">
-                        <div class="nick">yerin_back<span class="date">20-10-24 &nbsp; 20:30</span></div>
-                        <div class="comment">인형 크기 어떻게 되나요?</div>
-                        <div class="etc">
-                            <a href="#"><div><span><span class="iconify icon-mod" data-inline="false" data-icon="si-glyph:arrow-change" style="color: #a5a2a2; font-size: 12px;"></span>수정하기</span></div></a>
-                            <a href="#"><div><span><span class="iconify icon-del" data-inline="false" data-icon="ant-design:delete-outlined" style="color: #A5A2A2; font-size: 12px;"></span>삭제하기</span></div></a>
-                        </div>
-                    </div>
-                </div>                
+                <div class="test">
+                	<div id="test"></div>
+               	</div>
+              
+                <!-- 
+               	<div id="commentWrap" class="cmtList">
+                   <div class="comment-profile-img"><img src="/res/img/yerin.jpg"></div>
+                   <div class="comment-profile-desc">
+                       <div class="nick">${cmtList.nick }<span class="date">20-10-24 &nbsp; 20:30</span></div>
+                       <div class="comment">${cmtList.ctnt}</div>
+                       <div class="etc">
+                           <a href="#"><div><span><span class="iconify icon-mod" data-inline="false" data-icon="si-glyph:arrow-change" style="color: #a5a2a2; font-size: 12px;"></span>수정하기</span></div></a>
+                           <a href="#"><div><span><span class="iconify icon-del" data-inline="false" data-icon="ant-design:delete-outlined" style="color: #A5A2A2; font-size: 12px;"></span>삭제하기</span></div></a>
+                       </div>
+                   </div>
+               </div>    
+                -->
+                
+                            
             <div class="pageWrap">
                 <a href="#" class="hidden"><span class="iconify icon-page-left" data-inline="false" data-icon="mdi-light:chevron-double-left" style="color: #3b73c8; font-size: 47px;"></span></a>
                 <a href="#">1</a>
@@ -188,6 +197,33 @@
 	}
 	
 	
+	function selCmt() {		 
+		axios.get('/cmt/select', {
+			params: {
+				i_board:`${data.i_board}` 
+			}
+		
+		}).then(function(res) {
+			cmtList = res.data
+			const divCmtList = document.createElement('div');
+			divCmtList.setAttribute('class', 'cmtList');
+			cmtTable()
+		})
+	}
+	
+	function cmtTable() {
+		const divClass = document.createElement('div');
+		const divId = document.createElement('div');
+		divClass.setAttribute('class', 'test');
+		divId.setAttribute('id', 'test');
+		divId.append('하하')
+		
+	}
+	
+	cmtTable();
+	
+	
+	// 댓글 등록
 	function insCmt() {
 		const i_user = `${loginUser.i_user}`;
 		const i_board = `${data.i_board}`
@@ -204,6 +240,7 @@
 			
 			if(res.data == '1') { // 댓글 등록 완료
 				frm.ctnt.value = '';
+				selCmt()
 			
 			} else if(res.data == '2') {
 				alert("댓글을 입력해 주세요");
@@ -212,15 +249,7 @@
 			}
 		})
 	}		
-	
-	
-	
 		
-	
-	
-	
-
-	
 
 </script>
 </body>
