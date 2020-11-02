@@ -74,19 +74,25 @@
 		) B
 		ON A.i_board = B.i_board
 		
-		<if test="i_cg > 0 and searchNm == null">
+		<if test="i_cg > 0 and searchNm_1 == null">
 		WHERE A.i_cg = #{i_cg}
 		</if>
-		<if test="i_cg == 0 and searchNm != null">
-		WHERE (SUBSTRING_INDEX(A.addr," ",3) LIKE #{searchNm}
-		OR A.title LIKE #{searchNm})
+		<if test="i_cg == 0 and searchNm_1 != null and searchNm_2 != null">
+		WHERE (SUBSTRING_INDEX(A.addr," ",3) LIKE #{searchNm_1} OR A.title LIKE #{searchNm_1})
+		AND (SUBSTRING_INDEX(A.addr," ",3) LIKE #{searchNm_2} OR A.title LIKE #{searchNm_2})
 		</if>
-		<if test="i_cg > 0 and searchNm != null">
-		WHERE (SUBSTRING_INDEX(A.addr," ",3) LIKE #{searchNm}
-		OR A.title LIKE #{searchNm})
+		<if test="i_cg > 0 and searchNm_1 != null and searchNm_2 != null">
+		WHERE (SUBSTRING_INDEX(A.addr," ",3) LIKE #{searchNm_1} OR A.title LIKE #{searchNm_1})
+		AND (SUBSTRING_INDEX(A.addr," ",3) LIKE #{searchNm_2} OR A.title LIKE #{searchNm_2})
 		AND A.i_cg = #{i_cg}
 		</if>
-		
+		<if test="i_cg == 0 and searchNm_1 != null and searchNm_2 == null">
+		WHERE (SUBSTRING_INDEX(A.addr," ",3) LIKE #{searchNm_1} OR A.title LIKE #{searchNm_1})
+		</if>
+		<if test="i_cg > 0 and searchNm_1 != null and searchNm_2 == null">
+		WHERE (SUBSTRING_INDEX(A.addr," ",3) LIKE #{searchNm_1} OR A.title LIKE #{searchNm_1})
+		AND A.i_cg = #{i_cg}
+		</if>
 		ORDER BY
 		<if test="searchType == null">
 		A.i_board DESC

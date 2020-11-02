@@ -67,7 +67,6 @@ public class IndexService {
 	
 
 	public List<BoardVO> selSearchList(BoardPARAM param) {
-		System.out.println(param.getSearchNm());
 		return transferR_dt(mapper.selSearchList(param));
 	}
 	

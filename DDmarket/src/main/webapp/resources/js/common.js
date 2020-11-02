@@ -78,3 +78,31 @@ Top.addEventListener('click', function(el){
             headerCdShrimp.style.display = 'none';
         }
     });
+
+//검색창
+function chkSearch() {
+	
+	// 글자수 20개로 제한
+	if(document.getElementById("header-search-text").value.length > 20) {
+		alert('글자수 20넘음!!');
+		document.getElementById("header-search-text").value = '';
+		return false;
+	}
+	
+	// 검색값을 받아와서 공백 갯수를 1개로 제한함!
+	let searchNm = document.getElementById("header-search-text").value;
+	let temp = searchNm;
+	let result = temp.match(/ /g);
+	if(result.length > 1) {
+		alert('공백 2개 이상임!!')
+		return false;
+	}
+}
+
+
+	
+
+
+
+
+

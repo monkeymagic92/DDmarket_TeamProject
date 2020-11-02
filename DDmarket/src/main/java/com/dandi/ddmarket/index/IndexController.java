@@ -35,7 +35,8 @@ public class IndexController {
 		
 		// header 검색값 세션에서  제거
 		hs.removeAttribute("searchNm");
-		hs.removeAttribute("pSearchNm");
+		hs.removeAttribute("pSearch_1");
+		hs.removeAttribute("pSearch_2");
 		
 		// 카테고리 리스트 세션에 저장 (많은 곳에서 쓰이기때문)
 		hs.setAttribute("cgList", service.selCgList(cparam));
@@ -68,7 +69,8 @@ public class IndexController {
 	public String search(Model model, RedirectAttributes ra, BoardPARAM param, CategoryVO cparam, HttpServletRequest request, HttpSession hs) {
 		
 		// header에 카테고리 불러옴 
-//		model.addAttribute("cgList", service.selCgList(cparam));
+		//model.addAttribute("cgList", service.selCgList(cparam));
+	
 		
 		// header에서 카테고리 선택 시 i_cg 값을 받는다.
 		int i_cg = CommonUtils.getIntParameter("i_cg", request);
@@ -77,11 +79,14 @@ public class IndexController {
 		model.addAttribute("cdSearchNm", service.selCdSearchNm(param));
 		
 		//post에서 검색값을 받아온 후 param에 넣어줌
-		String pSearchNm = (String) hs.getAttribute("pSearchNm");
-		param.setSearchNm(pSearchNm);
+		String pSearch_1 = (String) hs.getAttribute("pSearch_1");
+		String pSearch_2 = (String) hs.getAttribute("pSearch_2");
+		param.setSearchNm_1(pSearch_1);
+		param.setSearchNm_2(pSearch_2);
+		System.out.println("pSearch_1:" + pSearch_1);
+		System.out.println("pSearch_2:" + pSearch_2);
 		
 		//테스트
-		System.out.println("pSearchNm : " + param.getSearchNm());
 		System.out.println("i_cg : " + param.getI_cg());
 		System.out.println("searchType : " + param.getSearchType());
 		System.out.println("searchNm : " + hs.getAttribute("searchNm"));
@@ -98,9 +103,26 @@ public class IndexController {
 		//검색값을 받아 searchNm세션에 저장 - 검색어 유지용
 		hs.setAttribute("searchNm", request.getParameter("searchNm"));
 		
-		// 검색값을 받아 SQL문 찾기용 으로 바꿔준 후 세션에 저장
-		String pSearchNm = "%" + request.getParameter("searchNm") + "%";
-		hs.setAttribute("pSearchNm", pSearchNm);
+		// 기존에 있었던 검색어 세션에서 제거
+		hs.removeAttribute("pSearch_1");
+		hs.removeAttribute("pSearch_2");
+		
+		
+		if(request.getParameter("searchNm").contains(" ")) {
+			String[] strArr = CommonUtils.getSearchNm(request.getParameter("searchNm"));
+			String pSearch_1 = "%" + strArr[0] + "%";
+			hs.setAttribute("pSearch_1", pSearch_1);
+			String pSearch_2 = "%" + strArr[1] + "%";		
+			hs.setAttribute("pSearch_2", pSearch_2);
+			System.out.println("strArr : " + strArr[0] + "/" + strArr[1]);
+			System.out.println("공백 포함");
+		} else {
+			System.out.println("공백 미포함");
+			// 검색값을 받아 SQL문 찾기용 으로 바꿔준 후 세션에 저장
+			String pSearch_1 = "%" + request.getParameter("searchNm") + "%";
+			hs.setAttribute("pSearch_1", pSearch_1);
+		}
+		
 				
 		return "redirect:/" + ViewRef.INDEX_SEARCH;
 	}

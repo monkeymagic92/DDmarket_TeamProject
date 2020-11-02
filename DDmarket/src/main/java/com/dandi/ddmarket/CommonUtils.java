@@ -32,5 +32,10 @@ public class CommonUtils {
 		return parseStringToDouble(request.getParameter(key));
 	}
 	
+	public static String[] getSearchNm(String key) {
+		String[] split = key.split(" ");
+		return split;
+	}
+	
 	
 }

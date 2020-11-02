@@ -13,27 +13,17 @@
 <body>
 	<div id="container">
         <main>
-            <div>
-            	<c:forEach var="item" items="${cgList}">
-             		<a href="/index/search?i_cg=${item.i_cg}">${item.cg_nm}</a>
-             	</c:forEach>
-        	</div>
             <div id="div-wrap-top">
                 <div id="div-search-result">
-                	<c:if test="${searchNm == null && cdSearchNm != null}">
+                	<c:if test="${cdSearchNm != null && searchNm == null}">
                 		<span>카테고리:${cdSearchNm}</span>의 검색결과
                 	</c:if>
                 	<c:if test="${searchNm != '' && cdSearchNm == null}">
 	                	<span id="span-search-reuslt-text">${searchNm}</span>의 검색결과
                 	</c:if>
-                	<c:if test="${searchNm != '' && cdSearchNm != null && searchNm != null}">
-	                	<span>카테고리:${cdSearchNm}</span>
-	                	<span id="span-search-reuslt-text">${searchNm}</span>의 검색결과
-                	</c:if>
                 	<c:if test="${searchNm == '' && cdSearchNm == null}">
 	                	<span id="span-search-reuslt-text">전체</span>의 검색결과
                 	</c:if>
-                	
                 	<span id="span-search-reuslt-number">${fn:length(searchList)}개</span>
                 </div>
                 <div id="div-search-standard">
