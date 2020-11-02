@@ -41,4 +41,8 @@ public class CmtService {
 	}
 	
 	
+	// 댓글 수정
+	public int updCmt(CmtVO vo) {
+		return mapper.updCmt(vo);
+	}
 }

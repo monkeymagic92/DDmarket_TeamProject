@@ -65,6 +65,15 @@ public class CmtController {
 		return String.valueOf(result);
     }
 	
+	// 댓글 수정
+	@RequestMapping(value="/update", method=RequestMethod.POST) 
+    @ResponseBody
+    private String cmtUpdate(@RequestBody CmtVO vo){
+		
+		int result = service.updCmt(vo);		
+		return String.valueOf(result);
+	}
+	
 	
 
 }
