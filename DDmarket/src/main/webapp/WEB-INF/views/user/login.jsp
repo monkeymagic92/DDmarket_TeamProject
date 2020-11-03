@@ -13,9 +13,13 @@
             <div class="div-logo"><a href="/index/main"><img class="logo" src="/res/img/logo.jpg"></a></div>
             <form id="frm" action="/user/login" class="div-input" method="post">
             	<!--     확인 다되면 위에 주석풀고 밑에 아디 비번 value값 지우기  -->
-            	<input type="text" name="user_id" value="${user_id }" placeholder="아이디">
+            	<!--  <input type="text" name="user_id" value="${user_id }" placeholder="아이디">
                 <input type="password" name="user_pw" placeholder="비밀번호">
+                -->
+                <input type="text" name="user_id" value="test321" placeholder="아이디">
+                <input type="password" name="user_pw" value="tkfkd121!@!" placeholder="비밀번호">
                 <button type="submit">로그인</button>
+                
             </form>
             <div class="div-api">
                 <div><a href="#"><img src="/res/img/login_naver.png"></a></div>
