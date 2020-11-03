@@ -29,6 +29,7 @@ public class BoardService {
 		int i_board = 1;
 		int result = 0;
 		try { // 만약 게시글이 없는상태에서는 xml 에러가 뜨니 i_board 값을 1으로 주겠다
+			
 			i_board = mapper.maxI_board();
 			
 		} catch(Exception e) {
@@ -201,7 +202,6 @@ public class BoardService {
 	
 	public int saleDel(BoardPARAM param) {
 
-		return mapper.saleDel(param);
-	}
-
+			return mapper.saleDel(param);
+		}
 }

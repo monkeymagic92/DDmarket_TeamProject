@@ -19,11 +19,11 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 700px;            
-    height: 450px; }
+    width: 600px;            
+    height: 400px; }
 
 .div-logo { 
-    margin: -30px 30px 40px 0; 
+    margin: -30px 0px 20px 20px; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,8 +31,9 @@
 
 .div-logo img {
     object-fit: cover;
-    width: 80%;
-    height: 80%;
+    margin-right: 20px;
+    width:70%;
+    height: 100%;
     border: none;
     display: flex;
     justify-content: center;
@@ -47,21 +48,22 @@
 
 .div-info .txt-top {
     width: 70%;
-    margin-bottom: 6px;
+    margin: 10px 0px 8px 21px;
     display: flex;
     display: inline-flex;
     align-items: center;
     justify-content: center flex-start;
-    font-size: 16px;
+    font-size: 15px;
     color: #6F6A6A; }
 
 .div-info .txt-bottom {
     width: 70%;
+    margin: 0px 0px 30px 21px;
     display: flex;
     display: inline-flex;
     align-items: center;
     justify-content: flex-start;
-    font-size: 16px;
+    font-size: 15px;
     color: #6F6A6A; }
 
 .modal-body {
@@ -73,24 +75,25 @@
 
 .modal-body input[type="text"] {
     outline: none;
+    margin-bottom:-50px;
     margin-right: 13px;            
     border: 0;
     padding: 0 10px 0 15px;
     border: 1px solid #C4C4C4;
     border-radius: 3px;
-    width: 350px;
-    height: 35px; }
+    width: 280px;
+    height: 30px; }
 
 .codebtn {
-    margin: 0 0 0 18px;
+    margin: 0px;
     border: none;
     text-align: center;
     cursor: pointer;
     line-height: 1;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
-    height: 35px; 
-    width: 70px;
+    height: 32px; 
+    width: 65px;
     border-radius: 3px;
     background: #3B73C8; color: snow; }
 
@@ -104,11 +107,11 @@
     line-height: 1;
     text-align: center;
     cursor: pointer;
-    font-size: 18px;
-    margin: 80px 10px 10px 10px;
+    font-size: 14px;
+    margin: 90px 10px 10px 10px;
     font-weight: bold;
-    height: 35px; 
-    width: 100px;
+    height: 33px; 
+    width: 80px;
     border-radius: 3px;
     background: #3B73C8; color: snow; }
 

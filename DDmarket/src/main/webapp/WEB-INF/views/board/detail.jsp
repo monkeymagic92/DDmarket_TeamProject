@@ -94,7 +94,7 @@
                         <div id="buttonWrap">
                         	<c:if test="${loginUser.i_user == data.i_user }">
                         		<button onclick="moveToUpd(${data.i_board})">수정하기</button>
-                            	<button onclick="moveToDel(${data.i_board})">삭제하기</button>
+                            	<button onclick="moveToDel()">삭제하기</button>
                         	</c:if>
                         	<c:if test="${loginUser.i_user != data.i_user }">
                         		<button type="button" onclick="ToLike()">
@@ -205,11 +205,14 @@
 		location.href="/board/saleReg?i_board="+i_board;
 	}
 	
-	function moveToDel(i_board) {
-		location.href="/board/saleDel?i_board="+i_board;
+	function moveToDel() {
+		if(confirm("삭제하시겠습니까?")) {
+			location.href='/board/saleDel?i_board=${data.i_board}';		
+		}
 	}
 	
 	
+
 	//찜 하기
 	function ToLike(){
 		
@@ -274,6 +277,7 @@
 		})
 	}		
 	
+
 
 </script>
 </body>
