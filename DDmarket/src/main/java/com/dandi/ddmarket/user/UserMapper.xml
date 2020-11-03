@@ -43,8 +43,6 @@
 		SELECT i_cg, cg_nm FROM t_category
 	</select>
 	
-	
-
 							<!-- insert -->
 						 
 	<!-- 회원가입 -->

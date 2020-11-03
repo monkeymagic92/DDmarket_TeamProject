@@ -231,7 +231,7 @@
                                                     <img src="/res/img/lion.jpg">
                                                  </c:when>
                                                  <c:otherwise>
-                                                    <img src="/res/img/${item.i_board}/${item.thumImage}">
+                                                    <img src="/res/img/board/${item.i_board}/${item.thumImage}">
                                                  </c:otherwise>
                                               </c:choose>
                                            </div>

@@ -19,7 +19,6 @@
 </style>
 <body>
 	<div class="backContainer">
-		<img class="logo" src="/res/img/logo.jpg">
 		<main>
 			<c:if test="${view != null }">
 		    	<section>

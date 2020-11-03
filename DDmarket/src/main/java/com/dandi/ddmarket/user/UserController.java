@@ -2,8 +2,8 @@ package com.dandi.ddmarket.user;
 
 
 import java.io.File; // 여기부분 에러뜨면 빌드패스 자바jre 확인   ( 체크했을시 다시 임포트 파일 해주면 됨 )
-import javax.servlet.http.HttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.dandi.ddmarket.Const;
 import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.ViewRef;
+import com.dandi.ddmarket.board.BoardService;
 import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.mail.MailSendService;
 import com.dandi.ddmarket.mail.model.EmailVO;
@@ -37,6 +38,9 @@ public class UserController {
 	
 	@Autowired
 	private MailSendService mss;  // 이메일
+	
+	@Autowired
+	private BoardService boardService;
 	
 			
 	/*
@@ -298,26 +302,7 @@ public class UserController {
 		model.addAttribute("view",ViewRef.USER_MYPAGE);
 		return "redirect:/" + ViewRef.MENU_TEMP;
 	}
-	
-	
-	
-	// 찜목록 리스트
-	@RequestMapping(value="/likeList", method = RequestMethod.GET)
-	public String likeList(Model model) {
-		model.addAttribute("view",ViewRef.USER_LIKELIST);
-		return ViewRef.DEFAULT_TEMP;
-	}
-	
-	@RequestMapping(value="/likeList", method = RequestMethod.POST)
-	public String likeList(Model model, UserPARAM param) {
 		
-		
-		model.addAttribute("view",ViewRef.USER_LIKELIST);
-		return "redirect:/" + ViewRef.DEFAULT_TEMP;
-	}
-
-	
-	
 	// 개인정보변경 (info)
 	@RequestMapping(value="/info", method = RequestMethod.GET)
 	public String info(Model model, UserPARAM param, HttpSession hs) {
@@ -454,5 +439,28 @@ public class UserController {
 		
 		return service.ajaxToLike(param);
 	}
+	
+	// 찜목록 리스트
+	@RequestMapping(value="/likeList", method = RequestMethod.GET)
+	public String likeList(BoardPARAM param, HttpSession hs, Model model) {
+		int i_user = SecurityUtils.getLoginUserPk(hs);
+		param.setI_user(i_user);
+
+		model.addAttribute("data", boardService.selLikeList(param));
+		
+		model.addAttribute("view",ViewRef.USER_LIKELIST);
+		return ViewRef.DEFAULT_TEMP;
+	}
+	
+	// 찜목록 삭제
+	@RequestMapping(value="/likeListDel", method = RequestMethod.GET)
+	public String likeListDel(BoardPARAM param, HttpServletRequest request) {
+		//System.out.println("param.getI_board():" + param.getI_board());
+		//System.out.println("param.getI_user():" + param.getI_user());
+		boardService.likeListDel(param);
+		
+		return "redirect:/user/likeList";
+	}
+	
 
 }

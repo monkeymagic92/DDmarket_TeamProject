@@ -1,5 +1,7 @@
 package com.dandi.ddmarket.board.model;
 
+import java.util.List;
+
 public class BoardDMI extends BoardVO {
 	
 	private String user_nm;
@@ -9,9 +11,6 @@ public class BoardDMI extends BoardVO {
 	private int tolike;
 	private int is_tolike;
 	private double grade;
-	
-	
-	
 	
 	public double getGrade() {
 		return grade;
