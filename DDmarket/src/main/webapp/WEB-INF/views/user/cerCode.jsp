@@ -37,7 +37,7 @@
 		    <!-- Modal bottom -->
 		    <div class="modal-bottom">
 				<button type="button" class="pop_bt" onclick="moveToLogin()">
-					종료
+					종&nbsp;&nbsp;&nbsp;&nbsp;료
 				</button>
 		    </div>
 		</div>

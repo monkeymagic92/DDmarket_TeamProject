@@ -8,7 +8,17 @@ public class BoardDMI extends BoardVO {
 	private String cg_nm;
 	private int tolike;
 	private int is_tolike;
+	private double grade;
 	
+	
+	
+	
+	public double getGrade() {
+		return grade;
+	}
+	public void setGrade(double grade) {
+		this.grade = grade;
+	}
 	public int getIs_tolike() {
 		return is_tolike;
 	}

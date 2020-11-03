@@ -1,6 +1,9 @@
 package com.dandi.ddmarket.board;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -13,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.dandi.ddmarket.FileUtils;
-import com.dandi.ddmarket.SecurityUtils;
+import com.dandi.ddmarket.TimeMaximum;
 import com.dandi.ddmarket.board.model.BoardDMI;
 import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.board.model.BoardVO;
@@ -29,7 +32,6 @@ public class BoardService {
 		int i_board = 1;
 		int result = 0;
 		try { // 만약 게시글이 없는상태에서는 xml 에러가 뜨니 i_board 값을 1으로 주겠다
-			
 			i_board = mapper.maxI_board();
 			
 		} catch(Exception e) {
@@ -177,10 +179,12 @@ public class BoardService {
 	}
 
 	
-	
+		
 	// 판매글 상세페이지 정보 나타내기(detail)
 	public BoardDMI selBoard(BoardPARAM param) {
-		return mapper.selBoard(param);
+
+		System.out.println("fsddfssdf" + mapper.selBoard(param).getR_dt());
+		return transVoR_dt(mapper.selBoard(param));
 	}
 	
 	
@@ -199,9 +203,28 @@ public class BoardService {
 		
 	}
 	
-	
+	// 글 삭제
 	public int saleDel(BoardPARAM param) {
 
-			return mapper.saleDel(param);
+		return mapper.saleDel(param);
+	}
+	
+	
+	// 등록일자를 현재 시간 기준으로 바꿔주는 메소드 ex) 몇 시간전, 몇 일전..
+	public static BoardDMI transVoR_dt(BoardDMI param) {
+		String paramR_dt = param.getR_dt();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = new Date();
+		try {
+			date = sdf.parse(paramR_dt);
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
+
+		String strR_dt = TimeMaximum.calculateTime(date);
+		param.setR_dt(strR_dt);
+		
+		return param;
+	}
+
 }

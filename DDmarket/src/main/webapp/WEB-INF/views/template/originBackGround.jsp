@@ -19,7 +19,7 @@
 </style>
 <body>
 	<div class="backContainer">
-		
+		<img class="logo" src="/res/img/logo.jpg">
 		<main>
 			<c:if test="${view != null }">
 		    	<section>
@@ -49,10 +49,8 @@ if(${loginMsg != null}) {
 	location.href="/user/login";
 }
 
-//게시글이 삭제 되었을 때
 if(${delmsg != null}) {
-	alert('${delMsg}');
-	location.href="/index/main";
+	alert('${delMsg}');	
 }
 
 </script>

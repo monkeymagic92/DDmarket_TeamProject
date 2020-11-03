@@ -1,6 +1,13 @@
 package com.dandi.ddmarket;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
+import com.dandi.ddmarket.board.model.BoardDMI;
+import com.dandi.ddmarket.board.model.BoardPARAM;
+import com.dandi.ddmarket.board.model.BoardVO;
 
 public class TimeMaximum {
     public static final int SEC = 60;
@@ -53,4 +60,5 @@ public static String calculateTime(Date date)
 
     return msg;
 }
+
 } 
