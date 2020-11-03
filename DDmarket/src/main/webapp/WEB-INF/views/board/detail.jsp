@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -94,7 +95,7 @@
                         <div id="buttonWrap">
                         	<c:if test="${loginUser.i_user == data.i_user }">
                         		<button onclick="moveToUpd(${data.i_board})">수정하기</button>
-                            	<button onclick="moveToDel()">삭제하기</button>
+                            	<button onclick="moveToDel(${data.i_board})">삭제하기</button>
                         	</c:if>
                         	<c:if test="${loginUser.i_user != data.i_user }">
                         		<button type="button" onclick="ToLike()">
@@ -115,7 +116,7 @@
             <section id="section-desc">
                 <p>${data.ctnt }</p>
             </section>
-            <h2 class="h2-section-title">상품문의</h2>
+            <h2 class="h2-section-title">상품문의 (${cmtCount })</h2>
             <section id="section-comment">
             
             	<!-- 댓글 등록 -->
@@ -133,8 +134,10 @@
 	                       <div class="nick">${item.nick}<span class="date">20-10-24 &nbsp; 20:30</span></div>
 	                       <div class="comment">${item.ctnt}</div>
 	                       <div class="etc">
-	                           <a href="#"><div><span><span class="iconify icon-mod" data-inline="false" data-icon="si-glyph:arrow-change" style="color: #a5a2a2; font-size: 12px;"></span>수정하기</span></div></a>
-	                           <a href="#"><div><span><span class="iconify icon-del" data-inline="false" data-icon="ant-design:delete-outlined" style="color: #A5A2A2; font-size: 12px;"></span>삭제하기</span></div></a>
+	                           <c:if test="${loginUser.i_user == item.i_user }">
+	                           	   <div><a onclick="updCmt(${item.i_cmt})"><span><span class="iconify icon-mod" data-inline="false" data-icon="si-glyph:arrow-change" style="color: #a5a2a2; font-size: 12px;"></span>수정하기</span></a></div>
+	                           	   <div><a onclick="delCmt(${item.i_cmt})"><span><span class="iconify icon-del" data-inline="false" data-icon="ant-design:delete-outlined" style="color: #A5A2A2; font-size: 12px;"></span>삭제하기</span></a></div>
+	                           </c:if>
 	                       </div>
 	                   </div>
 	               </div>
@@ -205,14 +208,13 @@
 		location.href="/board/saleReg?i_board="+i_board;
 	}
 	
-	function moveToDel() {
-		if(confirm("삭제하시겠습니까?")) {
-			location.href='/board/saleDel?i_board=${data.i_board}';		
-		}
+	function moveToDel(i_board) {
+		location.href="/board/saleDel?i_board="+i_board;
 	}
 	
 	
 
+	
 	//찜 하기
 	function ToLike(){
 		
@@ -256,6 +258,7 @@
 		const i_board = `${data.i_board}`
 		const ctnt = frm.ctnt.value
 		
+		
 		console.log(ctnt)
 		axios.post('/cmt/insert', {
 			
@@ -264,7 +267,7 @@
 			ctnt
 			
 		}).then(function(res) {
-			
+						
 			if(res.data == '1') { // 댓글 등록 완료
 				location.reload();
 				frm.ctnt.value = '';
@@ -273,12 +276,36 @@
 				alert("댓글을 입력해 주세요");
 				frm.ctnt.value.focus()
 				return false;
+				
+			} else if(res.data == '3') {
+				alert('로그인을 해주세요')
+				location.href="/user/login";
+				return false;
 			}
 		})
-	}		
+	}	
 	
-
-
+	// 댓글 삭제
+	function delCmt(i_cmt) {
+				
+		axios.post('/cmt/delete', {
+			
+			i_cmt
+			
+		}).then(function(res) {
+						
+			if(res.data == '1') { // 댓글 삭제 완료
+				location.reload();
+				
+			} else if(res.data == '2') {
+				alert("잘못된 접근방식 입니다");
+				location.href="/user/login";
+				return false;
+				
+			} 
+		})
+	}
+	
+	
 </script>
 </body>
-</html>

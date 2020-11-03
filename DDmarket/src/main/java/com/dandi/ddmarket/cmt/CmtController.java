@@ -1,7 +1,7 @@
 package com.dandi.ddmarket.cmt;
 
 
-import java.util.List;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dandi.ddmarket.cmt.model.CmtVO;
+import com.dandi.ddmarket.user.model.UserPARAM;
 
 @Controller
 @RequestMapping("/cmt")
@@ -23,12 +24,16 @@ public class CmtController {
 	// 댓글 등록
 	@RequestMapping(value="/insert", method=RequestMethod.POST) 
     @ResponseBody
-    private String cmtInsert(@RequestBody CmtVO vo){
+    private String cmtInsert(@RequestBody CmtVO vo, HttpSession hs){
 		
 		int result = 0;
 		
+				
 		if(vo.getCtnt() == null || vo.getCtnt().equals("")) {
 			result = 2;
+			
+		} else if(hs.getAttribute("loginUser") == null) {
+			result = 3;
 			
 		} else {
 			result = service.insCmt(vo);
@@ -45,24 +50,32 @@ public class CmtController {
 	}
 	*/
 	
+	
 	// 댓글 삭제
 	@RequestMapping(value="/delete", method=RequestMethod.POST) 
     @ResponseBody
-    private String cmtDelete(@RequestBody CmtVO vo, Model model){
-		int result = 0; // service 넣기
+    private String cmtDelete(@RequestBody CmtVO vo, HttpSession hs){
 		
+		int result = service.delCmt(vo);
+		UserPARAM param = (UserPARAM)hs.getAttribute("loginUser");
+		
+		if(hs.getAttribute("loginUser") == null) {
+			result = 2;
+			
+		} 
 		return String.valueOf(result);
-		
-	}
+    }
 	
-	
-	// 총 댓글 갯수
-	@RequestMapping(value="/count", method=RequestMethod.POST) 
+	// 댓글 수정
+	@RequestMapping(value="/update", method=RequestMethod.POST) 
     @ResponseBody
-    private void cmtCount(@RequestBody CmtVO vo, Model model){
+    private String cmtUpdate(@RequestBody CmtVO vo){
 		
+		int result = service.updCmt(vo);		
+		return String.valueOf(result);
 	}
-
+	
+	
 
 }
 
