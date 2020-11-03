@@ -1,5 +1,7 @@
 package com.dandi.ddmarket.board;
 
+import java.io.File;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -86,6 +88,10 @@ public class BoardController {
 				
 				result = service.insBoard(param, mReq, hs);
 				
+
+			} else if(result == 2){
+				ra.addFlashAttribute("ImageFail","입력되지 않은 항목이 있습니다");
+
 				if(result == 1) {
 					// DETAIL.GET 에서 index/main, mypage, SalaReg 모두다 request.getParameter()로 받게하기위해
 					int i_board = (int)hs.getAttribute("i_board");
@@ -103,6 +109,7 @@ public class BoardController {
 				
 			} catch(Exception e) {
 				ra.addFlashAttribute("serverErr","서버에러 다시 시도해주세요");
+
 				return "redirect:/" + ViewRef.BOARD_SALEREG;
 			}
 			
@@ -144,6 +151,7 @@ public class BoardController {
 		service.addHit(param, req);
 		
 		int i_board = Integer.parseInt(request.getParameter("i_board"));
+		System.out.println("i_board 값 : " + i_board);
 		hs.removeAttribute("i_board"); // service.insBoard에서 날라온 세션값
 		param.setI_board(i_board);
 		
@@ -167,25 +175,53 @@ public class BoardController {
 		return ViewRef.DEFAULT_TEMP;
 	}
 	
+	// 판매글 상세페이지 삭제
 	@RequestMapping(value="/saleDel", method = RequestMethod.GET)
-	public String saleDel(BoardPARAM param, HttpServletRequest request, RedirectAttributes ra, 
-			MultipartHttpServletRequest mReq) {
+	public String saleDel(BoardPARAM param, HttpServletRequest request, RedirectAttributes ra	) {
 	
-		int i_board = CommonUtils.getIntParameter("i_board", request);
-		String path = mReq.getServletContext().getRealPath("") + "/resources/img/board/" + i_board + "/"; 
+		int i_board = Integer.parseInt(request.getParameter("i_board"));
+		param.setI_board(i_board);
+		System.out.println("삭제 i_board값 : " + i_board);
 		
 		int result = service.saleDel(param);
-		param.setI_board(i_board);
-		
-		// result = 0;  에러테스트용
+		System.out.println("글삭제 result:" + result);
+		//result = 0;  에러테스트용
 		
 		if(result == 1) {
-			ra.addFlashAttribute("delMsg", "게시글이 삭제되었습니다");
-			return "redirect:/index/origin";
+			String path = "/resources/img/board/" + i_board;
+			String realPath =  request.getServletContext().getRealPath(path);
+			System.out.println("파일 경로realPath:" + realPath);
+			File file = new File(realPath);
 			
+			if(file.exists()) {
+				if(file.isDirectory()) {
+					File[] files = file.listFiles();
+					for(int i=0;  i<files.length;  i++) {
+						if(files[i].delete()) {
+							System.out.println(files[i].getName()+"폴더 안의 파일 삭제 성공");
+						} else {
+							System.out.println(files[i].getName()+"폴더 안의 파일 삭제 실패");
+						}
+					}
+				}
+			
+				if(file.delete()) {
+					System.out.println("파일 삭제 성공");
+				} else {
+					System.out.println("파일 삭제 실패");
+				}	
+			}
+			
+
+		}
+		
+		return "redirect:/index/main";
+		
+
 		} else {
 			return "redriect:/board/detail?i_board="+i_board;
 	}
+
 }
 	
 	
