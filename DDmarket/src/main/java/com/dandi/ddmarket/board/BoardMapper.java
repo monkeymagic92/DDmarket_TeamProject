@@ -1,5 +1,7 @@
 package com.dandi.ddmarket.board;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.dandi.ddmarket.board.model.BoardDMI;
@@ -13,6 +15,7 @@ public interface BoardMapper {
 	int maxI_board(); 					  // 판매글 등록시 최대 i_board값 추가하기 (실제 로컬에서 주소지정할때 사용) 
 	
 	BoardDMI selBoard(BoardPARAM param);  // 디테일 목록 뿌리기
+	List<BoardDMI> selLikeList(BoardPARAM param); // 찜목록
 	
 	
 	// insert
@@ -27,6 +30,7 @@ public interface BoardMapper {
 	
 	// delete
 	int saleDel(BoardPARAM param);
+	int likeListDel(BoardPARAM param);
 	
 	
 	

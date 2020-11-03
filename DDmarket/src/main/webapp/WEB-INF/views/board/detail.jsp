@@ -244,7 +244,9 @@ $('#updCmtBtn').click(function() {
 	}
 	
 	function moveToDel(i_board) {
+		if(confirm('삭제 하시겠습니까?')){		
 		location.href="/board/saleDel?i_board="+i_board;
+		}
 	}
 	
 	

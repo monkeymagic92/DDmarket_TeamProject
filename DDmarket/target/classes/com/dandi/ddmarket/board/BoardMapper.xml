@@ -39,6 +39,15 @@
 		WHERE A.i_board = #{i_board} 
 
 	</select>
+	
+		<!-- 찜목록 -->
+	<select id="selLikeList" parameterType="BoardPARAM" resultType="BoardDMI">
+		SELECT B.i_user, A.i_board, A.thumImage, A.i_board, A.title, A.price, SUBSTRING_INDEX(A.addr," ",3) AS addr, 
+		SUBSTRING_INDEX(B.r_dt," ",1) AS r_dt FROM t_board A
+		LEFT JOIN t_board_like B
+		ON A.i_board = B.i_board
+		WHERE B.i_user = #{i_user}	
+	</select>
 
 
 	<!-- insert -->
@@ -116,7 +125,11 @@
 	<!-- delete -->
 	<delete id="saleDel" parameterType="BoardPARAM">
 		DELETE FROM t_board WHERE
-		i_board = #{i_board};
+		i_board = #{i_board}
+	</delete>
+	
+	<delete id="likeListDel" parameterType="BoardPARAM">
+		DELETE FROM t_board_like WHERE i_user = #{i_user} AND i_board = #{i_board};
 	</delete>
 
 

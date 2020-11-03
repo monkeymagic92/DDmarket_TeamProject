@@ -27,7 +27,8 @@ public class BoardService {
 	@Autowired
 	private BoardMapper mapper;
 	
-	// 글등록 
+
+	// 판매글 등록
 	public int insBoard(BoardVO param, MultipartHttpServletRequest mReq,
 			HttpSession hs) {
 		
@@ -104,8 +105,13 @@ public class BoardService {
 	
 	
 	
+	// 판매글 삭제
+	public int saleDel(BoardPARAM param) {
 		
-	// 게시글 수정
+		return mapper.saleDel(param);
+	}
+		
+	// 판매글 수정
 	public int updBoard(BoardVO param, MultipartHttpServletRequest mReq,
 			HttpSession hs) {
 		MultipartFile file = mReq.getFile("image");
@@ -185,8 +191,21 @@ public class BoardService {
 		
 	// 판매글 상세페이지 정보 나타내기(detail)
 	public BoardDMI selBoard(BoardPARAM param) {
-		
+
 		return transVoR_dt(mapper.selBoard(param));
+	}
+	
+	// 찜목록 리스트
+	public List<BoardDMI> selLikeList(BoardPARAM param){
+		//System.out.println("찜");
+		List<BoardDMI> list = mapper.selLikeList(param);
+		//System.out.println(list.size());
+		return list;
+	}
+	
+	// 찜목록 삭제
+	public int likeListDel(BoardPARAM param) {
+		return mapper.likeListDel(param);
 	}
 	
 	
@@ -205,11 +224,6 @@ public class BoardService {
 		
 	}
 	
-	// 글 삭제
-	public int saleDel(BoardPARAM param) {
-
-		return mapper.saleDel(param);
-	}
 	
 	
 	// 등록일자를 현재 시간 기준으로 바꿔주는 메소드 ex) 몇 시간전, 몇 일전..

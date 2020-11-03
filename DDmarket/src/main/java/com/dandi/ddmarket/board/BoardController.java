@@ -1,5 +1,8 @@
 package com.dandi.ddmarket.board;
 
+import java.io.File;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -8,13 +11,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dandi.ddmarket.CommonUtils;
 import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.ViewRef;
+import com.dandi.ddmarket.board.model.BoardDMI;
 import com.dandi.ddmarket.board.model.BoardPARAM;
+import com.dandi.ddmarket.board.model.BoardVO;
 import com.dandi.ddmarket.cmt.CmtService;
 import com.dandi.ddmarket.cmt.model.CmtVO;
 import com.dandi.ddmarket.user.UserService;
@@ -31,14 +37,6 @@ public class BoardController {
 	
 	@Autowired
 	private CmtService cmtService;		// 댓글 서비스
-	
-	// 재용 1103 0923
-	
-	// 이글뜨면암ㄴ됨@!@
-	
-	// dddfsdf
-	
-	// 올리기 10:40
 	
 	// 판매글 등록,수정
 	@RequestMapping(value="/saleReg", method = RequestMethod.GET)
@@ -91,6 +89,7 @@ public class BoardController {
 				param.setTitle(filterTitle2);
 				
 				result = service.insBoard(param, mReq, hs);
+				System.out.println("result :" + result );
 				
 				if(result == 1) {
 					// DETAIL.GET 에서 index/main, mypage, SalaReg 모두다 request.getParameter()로 받게하기위해
@@ -140,6 +139,28 @@ public class BoardController {
 		}
 	}
 	
+	//욕 필터
+	private String swearWordFilter(final String ctnt) {
+		String[] filters = CommonUtils.filter();
+		String result = ctnt;
+		for(int i=0; i<filters.length; i++) {
+			result = result.replace(filters[i], "***");
+		}
+		return result;
+	}
+	
+	//스크립트 필터
+	private String scriptFilter(final String ctnt) {
+		String[] filters = {"<script>", "</script>"};
+		String[] filterReplaces = {"&lt;script&gt;", "&lt;/script&gt;"};
+		
+		String result = ctnt;
+		for(int i=0; i<filters.length; i++) {
+			result = result.replace(filters[i], filterReplaces[i]);
+		}
+		return result;
+	}
+	
 		
 	
 	// 판매글 상세페이지 (detail)
@@ -173,49 +194,48 @@ public class BoardController {
 		return ViewRef.DEFAULT_TEMP;
 	}
 	
-	
+	// 판매글 상세페이지 삭제
 	@RequestMapping(value="/saleDel", method = RequestMethod.GET)
-	public String saleDel(BoardPARAM param, HttpServletRequest request, RedirectAttributes ra, 
-			MultipartHttpServletRequest mReq) {
+	public String saleDel(BoardPARAM param, HttpServletRequest request) {
 	
-		int i_board = CommonUtils.getIntParameter("i_board", request);
-		String path = mReq.getServletContext().getRealPath("") + "/resources/img/board/" + i_board + "/"; 
+		int i_board = Integer.parseInt(request.getParameter("i_board"));
+		param.setI_board(i_board);
+		System.out.println("삭제 i_board값 : " + i_board);
 		
 		int result = service.saleDel(param);
-		param.setI_board(i_board);
-		
-		// result = 0;  에러테스트용
+		System.out.println("글삭제 result:" + result);
+		//result = 0;  에러테스트용
 		
 		if(result == 1) {
-			ra.addFlashAttribute("delMsg", "게시글이 삭제되었습니다");
-			return "redirect:/index/origin";
+			String path = "/resources/img/board/" + i_board;
+			String realPath =  request.getServletContext().getRealPath(path);
+			System.out.println("파일 경로realPath:" + realPath);
+			File file = new File(realPath);
 			
-		} else {
-			return "redriect:/board/detail?i_board="+i_board;
-	}
-}
-	
-	
-	//욕 필터
-	private String swearWordFilter(final String ctnt) {
-		String[] filters = CommonUtils.filter();
-		String result = ctnt;
-		for(int i=0; i<filters.length; i++) {
-			result = result.replace(filters[i], "***");
+			if(file.exists()) {
+				if(file.isDirectory()) {
+					File[] files = file.listFiles();
+					for(int i=0;  i<files.length;  i++) {
+						if(files[i].delete()) {
+							System.out.println(files[i].getName()+"폴더 안의 파일 삭제 성공");
+						} else {
+							System.out.println(files[i].getName()+"폴더 안의 파일 삭제 실패");
+						}
+					}
+				}
+			
+				if(file.delete()) {
+					System.out.println("파일 삭제 성공");
+				} else {
+					System.out.println("파일 삭제 실패");
+				}	
+			}
+			
 		}
-		return result;
-	}
-	
-	//스크립트 필터
-	private String scriptFilter(final String ctnt) {
-		String[] filters = {"<script>", "</script>"};
-		String[] filterReplaces = {"&lt;script&gt;", "&lt;/script&gt;"};
 		
-		String result = ctnt;
-		for(int i=0; i<filters.length; i++) {
-			result = result.replace(filters[i], filterReplaces[i]);
-		}
-		return result;
+		return "redirect:/index/main";
+			
 	}
+		
 }
 
