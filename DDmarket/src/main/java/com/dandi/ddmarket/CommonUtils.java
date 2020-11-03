@@ -48,9 +48,5 @@ public class CommonUtils {
 		return filters;
 	}
 	
-	// 마스터 올리고 재용 받기
-	// 브런치 테스트 2 LJY로 잘 올라가는지 ?
-	// 마지막 테스트 LJY로 다시 브런치 올리면 잘올라가는지 ?  20시10분
-	
 	
 }

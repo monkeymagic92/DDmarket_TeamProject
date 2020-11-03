@@ -32,15 +32,8 @@ public class BoardController {
 	@Autowired
 	private CmtService cmtService;		// 댓글 서비스
 	
-	/*
-	// 댓글 뿌리기
-	@RequestMapping(value="/select", produces="application/json; charset=UTF-8") 
-    @ResponseBody
-    private List<CmtVO> cmtSelect(CmtVO vo){
-		return cmtService.selCmt(vo);
-	}
-	*/
-		
+	// 재용 1103 0923
+	
 	// 판매글 등록,수정
 	@RequestMapping(value="/saleReg", method = RequestMethod.GET)
 	public String saleReg(Model model, HttpSession hs, UserPARAM param,

@@ -27,6 +27,7 @@ public class CmtController {
     private String cmtInsert(@RequestBody CmtVO vo, HttpSession hs){
 		
 		int result = 0;
+		
 				
 		if(vo.getCtnt() == null || vo.getCtnt().equals("")) {
 			result = 2;
