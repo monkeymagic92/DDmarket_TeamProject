@@ -13,16 +13,68 @@
 <body>
 	<div id="container">
         <main>
+        	<div>
+	        	<c:forEach var="item" items="${cgList}">
+	        		<c:choose>
+	        			<c:when test="${i_cg == item.i_cg}">
+	        				<a style="color: red;" href="/index/search?i_cg=${item.i_cg}">${item.cg_nm}</a>
+	        			</c:when>
+	        			<c:otherwise>
+	        				<a href="/index/search?i_cg=${item.i_cg}">${item.cg_nm}</a>
+	        			</c:otherwise>
+	        		</c:choose>
+	            </c:forEach>
+        	</div>
             <div id="div-wrap-top">
                 <div id="div-search-result">
-                	<span id="span-search-reuslt-text">${searchName}</span>의 검색결과
+                	<c:if test="${searchNm == null && cdSearchNm != null}">
+                		<span>카테고리:${cdSearchNm}</span>의 검색결과
+                	</c:if>
+                	<c:if test="${searchNm != '' && cdSearchNm == null}">
+	                	<span id="span-search-reuslt-text">${searchNm}</span>의 검색결과
+                	</c:if>
+                	<c:if test="${searchNm != '' && cdSearchNm != null && searchNm != null}">
+	                	<span>카테고리:${cdSearchNm}</span>
+	                	<span id="span-search-reuslt-text">${searchNm}</span>의 검색결과
+                	</c:if>
+                	<c:if test="${searchNm == '' && cdSearchNm == null}">
+	                	<span id="span-search-reuslt-text">전체</span>의 검색결과
+                	</c:if>
                 	<span id="span-search-reuslt-number">${fn:length(searchList)}개</span>
                 </div>
                 <div id="div-search-standard">
-                	<a href="#">최신순</a>ㅣ
-                	<a href="#">인기순</a>ㅣ
-                	<a href="#">저가순</a>ㅣ
-                	<a href="#">고가순</a>
+	                <c:choose>
+	                	<c:when test="${searchType == 'new'}">
+		                	<a style="color: red;" href="/index/search?searchType=new&i_cg=${i_cg > 0 ? i_cg : 0}">최신순</a>ㅣ
+		                	<a href="/index/search?searchType=hot&i_cg=${i_cg > 0 ? i_cg : 0}">인기순</a>ㅣ
+		                	<a href="/index/search?searchType=lowPrice&i_cg=${i_cg > 0 ? i_cg : 0}">저가순</a>ㅣ
+		                	<a href="/index/search?searchType=highPrice&i_cg=${i_cg > 0 ? i_cg : 0}">고가순</a>
+	                	</c:when>
+	                	<c:when test="${searchType == 'hot'}">
+		                	<a href="/index/search?searchType=new&i_cg=${i_cg > 0 ? i_cg : 0}">최신순</a>ㅣ
+		                	<a style="color: red;" href="/index/search?searchType=hot&i_cg=${i_cg > 0 ? i_cg : 0}">인기순</a>ㅣ
+		                	<a href="/index/search?searchType=lowPrice&i_cg=${i_cg > 0 ? i_cg : 0}">저가순</a>ㅣ
+		                	<a href="/index/search?searchType=highPrice&i_cg=${i_cg > 0 ? i_cg : 0}">고가순</a>
+	                	</c:when>
+	                	<c:when test="${searchType == 'lowPrice'}">
+     			            <a href="/index/search?searchType=new&i_cg=${i_cg > 0 ? i_cg : 0}">최신순</a>ㅣ
+		                	<a href="/index/search?searchType=hot&i_cg=${i_cg > 0 ? i_cg : 0}">인기순</a>ㅣ
+		                	<a style="color: red;" href="/index/search?searchType=lowPrice&i_cg=${i_cg > 0 ? i_cg : 0}">저가순</a>ㅣ
+		                	<a href="/index/search?searchType=highPrice&i_cg=${i_cg > 0 ? i_cg : 0}">고가순</a>
+	                	</c:when>
+	                	<c:when test="${searchType == 'highPrice'}">
+		                	<a href="/index/search?searchType=new&i_cg=${i_cg > 0 ? i_cg : 0}">최신순</a>ㅣ
+		                	<a href="/index/search?searchType=hot&i_cg=${i_cg > 0 ? i_cg : 0}">인기순</a>ㅣ
+		                	<a href="/index/search?searchType=lowPrice&i_cg=${i_cg > 0 ? i_cg : 0}">저가순</a>ㅣ
+		                	<a style="color: red;" href="/index/search?searchType=highPrice&i_cg=${i_cg > 0 ? i_cg : 0}">고가순</a>
+	                	</c:when>
+	                	<c:when test="${searchType == null}">
+		                	<a style="color: red;" href="/index/search?searchType=new&i_cg=${i_cg > 0 ? i_cg : 0}">최신순</a>ㅣ
+		                	<a href="/index/search?searchType=hot&i_cg=${i_cg > 0 ? i_cg : 0}">인기순</a>ㅣ
+		                	<a href="/index/search?searchType=lowPrice&i_cg=${i_cg > 0 ? i_cg : 0}">저가순</a>ㅣ
+		                	<a href="/index/search?searchType=highPrice&i_cg=${i_cg > 0 ? i_cg : 0}">고가순</a>
+	                	</c:when>
+	                </c:choose>
                 </div>
             </div>
             <div id="div-wrap-article">
@@ -36,7 +88,7 @@
                                      <img src="/res/img/lion.jpg">
                                   </c:when>
                                   <c:otherwise>
-                                     <img src="/res/img/${item.i_board}/${item.thumImage}">
+                                     <img src="/res/img/board/${item.i_board}/${item.thumImage}">
                                   </c:otherwise>
                                </c:choose>
                             </div>

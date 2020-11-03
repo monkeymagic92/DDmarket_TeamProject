@@ -1,33 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dandi.ddmarket.board.BoardMapper">
-		
-						<!-- select -->
-				
+
+	<!-- select -->
+
 	<!-- 판매글 등록할경우 주소값 지정을위해 이다음 i_board 값의 최대값을 받아옴 -->
 	<select id="maxI_board" resultType="Integer">
 		SELECT MAX(i_board) + 1 FROM t_board
-	</select>		
-	
-	
+	</select>
+
+
 	<!-- 디테일에서 판매글 정보 나타내기 -->
+
 	<select id="selBoard" resultType="BoardDMI" parameterType="BoardPARAM">
-		SELECT A.i_user, A.i_board, B.nick, A.title, A.addr, A.ctnt, A.hits, C.cg_nm, A.price,
+		SELECT A.i_user, A.i_board, B.nick, A.title, A.post, A.addr, A.road,
+	    A.ctnt, A.hits, C.cg_nm, A.price, ifnull(D.cnt, 0) as tolike,
+	    CASE WHEN E.i_board IS NULL THEN 0 ELSE 1 END AS is_tolike,
 		A.thumImage, A.image_1, A.image_2, A.image_3, A.image_4, A.image_5
 		FROM t_board A
-		
+  
 		LEFT JOIN t_user B
 		ON A.i_user = B.i_user
+  
+		LEFT JOIN(
+			SELECT i_board, COUNT(i_board) as cnt
+			FROM t_board_like
+			WHERE i_board = #{i_board}
+			GROUP BY i_board
+		)D
+		ON A.i_board = D.i_board
 		
 		LEFT JOIN t_category C
 		ON A.i_cg = C.i_cg
 		
+		LEFT JOIN t_board_like E
+		ON A.i_board = E.i_board
+		AND E.i_user = #{i_user}
 		WHERE A.i_board = #{i_board} 
+
 	</select>
-	
-	
-						<!-- insert -->				
-	
+
+
+	<!-- insert -->
+
 	<!-- 판매글 등록하기 -->
 	<insert id="insBoard">
 		insert into t_board(i_user, title, i_cg, post, addr, road, price, ctnt, thumImage, image_1, image_2, image_3, image_4, image_5)
@@ -38,33 +53,71 @@
 		</foreach>
 		)
 	</insert>
+					
 	
+						<!-- update -->
 	
-	<!-- 디테일페이지 좋아요 추가 -->
+  <!-- 디테일페이지 좋아요 추가 -->
 	<insert id="insboardLike">
 		INSERT INTO t_board_like
 		i_user, i_board
 		VALUES
 		(#{i_user}, #{i_board})
 	</insert>
-	
-					
-	
-						<!-- update -->
-	
+
+
+
+	<!-- update -->
+
+
 	<!-- 디테일 조회수 증가 -->
 	<update id="updAddHit" parameterType="BoardPARAM">
 		UPDATE t_board
-		SET hits = hits + 1
+		SET hits =
+		hits + 1
 		WHERE i_board = #{i_board}
 	</update>
-				
-				
-				
-				
-						<!-- delete -->
-	<delete  id="saleDel"  parameterType="BoardPARAM">
-		DELETE FROM t_board WHERE i_board = #{i_board};
+
+	<!-- 판매글 수정하기 -->
+	<update id="updBoard">
+		UPDATE t_board
+		SET title = #{title},
+		i_cg = #{i_cg},
+		post = #{post},
+		addr = #{addr},
+		road = #{road},
+		price = #{price},
+		ctnt = #{ctnt}
+		WHERE i_board = #{i_board}
+	</update>
+
+	<!-- 판매글 사진 수정 -->
+	<update id="updImage">
+		UPDATE t_board
+		SET
+		<choose>
+			<when test='thumImage != null and imageFile != null'>
+				thumImage = #{thumImage},
+				image_#{seq} = #{imageFile}
+			</when>
+			<when test='thumImage != null'>
+				thumImage = #{thumImage}
+			</when>
+			<when test='imageFile != null'>
+				image_#{seq} = #{imageFile}
+			</when>
+		</choose>
+		WHERE i_board = #{i_board}
+	</update>
+
+
+
+
+	<!-- delete -->
+	<delete id="saleDel" parameterType="BoardPARAM">
+		DELETE FROM t_board WHERE
+		i_board = #{i_board};
 	</delete>
-	
+
+
 </mapper>

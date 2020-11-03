@@ -4,6 +4,8 @@ package com.dandi.ddmarket.index;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,8 +31,17 @@ public class IndexController {
 
 	
 	@RequestMapping(value="/main", method = RequestMethod.GET)
-	public String index(Model model, RedirectAttributes ra, BoardPARAM param,CategoryVO cparam,HttpServletRequest request) {
-
+	public String index(Model model, RedirectAttributes ra, BoardPARAM param,CategoryVO cparam,HttpServletRequest request,HttpSession hs) {
+		
+		// header 검색값 세션에서  제거
+		hs.removeAttribute("searchNm");
+		hs.removeAttribute("pSearch_1");
+		hs.removeAttribute("pSearch_2");
+		hs.removeAttribute("searchType");
+		
+		// 카테고리 리스트 세션에 저장 (많은 곳에서 쓰이기때문)
+		hs.setAttribute("cgList", service.selCgList(cparam));
+		
 		// 비로그인 - 인기글 목록, 로그인 - 추천글 목록
 		if(SecurityUtils.isLogout(request)) {
 			model.addAttribute("hotBoardList", service.selHotBoardList(param));			
@@ -48,7 +59,6 @@ public class IndexController {
 			model.addAttribute("cList", cList);
 		}
 
-		model.addAttribute("cgList", service.selCgList(cparam));
 		model.addAttribute("newBoardList", service.selNewBoardList(param));
 		model.addAttribute("freeBoardList", service.selFreeBoardList(param));
 		model.addAttribute("view",ViewRef.INDEX_MAIN);
@@ -57,22 +67,51 @@ public class IndexController {
 	
 	// 서치
 	@RequestMapping(value="/search", method = RequestMethod.GET)
-	public String search(Model model, RedirectAttributes ra, BoardPARAM param, CategoryVO cparam, HttpServletRequest request) {
+	public String search(Model model, RedirectAttributes ra, BoardPARAM param, CategoryVO cparam, HttpServletRequest request, HttpSession hs) {
 		
-		// header에 카테고리 불러옴 
-		model.addAttribute("cgList", service.selCgList(cparam));
+		// 카테고리 선택 시 i_cg 값을 받는다.
+		int i_cg = CommonUtils.getIntParameter("i_cg", request);
+		param.setI_cg(i_cg);
+		model.addAttribute("i_cg", i_cg);
+		model.addAttribute("cdSearchNm", service.selCdSearchNm(param));
 		
-		// header에서 카테고리 선택 시 i_cg 값을 받는다.
-		if(request.getParameter("i_cg") != null) {
-			int i_cg = CommonUtils.getIntParameter("i_cg", request);
-			param.setI_cg(i_cg);
-			model.addAttribute("searchName", service.selSearchName(param));
-			System.out.println("i_cg : " + param.getI_cg());
-		}
-				
+		//post에서 검색값을 받아온 후 param에 넣어줌
+		String pSearch_1 = (String) hs.getAttribute("pSearch_1");
+		String pSearch_2 = (String) hs.getAttribute("pSearch_2");
+		param.setSearchNm_1(pSearch_1);
+		param.setSearchNm_2(pSearch_2);
+		
+		// 검색타입을 세션에 저장 
+		hs.setAttribute("searchType", param.getSearchType());
+		
 		model.addAttribute("searchList", service.selSearchList(param));
 		model.addAttribute("view","/index/search");
 		return ViewRef.DEFAULT_TEMP;
+	}
+	
+	@RequestMapping(value="/search", method = RequestMethod.POST)
+	public String search(Model model, RedirectAttributes ra, BoardPARAM param, HttpServletRequest request, HttpSession hs) {
+		
+		//검색값을 받아 searchNm세션에 저장 - 검색어 유지용
+		hs.setAttribute("searchNm", request.getParameter("searchNm"));
+		
+		// 기존에 있었던 검색어 세션에서 제거
+		hs.removeAttribute("pSearch_1");
+		hs.removeAttribute("pSearch_2");
+		
+		// 1어절, 2어절 경우로 나눠서 검색값을 저장해서 get으로 보내줌
+		if(request.getParameter("searchNm").contains(" ")) {
+			String[] strArr = CommonUtils.getSearchNm(request.getParameter("searchNm"));
+			String pSearch_1 = "%" + strArr[0] + "%";
+			hs.setAttribute("pSearch_1", pSearch_1);
+			String pSearch_2 = "%" + strArr[1] + "%";		
+			hs.setAttribute("pSearch_2", pSearch_2);
+		} else {
+			String pSearch_1 = "%" + request.getParameter("searchNm") + "%";
+			hs.setAttribute("pSearch_1", pSearch_1);
+		}
+		
+		return "redirect:/" + ViewRef.INDEX_SEARCH;
 	}
 	
 		

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.category.model.CategoryVO;
 import com.dandi.ddmarket.user.model.UserDMI;
 import com.dandi.ddmarket.user.model.UserPARAM;
@@ -29,7 +30,7 @@ public interface UserMapper {
 	// insert
 	int joinUser(UserVO param);		// 회원가입
 	
-	
+	int insboardLike(UserPARAM param);
 	
 	// update 
 	int changePw(UserPARAM param);    // 비밀번호 변경
@@ -51,6 +52,8 @@ public interface UserMapper {
 	// delete 
 	int delProfile_img(UserPARAM param);
 	
+	int delboardLike(UserPARAM param);
+
 	
 	
 }
