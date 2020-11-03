@@ -10,7 +10,6 @@ public class BoardPARAM extends BoardVO{
 	private String searchNm_2;
 	private String searchType;
 	
-	
 	public String getSearchNm_1() {
 		return searchNm_1;
 	}

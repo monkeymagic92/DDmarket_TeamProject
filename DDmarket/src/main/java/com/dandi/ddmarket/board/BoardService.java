@@ -27,6 +27,7 @@ public class BoardService {
 	@Autowired
 	private BoardMapper mapper;
 	
+
 	// 판매글 등록
 	public int insBoard(BoardVO param, MultipartHttpServletRequest mReq,
 			HttpSession hs) {
@@ -57,6 +58,7 @@ public class BoardService {
 		
 		// 단일파일
 		MultipartFile file = mReq.getFile("image");
+		FileUtils.makeFolder(path);
 		String saveFile = FileUtils.thumFile(path, file);
 				
 		// 다중파일
@@ -189,6 +191,7 @@ public class BoardService {
 		
 	// 판매글 상세페이지 정보 나타내기(detail)
 	public BoardDMI selBoard(BoardPARAM param) {
+
 		return transVoR_dt(mapper.selBoard(param));
 	}
 	

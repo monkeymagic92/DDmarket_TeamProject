@@ -32,7 +32,7 @@ public class IndexController {
 	
 	@RequestMapping(value="/main", method = RequestMethod.GET)
 	public String index(Model model, RedirectAttributes ra, BoardPARAM param,CategoryVO cparam,HttpServletRequest request,HttpSession hs) {
-		
+		//
 		// header 검색값 세션에서  제거
 		hs.removeAttribute("searchNm");
 		hs.removeAttribute("pSearch_1");
@@ -69,47 +69,40 @@ public class IndexController {
 	@RequestMapping(value="/search", method = RequestMethod.GET)
 	public String search(Model model, RedirectAttributes ra, BoardPARAM param, CategoryVO cparam, HttpServletRequest request, HttpSession hs) {
 		
+		//검색값을 받아 searchNm세션에 저장 - 검색어 유지용
+		hs.setAttribute("searchNm", request.getParameter("searchNm"));
+		
+		// 1어절, 2어절 경우로 나눠서 검색값을 저장
+		if(hs.getAttribute("searchNm") != null) {
+			if(request.getParameter("searchNm").contains(" ")) {
+				String[] strArr = CommonUtils.getSearchNm(request.getParameter("searchNm"));
+				String pSearch_1 = "%" + strArr[0] + "%";
+				String pSearch_2 = "%" + strArr[1] + "%";		
+				param.setSearchNm_1(pSearch_1);
+				param.setSearchNm_2(pSearch_2);
+			} else {
+				String pSearch_1 = "%" + request.getParameter("searchNm") + "%";
+				param.setSearchNm_1(pSearch_1);
+			}
+		}
+		
 		// 카테고리 선택 시 i_cg 값을 받는다.
 		int i_cg = CommonUtils.getIntParameter("i_cg", request);
 		param.setI_cg(i_cg);
 		model.addAttribute("i_cg", i_cg);
 		model.addAttribute("cdSearchNm", service.selCdSearchNm(param));
 		
-		//post에서 검색값을 받아온 후 param에 넣어줌
-		String pSearch_1 = (String) hs.getAttribute("pSearch_1");
-		String pSearch_2 = (String) hs.getAttribute("pSearch_2");
-		param.setSearchNm_1(pSearch_1);
-		param.setSearchNm_2(pSearch_2);
-		
 		// 검색타입을 세션에 저장 
 		hs.setAttribute("searchType", param.getSearchType());
 		
 		model.addAttribute("searchList", service.selSearchList(param));
 		model.addAttribute("view","/index/search");
+		
 		return ViewRef.DEFAULT_TEMP;
 	}
 	
 	@RequestMapping(value="/search", method = RequestMethod.POST)
 	public String search(Model model, RedirectAttributes ra, BoardPARAM param, HttpServletRequest request, HttpSession hs) {
-		
-		//검색값을 받아 searchNm세션에 저장 - 검색어 유지용
-		hs.setAttribute("searchNm", request.getParameter("searchNm"));
-		
-		// 기존에 있었던 검색어 세션에서 제거
-		hs.removeAttribute("pSearch_1");
-		hs.removeAttribute("pSearch_2");
-		
-		// 1어절, 2어절 경우로 나눠서 검색값을 저장해서 get으로 보내줌
-		if(request.getParameter("searchNm").contains(" ")) {
-			String[] strArr = CommonUtils.getSearchNm(request.getParameter("searchNm"));
-			String pSearch_1 = "%" + strArr[0] + "%";
-			hs.setAttribute("pSearch_1", pSearch_1);
-			String pSearch_2 = "%" + strArr[1] + "%";		
-			hs.setAttribute("pSearch_2", pSearch_2);
-		} else {
-			String pSearch_1 = "%" + request.getParameter("searchNm") + "%";
-			hs.setAttribute("pSearch_1", pSearch_1);
-		}
 		
 		return "redirect:/" + ViewRef.INDEX_SEARCH;
 	}

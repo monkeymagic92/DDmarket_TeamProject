@@ -110,9 +110,11 @@
                   </c:forEach>
                
 			</div>
+			<button type="button" onclick="getMoreList()">더보기</button>
         </main>
     </div>
 </body>
+<script src="/res/js/search.js"></script>
 <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </html>
