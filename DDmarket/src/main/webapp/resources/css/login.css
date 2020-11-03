@@ -4,7 +4,9 @@
     margin-bottom: 0; }
 main {
     width: 1190px; margin: 0 auto;
-    margin-bottom: 400px; display: flex;
+   	margin-top: 100px;
+   	margin-bottom: 250px;
+    display: flex;
     flex-flow: column;
     justify-content: center;
     align-items: center; }
