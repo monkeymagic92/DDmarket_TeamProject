@@ -173,6 +173,7 @@ public class BoardController {
 		return ViewRef.DEFAULT_TEMP;
 	}
 	
+	
 	@RequestMapping(value="/saleDel", method = RequestMethod.GET)
 	public String saleDel(BoardPARAM param, HttpServletRequest request, RedirectAttributes ra, 
 			MultipartHttpServletRequest mReq) {
