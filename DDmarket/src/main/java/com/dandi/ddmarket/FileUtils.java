@@ -15,10 +15,13 @@ import com.dandi.ddmarket.board.model.BoardVO;
 
 public class FileUtils {
 	public static void makeFolder(String path) {
-		File dir = new File(path);		
-		if(!dir.exists()) { // 만약 폴더가 없다면 ? 폴더만들어라 
+		File dir = new File(path);	
+		System.out.println("1파일유틸 패스 : " + path);
+		if(!dir.exists()) { // 만약 폴더가 없다면 ? 폴더만들어라
+			System.out.println("2파일유틸 패스 : " + path);
 			dir.mkdirs(); // mkdirs, mkdir 두개가 있는데 그냥 무조건 midirs 사용해라(굳이 좋은거냅두고 왜 mkdir씀 ? 복수형써라 그냥)
 		}
+		System.out.println("3파일유틸 패스 : " + path);
 	}
 	
 	public static String getExt(String fileNm) {
