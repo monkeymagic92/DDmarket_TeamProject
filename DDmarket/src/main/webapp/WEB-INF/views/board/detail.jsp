@@ -1,7 +1,7 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
 <!DOCTYPE html>
 <html>
@@ -66,6 +66,9 @@
 	                                <img src="/res/img/profile_img/user/${loginUser.i_user }/${loginUser.profile_img}" class="img">                    	
 	                        	</c:if>
                             </div>
+                            
+                            <!-- 별 -->
+                            
                             <div class="profile-desc">
                                 <div class="nick">${data.nick}</div>
                                 <div class="star-ratings-css">
@@ -73,10 +76,14 @@
                                     <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                                 </div>
                             </div>
+                            <div>${data.grade}</div>
+                            
+                            
+                            
                         </div>
                         <h3 id="product-title">${data.title}</h3>
                         <c:if test="${data.price != 0 }">
-                        	<div id="product-price">${data.price}원</div>
+                        	<div id="product-price"><fmt:formatNumber value="${data.price}" pattern="#,###" />원</div>
                         </c:if>
                         <c:if test="${data.price == 0 }">
                         	<div id="product-price">무료</div>
@@ -87,7 +94,7 @@
                         	<span class="iconify" data-inline="false" data-icon="carbon:view-filled" style="color: #aeaeae; font-size: 15px;"></span>
                         		&nbsp;&nbsp;${data.hits}
                         </div>
-                        <div id="cd">${data.cg_nm}<span id="r_dt">3시간전</span></div>
+                        <div id="cd">${data.cg_nm}<span id="r_dt">${data.r_dt}</span></div>
                         <div id="addr">
                         	<span class="iconify" data-inline="false" data-icon="el:map-marker" style="color: #6f6a6a; font-size: 16px;"></span>
                         		&nbsp;&nbsp;${data.addr}
@@ -213,12 +220,17 @@
 	}
 	
 	
+	// 별점
+	var grade = ${data.grade}/5*80;
+	document.querySelector('.star-ratings-css-top').style.width = grade + "%";
+	
 
 	
 	//찜 하기
 	function ToLike(){
 		
-		if(`${loginUser == null}`) {
+		
+		if(${loginUser.i_user == null}) {
 			alert('로그인을 해주세요');
 			location.href="/user/login";
 			return;
@@ -309,3 +321,4 @@
 	
 </script>
 </body>
+</html>

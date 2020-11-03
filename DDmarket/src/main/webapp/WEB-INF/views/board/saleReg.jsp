@@ -144,7 +144,6 @@ $('#priceChk').click(function() {
 		frm.price.value = null;
 	}
 })
-
 //관심사 체크, 최대갯수 3개제한 
 function count_ck(obj){
    var chkbox = document.getElementsByName("i_cg");
