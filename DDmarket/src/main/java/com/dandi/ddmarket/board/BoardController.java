@@ -173,8 +173,7 @@ public class BoardController {
 		int i_board = Integer.parseInt(request.getParameter("i_board"));
 		hs.removeAttribute("i_board"); // service.insBoard에서 날라온 세션값
 		param.setI_board(i_board);
-		
-		
+			
 		if(hs.getAttribute("loginUser") != null) {
 			// 찜목록용 i_user
 			int i_user = SecurityUtils.getLoginUserPk(hs);

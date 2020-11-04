@@ -1,95 +1,138 @@
 #container {
-    width: 100%; margin: 0px auto 0 auto;
+    width: 100%; 
+    margin: 0px auto 0 auto;
     margin-bottom: 0; }
 main {
-    width: 1190px; margin: 0 auto;
-    margin-bottom: 200px; display: flex;
+    width: 1190px; 
+    margin: 0 auto;
+    margin-bottom: 100px; 
+    display: flex;
     flex-flow: column;
     justify-content: center;
     align-items: center; }
 
-input { border: 1px solid #C4C4C4;
+input { 
+	border: 1px solid #C4C4C4;
     border-radius: 3px; }
 input::placeholder {
-font-style: normal;
-font-size: 13px;
-padding-left: 14px;
-color: #AEAEAE;
-}
+	font-style: normal;
+	font-size: 13px;
+	color: #AEAEAE;}
 input:focus {outline:none;}
-.FrmJoin { width: 86%; 
-display: flex;
-flex-flow: column wrap;
-justify-content: center;
-align-items: center;}
+
+.FrmJoin { width: 86%;
+	margin-top: 30px; 
+	display: flex;
+	flex-flow: column wrap;
+	justify-content: center;
+	align-items: center;}
 .title { 
-font-size: 22px;
-width: 74%; 
-justify-content: flex-start; }
+	font-size: 22px;
+	width: 74%; 
+	justify-content: flex-start; }
 .div-logo { 
-width: 82%; margin-bottom: 50px;
-margin-top: 30px;
-display: flex; justify-content: flex-start; }
+	width: 82%; 
+	margin-bottom: 50px;
+	margin-top: 70px;
+	display: flex; 
+	justify-content: flex-start; }
 .line {
     border-bottom: 1px solid #A5A2A2; 
-    width: 80%; display: block; margin: 5px 0 20px; }
+    width: 80%; 
+    display: block; 
+    margin: 5px 0 20px; }
+    
 /* 약관 동의 */
 .div-chkbox { 
-color: #C4C4C4;
-width: 82%; margin-bottom: 90px;
-display: flex; flex-flow: column wrap; 
-justify-content: flex-start; align-items: center; }
-.div-chkbox .box-1 { width: 86%; }
-.div-chkbox .box-1 .box-txt { float: right; }
-
-.div-chkbox .box-2 { width: 86%; }
-.div-chkbox .box-2 .box-txt { float: right; }
+	color: #C4C4C4;
+	width: 82%; 
+	margin-bottom: 90px;
+	display: flex; 
+	flex-flow: column wrap; 
+	justify-content: flex-start; 
+	align-items: center; }
+.div-chkbox .box-1 { 
+	width: 86%;}
+.div-chkbox .box-1 .box-txt { 
+	float: right; }
+label {
+	margin-left:10px;}
+.div-chkbox .box-2 { 
+	width: 86%; }
+.div-chkbox .box-2 .box-txt { 
+	float: right; }
 .box-txt a { 
-color: #C4C4C4 !important; }
-
-.div-chkbox .box-3 { width: 86%; }
-.div-chkbox .box-3 .box-txt { float: right;  }
+	color: #C4C4C4 !important;}
+.div-chkbox .box-3 { 
+	width: 86%; }
+.div-chkbox .box-3 .box-txt { 
+	float: right;  }
 
 /* 가입여부 조회 */
-.div-email { width: 70%; margin-bottom: 90px; }
-.div-email .box-email { width: 90%; }
+.div-email { 
+	width: 70%; 
+	margin-bottom: 90px; }
+.div-email .box-email { 
+	width: 90%; }
 .box-email #email_txt {
-width: 350px; 
-height: 30px;
-justify-content: flex-start; }
+	width: 340px; 
+	height: 30px;
+	justify-content: flex-start; }
 #emailChk {
-margin-left: 30px; font-size: 14px;
-height: 34px; width: 120px;
-justify-content: flex-end;
-line-height: 1; font-weight: bold;
-background: #3B73C8; color: snow; }
+	margin-left: 30px; 
+	font-size: 14px;
+	height: 34px; 
+	width: 120px;
+	justify-content: flex-end;
+	line-height: 1; 
+	font-weight: bold;
+	background: #3B73C8; 
+	color: snow; }
+	
 /* 개인정보 입력 */
-.div-input { width: 70%; }
+.div-input { 
+	width: 70%; }
 
 #idChk { 
-margin-left: 30px; font-size: 14px;
-height: 34px; width: 120px; 
-line-height: 1; font-weight: bold;
-background: #3B73C8; color: snow; }
+	margin-left: 30px; 
+	font-size: 14px;
+	height: 34px; 
+	width: 120px; 
+	line-height: 1; 
+	font-weight: bold;
+	background: #3B73C8; 
+	color: snow; }
 #nickChk {
-margin-left: 30px; font-size: 14px;
-height: 34px; width: 120px; 
-line-height: 1; font-weight: bold;
-background: #3B73C8; color: snow; }
+	margin-left: 30px; 
+	font-size: 14px;
+	height: 34px; 
+	width: 120px; 
+	line-height: 1; 
+	font-weight: bold;
+	background: #3B73C8; 
+	color: snow; }
+
+#email_txt, #id_input, #pw_input, #pw_input2, #nm_input, #nick_input,
+#sample4_postcode, #sample4_jibunAddress, #sample4_roadAddress {
+	padding-left:10px;}
+
 .div-input input { 
-margin-bottom: 15px;
-width: 350px; 
-height: 30px; }
+	margin-bottom: 15px;
+	width: 340px; 
+	height: 30px; }
 .div-input .addr_front { 
-    width: 120px; margin-right: 25px;
+    width: 120px; 
+    margin-right: 25px;
     height: 30px; }
 .div-input .addr_back {
     display: block;
-    width: 350px;
+    width: 340px;
     height: 30px; }
 #joinBtn { 
-font-size: 20px;
-font-weight: bold;
-height: 45px; width: 200px;
-margin-top: 70px;
-background: #3B73C8; color: snow; }
+	font-size: 18px;
+	font-weight: bold;
+	height: 45px; 
+	width: 200px;
+	margin-top: 70px;
+	background: #3B73C8; 
+	color: snow; }

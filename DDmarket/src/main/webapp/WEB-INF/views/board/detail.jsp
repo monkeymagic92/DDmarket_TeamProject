@@ -60,10 +60,10 @@
                         <div class="user-info">
                             <div class="profile-img">
                             	<c:if test="${loginUser.profile_img == null }">
-                        		<img src="/res/img/yerin.jpg" onchange="setThumbnail(e)" alt="" class="img">
+                        		<a href=""><img src="/res/img/yerin.jpg" onchange="setThumbnail(e)" alt="" class="img"></a>
 	                        	</c:if>
 	                        	<c:if test="${loginUser.profile_img != null }">
-	                                <img src="/res/img/profile_img/user/${loginUser.i_user }/${loginUser.profile_img}" class="img">                    	
+	                             <a href=""><img src="/res/img/profile_img/user/${loginUser.i_user}/${loginUser.profile_img}" class="img"></a>                  	
 	                        	</c:if>
                             </div>
                             
@@ -229,7 +229,7 @@
 	function updCmt(ctnt, i_cmt) {
 		frm.ctnt.value = ctnt
 		frm.i_cmt.value = i_cmt
-		cmtSubmit.value = '댓글 수정'
+		cmtSubmit.value = '수정'
 		console.log(i_cmt)
 	}
 	
@@ -237,7 +237,7 @@
 	function clkCmtCancel() {
 		frm.i_cmt.value = 0
 		frm.ctnt.value = ''  //홑따옴표
-		cmtSubmit.value = '댓글 전송'
+		cmtSubmit.value = '전송'
 	}
 	
 	function ajaxPost(i_user, i_board, ctnt, i_cmt) {
