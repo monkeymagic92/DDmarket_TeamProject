@@ -126,16 +126,23 @@
             <h2 class="h2-section-title">상품문의 (${cmtCount })</h2>
             <section id="section-comment">
             
+
+            
+            
             
             
             
             
             	<!-- 댓글 등록 -->
-                <form id="frm" action="/cmt/insert" method="post">
+            	
+                <form id="frm" action="/cmt/cmtReg" method="post" onsubmit>
                     <div id="inputWrap">
-                    	<textarea name="ctnt" placeholder="상품문의를 입력 해 주세요"></textarea>                    	
+                    	<textarea name="ctnt" placeholder="상품문의를 입력 해 주세요"></textarea>
+                    	<input type="hidden" name="i_cmt" value="0">
+                    	<input type="hidden" name="i_board" value="${data.i_board}"> <!-- 이값은 아작스할떄는 필요 없는거같음 학원가서 보고 지우든가 쓰던가 하기 -->
                     </div>
-                    <button type="button" onclick="insCmt()">등록</button>
+                    	<input type="button" id="cmtSubmit" onclick="cmtReg()" value="등록">
+                    	<button type="button" onclick="clkCmtCancel()">취소</button>
 	            </form>
 	            
                 <c:forEach items="${cmtList}" var="item">
@@ -146,30 +153,19 @@
 	                       <div class="comment">${item.ctnt}</div>
 	                       <div class="etc">
 	                           <c:if test="${loginUser.i_user == item.i_user }">
-	                           	   <div><a class="review" onclick="reviewbtn()"><span><span class="iconify icon-del" data-inline="false" data-icon="ant-design:delete-outlined" style="color: #A5A2A2; font-size: 12px;"></span>수정하기</span></a></div>
+	                           
+								   				<%-- 수정 --%>	                           
+	                           	   <div><a onclick="updCmt('${item.ctnt}', ${item.i_cmt})"><span><span class="iconify icon-del" data-inline="false" data-icon="ant-design:delete-outlined" style="color: #A5A2A2; font-size: 12px;"></span>수정하기</span></a></div>
+	                           	   
+	                           	   
 	                           	   <div><a onclick="delCmt(${item.i_cmt})"><span><span class="iconify icon-del" data-inline="false" data-icon="ant-design:delete-outlined" style="color: #A5A2A2; font-size: 12px;"></span>삭제하기</span></a></div>
+	                           	   
 	                           </c:if> 
 	                       </div>
 	                   </div>
 	               </div>
-	               
-				   <div class="myModal modal">
-				       <div class="modal-content">
-				           <div class="modal-body">
-				               <form id="modalFrm" action="/cmt/update" method="post">
-					               <textarea name="ctnt" class="reviewTxt" cols="50" rows="10" placeholder="댓글을 입력해 주세요" ></textarea>
-					               <%-- <input type="hidden" name="i_cmt" value="${item.i_cmt}">
-						           <input type="hidden" name="i_board" value="${data.i_board}">
-						           --%>
-						           <div class="modal-footer">
-						               <button type="button" onclick="updCmt(${item.i_cmt})">등록</button>
-						           </div>
-					           </form>
-				           </div>
-				       </div>
-				    </div>
     			</c:forEach>
-          
+
             <div class="pageWrap">
                 <a href="#" class="hidden"><span class="iconify icon-page-left" data-inline="false" data-icon="mdi-light:chevron-double-left" style="color: #3b73c8; font-size: 47px;"></span></a>
                 <a href="#">1</a>
@@ -211,6 +207,7 @@
                         </div>
                     </div>
                 </div>
+                 
             </section>
             <div class="pageWrap">
                 <a href="#" class="hidden"><span class="iconify icon-page-left" data-inline="false" data-icon="mdi-light:chevron-double-left" style="color: #3b73c8; font-size: 47px;"></span></a>
@@ -227,13 +224,63 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="/res/js/detail.js"></script>
 <script>
-
-
-$('.modal').hide();
-
-$('#updCmtBtn').click(function() {
-	$('.modal').show();
-})
+	
+	// 업데이트 메소드 만들기 (아작스로)
+	function updCmt(ctnt, i_cmt) {
+		frm.ctnt.value = ctnt
+		frm.i_cmt.value = i_cmt
+		cmtSubmit.value = '댓글 수정'
+		console.log(i_cmt)
+	}
+	
+	
+	function clkCmtCancel() {
+		frm.i_cmt.value = 0
+		frm.ctnt.value = ''  //홑따옴표
+		cmtSubmit.value = '댓글 전송'
+	}
+	
+	function ajaxPost(i_user, i_board, ctnt, i_cmt) {
+		console.log('i_cmt : ' + i_cmt)
+		console.log('ctnt : ' + ctnt)
+		console.log('i_user : ' + i_user)
+		console.log('i_board : ' + i_board)
+		
+		axios.post('/cmt/cmtReg',{
+			i_user : i_user,
+			i_board : i_board,
+			i_cmt : i_cmt,
+			ctnt : ctnt
+			
+		}).then(function(res) {
+			if(res.data == '1') { // 댓글 등록 완료
+				location.reload();
+				frm.ctnt.value = '';
+						
+			} else if(res.data == '3') {
+				alert('로그인을 해주세요')
+				location.href="/user/login";
+				return false;
+			}
+		})
+	}
+	
+	//댓글 등록
+	function cmtReg() {
+		const i_user = `${loginUser.i_user}`;
+		const i_board = `${data.i_board}`
+		const ctnt = frm.ctnt.value
+		const i_cmt = frm.i_cmt.value
+		
+		console.log('i_cmt : ' + i_cmt)
+		console.log('ctnt : ' + ctnt)
+		console.log('i_user : ' + i_user)
+		console.log('i_board : ' + i_board)
+		
+		ajaxPost(i_user, i_board, ctnt, i_cmt)
+	}	
+	
+	
 
 	if(${updMsg != null}) {
 		alert('${updMsg}')
@@ -249,42 +296,10 @@ $('#updCmtBtn').click(function() {
 		}
 	}
 	
-	
-	// 댓글 수정
-	function updCmt(i_cmt) {
-		console.log(i_cmt)
-		
-		const ctnt = modalFrm[0].ctnt.value
-		
-		console.log(ctnt)
-		
-		axios.post('/cmt/update', {
-			
-			i_cmt,
-			ctnt
-			
-		}).then(function(res) {
-						
-			if(res.data == '1') { // 댓글 삭제 완료
-				location.reload();
-				
-			} else if(res.data == '2') {
-				alert("잘못된 접근방식 입니다");
-				location.href="/user/login";
-				return false;
-				
-			} 
-		})
-	}
-	
-	
-	
-	
 	// 별점
 	var grade = ${data.grade}/5*80;
 	document.querySelector('.star-ratings-css-top').style.width = grade + "%";
 	
-
 	
 	//찜 하기
 	function ToLike(){
@@ -319,38 +334,6 @@ $('#updCmtBtn').click(function() {
     }       
 
 		
-	// 댓글 등록
-	function insCmt() {
-		const i_user = `${loginUser.i_user}`;
-		const i_board = `${data.i_board}`
-		const ctnt = frm.ctnt.value
-		
-		
-		console.log(ctnt)
-		axios.post('/cmt/insert', {
-			
-			i_user,
-			i_board,
-			ctnt
-			
-		}).then(function(res) {
-						
-			if(res.data == '1') { // 댓글 등록 완료
-				location.reload();
-				frm.ctnt.value = '';
-			
-			} else if(res.data == '2') {
-				alert("댓글을 입력해 주세요");
-				frm.ctnt.value.focus()
-				return false;
-				
-			} else if(res.data == '3') {
-				alert('로그인을 해주세요')
-				location.href="/user/login";
-				return false;
-			}
-		})
-	}	
 	
 	
 	// 댓글 삭제
@@ -373,37 +356,6 @@ $('#updCmtBtn').click(function() {
 			} 
 		})
 	}
-	
-	
-	
-	
-	
-	// 댓글 수정 모달창	
-	var modal = document.querySelector(".myModal");
-	
-	   function reviewbtn() {
-	      modal.style.display = "block";
-	      }
-	
-	   function closebtn() {
-	      var txt = document.querySelector('textarea').value
-	      if(txt.length == '' || txt.length == 0){
-	          alert('후기를 작성해 주세요.')
-	          return false
-	      }
-	      if(txt.length != '' || txt.length != 0){
-	          modal.style.display = "none";
-	      }
-	  }
-	
-	  window.onclick = function(event) {
-	      if (event.target == modal) {
-	          modal.style.display = "none";
-	          }
-	      }
-	
-	
-	
 </script>
 </body>
 </html>
