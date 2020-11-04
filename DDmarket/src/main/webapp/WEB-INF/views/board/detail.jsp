@@ -164,13 +164,24 @@
 	                   </div>
 	               </div>
     			</c:forEach>
-
-            <div class="pageWrap">
-                <a href="#" class="hidden"><span class="iconify icon-page-left" data-inline="false" data-icon="mdi-light:chevron-double-left" style="color: #3b73c8; font-size: 47px;"></span></a>
-                <a href="#">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#"><span class="iconify icon-page-right" data-inline="false" data-icon="mdi-light:chevron-double-right" style="color: #3b73c8; font-size: 47px;"></span></a>
+    			
+			<div class="pageWrap">
+                <c:if test="${cmtPageMaker.prev}">
+                	<a href='<c:url value="/board/detail?i_board=${data.i_board}&cmtPage=${cmtPageMaker.startPage-1}"/>'><span class="iconify icon-page-left" data-inline="false" data-icon="mdi-light:chevron-double-left" style="color: #3b73c8; font-size: 47px;"></span></a>
+                </c:if>
+				<c:forEach begin="${cmtPageMaker.startPage}" end="${cmtPageMaker.endPage}" var="pageNum">
+			        <c:choose>
+			        <c:when test="${cmtPage == pageNum}">
+			        	<a style="color: red;" href='<c:url value="/board/detail?i_board=${data.i_board}&cmtPage=${pageNum}"/>'>${pageNum}</a>
+			        </c:when>
+			        <c:otherwise>
+			        	<a href='<c:url value="/board/detail?i_board=${data.i_board}&cmtPage=${pageNum}"/>'>${pageNum}</a>		        
+			        </c:otherwise>
+			        </c:choose>
+			    </c:forEach>
+			    <c:if test="${cmtPageMaker.next && cmtPageMaker.endPage > 0}">
+           			<a href='<c:url value="/board/detail?i_board=${data.i_board}&cmtPage=${cmtPageMaker.endPage+1}"/>'><span class="iconify icon-page-right" data-inline="false" data-icon="mdi-light:chevron-double-right" style="color: #3b73c8; font-size: 47px;"></span></a>
+           		</c:if>
             </div>
             </section>
             
