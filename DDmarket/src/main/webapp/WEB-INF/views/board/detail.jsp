@@ -131,17 +131,18 @@
             
             
             
+            
+            
             	<!-- 댓글 등록 -->
             	
-                <form id="frm" action="/cmt/cmtReg" method="post">
+                <form id="frm" action="/cmt/cmtReg" method="post" onsubmit>
                     <div id="inputWrap">
                     	<textarea name="ctnt" placeholder="상품문의를 입력 해 주세요"></textarea>
                     	<input type="hidden" name="i_cmt" value="0">
                     	<input type="hidden" name="i_board" value="${data.i_board}"> <!-- 이값은 아작스할떄는 필요 없는거같음 학원가서 보고 지우든가 쓰던가 하기 -->
                     </div>
-                    <!--  <button type="button" onclick="insCmt()">등록</button>-->
-                    	<input type="submit" id="cmtSubmit" value="댓글 전송">
-                    	<input type="button" value="취소" onclick="clkCmtCancel()">
+                    	<input type="button" id="cmtSubmit" onclick="cmtReg()" value="등록">
+                    	<button type="button" onclick="clkCmtCancel()">취소</button>
 	            </form>
 	            
                 <c:forEach items="${cmtList}" var="item">
@@ -165,9 +166,6 @@
 	               </div>
     			</c:forEach>
 
-
-
-          
             <div class="pageWrap">
                 <a href="#" class="hidden"><span class="iconify icon-page-left" data-inline="false" data-icon="mdi-light:chevron-double-left" style="color: #3b73c8; font-size: 47px;"></span></a>
                 <a href="#">1</a>
@@ -209,6 +207,7 @@
                         </div>
                     </div>
                 </div>
+                 
             </section>
             <div class="pageWrap">
                 <a href="#" class="hidden"><span class="iconify icon-page-left" data-inline="false" data-icon="mdi-light:chevron-double-left" style="color: #3b73c8; font-size: 47px;"></span></a>
@@ -240,38 +239,45 @@
 		frm.ctnt.value = ''  //홑따옴표
 		cmtSubmit.value = '댓글 전송'
 	}
-
-	//댓글 등록
-	function insCmt() {
-		const i_user = `${loginUser.i_user}`;
-		const i_board = `${data.i_board}`
-		const ctnt = frm.ctnt.value
+	
+	function ajaxPost(i_user, i_board, ctnt, i_cmt) {
+		console.log('i_cmt : ' + i_cmt)
+		console.log('ctnt : ' + ctnt)
+		console.log('i_user : ' + i_user)
+		console.log('i_board : ' + i_board)
 		
-		
-		console.log(ctnt)
-		axios.post('/cmt/insert', {
-			
-			i_user,
-			i_board,
-			ctnt
+		axios.post('/cmt/cmtReg',{
+			i_user : i_user,
+			i_board : i_board,
+			i_cmt : i_cmt,
+			ctnt : ctnt
 			
 		}).then(function(res) {
-						
 			if(res.data == '1') { // 댓글 등록 완료
 				location.reload();
 				frm.ctnt.value = '';
-			
-			} else if(res.data == '2') {
-				alert("댓글을 입력해 주세요");
-				frm.ctnt.value.focus()
-				return false;
-				
+						
 			} else if(res.data == '3') {
 				alert('로그인을 해주세요')
 				location.href="/user/login";
 				return false;
 			}
 		})
+	}
+	
+	//댓글 등록
+	function cmtReg() {
+		const i_user = `${loginUser.i_user}`;
+		const i_board = `${data.i_board}`
+		const ctnt = frm.ctnt.value
+		const i_cmt = frm.i_cmt.value
+		
+		console.log('i_cmt : ' + i_cmt)
+		console.log('ctnt : ' + ctnt)
+		console.log('i_user : ' + i_user)
+		console.log('i_board : ' + i_board)
+		
+		ajaxPost(i_user, i_board, ctnt, i_cmt)
 	}	
 	
 	

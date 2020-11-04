@@ -27,22 +27,35 @@ public class CmtController {
 	
 	
 	// 댓글 등록
-	@RequestMapping(value="/insert", method=RequestMethod.POST) 
-    @ResponseBody
-    private String cmtInsert(@RequestBody CmtVO vo, HttpSession hs){
+	@RequestMapping(value="/cmtReg", method=RequestMethod.POST) 
+    private @ResponseBody String cmtInsert(@RequestBody CmtVO vo, HttpSession hs, HttpServletRequest request){
 		
 		int result = 0;
-				
-		if(vo.getCtnt() == null || vo.getCtnt().equals("")) {
-			result = 2;
+		
+		if(vo.getI_cmt() != 0) {
+			System.out.println("   글 수 정     ");
+			result = service.updCmt(vo);
+										
+			if(hs.getAttribute("loginUser") == null) {
+				result = 3;
+				return String.valueOf(result);
+			} 
 			
-		} else if(hs.getAttribute("loginUser") == null) {
-			result = 3;
 			
 		} else {
+			System.out.println("   글 등 록    ");			
 			result = service.insCmt(vo);
+							
+			if(hs.getAttribute("loginUser") == null) {
+				result = 3;
+			} 
+			 
 		}
 		return String.valueOf(result);
+		
+		
+		
+		
     }
 	
 	/*				보드웹4 댓글 등록/수정 컨트롤러 부분 (아작스x)
