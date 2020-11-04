@@ -131,12 +131,12 @@
             	<!-- 댓글 등록 -->
             	
                 <form id="frm" action="/cmt/cmtReg" method="post">
-                	<input type="checkbox" name="priceChk" id="priceChk" class="priceChk"> 판매자만 볼수있게 할래요
+                	<input type="checkbox" name="scrCmt" id="scrCmt"> 판매자만 볼수있게 할래요
                 	<br>
                     <div id="inputWrap">
                     	<textarea name="ctnt" placeholder="상품문의를 입력 해 주세요"></textarea>
                     	<input type="hidden" name="i_cmt" value="0">
-                    	<input type="hidden" name="scrCmt" value="0"> <%-- 시크릿Cmt 값이 1이 되면 비밀댓글로 정하기 --%>
+                    	<input type="hidden" name="scr" value="0">  <%-- 시크릿Cmt 값이 1이 되면 비밀댓글로 정하기 --%>
                     	<input type="hidden" name="i_board" value="${data.i_board}"> <!-- 이값은 아작스할떄는 필요 없는거같음 학원가서 보고 지우든가 쓰던가 하기 -->
                     </div>
                     	<input type="button" id="cmtSubmit" onclick="cmtReg()" value="등록">
