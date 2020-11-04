@@ -26,9 +26,9 @@
 	<!-- 댓글 등록 -->
 	<insert id="insCmt" parameterType="CmtVO">
 		INSERT INTO t_cmt
-		(i_user, i_board, ctnt) 
+		(i_user, i_board, ctnt, scr) 
 		VALUES
-		(#{i_user}, #{i_board}, #{ctnt})
+		(#{i_user}, #{i_board}, #{ctnt}, #{scr})
 	</insert>
 	
 	
