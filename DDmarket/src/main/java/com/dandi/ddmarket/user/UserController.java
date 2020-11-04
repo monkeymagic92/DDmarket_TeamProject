@@ -289,7 +289,20 @@ public class UserController {
 	
 	// 마이페이지 (myPage)
 	@RequestMapping(value="/myPage", method = RequestMethod.GET)
-	public String myPage(Model model) {
+	public String myPage(UserPARAM param, Model model, HttpServletRequest request,
+			HttpSession hs) {
+		try {
+			int i_user = Integer.parseInt(request.getParameter("i_user"));
+			param.setI_user(i_user);
+			model.addAttribute("data", service.selUser(param));
+			
+		} catch(Exception e) {
+			UserPARAM param2 = (UserPARAM)hs.getAttribute("loginUser");
+			System.out.println("i_user " + param2.getI_user());
+			System.out.println("id " + param2.getUser_id());
+			model.addAttribute("data", service.selDetailUser(param2));
+		}
+		
 		model.addAttribute("view",ViewRef.USER_MYPAGE);
 		return ViewRef.DEFAULT_TEMP;
 	}

@@ -67,6 +67,28 @@ public class UserService {
 		
 		param.setI_user(dbUser.getI_user());
 		param.setUser_pw(null);
+		param.setUser_id(dbUser.getUser_id());
+		param.setNm(dbUser.getNm());
+		param.setNick(dbUser.getNick());
+		param.setEmail(dbUser.getEmail());
+		param.setProfile_img(dbUser.getProfile_img());		
+		param.setAddr(dbUser.getAddr());
+		param.setPost(dbUser.getPost());
+		param.setRoad(dbUser.getRoad());
+		param.setJoinPass(dbUser.getJoinPass());
+		param.setR_dt(dbUser.getR_dt());
+		param.setM_dt(dbUser.getM_dt());
+		
+		return dbUser;
+	}
+	
+	public UserDMI selDetailUser(UserPARAM param) {
+		
+		UserDMI dbUser = mapper.selDetailUser(param);
+		
+		param.setI_user(dbUser.getI_user());
+		param.setUser_pw(null);
+		param.setUser_id(dbUser.getUser_id());
 		param.setNm(dbUser.getNm());
 		param.setNick(dbUser.getNick());
 		param.setEmail(dbUser.getEmail());

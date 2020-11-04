@@ -229,8 +229,9 @@ section:nth-last-child(2) {margin-bottom:0px;}
     margin-top: -29px;
     margin-right: 50px;
 }
+
 #section-comment form #cmtSubmit {
-	 border: 1px solid #C4C4C4;
+    border: 1px solid #C4C4C4;
     background-color: #FFFFFF;
     border-radius: 3px;
     font-size: 13px;
