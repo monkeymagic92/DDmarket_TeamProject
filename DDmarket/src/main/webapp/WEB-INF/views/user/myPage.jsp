@@ -194,23 +194,26 @@
                                     <div class="card-price">20,000 원</div>
                                     <div class="card-addr"><span class="iconify" data-inline="false" data-icon="el:map-marker" style="color: #6f6a6a; font-size: 16px;"></span><span>대구광역시 동구 신서동</span></div>
                                     <div class="card-date"><span class="card-date-text">구매 날짜</span><span class="card-date-num">2020.10.13</span></div>
-                                    <button type='button' class="review">후기쓰기</button>
+                                    <button class="review" onclick="reviewbtn()">후기쓰기</button>
                                 </div>
-                                <div class="myModal modal">
-
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h2 class="title">라이언 덕후 상점과의 거래는 어떠셨나요?</h2>
-                                        </div>
-                                        <div class="modal-body">
-                                            <textarea name="test" id="" class="reviewTxt" cols="50" rows="10" placeholder="후기댓글을 남겨주세요" ></textarea>
-                                        </div>
-                                        <div class="modal-footer">
-                                        <button class="close">등록</button>
-                                        </div>
-                                    </div>
                                 
-                                    </div>
+                             	<div id="ModalWrap" class="myModal modal">
+								       <div class="modal-header">
+								          <span class="material-icons" onclick="Cbtn()">clear</span>
+								          <h2 class="title">라이언 덕후 상점과의 거래는 어떠셨나요?</h2>
+								       </div>
+								       <div class="starPoint">
+								       	<div class="startRadio"></div>
+								       </div>
+								       <div class="modal-content">
+									<div class="modal-body">
+										<textarea name="test" id="" class="reviewTxt" cols="50" rows="10" placeholder="후기댓글을 남겨주세요" ></textarea>
+									</div>
+									<div class="modal-footer">
+										<button class="close" onclick="closebtn()">등록</button>
+									</div>
+								        </div>
+								</div>
                             </article>
                             <article class="div-wrap-buyList-article">
                                 <div class="card-image"><img src="../img/yerin.jpg"></div>
@@ -307,7 +310,7 @@
                                     <div class="review-right-profile-desc">
                                         <div class="nick">yerin_back<span class="date">2020-10-16 03:35</span></div>
                                         <div class="comment">댓글댓글댓글댓글댓댓글댓글댓글댓글댓댓글댓글댓글글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글</div>
-                                    </div>
+                                	</div>
                             </div>                              
                         </div>
                         <div class="tab_content" id="div-wrap-myReviewList">
@@ -326,7 +329,7 @@
                                     <div class="control">
                                         <a href="#"><div class="mod"><span class="iconify" data-inline="false" data-icon="si-glyph:arrow-change" style="color: #a5a2a2; font-size: 12px;"></span>수정하기</div></a>
                                         <a href="#"><div class="del"><span class="iconify" data-inline="false" data-icon="ant-design:delete-outlined" style="color: #A5A2A2; font-size: 13px;"></span>삭제하기</div></div></a>
-                                    </div>
+                               </div>
                             </div>
                             <div id="reviewWrap">
                                 <div class="review-right-profile-img"><img src="../img/yerin.jpg"></div>
@@ -336,7 +339,7 @@
                                     <div class="control">
                                         <a href="#"><div class="mod"><span class="iconify" data-inline="false" data-icon="si-glyph:arrow-change" style="color: #a5a2a2; font-size: 12px;"></span>수정하기</div></a>
                                         <a href="#"><div class="del"><span class="iconify" data-inline="false" data-icon="ant-design:delete-outlined" style="color: #A5A2A2; font-size: 13px;"></span>삭제하기</div></div></a>
-                                    </div>
+                               </div>
                             </div>
                             <div id="reviewWrap">
                                 <div class="review-right-profile-img"><img src="../img/yerin.jpg"></div>
@@ -346,7 +349,7 @@
                                     <div class="control">
                                         <a href="#"><div class="mod"><span class="iconify" data-inline="false" data-icon="si-glyph:arrow-change" style="color: #a5a2a2; font-size: 12px;"></span>수정하기</div></a>
                                         <a href="#"><div class="del"><span class="iconify" data-inline="false" data-icon="ant-design:delete-outlined" style="color: #A5A2A2; font-size: 13px;"></span>삭제하기</div></div></a>
-                                    </div>
+                               </div>
                             </div>
                         </div>
                     </div>
@@ -355,5 +358,65 @@
         </main>
     </div>
 <script src="/res/js/myPage.js"></script>
+<script>
+	var starlist = ['0.5', '1', '1.5', '2',
+        '2.5', '3', '3.5', '4',
+        '4.5', '5']
+
+	function radiobox(){
+	
+	var starRadio = document.querySelector('.startRadio')
+	for (let i = 0; i < starlist.length; i++) {                
+		var label = document.createElement('label')
+		label.setAttribute('class', 'startRadio__box')
+		var input = document.createElement('input')
+		input.setAttribute('name', 'star')
+		input.setAttribute('type', 'radio')
+		input.addEventListener('click', function(){
+		var num = starlist[i]
+		if(input.value == 'checked'){
+		    num++ 
+		}
+	})
+	
+	var span = document.createElement('span')
+	span.setAttribute('class', 'startRadio__img')
+	
+	var spanBlind = document.createElement('span')
+	spanBlind.setAttribute('class', 'blind')
+	spanBlind.innerText = '별'+starlist[i]+'개'
+	label.append(input)
+	label.append(span)
+	span.append(spanBlind)
+	starRadio.append(label)
+		}
+	
+	}
+	
+	radiobox()
+	
+	function Cbtn(){
+		var modalwrap = document.querySelector('#ModalWrap')
+		modal.style.display = "none";
+	
+	}
+	var modal = document.querySelector(".myModal");
+	
+	function reviewbtn() {
+		modal.style.display = "block";
+	}
+	
+	function closebtn() {
+		var txt = document.querySelector('textarea').value
+		if(txt.length == '' || txt.length == 0){
+		alert('후기를 작성해 주세요.')
+		return false
+	}
+	
+	if(txt.length != '' || txt.length != 0){
+		modal.style.display = "none";
+		}
+	}
+</script>
 </body>
 </html>
