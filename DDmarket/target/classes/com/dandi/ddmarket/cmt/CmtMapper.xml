@@ -12,6 +12,7 @@
 		
 		WHERE A.i_board = #{i_board}
 		ORDER BY A.r_dt DESC
+		LIMIT #{cmt_pageStart}, #{cmt_perPageNum}
 	</select>	
 	
 	
