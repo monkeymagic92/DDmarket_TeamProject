@@ -13,7 +13,7 @@
 	<!-- 디테일에서 판매글 정보 나타내기 -->
 
 	<select id="selBoard" resultType="BoardDMI" parameterType="BoardPARAM">
-		SELECT A.i_user, A.i_board, B.nick, A.title, A.post, A.addr, A.road, A.r_dt,
+		SELECT A.i_user, B.profile_img, A.i_board, B.nick, A.title, A.post, A.addr, A.road, A.r_dt,
 	    A.ctnt, A.hits, C.cg_nm, A.price, ifnull(D.cnt, 0) as tolike, B.grade,
 	    CASE WHEN E.i_board IS NULL THEN 0 ELSE 1 END AS is_tolike,
 		A.thumImage, A.image_1, A.image_2, A.image_3, A.image_4, A.image_5
@@ -21,7 +21,7 @@
   
 		LEFT JOIN t_user B
 		ON A.i_user = B.i_user
-  
+
 		LEFT JOIN(
 			SELECT i_board, COUNT(i_board) as cnt
 			FROM t_board_like

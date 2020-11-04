@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.dandi.ddmarket.SecurityUtils;
+import com.dandi.ddmarket.ViewRef;
 import com.dandi.ddmarket.cmt.model.CmtVO;
 import com.dandi.ddmarket.user.model.UserPARAM;
 
@@ -26,11 +28,21 @@ public class CmtController {
 	private CmtService service;	
 	
 	
-	// 댓글 등록
+	// 댓글 등록 / 수정
 	@RequestMapping(value="/cmtReg", method=RequestMethod.POST) 
     private @ResponseBody String cmtInsert(@RequestBody CmtVO vo, HttpSession hs, HttpServletRequest request){
 		
 		int result = 0;
+		
+		try { // 비로그인 상태로 접근시 로그인페이지로		
+			int i_user = SecurityUtils.getLoginUserPk(hs);
+			vo.setI_user(i_user);
+			
+		} catch (Exception e) {
+			result = 3;
+			return String.valueOf(result);
+		}
+		
 		
 		if(vo.getI_cmt() != 0) {
 			System.out.println("   글 수 정     ");
@@ -38,7 +50,6 @@ public class CmtController {
 										
 			if(hs.getAttribute("loginUser") == null) {
 				result = 3;
-				return String.valueOf(result);
 			} 
 			
 			
@@ -52,45 +63,8 @@ public class CmtController {
 			 
 		}
 		return String.valueOf(result);
-		
-		
-		
-		
     }
 	
-	/*				보드웹4 댓글 등록/수정 컨트롤러 부분 (아작스x)
-	//댓글 (등록/수정)
-		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			String strI_cmt = request.getParameter("i_cmt");
-			String strI_board = request.getParameter("i_board");
-			String cmt = request.getParameter("cmt");
-			
-			int i_board = MyUtils.parseStrToInt(strI_board);
-			
-			UserVO loginUser = MyUtils.getLoginUser(request);
-			
-			BoardCmtVO param = new BoardCmtVO();
-			param.setCmt(cmt);
-			param.setI_user(loginUser.getI_user());
-			
-			switch(strI_cmt) {
-			case "0": //등록
-				param.setI_board(i_board);
-				BoardCmtDAO.insCmt(param);
-				
-				break;
-			default: //수정 (수정 일자 변경)
-				int i_cmt = MyUtils.parseStrToInt(strI_cmt);
-				param.setI_cmt(i_cmt);
-				
-				BoardCmtDAO.updCmt(param);
-				
-				break;
-			}
-			
-			response.sendRedirect("/board/detail?i_board="+strI_board);
-		}
-		*/
 	
 	// 댓글 삭제
 	@RequestMapping(value="/delete", method=RequestMethod.POST) 
@@ -106,22 +80,5 @@ public class CmtController {
 		} 
 		return String.valueOf(result);
     }
-	
-	
-	// 댓글 수정
-	@RequestMapping(value="/update", method=RequestMethod.POST)
-	@ResponseBody
-    private String cmtUpdate(CmtVO vo, HttpServletRequest request){
-		
-		System.out.println("1 : " + vo.getI_cmt());
-		System.out.println("2 : " + vo.getCtnt());
-		
-		int result = service.updCmt(vo);
-		return String.valueOf(result);
-
-	}
-	
-	
-
 }
 
