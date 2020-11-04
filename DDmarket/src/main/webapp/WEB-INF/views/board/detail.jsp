@@ -238,6 +238,7 @@
 	function clkCmtCancel() {
 		frm.i_cmt.value = 0
 		frm.ctnt.value = ''  //홑따옴표
+
 		cmtSubmit.value = '등록'
 	}
 	
