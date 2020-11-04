@@ -23,6 +23,8 @@ public interface UserMapper {
 	
 	UserDMI nickChk(UserPARAM param);	// 닉네임 중복체크
 	
+	UserDMI selDetailUser(UserPARAM param);
+	
 	List<CategoryVO> selCategory();		// 카테고리 리스트
 	
 	
