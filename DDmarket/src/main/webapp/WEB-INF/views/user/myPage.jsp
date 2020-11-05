@@ -209,7 +209,7 @@
 									       </div>
 								       		<div class="modal-content">
 								       		<input type="hidden" name="i_user" value="${loginUser.i_user}">
-								       		<input type="hidden" name="i_board" value="3">
+								       		<input type="hidden" name="i_board" value="10">
 								       		<input type="hidden" name="rating" value="0">
 											<div class="modal-body">
 												<textarea name="ctnt" id="" class="reviewTxt" cols="50" rows="10" placeholder="후기댓글을 남겨주세요" ></textarea>

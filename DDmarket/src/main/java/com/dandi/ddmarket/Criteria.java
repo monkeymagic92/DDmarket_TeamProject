@@ -7,7 +7,7 @@ public class Criteria {
 
     public Criteria() {
         this.page = 1;
-        this.perPageNum = 2;
+        this.perPageNum = 16;
     }
     
     public int getPageStart() {
