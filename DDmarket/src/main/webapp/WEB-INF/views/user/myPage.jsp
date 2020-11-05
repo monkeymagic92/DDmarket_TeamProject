@@ -24,7 +24,7 @@
                         <div class="star-ratings-css-top" style="width:120%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                         <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                     </div>
-                    <span id="profile_star_num">5.0</span>
+                    <span id="profile_star_num"></span>
                     <button id="profile_btn_change" onclick="moveToInfo()">회원정보변경</button>
                 </div>
                 <div id="div-top-right">
@@ -35,7 +35,7 @@
                         <div class="profile_info_detail">
                             <span class="iconify" data-inline="false" data-icon="mdi-light:home" style="color: #3b73c8; font-size: 20px;"></span>
                             <span class="profile_info_text">상점 오픈</span>
-                            <span class="profile_info_num">${loginUser.r_dt}</span>
+                            <span class="profile_info_num">${data.r_dt}</span>
                         </div>
                         <div class="profile_info_detail">
                             <span class="iconify" data-inline="false" data-icon="mdi:human-greeting" style="color: #3b73c8; font-size: 20px;"></span>
