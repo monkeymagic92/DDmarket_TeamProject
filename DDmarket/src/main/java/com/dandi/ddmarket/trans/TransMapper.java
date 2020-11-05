@@ -15,10 +15,11 @@ public interface TransMapper {
 	// select
 	List<TransDMI> selTrans(BoardPARAM param);	
 	
-	int chkTrans(BoardPARAM param, int i_user);
+	int chkTrans(BoardPARAM param);
 	
 	// insert
 	int insTrans(TransVO vo);  // 구매요청 눌렀을시 해당 유저값 저장
 	
-	
+	// delete
+	int delTransUser(TransVO vo);	// 구매취소 눌렀을시 해당 유저값 삭제
 }

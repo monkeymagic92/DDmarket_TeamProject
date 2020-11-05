@@ -22,6 +22,7 @@ import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.cmt.CmtService;
 import com.dandi.ddmarket.cmt.model.CmtVO;
 import com.dandi.ddmarket.trans.TransService;
+import com.dandi.ddmarket.trans.model.TransDMI;
 import com.dandi.ddmarket.trans.model.TransVO;
 import com.dandi.ddmarket.user.UserService;
 import com.dandi.ddmarket.user.model.UserPARAM;
@@ -168,7 +169,7 @@ public class BoardController {
 	
 	// 판매글 상세페이지 (detail)
 	@RequestMapping(value="/detail", method = RequestMethod.GET)
-	public String detail(Model model, BoardPARAM param, CmtVO vo, HttpServletRequest req,
+	public String detail(Model model, TransDMI transDmi, BoardPARAM param, CmtVO vo, HttpServletRequest req,
 			HttpServletRequest request, HttpSession hs) {
 		int i_user = 0;
 		
@@ -206,6 +207,14 @@ public class BoardController {
 	    model.addAttribute("cmtPageNum", cmtPageMaker);
 		////// 페이징 end
 		
+	    // 판매글에 접속한 i_user에 chk값이 1, 0에 따라서 버튼이름 변경  (trans기능에 사용) 
+	    int chk = transService.chkTrans(param);
+	    if(chk == 0) {
+	    	model.addAttribute("transBtn", "구매요청");
+	    } else {
+	    	model.addAttribute("transBtn", "구매취소");
+	    }
+	    
 	    
 	    model.addAttribute("selTrans", transService.selTrans(param)); // 구매요청 누른 유저들
 		model.addAttribute("cmtCount", cmtService.countCmt(param)); // 댓글 갯수

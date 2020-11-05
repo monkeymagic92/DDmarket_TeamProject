@@ -116,25 +116,28 @@
                            		</button>
                            		
                            		
+                           		
+                           		
+                           		
+                           		
                            		<!-- 거래요청 -->
-                         		<!-- 오늘의 교훈!!   아작스 할때 폼태그안에 버튼넣지말기 @@@@@@@@@@@@@@@@ -->
                           		<form id="transFrm" action="/trans/transRequest" method="post">
                            			<input type="hidden" name="i_user" value="${loginUser.i_user }">
                            			<input type="hidden" name="i_board" value="${data.i_board }">
                            			<input type="hidden" name="chk" value="0">
+                           			<c:if test="${loginUser != null}">
+	                      				<button type="submit" name="chkSubmit" id="chkSubmit" onclick="chkValue()">${transBtn}</button>
+                      				</c:if>
                            		</form>
-                      			<input type="submit" id="chkSubmit" onclick="chkUpd()" value="거래요청">
+                           		
                          		
-                          	
-	                           		
-                           		
-                           		
+                          	                           		
                         	</c:if>				
                         </div>
                     </div>
             </section>
-            
-            <button class="review" onclick="reviewbtn()">클릭
+             
+            <button class="review" onclick="reviewbtn()">거래신청 목록보기
 		    </button>
 		    <div class="myModal modal">
 		        <div class="modal-content">
@@ -152,7 +155,7 @@
 		                </table>
 		            </div>
 		            <div class="modal-footer">
-		                <button class="close" onclick="closebtn()">등록</button>
+		                <button class="close" onclick="closebtn()">취소</button>
 		            </div>
 		        </div>
 		    </div>
@@ -171,7 +174,6 @@
             	<!-- 댓글 등록 -->
             	
                 <form id="frm" action="/cmt/cmtReg" method="post">
-                	<input type="checkbox" name="scrCmt" id="scrCmt"> 판매자만 볼수있게 할래요
                 	<br>
                     <div id="inputWrap">
                     	<textarea name="ctnt" placeholder="상품문의를 입력 해 주세요"></textarea>
@@ -268,6 +270,7 @@
                 <a href="#">3</a>
                 <a href="#"><span class="iconify icon-page-right" data-inline="false" data-icon="mdi-light:chevron-double-right" style="color: #3b73c8; font-size: 47px;"></span></a>
             </div>
+            
         </main>
     </div>
 <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
@@ -276,12 +279,23 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="/res/js/detail.js"></script>
 <script>
+	if(${transErr != null}) {
+		alert('${transErr}')
+		
+	}
 	
+	function chkValue() {
+		transFrm.chk.value = 1
+		location.reload()
+	}
 	
+	/*
 	function chkUpd() {
+		
 		const i_user = transFrm.i_user.value
 		const i_board = transFrm.i_board.value
 		const chk = transFrm.chk.value
+		
 		
 		console.log('i_user : ' + i_user)
 		console.log('i_board : ' + i_board)
@@ -296,14 +310,20 @@
 			i_user,
 			i_board,
 			chk
+			
 		}).then(function(res) {
 			if(res.data == '1') {
-				alert('성공')
+				console.log('리설트 1')
+				transFrm.chkSubmit.value = '구매요청'
+				
+			} else if(res.data == '2') {
+				console.log('리설트 2')
+				transFrm.chkSubmit.value = '구매취소'
 			}
 				
 		})
 	}
-	
+	*/
 	
 	// 업데이트 메소드 만들기 (아작스로)
 	function updCmt(ctnt, i_cmt) {
@@ -443,8 +463,6 @@
     function reviewbtn() {
        modal.style.display = "block";
     }
-	
-	
 </script>
 </body>
 </html>
