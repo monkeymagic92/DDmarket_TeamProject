@@ -81,7 +81,7 @@
             <section class="user-addr">
                 <form id="addrFrm" action="/user/info" method="post" onsubmit="return addrChk()">
                 	<div class="div_addr">
-                    	<input type="text" id="sample4_postcode" name="post" class="addr_input" placeholder="클릭할시 주소검색창이 나타납니다" onclick="sample4_execDaumPostcode()"><br>
+                    	<input type="text" id="sample4_postcode" name="post" value="${loginUser.addr}" class="addr_input" placeholder="클릭할시 주소검색창이 나타납니다" onclick="sample4_execDaumPostcode()"><br>
                     	<input id="addrUnChk" name="addrUnChk" type="hidden" value="unChk">
 						<input type="text" id="sample4_jibunAddress" name="addr" class="addr_input" placeholder="지번주소" onclick="sample4_execDaumPostcode()"><br>
 						<input type="text" id="sample4_roadAddress" name="road" class="addr_input" placeholder="도로명주소" onclick="sample4_execDaumPostcode()">
@@ -120,7 +120,7 @@
 	                        </c:forEach>
 	                    </div>          	
                     <input type="hidden" name="result" value="7">
-                    <button class="categoryChg">등록</button>
+                    <button class="categoryChg">카테고리 등록</button>
                 </form>
             </section>
         </main>        
@@ -131,6 +131,7 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 <script>
 
 if(${imgErr != null}) {
@@ -295,17 +296,17 @@ $('.emailChk').click(function() {
 			}			
 		}
 		
-		if(chkCnt > 3){
-			alert("관심사는 최대 3개까지 선택가능합니다");
+		if(chkCnt > 1){
+			alert("관심사는 최대 1개까지 선택가능합니다");
 			obj.checked = false;
 			return false;
 			
-		} else if (chkCnt < 3) {
-			categoryChkResult.innerText = '관심사는 총 3가지를 선택하세요.';		
+		} else if (chkCnt < 1) {
+			//categoryChkResult.innerText = '관심사는 1가지를 선택하세요.';		
 			obj.chechked = false;
 			return false;
 			
-		} else if (chkCnt == 3) {
+		} else if (chkCnt == 1) {
 			categoryChkResult.innerText = '';
 		} 
 	}

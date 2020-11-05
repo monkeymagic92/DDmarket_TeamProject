@@ -6,7 +6,7 @@
 main {
     width: 1040px; 
     margin: 0 auto;
-    margin-bottom: 100px; 
+    margin-bottom: 50px; 
     display: flex;
     flex-flow: column;
     justify-content: center;
@@ -37,7 +37,7 @@ input::placeholder {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 30px; }
+    margin-bottom: 50px; }
   
 .div-logo {
     width: 76%;
@@ -267,6 +267,8 @@ input::placeholder {
     
 .category-box { 
     width: 90%;
+    margin-left: 18px;
+    margin-top: 20px;
     margin-bottom: 200px;
     display: flex;
     justify-content: flex-start;
@@ -294,12 +296,13 @@ input::placeholder {
 */
 
 #category .categoryChg {
-    float: right;
-    font-size: 18px;
+    float: left;
+    margin-top: -180px;
+    margin-left: 18px;
+    font-size: 13px;
     font-weight: bold;
     height: 35px; 
-    width: 85px;
+    width: 100px;
     border-radius: 3px;
     background: #3B73C8; 
-    color: snow; 
-    margin-right: 430px;}
+    color: snow; }
