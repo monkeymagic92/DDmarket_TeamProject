@@ -6,14 +6,20 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/res/css/myPage.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
 <body>
 	<div id="container">
         <main>
             <section id="section-top">
                 <div id="div-top-left">
+
+
+
                     <div id="profile_img"><img src="/res/img/profile_img/user/${data.i_user }/${data.profile_img}" class="img"></div>
                     <span class="profile_nick">${data.nick}</span>
+
                     <div class="star-ratings-css">
                         <div class="star-ratings-css-top" style="width:120%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                         <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
@@ -22,17 +28,19 @@
                     <button id="profile_btn_change" onclick="moveToInfo()">회원정보변경</button>
                 </div>
                 <div id="div-top-right">
+
                     <span class="profile_nick">${data.nick }</span>
+
                     <div id="profile_info">
                         <div class="profile_info_detail">
                             <span class="iconify" data-inline="false" data-icon="mdi-light:home" style="color: #3b73c8; font-size: 20px;"></span>
                             <span class="profile_info_text">상점 오픈</span>
-                            <span class="profile_info_num">3일전</span>
+                            <span class="profile_info_num">${loginUser.r_dt}</span>
                         </div>
                         <div class="profile_info_detail">
                             <span class="iconify" data-inline="false" data-icon="mdi:human-greeting" style="color: #3b73c8; font-size: 20px;"></span>
                             <span class="profile_info_text">상점 방문수</span>
-                            <span class="profile_info_num">10명</span>
+                            <span class="profile_info_num"></span>
                         </div>
                         <div class="profile_info_detail">
                             <span class="iconify" data-inline="false" data-icon="ant-design:shopping-cart-outlined" style="color: #3b73c8; font-size: 18px;"></span>
@@ -202,17 +210,22 @@
 								          <span class="material-icons" onclick="Cbtn()">clear</span>
 								          <h2 class="title">라이언 덕후 상점과의 거래는 어떠셨나요?</h2>
 								       </div>
-								       <div class="starPoint">
-								       	<div class="startRadio"></div>
-								       </div>
-								       <div class="modal-content">
-									<div class="modal-body">
-										<textarea name="test" id="" class="reviewTxt" cols="50" rows="10" placeholder="후기댓글을 남겨주세요" ></textarea>
-									</div>
-									<div class="modal-footer">
-										<button class="close" onclick="closebtn()">등록</button>
-									</div>
-								        </div>
+								       <form id="frm" action="/review/ReviewCmt" method="post">
+									       <div class="starPoint">
+									       	<div class="startRadio"></div>
+									       </div>
+								       		<div class="modal-content">
+								       		<input type="hidden" name="i_user" value="${loginUser.i_user}">
+								       		<input type="hidden" name="i_board" value="1">
+								       		<input type="hidden" name="rating" value="0">
+											<div class="modal-body">
+												<textarea name="ctnt" id="" class="reviewTxt" cols="50" rows="10" placeholder="후기댓글을 남겨주세요" ></textarea>
+											</div>
+											<div class="modal-footer">
+												<button type="submit" class="close" onclick="closebtn()">등록</button>
+											</div>
+									   </form>
+						        </div>
 								</div>
                             </article>
                             <article class="div-wrap-buyList-article">
@@ -363,36 +376,37 @@
         '2.5', '3', '3.5', '4',
         '4.5', '5']
 
+
+	
 	function radiobox(){
-	
-	var starRadio = document.querySelector('.startRadio')
-	for (let i = 0; i < starlist.length; i++) {                
-		var label = document.createElement('label')
-		label.setAttribute('class', 'startRadio__box')
-		var input = document.createElement('input')
-		input.setAttribute('name', 'star')
-		input.setAttribute('type', 'radio')
-		input.addEventListener('click', function(){
-		var num = starlist[i]
-		if(input.value == 'checked'){
-		    num++ 
-		}
-	})
-	
-	var span = document.createElement('span')
-	span.setAttribute('class', 'startRadio__img')
-	
-	var spanBlind = document.createElement('span')
-	spanBlind.setAttribute('class', 'blind')
-	spanBlind.innerText = '별'+starlist[i]+'개'
-	label.append(input)
-	label.append(span)
-	span.append(spanBlind)
-	starRadio.append(label)
-		}
-	
-	}
-	
+            
+          var starRadio = document.querySelector('.startRadio')
+          for (let i = 0; i < starlist.length; i++) {                
+              var label = document.createElement('label')
+              label.setAttribute('class', 'startRadio__box')
+              var input = document.createElement('input')
+              input.setAttribute('name', 'star')
+              input.setAttribute('type', 'radio')
+              input.addEventListener('click', function(){
+                  var num = starlist[i]
+                  if(input.value == 'checked'){
+                      num++
+                      frm.rating.value = num
+                  }
+                  console.log(num);
+              })                  
+              var span = document.createElement('span')
+              span.setAttribute('class', 'startRadio__img')
+              var spanBlind = document.createElement('span')
+              spanBlind.setAttribute('class', 'blind')
+              spanBlind.innerText = '별'+starlist[i]+'개'
+              label.append(input)
+              label.append(span)
+              span.append(spanBlind)
+              starRadio.append(label)
+            }
+            
+        }
 	radiobox()
 	
 	function Cbtn(){
