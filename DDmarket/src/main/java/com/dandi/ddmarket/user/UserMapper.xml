@@ -52,6 +52,17 @@
 		SELECT i_cg, cg_nm FROM t_category
 	</select>
 	
+	<!-- myPage 탭메뉴 리스트 불러오기 -->
+	<select id="selTapList" parameterType="TapVO" resultType="TapVO">
+		SELECT i_tap, tap_nm FROM t_tap
+	</select>
+	
+	<!-- 판매갯수(글갯수) -->
+	<select id="selSellCnt" parameterType="UserPARAM" resultType="Integer">
+		SELECT COUNT(*) FROM t_board
+		WHERE i_user = #{i_user}
+	</select>
+	
 							<!-- insert -->
 						 
 	<!-- 회원가입 -->

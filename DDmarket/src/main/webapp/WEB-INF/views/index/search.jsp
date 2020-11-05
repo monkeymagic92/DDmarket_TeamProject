@@ -28,10 +28,10 @@
             <div id="div-wrap-top">
                 <div id="div-search-result">
                 	<c:if test="${searchNm == null && cdSearchNm != null}">
-                		<span>카테고리:${cdSearchNm}의 검색결과</span>
+                		<span>카테고리:${cdSearchNm}의 <span id="span-search-reuslt-text">전체</span>의  검색결과</span>
                 	</c:if>
                 	<c:if test="${searchNm == '' && cdSearchNm != null}">
-                		<span>카테고리:${cdSearchNm}의 검색결과</span>
+                		<span>카테고리:${cdSearchNm}의 <span id="span-search-reuslt-text">전체</span>의  검색결과</span>
                 	</c:if>
                 	<c:if test="${searchNm != '' && cdSearchNm == null}">
 	                	<span id="span-search-reuslt-text">${searchNm}</span>의 검색결과

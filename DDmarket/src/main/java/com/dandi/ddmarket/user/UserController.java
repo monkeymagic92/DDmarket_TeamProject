@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.dandi.ddmarket.CommonUtils;
 import com.dandi.ddmarket.Const;
 import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.ViewRef;
@@ -23,6 +24,7 @@ import com.dandi.ddmarket.board.BoardService;
 import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.mail.MailSendService;
 import com.dandi.ddmarket.mail.model.EmailVO;
+import com.dandi.ddmarket.tap.TapVO;
 import com.dandi.ddmarket.user.model.UserDMI;
 import com.dandi.ddmarket.user.model.UserPARAM;
 import com.dandi.ddmarket.user.model.UserVO;
@@ -290,18 +292,23 @@ public class UserController {
 	// 마이페이지 (myPage)
 	@RequestMapping(value="/myPage", method = RequestMethod.GET)
 	public String myPage(UserPARAM param, Model model, HttpServletRequest request,
-			HttpSession hs) {
+			HttpSession hs, BoardPARAM bparam, TapVO tparam) {
+		
+		hs.setAttribute("i_tap", CommonUtils.getIntParameter("i_tap", request));
 		
 		// i_user 값을 받아  나의 myPage, 다른유저의 myPage 구분해줌!
 		try {
 			int i_user = Integer.parseInt(request.getParameter("i_user"));
 			param.setI_user(i_user);
 			model.addAttribute("data", service.selUser(param));
+			model.addAttribute("sellCnt", service.selSellCnt(param));
 		} catch(Exception e) {
 			param = (UserPARAM)hs.getAttribute("loginUser");
 			model.addAttribute("data", service.selDetailUser(param));
+			model.addAttribute("sellCnt", service.selSellCnt(param));
 		}
 		
+		model.addAttribute("tapList", service.selTapList(tparam));
 		model.addAttribute("view",ViewRef.USER_MYPAGE);
 		return ViewRef.DEFAULT_TEMP;
 	}

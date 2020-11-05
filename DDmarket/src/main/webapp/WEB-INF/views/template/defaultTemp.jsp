@@ -31,7 +31,7 @@
                         <button id="header-search-btn"><span class="iconify icon-search" data-inline="false" data-icon="mdi-light:magnify" style="color: #3b73c8; font-size: 30px;"></span></button>
                     </form>
                     <div>
-                    <a href="/user/myPage?i_user=${loginUser.i_user}"><span class="iconify icon-account" data-inline="false" data-icon="mdi-light:account" style="color: #3b73c8; font-size: 50px;"></span></a>
+                    <a href="#" onclick="moveToMyPage(${loginUser.i_user})"><span class="iconify icon-account" data-inline="false" data-icon="mdi-light:account" style="color: #3b73c8; font-size: 50px;"></span></a>
                     <a href="/user/likeList"><span class="iconify icon-cart" data-inline="false" data-icon="mdi-light:cart" style="color: #3b73c8; font-size: 50px;"></span></a> 
                     </div>
                 </div>
