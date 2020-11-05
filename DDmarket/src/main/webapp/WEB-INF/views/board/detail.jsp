@@ -114,7 +114,12 @@
                					</c:if>
                                  		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;찜
                            		</button>
-                            	<button>연락하기</button>
+                           		<form id="transFrm" action="/board/??" method="post">
+                           			<input type="hidden" name="i_user" value="${loginUser.i_user }">
+                           			<button type="submit">거래요청</button>
+                           		</form>
+                            	
+                            	
                         	</c:if>				
                         </div>
                     </div>

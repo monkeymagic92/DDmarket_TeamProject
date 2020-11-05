@@ -22,7 +22,7 @@
                         <div class="star-ratings-css-top" style="width:120%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                         <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                     </div>
-                    <span id="profile_star_num">${data.grade}</span>
+                    <span id="profile_star_num">${data.grade}</span>         
                     <button id="profile_btn_change" onclick="moveToInfo()">회원정보변경</button>
                 </div>
                 <div id="div-top-right">

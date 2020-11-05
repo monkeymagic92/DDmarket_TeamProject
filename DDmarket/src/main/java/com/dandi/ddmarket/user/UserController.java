@@ -416,10 +416,13 @@ public class UserController {
 			
 			case 7: 
 				try { // 만약 3개값 다 못받아올경우 에러방지
-					String categoryList[] = request.getParameterValues("categoryLike");
+					/*String categoryList[] = request.getParameterValues("categoryLike");
 					param.setFavI_cg_1(categoryList[0]);
 					param.setFavI_cg_2(categoryList[1]);
-					param.setFavI_cg_3(categoryList[2]);
+					param.setFavI_cg_3(categoryList[2]);*/
+					
+					String categoryList = request.getParameter("categoryLike");
+					param.setFavI_cg_1(categoryList);
 					chk = service.changeCategory(param);
 					ra.addFlashAttribute("categoryMsg", "관심사가 수정되었습니다");
 					return "redirect:/" + ViewRef.USER_INFO;

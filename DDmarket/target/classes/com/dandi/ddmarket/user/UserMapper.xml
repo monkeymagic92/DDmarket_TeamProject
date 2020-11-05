@@ -107,8 +107,6 @@
 	<update id="changeCategory" parameterType="UserPARAM">
 		UPDATE t_user
 		SET favI_cg_1 = #{favI_cg_1}
-		, favI_cg_2 = #{favI_cg_2}
-		, favI_cg_3 = #{favI_cg_3}
 		WHERE i_user = #{i_user}
 	</update>
 	

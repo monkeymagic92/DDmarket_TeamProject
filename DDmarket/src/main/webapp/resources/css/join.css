@@ -21,7 +21,7 @@ input::placeholder {
 input:focus {outline:none;}
 
 .FrmJoin { width: 86%;
-	margin-top: 30px; 
+	margin-top: 20px; 
 	display: flex;
 	flex-flow: column wrap;
 	justify-content: center;
@@ -32,8 +32,8 @@ input:focus {outline:none;}
 	justify-content: flex-start; }
 .div-logo { 
 	width: 82%; 
-	margin-bottom: 50px;
-	margin-top: 70px;
+	margin-bottom: 30px;
+	margin-top: 50px;
 	display: flex; 
 	justify-content: flex-start; }
 .line {
