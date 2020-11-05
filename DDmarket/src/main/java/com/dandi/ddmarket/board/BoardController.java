@@ -172,7 +172,9 @@ public class BoardController {
 	public String detail(Model model, BoardPARAM param, CmtVO vo, HttpServletRequest req,
 			HttpServletRequest request, HttpSession hs) {
 		
-		service.addHit(param, req);
+		if(!SecurityUtils.isLogout(request)) {
+			service.addHit(param, req);			
+		}
 		
 		int i_board = Integer.parseInt(request.getParameter("i_board"));
 		hs.removeAttribute("i_board"); // service.insBoard에서 날라온 세션값

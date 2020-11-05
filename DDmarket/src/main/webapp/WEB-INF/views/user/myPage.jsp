@@ -15,8 +15,6 @@
             <section id="section-top">
                 <div id="div-top-left">
 
-
-
                     <div id="profile_img"><img src="/res/img/profile_img/user/${data.i_user }/${data.profile_img}" class="img"></div>
                     <span class="profile_nick">${data.nick}</span>
 
@@ -24,12 +22,12 @@
                         <div class="star-ratings-css-top" style="width:120%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                         <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                     </div>
-                    <span id="profile_star_num"></span>
+                    <span id="profile_star_num">${data.grade}</span>         
                     <button id="profile_btn_change" onclick="moveToInfo()">회원정보변경</button>
                 </div>
                 <div id="div-top-right">
 
-                    <span class="profile_nick">${data.nick }</span>
+                    <span class="profile_nick">${data.nick}</span>
 
                     <div id="profile_info">
                         <div class="profile_info_detail">
@@ -38,14 +36,9 @@
                             <span class="profile_info_num">${data.r_dt}</span>
                         </div>
                         <div class="profile_info_detail">
-                            <span class="iconify" data-inline="false" data-icon="mdi:human-greeting" style="color: #3b73c8; font-size: 20px;"></span>
-                            <span class="profile_info_text">상점 방문수</span>
-                            <span class="profile_info_num"></span>
-                        </div>
-                        <div class="profile_info_detail">
                             <span class="iconify" data-inline="false" data-icon="ant-design:shopping-cart-outlined" style="color: #3b73c8; font-size: 18px;"></span>
                             <span class="profile_info_text">상품판매</span>
-                            <span class="profile_info_num">1회</span>
+                            <span class="profile_info_num">20회</span>
                         </div>
                     </div>
                 </div>
@@ -202,7 +195,7 @@
                                     <div class="card-price">20,000 원</div>
                                     <div class="card-addr"><span class="iconify" data-inline="false" data-icon="el:map-marker" style="color: #6f6a6a; font-size: 16px;"></span><span>대구광역시 동구 신서동</span></div>
                                     <div class="card-date"><span class="card-date-text">구매 날짜</span><span class="card-date-num">2020.10.13</span></div>
-                                    <button class="review" onclick="reviewbtn()">후기쓰기</button>
+                                     <button class="review" onclick="reviewbtn()">후기쓰기</button>
                                 </div>
                                 
                              	<div id="ModalWrap" class="myModal modal">
@@ -216,7 +209,7 @@
 									       </div>
 								       		<div class="modal-content">
 								       		<input type="hidden" name="i_user" value="${loginUser.i_user}">
-								       		<input type="hidden" name="i_board" value="1">
+								       		<input type="hidden" name="i_board" value="3">
 								       		<input type="hidden" name="rating" value="0">
 											<div class="modal-body">
 												<textarea name="ctnt" id="" class="reviewTxt" cols="50" rows="10" placeholder="후기댓글을 남겨주세요" ></textarea>
@@ -226,6 +219,7 @@
 											</div>
 									   </form>
 						        </div>
+
 								</div>
                             </article>
                             <article class="div-wrap-buyList-article">
@@ -372,65 +366,70 @@
     </div>
 <script src="/res/js/myPage.js"></script>
 <script>
-	var starlist = ['0.5', '1', '1.5', '2',
-        '2.5', '3', '3.5', '4',
-        '4.5', '5']
+var starlist = ['0.5', '1', '1.5', '2',
+    '2.5', '3', '3.5', '4',
+    '4.5', '5']
 
-
-	
-	function radiobox(){
-            
-          var starRadio = document.querySelector('.startRadio')
-          for (let i = 0; i < starlist.length; i++) {                
-              var label = document.createElement('label')
-              label.setAttribute('class', 'startRadio__box')
-              var input = document.createElement('input')
-              input.setAttribute('name', 'star')
-              input.setAttribute('type', 'radio')
-              input.addEventListener('click', function(){
-                  var num = starlist[i]
-                  if(input.value == 'checked'){
-                      num++
-                      frm.rating.value = num
-                  }
-                  console.log(num);
-              })                  
-              var span = document.createElement('span')
-              span.setAttribute('class', 'startRadio__img')
-              var spanBlind = document.createElement('span')
-              spanBlind.setAttribute('class', 'blind')
-              spanBlind.innerText = '별'+starlist[i]+'개'
-              label.append(input)
-              label.append(span)
-              span.append(spanBlind)
-              starRadio.append(label)
-            }
-            
+function radiobox(){
+        
+      var starRadio = document.querySelector('.startRadio')
+      for (let i = 0; i < starlist.length; i++) {                
+          var label = document.createElement('label')
+          label.setAttribute('class', 'startRadio__box')
+          var input = document.createElement('input')
+          input.setAttribute('name', 'star')
+          input.setAttribute('type', 'radio')
+          input.addEventListener('click', function(){
+              var num = starlist[i]
+              frm.rating.value = num
+              if(input.value == 'checked'){
+                  num++
+              }
+              console.log(num);
+          })                  
+          var span = document.createElement('span')
+          span.setAttribute('class', 'startRadio__img')
+          var spanBlind = document.createElement('span')
+          spanBlind.setAttribute('class', 'blind')
+          spanBlind.innerText = '별'+starlist[i]+'개'
+          label.append(input)
+          label.append(span)
+          span.append(spanBlind)
+          starRadio.append(label)
         }
-	radiobox()
-	
-	function Cbtn(){
-		var modalwrap = document.querySelector('#ModalWrap')
-		modal.style.display = "none";
-	
+        
+    }
+radiobox()
+
+function Cbtn(){
+	var modalwrap = document.querySelector('#ModalWrap')
+	modal.style.display = "none";
+
+}
+var modal = document.querySelector(".myModal");
+
+function reviewbtn() {
+	modal.style.display = "block";
+}
+
+function closebtn() {
+	var txt = document.querySelector('textarea').value
+	if(txt.length == '' || txt.length == 0){
+	alert('후기를 작성해 주세요.')
+	return false
+}
+
+if(txt.length != '' || txt.length != 0){
+	modal.style.display = "none";
 	}
-	var modal = document.querySelector(".myModal");
+}
 	
-	function reviewbtn() {
-		modal.style.display = "block";
-	}
 	
-	function closebtn() {
-		var txt = document.querySelector('textarea').value
-		if(txt.length == '' || txt.length == 0){
-		alert('후기를 작성해 주세요.')
-		return false
-	}
 	
-	if(txt.length != '' || txt.length != 0){
-		modal.style.display = "none";
-		}
-	}
-</script>
+	////사용자 별점 값 조정
+	var grade = ${data.grade}/5*125;
+	document.querySelector('.star-ratings-css-top').style.width = grade + "%";
+
+	</script>
 </body>
 </html>
