@@ -165,10 +165,12 @@ public class BoardController {
 	
 	// 판매글 상세페이지 (detail)
 	@RequestMapping(value="/detail", method = RequestMethod.GET)
-	public String detail(Model model, BoardPARAM param, CmtVO vo, HttpServletRequest req,
+	public String detail(Model model, BoardPARAM param, CmtVO vo,
 			HttpServletRequest request, HttpSession hs) {
 		
-		service.addHit(param, req);
+		if(!SecurityUtils.isLogout(request)) {
+			service.addHit(param, request);			
+		}
 		
 		int i_board = Integer.parseInt(request.getParameter("i_board"));
 		hs.removeAttribute("i_board"); // service.insBoard에서 날라온 세션값

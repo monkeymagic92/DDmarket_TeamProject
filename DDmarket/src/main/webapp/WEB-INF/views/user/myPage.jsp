@@ -222,36 +222,7 @@
 						        </div>
 								</div>
                             </article>
-                            <article class="div-wrap-buyList-article">
-                                <div class="card-image"><img src="../img/yerin.jpg"></div>
-                                <div class="card-right">
-                                    <div class="card-title">정품 카카오 오리지날 국밥</div>
-                                    <div class="card-price">20,000 원</div>
-                                    <div class="card-addr"><span class="iconify" data-inline="false" data-icon="el:map-marker" style="color: #6f6a6a; font-size: 16px;"></span><span>대구광역시 동구 신서동</span></div>
-                                    <div class="card-date"><span class="card-date-text">구매 날짜</span><span class="card-date-num">2020.10.13</span></div>
-                                    <button>후기쓰기</button>
-                                </div>
-                            </article>
-                            <article class="div-wrap-buyList-article div-wrap-buyList-article-soldOut">
-                                <div class="card-image"><img src="../img/footer_logo.jpg"></div>
-                                <div class="card-right">
-                                    <div class="card-title">정품 카카오 오리지날 국밥</div>
-                                    <div class="card-price">20,000 원</div>
-                                    <div class="card-addr"><span class="iconify" data-inline="false" data-icon="el:map-marker" style="color: #6f6a6a; font-size: 16px;"></span><span>대구광역시 동구 신서동</span></div>
-                                    <div class="card-date"><span class="card-date-text">구매 날짜</span><span class="card-date-num">2020.10.13</span></div>
-                                    <button>후기쓰기</button>
-                                </div>
-                            </article>
-                            <article class="div-wrap-buyList-article div-wrap-buyList-article-soldOut">
-                                <div class="card-image"><img src="../img/gookpap.jpg"></div>
-                                <div class="card-right">
-                                    <div class="card-title">정품 카카오 오리지날 국밥</div>
-                                    <div class="card-price">20,000 원</div>
-                                    <div class="card-addr"><span class="iconify" data-inline="false" data-icon="el:map-marker" style="color: #6f6a6a; font-size: 16px;"></span><span>대구광역시 동구 신서동</span></div>
-                                    <div class="card-date"><span class="card-date-text">구매 날짜</span><span class="card-date-num">2020.10.13</span></div>
-                                    <button>후기쓰기</button>
-                                </div>
-                            </article>
+                           
                         </div>
                         <div class="tab_content" id="div-wrap-reviewList">
                                 <div id="reviewWrap">
@@ -282,20 +253,7 @@
                                         <div class="comment">쿨거래 감사합니다</div>
                                     </div>
                                 </div>
-                                <div id="reviewWrap">
-                                    <div class="review-right-profile-img"><img src="../img/yerin.jpg"></div>
-                                    <div class="review-right-profile-desc">
-                                        <div class="nick">
-                                            <span>yerin_back</span>
-                                            <div class="star-ratings-css">
-                                                <div class="star-ratings-css-top" style="width:85%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-                                                <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-                                            </div>
-                                            <span class="date">2020-10-16 03:35</span>
-                                        </div>
-                                        <div class="comment">쿨거래 감사합니다</div>
-                                    </div>
-                                </div>
+                               
                         </div>
                         <div class="tab_content" id="div-wrap-myCmtList">
                             <div id="reviewWrap">
@@ -305,20 +263,7 @@
                                         <div class="comment">댓글댓글댓글댓글댓댓글댓글댓글댓글댓댓글댓글댓글글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글</div>
                                     </div>
                             </div>                              
-                            <div id="reviewWrap">
-                                    <div class="review-right-profile-img"><img src="../img/yerin.jpg"></div>
-                                    <div class="review-right-profile-desc">
-                                        <div class="nick">yerin_back<span class="date">2020-10-16 03:35</span></div>
-                                        <div class="comment">댓글댓글댓글댓글댓댓글댓글댓글댓글댓댓글댓글댓글글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글</div>
-                                    </div>
-                            </div>                              
-                            <div id="reviewWrap">
-                                    <div class="review-right-profile-img"><img src="../img/yerin.jpg"></div>
-                                    <div class="review-right-profile-desc">
-                                        <div class="nick">yerin_back<span class="date">2020-10-16 03:35</span></div>
-                                        <div class="comment">댓글댓글댓글댓글댓댓글댓글댓글댓글댓댓글댓글댓글글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글</div>
-                                	</div>
-                            </div>                              
+                                                 
                         </div>
                         <div class="tab_content" id="div-wrap-myReviewList">
                             <div id="reviewWrap">
@@ -365,13 +310,12 @@
         </main>
     </div>
 <script src="/res/js/myPage.js"></script>
+<script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 <script>
 	var starlist = ['0.5', '1', '1.5', '2',
         '2.5', '3', '3.5', '4',
         '4.5', '5']
 
-
-	
 	function radiobox(){
             
           var starRadio = document.querySelector('.startRadio')
@@ -383,9 +327,9 @@
               input.setAttribute('type', 'radio')
               input.addEventListener('click', function(){
                   var num = starlist[i]
+                  frm.rating.value = num
                   if(input.value == 'checked'){
                       num++
-                      frm.rating.value = num
                   }
                   console.log(num);
               })                  
