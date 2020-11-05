@@ -14,8 +14,12 @@
         <main>
             <section id="section-top">
                 <div id="div-top-left">
-                    <div id="profile_img"><img src="/res/img/profile_img/${loginUser.i_user}/${loginUser.profile_img}"></div>
-                    <span class="profile_nick">${loginUser.nick}</span>
+
+
+
+                    <div id="profile_img"><img src="/res/img/profile_img/user/${data.i_user }/${data.profile_img}" class="img"></div>
+                    <span class="profile_nick">${data.nick}</span>
+
                     <div class="star-ratings-css">
                         <div class="star-ratings-css-top" style="width:120%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                         <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
@@ -24,7 +28,9 @@
                     <button id="profile_btn_change" onclick="moveToInfo()">회원정보변경</button>
                 </div>
                 <div id="div-top-right">
-                    <span class="profile_nick">${loginUser.nick}</span>
+
+                    <span class="profile_nick">${data.nick }</span>
+
                     <div id="profile_info">
                         <div class="profile_info_detail">
                             <span class="iconify" data-inline="false" data-icon="mdi-light:home" style="color: #3b73c8; font-size: 20px;"></span>

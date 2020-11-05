@@ -77,12 +77,12 @@
 					<li class="footer-left-list-item"><span
 						class="iconify icon-FAQ" data-inline="false"
 						data-icon="emojione-monotone:question-mark"
-						style="color: #aeaeae; font-size: 20px;"></span><span>자주 묻는
+						style="color: #aeaeae; font-size: 19px;"></span><span>자주 묻는
 							질문</span></li>
 					<li class="footer-left-list-item"><span
 						class="iconify icon-news" data-inline="false"
 						data-icon="ic:baseline-notifications"
-						style="color: #aeaeae; font-size: 23px;"></span><span>단디소식</span></li>
+						style="color: #aeaeae; font-size: 22px;"></span><span>단디소식</span></li>
 					<li class="footer-left-list-item"><span
 						class="iconify icon-customer" data-inline="false"
 						data-icon="ri:customer-service-2-fill"
@@ -98,7 +98,7 @@
 					<li class="footer-right-logo_list_item"><span
 						class="iconify icon-facebook" data-inline="false"
 						data-icon="fa-brands:facebook-square"
-						style="color: #aeaeae; font-size: 30px;"></span></li>
+						style="color: #aeaeae; font-size: 32px;"></span></li>
 					<li class="footer-right-logo_list_item"><span
 						class="iconify icon-kakaotalk" data-inline="false"
 						data-icon="vs:kakaotalk-square"
@@ -106,7 +106,7 @@
 					<li class="footer-right-logo_list_item"><span
 						class="iconify icon-instagram" data-inline="false"
 						data-icon="entypo-social:instagram"
-						style="color: #aeaeae; font-size: 30px;"></span></li>
+						style="color: #aeaeae; font-size: 31px; margin-left:-1px;"></span></li>
 				</ul>
 				<div class="footer-right-border"></div>
 				<ul class="footer-right-list">

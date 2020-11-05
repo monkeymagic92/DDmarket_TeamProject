@@ -15,7 +15,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.dandi.ddmarket.CmtCriteria;
+import com.dandi.ddmarket.CmtPageMaker;
 import com.dandi.ddmarket.CommonUtils;
+import com.dandi.ddmarket.Criteria;
+import com.dandi.ddmarket.PageMaker;
 import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.ViewRef;
 import com.dandi.ddmarket.board.model.BoardDMI;
@@ -173,13 +177,33 @@ public class BoardController {
 		int i_board = Integer.parseInt(request.getParameter("i_board"));
 		hs.removeAttribute("i_board"); // service.insBoard에서 날라온 세션값
 		param.setI_board(i_board);
-		
-		
+			
 		if(hs.getAttribute("loginUser") != null) {
 			// 찜목록용 i_user
 			int i_user = SecurityUtils.getLoginUserPk(hs);
 			param.setI_user(i_user);
 		}
+		
+		/////// 페이징 start
+		CmtCriteria cri = new CmtCriteria();
+		cri.setPage(CommonUtils.getIntParameter("cmtPage", request));
+		hs.setAttribute("cmtPage", cri.getPage());
+		CmtPageMaker cmtPageMaker = new CmtPageMaker();
+		cmtPageMaker.setCmtCriteria(cri);
+	    ///// 전체글 수 구하기
+	    int cmtCount = cmtService.countCmt(param);
+	    hs.setAttribute("cmtCount", cmtCount);
+	    
+	    cmtPageMaker.setTotalCount(cmtCount);
+	    int pageStart = cri.getPageStart();
+	    int perPageNum = cri.getPerPageNum();
+	    param.setCmt_pageStart(pageStart);
+	    param.setCmt_perPageNum(perPageNum);
+	    model.addAttribute("cmtPageMaker", cmtPageMaker);
+	    model.addAttribute("cmtPageNum", cmtPageMaker);
+		////// 페이징 end
+		
+		
 	
 		model.addAttribute("cmtCount", cmtService.countCmt(param)); // 댓글 갯수
 		model.addAttribute("cmtList", cmtService.selCmt(param));	// 댓글 내용

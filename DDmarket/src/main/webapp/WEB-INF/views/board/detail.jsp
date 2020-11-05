@@ -59,11 +59,11 @@
                     <div id="div-info-right">
                         <div class="user-info">
                             <div class="profile-img">
-                            	<c:if test="${loginUser.profile_img == null }">
-                        		<img src="/res/img/yerin.jpg" onchange="setThumbnail(e)" alt="" class="img">
+                            	<c:if test="${data.profile_img == null }">
+                        		<a href="/user/myPage?i_user=${data.i_user}"><img src="/res/img/yerin.jpg" onchange="setThumbnail(e)" alt="" class="img"></a>
 	                        	</c:if>
-	                        	<c:if test="${loginUser.profile_img != null }">
-	                                <img src="/res/img/profile_img/user/${loginUser.i_user }/${loginUser.profile_img}" class="img">                    	
+	                        	<c:if test="${data.profile_img != null }">
+	                                <a href="/user/myPage?i_user=${data.i_user}"><img src="/res/img/profile_img/user/${data.i_user}/${data.profile_img}" class="img"></a>                    	
 	                        	</c:if>
                             </div>
                             
@@ -127,29 +127,28 @@
             <section id="section-comment">
             
 
-            
-            
-            
-            
-            
-            
+                        
             	<!-- 댓글 등록 -->
             	
-                <form id="frm" action="/cmt/cmtReg" method="post" onsubmit>
+                <form id="frm" action="/cmt/cmtReg" method="post">
+                	<input type="checkbox" name="scrCmt" id="scrCmt"> 판매자만 볼수있게 할래요
+                	<br>
                     <div id="inputWrap">
                     	<textarea name="ctnt" placeholder="상품문의를 입력 해 주세요"></textarea>
                     	<input type="hidden" name="i_cmt" value="0">
+                    	<input type="hidden" name="scr" value="0">  <%-- 시크릿Cmt 값이 1이 되면 비밀댓글로 정하기 --%>
                     	<input type="hidden" name="i_board" value="${data.i_board}"> <!-- 이값은 아작스할떄는 필요 없는거같음 학원가서 보고 지우든가 쓰던가 하기 -->
                     </div>
                     	<input type="button" id="cmtSubmit" onclick="cmtReg()" value="등록">
                     	<button type="button" onclick="clkCmtCancel()">취소</button>
+                    	
 	            </form>
 	            
                 <c:forEach items="${cmtList}" var="item">
 	               	<div id="commentWrap" class="cmtList">
 	                   <div class="comment-profile-img"><img src="/res/img/profile_img/user/${item.i_user }/${item.profile_img}" class="img"></div>
 	                   <div class="comment-profile-desc">
-	                       <div class="nick">${item.nick}<span class="date">20-10-24 &nbsp; 20:30</span></div>
+	                       <div class="nick">${item.nick}<span class="date">111</span></div>
 	                       <div class="comment">${item.ctnt}</div>
 	                       <div class="etc">
 	                           <c:if test="${loginUser.i_user == item.i_user }">
@@ -165,15 +164,28 @@
 	                   </div>
 	               </div>
     			</c:forEach>
-
-            <div class="pageWrap">
-                <a href="#" class="hidden"><span class="iconify icon-page-left" data-inline="false" data-icon="mdi-light:chevron-double-left" style="color: #3b73c8; font-size: 47px;"></span></a>
-                <a href="#">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#"><span class="iconify icon-page-right" data-inline="false" data-icon="mdi-light:chevron-double-right" style="color: #3b73c8; font-size: 47px;"></span></a>
+    			
+			<div class="pageWrap">
+                <c:if test="${cmtPageMaker.prev}">
+                	<a href='<c:url value="/board/detail?i_board=${data.i_board}&cmtPage=${cmtPageMaker.startPage-1}"/>'><span class="iconify icon-page-left" data-inline="false" data-icon="mdi-light:chevron-double-left" style="color: #3b73c8; font-size: 47px;"></span></a>
+                </c:if>
+				<c:forEach begin="${cmtPageMaker.startPage}" end="${cmtPageMaker.endPage}" var="pageNum">
+			        <c:choose>
+			        <c:when test="${cmtPage == pageNum}">
+			        	<a style="color: red;" href='<c:url value="/board/detail?i_board=${data.i_board}&cmtPage=${pageNum}"/>'>${pageNum}</a>
+			        </c:when>
+			        <c:otherwise>
+			        	<a href='<c:url value="/board/detail?i_board=${data.i_board}&cmtPage=${pageNum}"/>'>${pageNum}</a>		        
+			        </c:otherwise>
+			        </c:choose>
+			    </c:forEach>
+			    <c:if test="${cmtPageMaker.next && cmtPageMaker.endPage > 0}">
+           			<a href='<c:url value="/board/detail?i_board=${data.i_board}&cmtPage=${cmtPageMaker.endPage+1}"/>'><span class="iconify icon-page-right" data-inline="false" data-icon="mdi-light:chevron-double-right" style="color: #3b73c8; font-size: 47px;"></span></a>
+           		</c:if>
             </div>
             </section>
+            
+            
             <h2 class="h2-section-title">상품후기</h2>
             <section id="section-review">
                 <div id="div-review-left">
@@ -229,7 +241,7 @@
 	function updCmt(ctnt, i_cmt) {
 		frm.ctnt.value = ctnt
 		frm.i_cmt.value = i_cmt
-		cmtSubmit.value = '댓글 수정'
+		cmtSubmit.value = '수정'
 		console.log(i_cmt)
 	}
 	
@@ -237,7 +249,8 @@
 	function clkCmtCancel() {
 		frm.i_cmt.value = 0
 		frm.ctnt.value = ''  //홑따옴표
-		cmtSubmit.value = '댓글 전송'
+
+		cmtSubmit.value = '등록'
 	}
 	
 	function ajaxPost(i_user, i_board, ctnt, i_cmt) {
@@ -254,12 +267,12 @@
 			
 		}).then(function(res) {
 			if(res.data == '1') { // 댓글 등록 완료
-				location.reload();
-				frm.ctnt.value = '';
+				location.reload()
+				frm.ctnt.value = ''
 						
 			} else if(res.data == '3') {
 				alert('로그인을 해주세요')
-				location.href="/user/login";
+				location.href="/user/login"
 				return false;
 			}
 		})

@@ -64,9 +64,57 @@
 		LIMIT 12
 	</select>
 	
-	<!-- search - header 카테고리 선택 시 -->
+	<!-- search 글리스트 -->
 	<select id="selSearchList" parameterType="BoardPARAM" resultType="BoardVO">
 		SELECT A.i_board, A.thumImage, A.title, A.price, A.r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr, A.i_cg
+		FROM t_board A
+		LEFT JOIN (
+			SELECT i_board, COUNT(*) AS likeNum FROM t_board_like
+			GROUP BY i_board
+		) B
+		ON A.i_board = B.i_board
+		
+		<if test="i_cg > 0 and searchNm_1 == null">
+		WHERE A.i_cg = #{i_cg}
+		</if>
+		<if test="i_cg == 0 and searchNm_1 != null and searchNm_2 != null">
+		WHERE (SUBSTRING_INDEX(A.addr," ",3) LIKE #{searchNm_1} OR A.title LIKE #{searchNm_1})
+		AND (SUBSTRING_INDEX(A.addr," ",3) LIKE #{searchNm_2} OR A.title LIKE #{searchNm_2})
+		</if>
+		<if test="i_cg > 0 and searchNm_1 != null and searchNm_2 != null">
+		WHERE (SUBSTRING_INDEX(A.addr," ",3) LIKE #{searchNm_1} OR A.title LIKE #{searchNm_1})
+		AND (SUBSTRING_INDEX(A.addr," ",3) LIKE #{searchNm_2} OR A.title LIKE #{searchNm_2})
+		AND A.i_cg = #{i_cg}
+		</if>
+		<if test="i_cg == 0 and searchNm_1 != null and searchNm_2 == null">
+		WHERE (SUBSTRING_INDEX(A.addr," ",3) LIKE #{searchNm_1} OR A.title LIKE #{searchNm_1})
+		</if>
+		<if test="i_cg > 0 and searchNm_1 != null and searchNm_2 == null">
+		WHERE (SUBSTRING_INDEX(A.addr," ",3) LIKE #{searchNm_1} OR A.title LIKE #{searchNm_1})
+		AND A.i_cg = #{i_cg}
+		</if>
+		ORDER BY
+		<if test="searchType == null">
+		A.i_board DESC
+		</if>
+		<if test="searchType == 'new'">
+		A.i_board DESC
+		</if>
+		<if test="searchType == 'hot'">
+		B.likeNum DESC
+		</if>
+		<if test="searchType == 'lowPrice'">
+		A.price ASC
+		</if>
+		<if test="searchType == 'highPrice'">
+		A.price DESC
+		</if>
+		LIMIT #{pageStart}, #{perPageNum}
+	</select>
+		
+		<!-- search 글갯수 -->
+		<select id="selSearchListCnt" parameterType="BoardPARAM" resultType="Integer">
+		SELECT count(*)
 		FROM t_board A
 		LEFT JOIN (
 			SELECT i_board, COUNT(*) AS likeNum FROM t_board_like

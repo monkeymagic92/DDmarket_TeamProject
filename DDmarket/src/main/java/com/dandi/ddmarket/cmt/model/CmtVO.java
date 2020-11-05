@@ -5,6 +5,7 @@ public class CmtVO {
 	private int i_user;
 	private int i_board;
 	private String ctnt;
+	private int scr;
 	private String r_dt;
 	private String m_dt;
 	
@@ -22,6 +23,12 @@ public class CmtVO {
 	}
 	public int getI_board() {
 		return i_board;
+	}
+	public int getScr() {
+		return scr;
+	}
+	public void setScr(int scr) {
+		this.scr = scr;
 	}
 	public void setI_board(int i_board) {
 		this.i_board = i_board;

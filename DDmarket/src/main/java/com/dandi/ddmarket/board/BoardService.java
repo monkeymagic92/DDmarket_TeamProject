@@ -189,12 +189,7 @@ public class BoardService {
 
 	
 		
-	// 판매글 상세페이지 정보 나타내기(detail)
-	public BoardDMI selBoard(BoardPARAM param) {
-
-		return transVoR_dt(mapper.selBoard(param));
-	}
-	
+		
 	// 찜목록 리스트
 	public List<BoardDMI> selLikeList(BoardPARAM param){
 		//System.out.println("찜");
@@ -223,7 +218,11 @@ public class BoardService {
 		}
 		
 	}
-	
+	// 판매글 상세페이지 정보 나타내기(detail)
+	public BoardDMI selBoard(BoardPARAM param) {
+
+		return transVoR_dt(mapper.selBoard(param));
+	}
 	
 	
 	// 등록일자를 현재 시간 기준으로 바꿔주는 메소드 ex) 몇 시간전, 몇 일전..
