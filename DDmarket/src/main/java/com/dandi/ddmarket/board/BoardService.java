@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.dandi.ddmarket.FileUtils;
+import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.TimeMaximum;
 import com.dandi.ddmarket.board.model.BoardDMI;
 import com.dandi.ddmarket.board.model.BoardPARAM;
@@ -209,10 +210,10 @@ public class BoardService {
 		String myIp = req.getRemoteAddr();
 		ServletContext ctx = req.getServletContext();
 		
-		//int i_user = SecurityUtils.getLoginUserPk(req);
+		int i_user = SecurityUtils.getLoginUserPk(req);
 		String currentReadIp = (String)ctx.getAttribute("current_board_read_ip" + param.getI_board());
 		if(currentReadIp == null || !currentReadIp.equals(myIp)) {
-			//param.setI_user(i_user);
+			param.setI_user(i_user);
 			mapper.updAddHit(param);
 			ctx.setAttribute("current_board_read_ip" + param.getI_board(), myIp);
 		}
