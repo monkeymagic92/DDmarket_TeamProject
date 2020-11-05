@@ -162,7 +162,7 @@ public class BoardController {
 	}
 	
 		
-	
+	//수정
 	// 판매글 상세페이지 (detail)
 	@RequestMapping(value="/detail", method = RequestMethod.GET)
 	public String detail(Model model, BoardPARAM param, CmtVO vo,
