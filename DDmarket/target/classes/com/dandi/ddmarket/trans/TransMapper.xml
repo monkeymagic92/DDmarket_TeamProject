@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dandi.ddmarket.trans.TransMapper">
+
+
+	<!-- select -->
+	
+	<!-- 해당n번 게시글의 가격요청 누른 유저정보 -->	
+	<select id="selTrans" parameterType="BoardPARAM" resultType="TransDMI">
+		SELECT A.i_trans, A.chk, B.nick FROM t_trans A
+		LEFT JOIN t_user B
+		ON A.i_user = B.i_user 
+		
+		LEFT JOIN t_board C
+		ON A.i_board = C.i_board
+		
+		WHERE A.i_board = #{i_board}
+	</select>
+	
+	<!-- 거래요청 / 거래취소 버튼 나누게 하기위해 -->
+	<select id="chkTrans">
+		SELECT chk FROM t_trans
+		WHERE i_board = #{i_board}
+		AND i_user = #{i_user}  
+	</select>
+	
+	<!-- insert -->
+	
+	<!-- 가격요청 눌렀을시 트랜스테이블 저장 -->
+	<insert id="insTrans" parameterType="TransVO">
+		INSERT INTO t_trans
+		(i_user, i_board, chk)
+		VALUES
+		(#{i_user}, #{i_board}, #{chk})
+	</insert>
+	
+	
+	
+	
+	
+	<!-- update -->
+	
+	<!-- delete -->
+	
+	
+	
+
+	
+
+	
+</mapper>

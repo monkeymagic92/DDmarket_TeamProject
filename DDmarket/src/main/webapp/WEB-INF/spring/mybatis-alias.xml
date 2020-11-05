@@ -24,5 +24,10 @@
 		<typeAlias type="com.dandi.ddmarket.review.model.ReviewVO" alias="ReviewVO"/>
 		<typeAlias type="com.dandi.ddmarket.review.model.ReviewPARAM" alias="ReviewPARAM"/>
 		
+		<!-- trans -->
+		<typeAlias type="com.dandi.ddmarket.trans.model.TransVO" alias="TransVO"/>		
+<!--    <typeAlias type="com.dandi.ddmarket.trans.model.TransPARAM" alias="TransPARAM"/> -->
+		<typeAlias type="com.dandi.ddmarket.trans.model.TransDMI" alias="TransDMI"/>
+		
 	</typeAliases>	
 </configuration>

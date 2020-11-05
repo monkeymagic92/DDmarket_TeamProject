@@ -1,7 +1,6 @@
 package com.dandi.ddmarket.board;
 
 import java.io.File;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,22 +10,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dandi.ddmarket.CmtCriteria;
 import com.dandi.ddmarket.CmtPageMaker;
 import com.dandi.ddmarket.CommonUtils;
-import com.dandi.ddmarket.Criteria;
-import com.dandi.ddmarket.PageMaker;
 import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.ViewRef;
-import com.dandi.ddmarket.board.model.BoardDMI;
 import com.dandi.ddmarket.board.model.BoardPARAM;
-import com.dandi.ddmarket.board.model.BoardVO;
 import com.dandi.ddmarket.cmt.CmtService;
 import com.dandi.ddmarket.cmt.model.CmtVO;
+import com.dandi.ddmarket.trans.TransService;
+import com.dandi.ddmarket.trans.model.TransVO;
 import com.dandi.ddmarket.user.UserService;
 import com.dandi.ddmarket.user.model.UserPARAM;
 
@@ -41,6 +37,9 @@ public class BoardController {
 	
 	@Autowired
 	private CmtService cmtService;		// 댓글 서비스
+	
+	@Autowired
+	private TransService transService;
 	
 	// 판매글 등록,수정
 	@RequestMapping(value="/saleReg", method = RequestMethod.GET)
@@ -171,6 +170,7 @@ public class BoardController {
 	@RequestMapping(value="/detail", method = RequestMethod.GET)
 	public String detail(Model model, BoardPARAM param, CmtVO vo, HttpServletRequest req,
 			HttpServletRequest request, HttpSession hs) {
+		int i_user = 0;
 		
 		if(!SecurityUtils.isLogout(request)) {
 			service.addHit(param, req);			
@@ -182,7 +182,7 @@ public class BoardController {
 			
 		if(hs.getAttribute("loginUser") != null) {
 			// 찜목록용 i_user
-			int i_user = SecurityUtils.getLoginUserPk(hs);
+			i_user = SecurityUtils.getLoginUserPk(hs);
 			param.setI_user(i_user);
 		}
 		
@@ -199,14 +199,15 @@ public class BoardController {
 	    cmtPageMaker.setTotalCount(cmtCount);
 	    int pageStart = cri.getPageStart();
 	    int perPageNum = cri.getPerPageNum();
+	    
 	    param.setCmt_pageStart(pageStart);
 	    param.setCmt_perPageNum(perPageNum);
 	    model.addAttribute("cmtPageMaker", cmtPageMaker);
 	    model.addAttribute("cmtPageNum", cmtPageMaker);
 		////// 페이징 end
 		
-		
-	
+	    
+	    model.addAttribute("selTrans", transService.selTrans(param)); // 구매요청 누른 유저들
 		model.addAttribute("cmtCount", cmtService.countCmt(param)); // 댓글 갯수
 		model.addAttribute("cmtList", cmtService.selCmt(param));	// 댓글 내용
 		model.addAttribute("data", service.selBoard(param));		// 판매글 내용
@@ -215,9 +216,11 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/detail", method = RequestMethod.POST)
-	public String detail(Model model, BoardPARAM param) {
-			
-		return ViewRef.DEFAULT_TEMP;
+	public String detail(Model model, TransVO vo) {
+		int result = transService.insTrans(vo);  // 거래요청 클릭시 trans테이블에 값 추가
+		
+		
+		return "redirect:/board/detail?i_board="+vo.getI_board();
 	}
 	
 	// 판매글 상세페이지 삭제

@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/res/css/detail.css">
-<link rel="stylesheet" href="/res/css/cmtModal.css">
+<link rel="stylesheet" href="/res/css/transModal.css">
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -114,16 +114,51 @@
                					</c:if>
                                  		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;찜
                            		</button>
-                           		<form id="transFrm" action="/board/??" method="post">
+                           		
+                           		
+                           		<!-- 거래요청 -->
+                         		<!-- 오늘의 교훈!!   아작스 할때 폼태그안에 버튼넣지말기 @@@@@@@@@@@@@@@@ -->
+                          		<form id="transFrm" action="/trans/transRequest" method="post">
                            			<input type="hidden" name="i_user" value="${loginUser.i_user }">
-                           			<button type="submit">거래요청</button>
+                           			<input type="hidden" name="i_board" value="${data.i_board }">
+                           			<input type="hidden" name="chk" value="0">
                            		</form>
-                            	
-                            	
+                      			<input type="submit" id="chkSubmit" onclick="chkUpd()" value="거래요청">
+                         		
+                          	
+	                           		
+                           		
+                           		
                         	</c:if>				
                         </div>
                     </div>
             </section>
+            
+            <button class="review" onclick="reviewbtn()">클릭
+		    </button>
+		    <div class="myModal modal">
+		        <div class="modal-content">
+		            <div class="modal-body">
+		                <table>		                
+		                	<tr>
+		                		<td>닉네임</td>
+		                	</tr>
+		               		<c:forEach items="${selTrans}" var="item">		               			
+			               	<tr>
+			                	<td>${item.i_trans }</td>
+			                	<td>${item.nick }</td>
+			                </tr>
+		                	</c:forEach>
+		                </table>
+		            </div>
+		            <div class="modal-footer">
+		                <button class="close" onclick="closebtn()">등록</button>
+		            </div>
+		        </div>
+		    </div>
+		    
+		    
+		    
             <h2 class="h2-section-title">상품정보</h2>
             <section id="section-desc">
                 <p>${data.ctnt }</p>
@@ -241,6 +276,34 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="/res/js/detail.js"></script>
 <script>
+	
+	
+	function chkUpd() {
+		const i_user = transFrm.i_user.value
+		const i_board = transFrm.i_board.value
+		const chk = transFrm.chk.value
+		
+		console.log('i_user : ' + i_user)
+		console.log('i_board : ' + i_board)
+		console.log('chk : ' + chk)
+		
+		ajaxTrans(i_user, i_board, chk)
+	}	
+	
+	
+	function ajaxTrans(i_user, i_board, chk) {
+		axios.post('/trans/transRequest',{
+			i_user,
+			i_board,
+			chk
+		}).then(function(res) {
+			if(res.data == '1') {
+				alert('성공')
+			}
+				
+		})
+	}
+	
 	
 	// 업데이트 메소드 만들기 (아작스로)
 	function updCmt(ctnt, i_cmt) {
@@ -374,6 +437,14 @@
 			} 
 		})
 	}
+	
+	var modal = document.querySelector(".myModal");
+
+    function reviewbtn() {
+       modal.style.display = "block";
+    }
+	
+	
 </script>
 </body>
 </html>
