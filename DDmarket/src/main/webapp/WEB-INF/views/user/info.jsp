@@ -81,7 +81,7 @@
             <section class="user-addr">
                 <form id="addrFrm" action="/user/info" method="post" onsubmit="return addrChk()">
                 	<div class="div_addr">
-                    	<input type="text" id="sample4_postcode" name="post" class="addr_input" placeholder="클릭할시 주소검색창이 나타납니다" onclick="sample4_execDaumPostcode()"><br>
+                    	<input type="text" id="sample4_postcode" name="post" class="addr_input" value="${loginUser.addr }" placeholder="클릭할시 주소검색창이 나타납니다" onclick="sample4_execDaumPostcode()"><br>
                     	<input id="addrUnChk" name="addrUnChk" type="hidden" value="unChk">
 						<input type="text" id="sample4_jibunAddress" name="addr" class="addr_input" placeholder="지번주소" onclick="sample4_execDaumPostcode()"><br>
 						<input type="text" id="sample4_roadAddress" name="road" class="addr_input" placeholder="도로명주소" onclick="sample4_execDaumPostcode()">
