@@ -296,18 +296,18 @@ public class UserController {
 		
 		hs.setAttribute("i_tap", CommonUtils.getIntParameter("i_tap", request));
 		
-		// i_user 값을 받아  나의 myPage, 다른유저의 myPage 구분해줌!
-		try {
-			int i_user = Integer.parseInt(request.getParameter("i_user"));
+		int i_user = CommonUtils.getIntParameter("i_user", request);
+	
+		if(i_user == 0) {
+			param.setI_user(SecurityUtils.getLoginUserPk(hs));
+		} else {
 			param.setI_user(i_user);
-			model.addAttribute("data", service.selUser(param));
-			model.addAttribute("sellCnt", service.selSellCnt(param));
-		} catch(Exception e) {
-			param = (UserPARAM)hs.getAttribute("loginUser");
-			model.addAttribute("data", service.selDetailUser(param));
-			model.addAttribute("sellCnt", service.selSellCnt(param));
 		}
 		
+		
+		model.addAttribute("sellList", service.selSellList(param));
+		model.addAttribute("data", service.selUser(param));
+		model.addAttribute("sellCnt", service.selSellCnt(param));
 		model.addAttribute("tapList", service.selTapList(tparam));
 		model.addAttribute("view",ViewRef.USER_MYPAGE);
 		return ViewRef.DEFAULT_TEMP;

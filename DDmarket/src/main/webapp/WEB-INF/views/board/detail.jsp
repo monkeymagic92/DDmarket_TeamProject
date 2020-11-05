@@ -317,7 +317,7 @@
 	// 별점
 	var grade = ${data.grade}/5*80;
 	document.querySelector('.star-ratings-css-top').style.width = grade + "%";
-	
+
 	
 	//찜 하기
 	function ToLike(){

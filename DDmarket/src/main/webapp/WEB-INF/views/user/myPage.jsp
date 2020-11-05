@@ -38,7 +38,7 @@
                         </div>
                         <div class="profile_info_detail">
                             <span class="iconify" data-inline="false" data-icon="ant-design:shopping-cart-outlined" style="color: #3b73c8; font-size: 18px;"></span>
-                            <span class="profile_info_text">상품판매</span>
+                            <span class="profile_info_text">상품 판매</span>
                             <span class="profile_info_num">${sellCnt}회</span>
                         </div>
                     </div>
@@ -61,8 +61,36 @@
                 </div>
                 
                 <c:if test="${i_tap == 1}">
-                <div id="tap_sellList">
-                	판매목록
+               	<div id="tap_sellList">
+	                <c:forEach var="item" items="${sellList}">
+	                    <article class="card-wrap">
+	                        <a href="/board/detail?i_board=${item.i_board}">  
+	                            <div class="card-pic">
+	                               <c:choose>
+	                                  <c:when test="${item.thumImage == null}">
+	                                     <img src="/res/img/lion.jpg">
+	                                  </c:when>
+	                                  <c:otherwise>
+	                                     <img src="/res/img/board/${item.i_board}/${item.thumImage}">
+	                                  </c:otherwise>
+	                               </c:choose>
+	                            </div>
+	                            <div class="card-desc">
+	                                <h2 class="card-title">${item.title}</h2>
+	                                <span class="card-border"></span>
+	                                <div class="card-addr"><span class="iconify icon-map" data-inline="false" data-icon="mdi-light:map-marker" style="color: #f84c4c; font-size: 21px;"></span>${item.addr}</div>
+	                                <div>
+	                                   <span class="card-price">
+	                                      <c:choose>
+	                                         <c:when test="${item.price == 0}"><span class="card-price">무료</span></c:when>
+	                                         <c:otherwise><span class="card-price"><fmt:formatNumber value="${item.price}" pattern="#,###" />원</span></c:otherwise>
+	                                      </c:choose>
+	                                   <span class="card-r_dt">${item.r_dt}</span>
+	                                </div>
+	                            </div>
+	                        </a>
+	                    </article>
+	                  </c:forEach>
                 </div>
                 </c:if>
                 

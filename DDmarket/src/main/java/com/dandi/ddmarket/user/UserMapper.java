@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.dandi.ddmarket.board.model.BoardPARAM;
+import com.dandi.ddmarket.board.model.BoardVO;
 import com.dandi.ddmarket.category.model.CategoryVO;
 import com.dandi.ddmarket.tap.TapVO;
 import com.dandi.ddmarket.user.model.UserDMI;
@@ -31,6 +32,8 @@ public interface UserMapper {
 	List<TapVO> selTapList(TapVO tparam); // mypage 탭 메뉴 가져오기
 	
 	int selSellCnt(UserPARAM param);
+	
+	List<BoardVO> selSellList(UserPARAM param);
 	
 	// insert
 	int joinUser(UserVO param);		// 회원가입

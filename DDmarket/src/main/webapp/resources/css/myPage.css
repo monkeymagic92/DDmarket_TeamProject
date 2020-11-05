@@ -137,31 +137,39 @@ z-index: 0;
 
 
 /* 판매목록 */
-/* #div-wrap-sellList */
-#div-wrap-sellList {display: flex; flex-flow: row wrap; margin-bottom: 30px;}
+/* div-wrap-article */
+#tap_sellList {display: flex; flex-flow: row wrap; margin-bottom: 30px;}
+#tap_sellList .card-wrap {width: 20%; height: 300px; background: #EEEEEE; text-align: center; margin:35px 35px 0px 10px}
+#tap_sellList .card-wrap a .card-pic {width: 100%; height: 170.44px;}
+#tap_sellList .card-wrap a .card-pic img {width: 100%; height: 100%;}
+#tap_sellList .card-wrap a .card-desc {margin-top: 10px; display:flex; flex-flow:column wrap; justify-content: center; align-items: center; }
+#tap_sellList .card-wrap a .card-desc .card-title {font-style: normal; font-weight: normal; font-size: 16px; color: #3B3B3D;}
+#tap_sellList .card-wrap a .card-desc .card-border {border-bottom: 1px dashed #A5A2A2; width: 67%; display: block; margin: 5px auto;}
+#tap_sellList .card-wrap a .card-desc div {width:150px;}
+#tap_sellList .card-wrap a .card-desc div .card-price { font-size: 16px; color: #3B3B3D; margin-right:4px;}
+#tap_sellList .card-wrap a .card-desc div .card-r_dt { font-size: 10px; color: #BAB6B6; margin-left:4px;}
+#tap_sellList .card-wrap a .card-addr {font-size: 13px; margin: 5px 0 5px 10px; position: relative; color: #3B3B3D;}
+#tap_sellList .card-wrap a .card-addr .icon-map {position: absolute; left: 6px; top: -0.5px;}
 
-#div-wrap-sellList .card-wrap {width: 18%; height: 280px; background: #EEEEEE; text-align: center; margin-bottom: 30px; margin-left: 25px; position: relative;}
-#div-wrap-sellList .card-wrap-soldOut::before {background: rgba(0, 0, 0, 0.4); z-index: 1; content:"";
-                                            width: 180px; height: 280px; position: absolute; right: 0px; text-align: center;}
-#div-wrap-sellList .card-soldOut {color: white; position: absolute; font-size: 25px; font-weight: bold; z-index: 2; left: 45px; top:110px;}
-#div-wrap-sellList .card-wrap:nth-child(5n+1) {margin-left: 0px;}
-#div-wrap-sellList .card-wrap:nth-child(1) {margin-left: 0px;}
-
-#div-wrap-sellList .card-wrap a .card-pic {width: 100%;}
-#div-wrap-sellList .card-wrap a .card-pic img {width: 100%; height: 100%;}
-
-#div-wrap-sellList .card-wrap a .card-desc {margin-top: 20px;}
-#div-wrap-sellList .card-wrap a .card-desc .card-title {font-style: normal; font-weight: normal; font-size: 16px; color: #3B3B3D;}
-#div-wrap-sellList .card-wrap a .card-desc .card-border {border-bottom: 1px dashed #A5A2A2; width: 67%; display: block; margin: 5px auto;}
-#div-wrap-sellList .card-wrap a .card-desc .card-price { font-size: 16px; margin-right: 25px; color: #3B3B3D;}
-#div-wrap-sellList .card-wrap a .card-desc .card-r_dt { font-size: 10px; color: #BAB6B6;}
-
-#div-wrap-sellList .card-wrap a .card-addr {font-size: 13px; margin-top: 15px; margin-left: 10px; position: relative; color: #3B3B3D;}
-#div-wrap-sellList .card-wrap a .card-addr .icon-map {position: absolute; left: 2px; top: -0.5px;}
-
+/* div-wrap-page */
+#tap_sellList_page {display: flex; justify-content: center;}
+#tap_sellList_page a {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-right: 12px;
+    border: 1px solid #AEAEAE;
+    background: rgb(255, 255, 255);
+    border-radius: 2px;
+    color: #3B73C8;
+    border-radius: 3px;
+}
 
 /* 구매목록 */
-
 /* #div-wrap-buyList */
 #div-wrap-buyList {flex-flow: column wrap; margin-bottom: 50px;  padding-top: 0px; height: 900px;}
 #div-wrap-buyList .div-wrap-buyList-article {width: 100%; margin-bottom: 0px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid #EEEEEE; position: relative;}

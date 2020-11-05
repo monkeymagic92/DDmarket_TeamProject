@@ -21,7 +21,7 @@ public class IndexService {
 
 
 	// 등록일자를 현재 시간 기준으로 바꿔주는 메소드 ex) 몇 시간전, 몇 일전..
-	public List<BoardVO> transferR_dt(List<BoardVO> param) {
+	public static List<BoardVO> transferR_dt(List<BoardVO> param) {
 
 		for(BoardVO vo : param) {
 			String paramR_dt = vo.getR_dt();
