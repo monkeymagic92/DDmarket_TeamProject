@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dandi.ddmarket.CommonUtils;
+import com.dandi.ddmarket.Criteria;
+import com.dandi.ddmarket.PageMaker;
 import com.dandi.ddmarket.SecurityUtils;
 
 import com.dandi.ddmarket.ViewRef;
@@ -35,9 +37,8 @@ public class IndexController {
 		//
 		// header 검색값 세션에서  제거
 		hs.removeAttribute("searchNm");
-		hs.removeAttribute("pSearch_1");
-		hs.removeAttribute("pSearch_2");
 		hs.removeAttribute("searchType");
+		hs.removeAttribute("totalCount");
 		
 		// 카테고리 리스트 세션에 저장 (많은 곳에서 쓰이기때문)
 		hs.setAttribute("cgList", service.selCgList(cparam));
@@ -94,6 +95,25 @@ public class IndexController {
 		
 		// 검색타입을 세션에 저장 
 		hs.setAttribute("searchType", param.getSearchType());
+		
+		
+		/////// 페이징 start
+		Criteria cri = new Criteria();
+		cri.setPage(CommonUtils.getIntParameter("page", request));
+		hs.setAttribute("page", cri.getPage());
+		PageMaker pageMaker = new PageMaker();
+	    pageMaker.setCri(cri);
+	    ///// 전체글 수 구하기
+	    int totalCount = service.selSearchListCnt(param);
+	    hs.setAttribute("totalCount", totalCount);
+	    pageMaker.setTotalCount(totalCount);
+	    int pageStart = cri.getPageStart();
+	    int perPageNum = cri.getPerPageNum();
+	    param.setPageStart(pageStart);
+	    param.setPerPageNum(perPageNum);
+	    model.addAttribute("pageMaker", pageMaker);
+	    model.addAttribute("pageNum", pageMaker);
+		////// 페이징 end
 		
 		model.addAttribute("searchList", service.selSearchList(param));
 		model.addAttribute("view","/index/search");

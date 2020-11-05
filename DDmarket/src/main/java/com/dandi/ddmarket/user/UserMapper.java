@@ -27,8 +27,6 @@ public interface UserMapper {
 	
 	List<CategoryVO> selCategory();		// 카테고리 리스트
 	
-	
-	
 	// insert
 	int joinUser(UserVO param);		// 회원가입
 	

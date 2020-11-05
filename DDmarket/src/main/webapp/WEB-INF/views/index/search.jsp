@@ -17,10 +17,10 @@
 	        	<c:forEach var="item" items="${cgList}">
 	        		<c:choose>
 	        			<c:when test="${i_cg == item.i_cg}">
-	        				<a style="color: red;" href="/index/search?i_cg=${item.i_cg}">${item.cg_nm}</a>
+	        				<a style="color: red;" href="/index/search?i_cg=${item.i_cg}&searchNm=${searchNm}">${item.cg_nm}</a>
 	        			</c:when>
 	        			<c:otherwise>
-	        				<a href="/index/search?i_cg=${item.i_cg}">${item.cg_nm}</a>
+	        				<a href="/index/search?i_cg=${item.i_cg}&searchNm=${searchNm}">${item.cg_nm}</a>
 	        			</c:otherwise>
 	        		</c:choose>
 	            </c:forEach>
@@ -28,7 +28,10 @@
             <div id="div-wrap-top">
                 <div id="div-search-result">
                 	<c:if test="${searchNm == null && cdSearchNm != null}">
-                		<span>카테고리:${cdSearchNm}</span>의 검색결과
+                		<span>카테고리:${cdSearchNm}의 검색결과</span>
+                	</c:if>
+                	<c:if test="${searchNm == '' && cdSearchNm != null}">
+                		<span>카테고리:${cdSearchNm}의 검색결과</span>
                 	</c:if>
                 	<c:if test="${searchNm != '' && cdSearchNm == null}">
 	                	<span id="span-search-reuslt-text">${searchNm}</span>의 검색결과
@@ -40,39 +43,39 @@
                 	<c:if test="${searchNm == '' && cdSearchNm == null}">
 	                	<span id="span-search-reuslt-text">전체</span>의 검색결과
                 	</c:if>
-                	<span id="span-search-reuslt-number">${fn:length(searchList)}개</span>
+                	<span id="span-search-reuslt-number">${totalCount}개</span>
                 </div>
                 <div id="div-search-standard">
 	                <c:choose>
 	                	<c:when test="${searchType == 'new'}">
-		                	<a style="color: red;" href="/index/search?searchType=new&i_cg=${i_cg > 0 ? i_cg : 0}">최신순</a>ㅣ
-		                	<a href="/index/search?searchType=hot&i_cg=${i_cg > 0 ? i_cg : 0}">인기순</a>ㅣ
-		                	<a href="/index/search?searchType=lowPrice&i_cg=${i_cg > 0 ? i_cg : 0}">저가순</a>ㅣ
-		                	<a href="/index/search?searchType=highPrice&i_cg=${i_cg > 0 ? i_cg : 0}">고가순</a>
+		                	<a style="color: red;" href="/index/search?searchType=new&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}">최신순</a>ㅣ
+		                	<a href="/index/search?searchType=hot&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}">인기순</a>ㅣ
+		                	<a href="/index/search?searchType=lowPrice&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}">저가순</a>ㅣ
+		                	<a href="/index/search?searchType=highPrice&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}">고가순</a>
 	                	</c:when>
 	                	<c:when test="${searchType == 'hot'}">
-		                	<a href="/index/search?searchType=new&i_cg=${i_cg > 0 ? i_cg : 0}">최신순</a>ㅣ
-		                	<a style="color: red;" href="/index/search?searchType=hot&i_cg=${i_cg > 0 ? i_cg : 0}">인기순</a>ㅣ
-		                	<a href="/index/search?searchType=lowPrice&i_cg=${i_cg > 0 ? i_cg : 0}">저가순</a>ㅣ
-		                	<a href="/index/search?searchType=highPrice&i_cg=${i_cg > 0 ? i_cg : 0}">고가순</a>
+		                	<a href="/index/search?searchType=new&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}">최신순</a>ㅣ
+		                	<a style="color: red;" href="/index/search?searchType=hot&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}">인기순</a>ㅣ
+		                	<a href="/index/search?searchType=lowPrice&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}">저가순</a>ㅣ
+		                	<a href="/index/search?searchType=highPrice&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}">고가순</a>
 	                	</c:when>
 	                	<c:when test="${searchType == 'lowPrice'}">
-     			            <a href="/index/search?searchType=new&i_cg=${i_cg > 0 ? i_cg : 0}">최신순</a>ㅣ
-		                	<a href="/index/search?searchType=hot&i_cg=${i_cg > 0 ? i_cg : 0}">인기순</a>ㅣ
-		                	<a style="color: red;" href="/index/search?searchType=lowPrice&i_cg=${i_cg > 0 ? i_cg : 0}">저가순</a>ㅣ
-		                	<a href="/index/search?searchType=highPrice&i_cg=${i_cg > 0 ? i_cg : 0}">고가순</a>
+     			            <a href="/index/search?searchType=new&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}">최신순</a>ㅣ
+		                	<a href="/index/search?searchType=hot&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}">인기순</a>ㅣ
+		                	<a style="color: red;" href="/index/search?searchType=lowPrice&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}">저가순</a>ㅣ
+		                	<a href="/index/search?searchType=highPrice&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}">고가순</a>
 	                	</c:when>
 	                	<c:when test="${searchType == 'highPrice'}">
-		                	<a href="/index/search?searchType=new&i_cg=${i_cg > 0 ? i_cg : 0}">최신순</a>ㅣ
-		                	<a href="/index/search?searchType=hot&i_cg=${i_cg > 0 ? i_cg : 0}">인기순</a>ㅣ
-		                	<a href="/index/search?searchType=lowPrice&i_cg=${i_cg > 0 ? i_cg : 0}">저가순</a>ㅣ
-		                	<a style="color: red;" href="/index/search?searchType=highPrice&i_cg=${i_cg > 0 ? i_cg : 0}">고가순</a>
+		                	<a href="/index/search?searchType=new&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}">최신순</a>ㅣ
+		                	<a href="/index/search?searchType=hot&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}">인기순</a>ㅣ
+		                	<a href="/index/search?searchType=lowPrice&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}">저가순</a>ㅣ
+		                	<a style="color: red;" href="/index/search?searchType=highPrice&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}">고가순</a>
 	                	</c:when>
 	                	<c:when test="${searchType == null}">
-		                	<a style="color: red;" href="/index/search?searchType=new&i_cg=${i_cg > 0 ? i_cg : 0}">최신순</a>ㅣ
-		                	<a href="/index/search?searchType=hot&i_cg=${i_cg > 0 ? i_cg : 0}">인기순</a>ㅣ
-		                	<a href="/index/search?searchType=lowPrice&i_cg=${i_cg > 0 ? i_cg : 0}">저가순</a>ㅣ
-		                	<a href="/index/search?searchType=highPrice&i_cg=${i_cg > 0 ? i_cg : 0}">고가순</a>
+		                	<a style="color: red;" href="/index/search?searchType=new&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}">최신순</a>ㅣ
+		                	<a href="/index/search?searchType=hot&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}">인기순</a>ㅣ
+		                	<a href="/index/search?searchType=lowPrice&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}">저가순</a>ㅣ
+		                	<a href="/index/search?searchType=highPrice&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}">고가순</a>
 	                	</c:when>
 	                </c:choose>
                 </div>
@@ -108,9 +111,25 @@
                         </a>
                     </article>
                   </c:forEach>
-               
 			</div>
-			<button type="button" onclick="getMoreList()">더보기</button>
+			<div id="div-wrap-page">
+                <c:if test="${pageMaker.prev}">
+                	<a href='<c:url value="/index/search?page=${pageMaker.startPage-1}&searchNm=${searchNm}&i_cg=${i_cg == null ? 0 : i_cg}&searchType=${searchType == null ? 'new' : searchType}"/>'><span class="iconify icon-page-left" data-inline="false" data-icon="mdi-light:chevron-double-left" style="color: #3b73c8; font-size: 47px;"></span></a>
+                </c:if>
+				<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="pageNum">
+			        <c:choose>
+			        <c:when test="${page == pageNum}">
+			        	<a style="color: red;" href='<c:url value="/index/search?page=${pageNum}&searchNm=${searchNm}&i_cg=${i_cg == null ? 0 : i_cg}&searchType=${searchType == null ? 'new' : searchType}"/>'>${pageNum}</a>
+			        </c:when>
+			        <c:otherwise>		        
+			        	<a href='<c:url value="/index/search?page=${pageNum}&searchNm=${searchNm}&i_cg=${i_cg == null ? 0 : i_cg}&searchType=${searchType == null ? 'new' : searchType}"/>'>${pageNum}</a>
+			        </c:otherwise>
+			        </c:choose>
+			    </c:forEach>
+			    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+               		 <a href='<c:url value="/index/search?page=${pageMaker.endPage+1}&searchNm=${searchNm}&i_cg=${i_cg == null ? 0 : i_cg}&searchType=${searchType == null ? 'new' : searchType}"/>'><span class="iconify icon-page-right" data-inline="false" data-icon="mdi-light:chevron-double-right" style="color: #3b73c8; font-size: 47px;"></span></a>
+           		</c:if>
+            </div>
         </main>
     </div>
 </body>

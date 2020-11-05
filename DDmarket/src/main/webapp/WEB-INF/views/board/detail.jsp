@@ -114,7 +114,12 @@
                					</c:if>
                                  		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;찜
                            		</button>
-                            	<button>연락하기</button>
+                           		<form id="transFrm" action="/board/??" method="post">
+                           			<input type="hidden" name="i_user" value="${loginUser.i_user }">
+                           			<button type="submit">거래요청</button>
+                           		</form>
+                            	
+                            	
                         	</c:if>				
                         </div>
                     </div>
@@ -131,12 +136,12 @@
             	<!-- 댓글 등록 -->
             	
                 <form id="frm" action="/cmt/cmtReg" method="post">
-                	<input type="checkbox" name="priceChk" id="priceChk" class="priceChk"> 판매자만 볼수있게 할래요
+                	<input type="checkbox" name="scrCmt" id="scrCmt"> 판매자만 볼수있게 할래요
                 	<br>
                     <div id="inputWrap">
                     	<textarea name="ctnt" placeholder="상품문의를 입력 해 주세요"></textarea>
                     	<input type="hidden" name="i_cmt" value="0">
-                    	<input type="hidden" name="scrCmt" value="0"> <%-- 시크릿Cmt 값이 1이 되면 비밀댓글로 정하기 --%>
+                    	<input type="hidden" name="scr" value="0">  <%-- 시크릿Cmt 값이 1이 되면 비밀댓글로 정하기 --%>
                     	<input type="hidden" name="i_board" value="${data.i_board}"> <!-- 이값은 아작스할떄는 필요 없는거같음 학원가서 보고 지우든가 쓰던가 하기 -->
                     </div>
                     	<input type="button" id="cmtSubmit" onclick="cmtReg()" value="등록">
@@ -164,13 +169,24 @@
 	                   </div>
 	               </div>
     			</c:forEach>
-
-            <div class="pageWrap">
-                <a href="#" class="hidden"><span class="iconify icon-page-left" data-inline="false" data-icon="mdi-light:chevron-double-left" style="color: #3b73c8; font-size: 47px;"></span></a>
-                <a href="#">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#"><span class="iconify icon-page-right" data-inline="false" data-icon="mdi-light:chevron-double-right" style="color: #3b73c8; font-size: 47px;"></span></a>
+    			
+			<div class="pageWrap">
+                <c:if test="${cmtPageMaker.prev}">
+                	<a href='<c:url value="/board/detail?i_board=${data.i_board}&cmtPage=${cmtPageMaker.startPage-1}"/>'><span class="iconify icon-page-left" data-inline="false" data-icon="mdi-light:chevron-double-left" style="color: #3b73c8; font-size: 47px;"></span></a>
+                </c:if>
+				<c:forEach begin="${cmtPageMaker.startPage}" end="${cmtPageMaker.endPage}" var="pageNum">
+			        <c:choose>
+			        <c:when test="${cmtPage == pageNum}">
+			        	<a style="color: red;" href='<c:url value="/board/detail?i_board=${data.i_board}&cmtPage=${pageNum}"/>'>${pageNum}</a>
+			        </c:when>
+			        <c:otherwise>
+			        	<a href='<c:url value="/board/detail?i_board=${data.i_board}&cmtPage=${pageNum}"/>'>${pageNum}</a>		        
+			        </c:otherwise>
+			        </c:choose>
+			    </c:forEach>
+			    <c:if test="${cmtPageMaker.next && cmtPageMaker.endPage > 0}">
+           			<a href='<c:url value="/board/detail?i_board=${data.i_board}&cmtPage=${cmtPageMaker.endPage+1}"/>'><span class="iconify icon-page-right" data-inline="false" data-icon="mdi-light:chevron-double-right" style="color: #3b73c8; font-size: 47px;"></span></a>
+           		</c:if>
             </div>
             </section>
             
