@@ -7,7 +7,7 @@
 	
 	<!-- 해당n번 게시글의 가격요청 누른 유저정보 -->	
 	<select id="selTrans" parameterType="BoardPARAM" resultType="TransDMI">
-		SELECT A.i_trans, A.chk, B.nick FROM t_trans A
+		SELECT A.i_trans, A.chk, B.i_user ,B.nick, B.profile_img, B.addr, B.grade FROM t_trans A
 		LEFT JOIN t_user B
 		ON A.i_user = B.i_user 
 		

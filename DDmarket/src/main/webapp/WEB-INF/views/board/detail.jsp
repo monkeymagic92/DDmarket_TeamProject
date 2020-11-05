@@ -143,14 +143,21 @@
 		        <div class="modal-content">
 		            <div class="modal-body">
 		                <table>		                
-		                	<tr>
-		                		<td>닉네임</td>
-		                	</tr>
 		               		<c:forEach items="${selTrans}" var="item">		               			
-			               	<tr>
-			                	<td>${item.i_trans }</td>
-			                	<td>${item.nick }</td>
-			                </tr>
+				               	<tr class="itemRow">
+				                	<td onclick="moveToTransChat(${item.i_trans})">${item.i_trans}</td>
+				                	<td onclick="moveToDetail(${item.i_user})">${item.profile_img}
+				                		<c:if test="${item.profile_img == null }">
+				                			<img src="/res/img/yerin.jpg" onchange="setThumbnail(e)" alt="" class="img">
+				                		</c:if>
+				                		<c:if test="${item.profile_img != null}">
+				                			<img src="/res/img/profile_img/user/${item.i_user}/${item.profile_img}" class="img">
+				                		</c:if>
+				                	</td>
+				                	<td onclick="moveToDetail(${item.i_user})">${item.nick}</td>
+				                	<td onclick="moveToDetail(${item.i_user})">${item.grade}</td>
+				                	<td onclick="moveToDetail(${item.i_user})">${item.addr}</td>
+				                </tr>
 		                	</c:forEach>
 		                </table>
 		            </div>
@@ -283,6 +290,16 @@
 		alert('${transErr}')
 		
 	}
+	
+	// 클릭했을시 1:1 채팅 가능하게끔
+	function moveToTransChat(i_trans) {
+		location.href="/test/test?i_trans="+i_trans
+	}
+		
+	function moveToDetail(i_user) {
+		location.href="/user/myPage?i_user="+i_user
+	}
+	
 	
 	function chkValue() {
 		transFrm.chk.value = 1

@@ -35,7 +35,6 @@ public class TransController {
 	    
 	    if(result != 1) {
     		ra.addFlashAttribute("transErr", "서버오류가 발생하였습니다 새로고침후 다시 시도해 주세요");
-    		return "redirect:/board/detail?i_board="+param.getI_board();
     	}
 		
 	    
