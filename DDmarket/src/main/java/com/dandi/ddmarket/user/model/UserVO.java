@@ -23,7 +23,15 @@ public class UserVO {
 	private String profile_img;
 	private String r_dt;
 	private String m_dt;
+	private int hits;
 	
+	
+	public int getHits() {
+		return hits;
+	}
+	public void setHits(int hits) {
+		this.hits = hits;
+	}
 	public int getI_user() {
 		return i_user;
 	}

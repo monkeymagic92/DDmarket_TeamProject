@@ -216,8 +216,8 @@ public class BoardService {
 			mapper.updAddHit(param);
 			ctx.setAttribute("current_board_read_ip" + param.getI_board(), myIp);
 		}
-		
 	}
+	
 	// 판매글 상세페이지 정보 나타내기(detail)
 	public BoardDMI selBoard(BoardPARAM param) {
 

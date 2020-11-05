@@ -291,16 +291,15 @@ public class UserController {
 	@RequestMapping(value="/myPage", method = RequestMethod.GET)
 	public String myPage(UserPARAM param, Model model, HttpServletRequest request,
 			HttpSession hs) {
+		
+		// i_user 값을 받아  나의 myPage, 다른유저의 myPage 구분해줌!
 		try {
 			int i_user = Integer.parseInt(request.getParameter("i_user"));
 			param.setI_user(i_user);
 			model.addAttribute("data", service.selUser(param));
-			
 		} catch(Exception e) {
-			UserPARAM param2 = (UserPARAM)hs.getAttribute("loginUser");
-			System.out.println("i_user " + param2.getI_user());
-			System.out.println("id " + param2.getUser_id());
-			model.addAttribute("data", service.selDetailUser(param2));
+			param = (UserPARAM)hs.getAttribute("loginUser");
+			model.addAttribute("data", service.selDetailUser(param));
 		}
 		
 		model.addAttribute("view",ViewRef.USER_MYPAGE);

@@ -15,8 +15,6 @@
             <section id="section-top">
                 <div id="div-top-left">
 
-
-
                     <div id="profile_img"><img src="/res/img/profile_img/user/${data.i_user }/${data.profile_img}" class="img"></div>
                     <span class="profile_nick">${data.nick}</span>
 
@@ -24,28 +22,23 @@
                         <div class="star-ratings-css-top" style="width:120%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                         <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                     </div>
-                    <span id="profile_star_num">5.0</span>
+                    <span id="profile_star_num">${data.grade}</span>
                     <button id="profile_btn_change" onclick="moveToInfo()">회원정보변경</button>
                 </div>
                 <div id="div-top-right">
 
-                    <span class="profile_nick">${data.nick }</span>
+                    <span class="profile_nick">${data.nick}</span>
 
                     <div id="profile_info">
                         <div class="profile_info_detail">
                             <span class="iconify" data-inline="false" data-icon="mdi-light:home" style="color: #3b73c8; font-size: 20px;"></span>
                             <span class="profile_info_text">상점 오픈</span>
-                            <span class="profile_info_num">${loginUser.r_dt}</span>
-                        </div>
-                        <div class="profile_info_detail">
-                            <span class="iconify" data-inline="false" data-icon="mdi:human-greeting" style="color: #3b73c8; font-size: 20px;"></span>
-                            <span class="profile_info_text">상점 방문수</span>
-                            <span class="profile_info_num"></span>
+                            <span class="profile_info_num">${data.r_dt}</span>
                         </div>
                         <div class="profile_info_detail">
                             <span class="iconify" data-inline="false" data-icon="ant-design:shopping-cart-outlined" style="color: #3b73c8; font-size: 18px;"></span>
                             <span class="profile_info_text">상품판매</span>
-                            <span class="profile_info_num">1회</span>
+                            <span class="profile_info_num">20회</span>
                         </div>
                     </div>
                 </div>
@@ -216,7 +209,7 @@
 									       </div>
 								       		<div class="modal-content">
 								       		<input type="hidden" name="i_user" value="${loginUser.i_user}">
-								       		<input type="hidden" name="i_board" value="1">
+								       		<input type="hidden" name="i_board" value="3">
 								       		<input type="hidden" name="rating" value="0">
 											<div class="modal-body">
 												<textarea name="ctnt" id="" class="reviewTxt" cols="50" rows="10" placeholder="후기댓글을 남겨주세요" ></textarea>
@@ -389,9 +382,9 @@
               input.setAttribute('type', 'radio')
               input.addEventListener('click', function(){
                   var num = starlist[i]
+                      frm.rating.value = num
                   if(input.value == 'checked'){
                       num++
-                      frm.rating.value = num
                   }
                   console.log(num);
               })                  
@@ -431,6 +424,13 @@
 		modal.style.display = "none";
 		}
 	}
-</script>
+	
+	
+	
+	////사용자 별점 값 조정
+	var grade = ${data.grade}/5*125;
+	document.querySelector('.star-ratings-css-top').style.width = grade + "%";
+
+	</script>
 </body>
 </html>
