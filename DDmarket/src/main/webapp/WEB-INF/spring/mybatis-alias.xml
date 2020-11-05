@@ -20,5 +20,9 @@
 		<typeAlias type="com.dandi.ddmarket.cmt.model.CmtPARAM" alias="CmtPARAM" />
 		<typeAlias type="com.dandi.ddmarket.cmt.model.CmtDMI" alias="CmtDMI" />
 		
+		<!-- review -->
+		<typeAlias type="com.dandi.ddmarket.review.model.ReviewVO" alias="ReviewVO"/>
+		<typeAlias type="com.dandi.ddmarket.review.model.ReviewPARAM" alias="ReviewPARAM"/>
+		
 	</typeAliases>	
 </configuration>
