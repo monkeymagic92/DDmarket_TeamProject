@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/res/css/detail.css">
-<link rel="stylesheet" href="/res/css/cmtModal.css">
+<link rel="stylesheet" href="/res/css/transModal.css">
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -60,7 +60,7 @@
                         <div class="user-info">
                             <div class="profile-img">
                             	<c:if test="${data.profile_img == null }">
-                        		<a href="/user/myPage?i_user=${data.i_user}"><img src="/res/img/yerin.jpg" onchange="setThumbnail(e)" alt="" class="img"></a>
+                        		<a href="/user/myPage?i_user=${data.i_user}&i_tap=1"><img src="/res/img/yerin.jpg" onchange="setThumbnail(e)" alt="" class="img"></a>
 	                        	</c:if>
 	                        	<c:if test="${data.profile_img != null }">
 	                                <a href="/user/myPage?i_user=${data.i_user}"><img src="/res/img/profile_img/user/${data.i_user}/${data.profile_img}" class="img"></a>                    	
@@ -114,16 +114,63 @@
                					</c:if>
                                  		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;찜
                            		</button>
-                           		<form id="transFrm" action="/board/??" method="post">
+                           		
+                           		
+                           		
+                           		<!-- 거래요청 -->
+                          		<form id="transFrm" action="/trans/transRequest" method="post">
                            			<input type="hidden" name="i_user" value="${loginUser.i_user }">
-                           			<button type="submit">거래요청</button>
+                           			<input type="hidden" name="i_board" value="${data.i_board }">
+                           			<input type="hidden" name="chk" value="0">
+                           			<c:if test="${loginUser != null}">
+	                      				<button type="submit" name="chkSubmit" id="chkSubmit" onclick="chkValue()">${transBtn}</button>
+                      				</c:if>
                            		</form>
-                            	
-                            	
+                           		
+                         		
+                          	                           		
                         	</c:if>				
                         </div>
                     </div>
             </section>
+             
+            <button class="review" onclick="transBtn()">거래신청 목록보기
+		    </button>
+		    <div class="myModal modal">
+		        <div class="modal-content">
+		            <div class="modal-body">
+		                <table>		                
+		               		<c:forEach items="${selTrans}" var="item">		               			
+				               	<tr class="itemRow">
+				                	<td onclick="moveToTransChat(${item.i_trans})">${item.i_trans}</td>
+				                	<td onclick="moveToDetail(${item.i_user})">
+				                		<c:if test="${item.profile_img == null }">
+				                			<img src="/res/img/yerin.jpg" onchange="setThumbnail(e)" alt="" class="img">
+				                		</c:if>
+				                		<c:if test="${item.profile_img != null}">
+				                			<img src="/res/img/profile_img/user/${item.i_user}/${item.profile_img}" class="img">
+				                		</c:if>
+				                	</td>
+				                	<td onclick="moveToDetail(${item.i_user})">${item.nick}</td>
+				                	<td onclick="moveToDetail(${item.i_user})">${item.grade} grade현재안나옴</td>
+				                </tr>
+				                <tr>
+				                	<td></td>
+				                	<td></td>
+				                	<td><button>대화하기</button></td>				                	
+				                	<td><button>거래완료</button></td>
+				                </tr>
+		                	</c:forEach>
+		                </table>
+		            </div>
+		            <div class="modal-footer">
+		                <button class="close" onclick="closebtn()">취소</button>
+		            </div>
+		        </div>
+		    </div>
+		    
+		    
+		    
             <h2 class="h2-section-title">상품정보</h2>
             <section id="section-desc">
                 <p>${data.ctnt }</p>
@@ -136,7 +183,6 @@
             	<!-- 댓글 등록 -->
             	
                 <form id="frm" action="/cmt/cmtReg" method="post">
-                	<input type="checkbox" name="scrCmt" id="scrCmt"> 판매자만 볼수있게 할래요
                 	<br>
                     <div id="inputWrap">
                     	<textarea name="ctnt" placeholder="상품문의를 입력 해 주세요"></textarea>
@@ -191,11 +237,13 @@
             </section>
             
             
-            <h2 class="h2-section-title">상품후기</h2>
+            <h2 class="h2-section-title">판매자 후기</h2>
             <section id="section-review">
                 <div id="div-review-left">
                     <div class="review-profile-img"><img src="/res/img/yerin.jpg"></div>
-                    <div class="review-profile-nick"></div>
+
+                    <div class="review-profile-nick">${data.nick}</div>
+
                     <div class="star-ratings-css">
                         <div class="star-ratings-css-top" style="width:85%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                         <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
@@ -229,6 +277,7 @@
                 <a href="#">3</a>
                 <a href="#"><span class="iconify icon-page-right" data-inline="false" data-icon="mdi-light:chevron-double-right" style="color: #3b73c8; font-size: 47px;"></span></a>
             </div>
+            
         </main>
     </div>
 <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
@@ -238,6 +287,62 @@
 <script src="/res/js/detail.js"></script>
 <script>
 
+	if(${transErr != null}) {
+		alert('${transErr}')
+		
+	}
+	
+	// 클릭했을시 1:1 채팅 가능하게끔
+	function moveToTransChat(i_trans) {
+		location.href="/test/test?i_trans="+i_trans
+	}
+		
+	function moveToDetail(i_user) {
+		location.href="/user/myPage?i_user="+i_user
+	}
+	
+	
+	function chkValue() {
+		transFrm.chk.value = 1
+		location.reload()
+	}
+	
+	/*
+	function chkUpd() {
+		
+		const i_user = transFrm.i_user.value
+		const i_board = transFrm.i_board.value
+		const chk = transFrm.chk.value
+		
+		
+		console.log('i_user : ' + i_user)
+		console.log('i_board : ' + i_board)
+		console.log('chk : ' + chk)
+		
+		ajaxTrans(i_user, i_board, chk)
+	}	
+	
+	
+	function ajaxTrans(i_user, i_board, chk) {
+		axios.post('/trans/transRequest',{
+			i_user,
+			i_board,
+			chk
+			
+		}).then(function(res) {
+			if(res.data == '1') {
+				console.log('리설트 1')
+				transFrm.chkSubmit.value = '구매요청'
+				
+			} else if(res.data == '2') {
+				console.log('리설트 2')
+				transFrm.chkSubmit.value = '구매취소'
+			}
+				
+		})
+	}
+	*/
+	
 	// 업데이트 메소드 만들기 (아작스로)
 	function updCmt(ctnt, i_cmt) {
 		frm.ctnt.value = ctnt
@@ -311,7 +416,6 @@
 	}
 	
 	// 별점
-	
 	var rating_1 = 1.5/5*75;
 	var starbar_1 = document.querySelector('.star-ratings-top_1')
 		starbar_1.style.width = rating + "%";
@@ -335,6 +439,7 @@
 	var grade = ${data.grade}/5*125;
 	document.querySelector('.star-ratings-css-top').style.width = grade + "%"
 	
+
 	
 	//찜 하기
 	function ToLike(){
@@ -391,6 +496,12 @@
 			} 
 		})
 	}
+	
+	var modal = document.querySelector(".myModal");
+
+    function transBtn() {
+       modal.style.display = "block";
+    }
 </script>
 </body>
 </html>

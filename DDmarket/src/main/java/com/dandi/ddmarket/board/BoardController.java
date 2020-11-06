@@ -23,6 +23,9 @@ import com.dandi.ddmarket.cmt.CmtService;
 import com.dandi.ddmarket.cmt.model.CmtVO;
 import com.dandi.ddmarket.review.ReviewService;
 import com.dandi.ddmarket.review.model.ReviewPARAM;
+import com.dandi.ddmarket.trans.TransService;
+import com.dandi.ddmarket.trans.model.TransDMI;
+import com.dandi.ddmarket.trans.model.TransVO;
 import com.dandi.ddmarket.user.UserService;
 import com.dandi.ddmarket.user.model.UserPARAM;
 
@@ -40,6 +43,9 @@ public class BoardController {
 	
 	@Autowired
 	private ReviewService reviewService;
+  
+  @Autowired
+	private TransService transService;
 	
 	// 판매글 등록,수정
 	@RequestMapping(value="/saleReg", method = RequestMethod.GET)
@@ -141,35 +147,15 @@ public class BoardController {
 			
 		}
 	}
-	
-	//욕 필터
-	private String swearWordFilter(final String ctnt) {
-		String[] filters = CommonUtils.filter();
-		String result = ctnt;
-		for(int i=0; i<filters.length; i++) {
-			result = result.replace(filters[i], "***");
-		}
-		return result;
-	}
-	
-	//스크립트 필터
-	private String scriptFilter(final String ctnt) {
-		String[] filters = {"<script>", "</script>"};
-		String[] filterReplaces = {"&lt;script&gt;", "&lt;/script&gt;"};
-		
-		String result = ctnt;
-		for(int i=0; i<filters.length; i++) {
-			result = result.replace(filters[i], filterReplaces[i]);
-		}
-		return result;
-	}
-	
 		
 	//수정
 	// 판매글 상세페이지 (detail)
 	@RequestMapping(value="/detail", method = RequestMethod.GET)
-	public String detail(Model model, BoardPARAM param, CmtVO vo,
-			HttpServletRequest request, HttpSession hs,  ReviewPARAM reviewParam) {
+
+	public String detail(Model model, TransDMI transDmi, BoardPARAM param, CmtVO vo, HttpServletRequest req,
+			HttpServletRequest request, HttpSession hs) {
+		
+    int i_user = 0;
 		
 		if(!SecurityUtils.isLogout(request)) {
 			service.addHit(param, request);			
@@ -182,7 +168,7 @@ public class BoardController {
 			
 		if(hs.getAttribute("loginUser") != null) {
 			// 찜목록용 i_user
-			int i_user = SecurityUtils.getLoginUserPk(hs);
+			i_user = SecurityUtils.getLoginUserPk(hs);
 			param.setI_user(i_user);
 		}
 		
@@ -199,14 +185,26 @@ public class BoardController {
 	    cmtPageMaker.setTotalCount(cmtCount);
 	    int pageStart = cri.getPageStart();
 	    int perPageNum = cri.getPerPageNum();
+	    
 	    param.setCmt_pageStart(pageStart);
 	    param.setCmt_perPageNum(perPageNum);
 	    model.addAttribute("cmtPageMaker", cmtPageMaker);
 	    model.addAttribute("cmtPageNum", cmtPageMaker);
 		////// 페이징 end
 		
+
 	    model.addAttribute("reviewList", reviewService.selReview(param));
 	    
+	    // 판매글에 접속한 i_user에 chk값이 1, 0에 따라서 버튼이름 변경  (trans기능에 사용) 
+	    int chk = transService.chkTrans(param);
+	    if(chk == 0) {
+	    	model.addAttribute("transBtn", "구매요청");
+	    } else {
+	    	model.addAttribute("transBtn", "구매취소");
+	    }
+	    
+	    
+	  model.addAttribute("selTrans", transService.selTrans(param)); // 구매요청 누른 유저들
 		model.addAttribute("cmtCount", cmtService.countCmt(param)); // 댓글 갯수
 		model.addAttribute("cmtList", cmtService.selCmt(param));	// 댓글 내용
 		model.addAttribute("data", service.selBoard(param));		// 판매글 내용
@@ -215,9 +213,11 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/detail", method = RequestMethod.POST)
-	public String detail(Model model, BoardPARAM param) {
-			
-		return ViewRef.DEFAULT_TEMP;
+	public String detail(Model model, TransVO vo) {
+		int result = transService.insTrans(vo);  // 거래요청 클릭시 trans테이블에 값 추가
+		
+		
+		return "redirect:/board/detail?i_board="+vo.getI_board();
 	}
 	
 	// 판매글 상세페이지 삭제
@@ -261,6 +261,28 @@ public class BoardController {
 		
 		return "redirect:/index/main";
 			
+	}
+	
+	//욕 필터
+	private String swearWordFilter(final String ctnt) {
+		String[] filters = CommonUtils.filter();
+		String result = ctnt;
+		for(int i=0; i<filters.length; i++) {
+			result = result.replace(filters[i], "***");
+		}
+		return result;
+	}
+	
+	//스크립트 필터
+	private String scriptFilter(final String ctnt) {
+		String[] filters = {"<script>", "</script>"};
+		String[] filterReplaces = {"&lt;script&gt;", "&lt;/script&gt;"};
+		
+		String result = ctnt;
+		for(int i=0; i<filters.length; i++) {
+			result = result.replace(filters[i], filterReplaces[i]);
+		}
+		return result;
 	}
 		
 }

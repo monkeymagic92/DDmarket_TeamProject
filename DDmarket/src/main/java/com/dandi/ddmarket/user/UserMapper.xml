@@ -52,6 +52,26 @@
 		SELECT i_cg, cg_nm FROM t_category
 	</select>
 	
+	<!-- myPage 탭메뉴 리스트 불러오기 -->
+	<select id="selTapList" parameterType="TapVO" resultType="TapVO">
+		SELECT i_tap, tap_nm FROM t_tap
+	</select>
+	
+	<!-- 판매갯수(글갯수) -->
+	<select id="selSellCnt" parameterType="UserPARAM" resultType="Integer">
+		SELECT COUNT(*) FROM t_board
+		WHERE i_user = #{i_user}
+	</select>
+	
+	<!-- 판매글 리스트 -->
+	<select id="selSellList" parameterType="BoardPARAM" resultType="BoardPARAM">
+		SELECT A.i_board, A.thumImage, A.title, A.price, A.r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr
+		FROM t_board A
+		WHERE i_user = #{i_user}
+		ORDER BY A.r_dt DESC
+		LIMIT #{pageStart}, #{perPageNum}
+	</select>
+	
 							<!-- insert -->
 						 
 	<!-- 회원가입 -->

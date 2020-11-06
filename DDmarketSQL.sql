@@ -2,15 +2,6 @@
 -- 위에서 아래로 순차적으로 실행하면됨 
 
 
-SELECT B.i_user ,B.profile_img, B.nick, A.ctnt, A.r_dt FROM t_cmt A
-				
-LEFT JOIN t_user B
-ON A.i_user = B.i_user
-
-WHERE A.i_board = 2
-ORDER BY A.r_dt DESC;
-
-
 -- 유저테이블
 -- 10.20 buy 추가
 CREATE TABLE t_user(
@@ -38,30 +29,6 @@ CREATE TABLE t_user(
 );
 
 
-SELECT A.i_user, A.i_board, B.nick, A.title, A.post, A.addr, A.road, A.r_dt,
-	    A.ctnt, A.hits, C.cg_nm, A.price, ifnull(D.cnt, 0) as tolike, B.grade,
-	    CASE WHEN E.i_board IS NULL THEN 0 ELSE 1 END AS is_tolike,
-		A.thumImage, A.image_1, A.image_2, A.image_3, A.image_4, A.image_5
-		FROM t_board A
-  
-		LEFT JOIN t_user B
-		ON A.i_user = B.i_user
-  
-		LEFT JOIN(
-			SELECT i_board, COUNT(i_board) as cnt
-			FROM t_board_like
-			WHERE i_board = 2
-			GROUP BY i_board
-		)D
-		ON A.i_board = D.i_board
-		
-		LEFT JOIN t_category C
-		ON A.i_cg = C.i_cg
-		
-		LEFT JOIN t_board_like E
-		ON A.i_board = E.i_board
-		AND E.i_user = 1
-		WHERE A.i_board = 2;
 
 -- 카테고리 테이블 --
 CREATE TABLE t_category(
@@ -90,7 +57,7 @@ CREATE TABLE t_board(
 	i_board INT UNSIGNED AUTO_INCREMENT,	 -- 게시글 고유 pk값
 	i_cg INT UNSIGNED, 	-- 카테고리 테이블과 조인
 	i_user INT UNSIGNED,
-	title VARCHAR(70) NOT NULL,	-- 제목 
+	title VARCHAR(60) NOT NULL,	
 	ctnt VARCHAR(2000) NOT NULL,		-- 내용
 	thumImage VARCHAR(50),
 	image_1 VARCHAR(50),		-- 상품 사진 ( images_1 은 대표사진 등록, 대표사진은 추후 나의 찜목록에 나타낼 대표사진 )
@@ -102,7 +69,7 @@ CREATE TABLE t_board(
 	addr VARCHAR(30) NOT NULL, -- 지번
 	road VARCHAR(30) NOT NULL, -- 도로명
 	hits INT DEFAULT 0, 	-- 조회수
-	price INT(13),	-- 가격 설정			
+	price INT(10),	
 	sold INT DEFAULT 0,  --  0이면 거래 미완료, 1이면 거래완료
 	r_dt DATETIME DEFAULT NOW(),	-- 게시글 등록시 날짜
 	m_dt DATETIME DEFAULT NOW(),	-- ""  수정시      ""
@@ -112,6 +79,37 @@ CREATE TABLE t_board(
 );
 
 
+
+-- 거래관련 목록
+CREATE TABLE t_trans(
+	i_trans INT UNSIGNED AUTO_INCREMENT,
+	i_board INT UNSIGNED,
+	i_user INT UNSIGNED,
+	chk INT DEFAULT 0,
+	r_dt DATETIME DEFAULT NOW(),	-- 게시글 등록시 날짜
+	m_dt DATETIME DEFAULT NOW(),
+	PRIMARY KEY (i_trans, i_board, i_user),
+	FOREIGN KEY (i_board) REFERENCES t_board(i_board) ON DELETE CASCADE,
+	FOREIGN KEY (i_user) REFERENCES t_user(i_user) ON DELETE CASCADE
+);
+
+
+
+-- 거래 1:1 채팅
+CREATE TABLE t_trans_cmt(
+	i_trans_cmt INT UNSIGNED AUTO_INCREMENT,
+	i_trans INT UNSIGNED,
+	i_board INT UNSIGNED,
+	i_user INT UNSIGNED,
+	transCmt VARCHAR(2000),
+	transCmtChk INT,
+	r_dt DATETIME DEFAULT NOW(),	-- 게시글 등록시 날짜
+	m_dt DATETIME DEFAULT NOW(),
+	PRIMARY KEY (i_trans_cmt, i_trans, i_board, i_user),
+	FOREIGN KEY (i_trans) REFERENCES t_trans(i_trans) ON DELETE CASCADE,
+	FOREIGN KEY (i_board) REFERENCES t_board(i_board) ON DELETE CASCADE,
+	FOREIGN KEY (i_user) REFERENCES t_user(i_user) ON DELETE CASCADE	
+);
 
 
 -- 찜  테이블
@@ -124,21 +122,6 @@ CREATE TABLE t_board_like(
 	FOREIGN KEY (i_user) REFERENCES t_user(i_user),
 	FOREIGN KEY (i_board) REFERENCES t_board(i_board)
 );
-
-
--- 찜목록 테스트
-INSERT INTO t_board_like (i_user, i_board) VALUES (1, 2);
-
--- @@ 찜목록 쿼리문 @@ 
-SELECT C.i_user, C.nm, A.title, A.ctnt, A.r_dt FROM t_board A
-	LEFT JOIN t_board_like B
-	ON A.i_board = B.i_board
-	
-	LEFT JOIN t_user C
-	ON B.i_user = C.i_user
-	
-	WHERE B.i_user = 1;	
-
 
 
 
@@ -181,6 +164,20 @@ CREATE TABLE t_cmt(
 	FOREIGN KEY (i_user) REFERENCES t_user(i_user),	-- 회원과 연결
 	FOREIGN KEY (i_board) REFERENCES t_board(i_board)	-- 게시판과 연결
 );
+
+
+
+-- 마이페이지 탭 테이블
+CREATE TABLE t_tap(
+   i_tap INT PRIMARY KEY AUTO_INCREMENT, -- 카테고리 고유 pk값
+   tap_nm VARCHAR(15) NOT NULL -- 카테고리 이름 추가
+);
+
+INSERT INTO t_tap (tap_nm) VALUES ('판매목록');
+INSERT INTO t_tap (tap_nm) VALUES ('거래후기');
+INSERT INTO t_tap (tap_nm) VALUES ('MY구매');
+INSERT INTO t_tap (tap_nm) VALUES ('MY댓글');
+INSERT INTO t_tap (tap_nm) VALUES ('MY후기');
 
 
 
