@@ -8,10 +8,19 @@
 	<!-- n번 회원 상세정보 -->							
 	<select id="selUser" parameterType="UserPARAM" resultType="UserDMI"> 
 		SELECT i_user, user_id, user_pw, salt, nm, nick, email, post, addr, road, joinPass,
-		profile_img, r_dt, m_dt
+		profile_img, r_dt, m_dt, grade
 		FROM t_user
 		WHERE <if test="i_user > 0"> i_user = #{i_user}</if>
 		<if test="user_id != null and user_id != ''"> user_id = #{user_id}</if>
+	</select>
+	
+	
+	<!-- 마이페이지 가기위한 selUser 값   (selUser 메소드에서 where절 뺏음) -->							
+	<select id="selDetailUser" parameterType="UserPARAM" resultType="UserDMI"> 
+		SELECT i_user, user_id, user_pw, salt, nm, nick, email, post, addr, road, joinPass,
+		profile_img, r_dt, m_dt, grade
+		FROM t_user
+		WHERE <if test="i_user > 0"> i_user = #{i_user}</if>
 	</select>
 	
 	
@@ -98,8 +107,6 @@
 	<update id="changeCategory" parameterType="UserPARAM">
 		UPDATE t_user
 		SET favI_cg_1 = #{favI_cg_1}
-		, favI_cg_2 = #{favI_cg_2}
-		, favI_cg_3 = #{favI_cg_3}
 		WHERE i_user = #{i_user}
 	</update>
 	
@@ -108,6 +115,7 @@
 		SET profile_img = NULL
 		WHERE i_user = #{i_user}
 	</update>
+	
 	
 	<!-- 디테일페이지 좋아요 추가 -->
 	<insert id="insboardLike" parameterType="UserPARAM">

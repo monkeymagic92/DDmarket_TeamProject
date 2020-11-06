@@ -25,7 +25,7 @@
                         <input type="checkbox" id="chk1" name="chk1">
                         <label for="chk1">이용약관</label>
                         <div class="box-txt">
-                            <a>내용보기
+                            <a>
                                 <span class="material-icons">keyboard_arrow_down</span>
                             </a>
                         </div>
@@ -34,7 +34,7 @@
                         <input type="checkbox" id="chk2" name="chk2">
                         <label for="chk2">개인정보취급방침</label>
                         <div class="box-txt">
-                            <a>내용보기
+                            <a>
                                 <span class="material-icons">keyboard_arrow_down</span>
                             </a>
                         </div>
@@ -43,7 +43,7 @@
                         <input type="checkbox" id="chk3" name="chk3">
                         <label for="chk3">위치기반서비스 이용약관</label>
                         <div class="box-txt">
-                            <a>내용보기
+                            <a>
                                 <span class="material-icons">keyboard_arrow_down</span>
                             </a>
                         </div>
@@ -68,9 +68,9 @@
                         <input type="hidden" id="idUnChk" name="idUnChk" value="unChk">
                         <i id="idClick" class="animate__rubberBand animate__animated fas fa-check" ></i>                        
                     </div>
-                    <div><input type="password" name="user_pw" placeholder="비밀번호"></div>
-                    <div><input type="password" name="user_rpw" placeholder="비밀번호 확인"></div>
-                    <div><input type="text" name="nm" placeholder="이름"></div>
+                    <div><input type="password" name="user_pw" id="pw_input" placeholder="비밀번호"></div>
+                    <div><input type="password" name="user_rpw" id="pw_input2" placeholder="비밀번호 확인"></div>
+                    <div><input type="text" name="nm" id="nm_input" placeholder="이름"></div>
                     <div>
                         <input type="text" name="nick" id="nick_input" placeholder="닉네임">
                         <button type="button" id="nickChk" onclick="chkNick()">닉네임 중복체크</button>
@@ -103,6 +103,7 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 <script>
 window.onload = function() {
 	frm.email.focus()

@@ -45,7 +45,7 @@
                         </div>
                         <div class="delBtn">
                             <form id="imgDelFrm" action="/user/imgDel" method="post">
-                                <input class="cngImg" type="submit" value="사진삭제">
+                                <input class="cngImg2" type="submit" value="사진삭제">
                             </form>
                         </div>
                     </div>
@@ -68,12 +68,12 @@
             <span class="line"></span>
             <section class="user-nick">
                 <form id="nickFrm" action="/user/info" method="post" onsubmit="return nickChk()">
-                    <input type="text" name="nick" id="nick_input" value="${loginUser.nick}" placeholder="닉네임">
+                    <input type="text" name="nick" class="nick" id="nick_input" value="${loginUser.nick}" placeholder="닉네임">
                     <i id="nickClick" class="animate__rubberBand animate__animated fas fa-check" ></i>
                     <input type="hidden" name="result" value="4">                    
                     <button type="button" class="nickChk" onclick="chkNick()">중복체크</button>                    
                     <input type="hidden" id="nickUnChk" name="nickUnChk" value="unChk">
-                    <button class="fixBtn">변경</button>
+                    <button class="fixBtn">닉네임 변경</button>
                 </form>
             </section>
             <!-- input 태그에서 키보드로 임의적으로 주소 못치게 막아주기 (input 태그속성 사용하거나, jquery 함수사용) -->
@@ -82,7 +82,7 @@
             <section class="user-addr">
                 <form id="addrFrm" action="/user/info" method="post" onsubmit="return addrChk()">
                 	<div class="div_addr">
-                    	<input type="text" id="sample4_postcode" name="post" class="addr_input" placeholder="클릭할시 주소검색창이 나타납니다" onclick="sample4_execDaumPostcode()"><br>
+                    	<input type="text" id="sample4_postcode" name="post" class="addr_input" value="${loginUser.addr }" placeholder="클릭할시 주소검색창이 나타납니다" onclick="sample4_execDaumPostcode()"><br>
                     	<input id="addrUnChk" name="addrUnChk" type="hidden" value="unChk">
 						<input type="text" id="sample4_jibunAddress" name="addr" class="addr_input" placeholder="지번주소" onclick="sample4_execDaumPostcode()"><br>
 						<input type="text" id="sample4_roadAddress" name="road" class="addr_input" placeholder="도로명주소" onclick="sample4_execDaumPostcode()">
@@ -93,7 +93,7 @@
 						<input type="hidden" name="result" value="5">
 					</div>
 					<div class="div-btn">
-                    	<button class="addrBtn">변경</button>
+                    	<button class="addrBtn">주소 변경</button>
                     </div>
                 </form>
             </section>
@@ -101,12 +101,12 @@
 		    <span class="line"></span>
 		    <section class="user-email">
 		    <form id="emailFrm" action="/user/info" method="post" onsubmit="return emailChk()">
-			    <input type="email" name="email" id="email_input" value="${loginUser.email }" placeholder="이메일">
+			    <input type="email" name="email" class="email" id="email_input" value="${loginUser.email }" placeholder="이메일">
 			    <i id="emailClick" class="animate__rubberBand animate__animated fas fa-check"></i>
 			    <input id="emailUnChk" name="emailUnChk" type="hidden" value="unChk">
 			    <button type="button" class="emailChk" onclick="chkEmail()">중복체크</button>			    			    
 			    <input type="hidden" name="result" value="6">
-			    <button class="emailfixBtn">변경</button>
+			    <button class="emailfixBtn">이메일 변경</button>
 		    </form>
 			</section>
             <h2 class="title">관심 카테고리 선택</h2>
@@ -116,12 +116,12 @@
                 <form id="likeFrm" action="/user/info" method="post" onsubmit="return likeChk()">
 	                    <div class="category-box">
 	                    	<c:forEach items="${categoryList}" var="item">
-		                    	<input type="checkbox" name="categoryLike" id="f-wear" value="${item.i_cg }" onclick="count_ck(this);">
+		                    	<input type="checkbox" class="cg" name="categoryLike" id="f-wear" value="${item.i_cg }" onclick="count_ck(this);">
 		                        <label for="f-wear">${item.cg_nm }</label>
 	                        </c:forEach>
 	                    </div>          	
                     <input type="hidden" name="result" value="7">
-                    <button class="categoryChg">등록</button>
+                    <button class="categoryChg">카테고리 등록</button>
                 </form>
             </section>
         </main>        
@@ -132,6 +132,7 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 <script>
 
 if(${imgErr != null}) {
@@ -296,17 +297,17 @@ $('.emailChk').click(function() {
 			}			
 		}
 		
-		if(chkCnt > 3){
-			alert("관심사는 최대 3개까지 선택가능합니다");
+		if(chkCnt > 1){
+			alert("관심사는 최대 1개까지 선택가능합니다");
 			obj.checked = false;
 			return false;
 			
-		} else if (chkCnt < 3) {
-			categoryChkResult.innerText = '관심사는 총 3가지를 선택하세요.';		
+		} else if (chkCnt < 1) {
+			//categoryChkResult.innerText = '관심사는 1가지를 선택하세요.';		
 			obj.chechked = false;
 			return false;
 			
-		} else if (chkCnt == 3) {
+		} else if (chkCnt == 1) {
 			categoryChkResult.innerText = '';
 		} 
 	}

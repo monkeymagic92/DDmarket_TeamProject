@@ -1,10 +1,15 @@
 package com.dandi.ddmarket.user;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +20,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.dandi.ddmarket.Const;
 import com.dandi.ddmarket.FileUtils;
 import com.dandi.ddmarket.SecurityUtils;
+import com.dandi.ddmarket.TimeMaximum;
+import com.dandi.ddmarket.board.model.BoardDMI;
 import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.category.model.CategoryVO;
 import com.dandi.ddmarket.user.model.UserDMI;
@@ -26,6 +33,26 @@ public class UserService {
 
 	@Autowired
 	private UserMapper mapper;
+	
+	//등록일자 변경 메소드
+	public static UserDMI transVoR_dt(UserDMI param) {
+		String paramR_dt = param.getR_dt();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = new Date();
+		try {
+			date = sdf.parse(paramR_dt);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		String strR_dt = TimeMaximum.calculateTime(date);
+		param.setR_dt(strR_dt);
+		
+		return param;
+	}
+	
+
+	
 	
 	// 이메일 체크
 	public int emailChk(UserPARAM param, HttpSession hs) {
@@ -62,23 +89,13 @@ public class UserService {
 	// 회원 전체목록 ( 나중에 불필요하면 삭제하기 ) ★★ 
 	// 일단 login xml 과 조금 다름 (검토하기)
 	public UserDMI selUser(UserPARAM param) {
-		
 		UserDMI dbUser = mapper.selUser(param);
-		
-		param.setI_user(dbUser.getI_user());
-		param.setUser_pw(null);
-		param.setNm(dbUser.getNm());
-		param.setNick(dbUser.getNick());
-		param.setEmail(dbUser.getEmail());
-		param.setProfile_img(dbUser.getProfile_img());		
-		param.setAddr(dbUser.getAddr());
-		param.setPost(dbUser.getPost());
-		param.setRoad(dbUser.getRoad());
-		param.setJoinPass(dbUser.getJoinPass());
-		param.setR_dt(dbUser.getR_dt());
-		param.setM_dt(dbUser.getM_dt());
-		
-		return dbUser;
+		return transVoR_dt(dbUser);
+	}
+	
+	public UserDMI selDetailUser(UserPARAM param) {
+		UserDMI dbUser = mapper.selDetailUser(param);
+		return transVoR_dt(dbUser);
 	}
 	
 	// SUCCESS 1:로그인 성공,  NO_ID 2:아이디 없음,  NO_PW 3:비번 틀림
@@ -287,5 +304,8 @@ public class UserService {
 			}
 		return 0;
 		}
+	
+	
+	
 	
 }

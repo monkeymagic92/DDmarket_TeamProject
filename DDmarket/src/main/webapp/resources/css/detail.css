@@ -28,6 +28,16 @@ main {width: 1040px; margin: 250px auto;}
     left: 0;
     overflow: hidden;
   }
+   .star-ratings-top_0 {
+    color: #F1D05F;
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+    display: block;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+  }
   .star-ratings-css-bottom {
     padding: 0;
     display: block;
@@ -225,7 +235,25 @@ section:nth-last-child(2) {margin-bottom:0px;}
     width: 50px;
     height: 30px;
     cursor: pointer;
+    float: right;
+    margin-top: -29px;
+    margin-right: 50px;
 }
+
+#section-comment form #cmtSubmit {
+    border: 1px solid #C4C4C4;
+    background-color: #FFFFFF;
+    border-radius: 3px;
+    font-size: 13px;
+    color: #A5A2A2;
+    margin-left: 943px;
+    margin-top: 25px;
+    width: 50px;
+    height: 30px;
+    cursor: pointer;
+}
+
+
 #section-comment #commentWrap {
     display: flex;
     align-items: center;

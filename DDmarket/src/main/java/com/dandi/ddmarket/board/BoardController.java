@@ -1,7 +1,6 @@
 package com.dandi.ddmarket.board;
 
 import java.io.File;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,18 +10,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.dandi.ddmarket.CmtCriteria;
+import com.dandi.ddmarket.CmtPageMaker;
 import com.dandi.ddmarket.CommonUtils;
 import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.ViewRef;
-import com.dandi.ddmarket.board.model.BoardDMI;
 import com.dandi.ddmarket.board.model.BoardPARAM;
-import com.dandi.ddmarket.board.model.BoardVO;
 import com.dandi.ddmarket.cmt.CmtService;
 import com.dandi.ddmarket.cmt.model.CmtVO;
+import com.dandi.ddmarket.review.ReviewService;
+import com.dandi.ddmarket.review.model.ReviewPARAM;
 import com.dandi.ddmarket.user.UserService;
 import com.dandi.ddmarket.user.model.UserPARAM;
 
@@ -37,6 +37,9 @@ public class BoardController {
 	
 	@Autowired
 	private CmtService cmtService;		// 댓글 서비스
+	
+	@Autowired
+	private ReviewService reviewService;
 	
 	// 판매글 등록,수정
 	@RequestMapping(value="/saleReg", method = RequestMethod.GET)
@@ -166,23 +169,44 @@ public class BoardController {
 	// 판매글 상세페이지 (detail)
 	@RequestMapping(value="/detail", method = RequestMethod.GET)
 	public String detail(Model model, BoardPARAM param, CmtVO vo,
-			HttpServletRequest request, HttpSession hs) {
+			HttpServletRequest request, HttpSession hs,  ReviewPARAM reviewParam) {
 		
 		if(!SecurityUtils.isLogout(request)) {
 			service.addHit(param, request);			
+
 		}
 		
 		int i_board = Integer.parseInt(request.getParameter("i_board"));
 		hs.removeAttribute("i_board"); // service.insBoard에서 날라온 세션값
 		param.setI_board(i_board);
-		
-		
+			
 		if(hs.getAttribute("loginUser") != null) {
 			// 찜목록용 i_user
 			int i_user = SecurityUtils.getLoginUserPk(hs);
 			param.setI_user(i_user);
 		}
-	
+		
+		/////// 페이징 start
+		CmtCriteria cri = new CmtCriteria();
+		cri.setPage(CommonUtils.getIntParameter("cmtPage", request));
+		hs.setAttribute("cmtPage", cri.getPage());
+		CmtPageMaker cmtPageMaker = new CmtPageMaker();
+		cmtPageMaker.setCmtCriteria(cri);
+	    ///// 전체글 수 구하기
+	    int cmtCount = cmtService.countCmt(param);
+	    hs.setAttribute("cmtCount", cmtCount);
+	    
+	    cmtPageMaker.setTotalCount(cmtCount);
+	    int pageStart = cri.getPageStart();
+	    int perPageNum = cri.getPerPageNum();
+	    param.setCmt_pageStart(pageStart);
+	    param.setCmt_perPageNum(perPageNum);
+	    model.addAttribute("cmtPageMaker", cmtPageMaker);
+	    model.addAttribute("cmtPageNum", cmtPageMaker);
+		////// 페이징 end
+		
+	    model.addAttribute("reviewList", reviewService.selReview(param));
+	    
 		model.addAttribute("cmtCount", cmtService.countCmt(param)); // 댓글 갯수
 		model.addAttribute("cmtList", cmtService.selCmt(param));	// 댓글 내용
 		model.addAttribute("data", service.selBoard(param));		// 판매글 내용

@@ -289,7 +289,19 @@ public class UserController {
 	
 	// 마이페이지 (myPage)
 	@RequestMapping(value="/myPage", method = RequestMethod.GET)
-	public String myPage(Model model) {
+	public String myPage(UserPARAM param, Model model, HttpServletRequest request,
+			HttpSession hs) {
+		
+		// i_user 값을 받아  나의 myPage, 다른유저의 myPage 구분해줌!
+		try {
+			int i_user = Integer.parseInt(request.getParameter("i_user"));
+			param.setI_user(i_user);
+			model.addAttribute("data", service.selUser(param));
+		} catch(Exception e) {
+			param = (UserPARAM)hs.getAttribute("loginUser");
+			model.addAttribute("data", service.selDetailUser(param));
+		}
+		
 		model.addAttribute("view",ViewRef.USER_MYPAGE);
 		return ViewRef.DEFAULT_TEMP;
 	}
@@ -404,10 +416,13 @@ public class UserController {
 			
 			case 7: 
 				try { // 만약 3개값 다 못받아올경우 에러방지
-					String categoryList[] = request.getParameterValues("categoryLike");
+					/*String categoryList[] = request.getParameterValues("categoryLike");
 					param.setFavI_cg_1(categoryList[0]);
 					param.setFavI_cg_2(categoryList[1]);
-					param.setFavI_cg_3(categoryList[2]);
+					param.setFavI_cg_3(categoryList[2]);*/
+					
+					String categoryList = request.getParameter("categoryLike");
+					param.setFavI_cg_1(categoryList);
 					chk = service.changeCategory(param);
 					ra.addFlashAttribute("categoryMsg", "관심사가 수정되었습니다");
 					return "redirect:/" + ViewRef.USER_INFO;

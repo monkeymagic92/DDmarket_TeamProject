@@ -145,7 +145,7 @@ $('#priceChk').click(function() {
 		frm.price.value = null;
 	}
 })
-//관심사 체크, 최대갯수 3개제한 
+//관심사 체크, 최대갯수 1개제한 
 function count_ck(obj){
    var chkbox = document.getElementsByName("i_cg");
    var chkCnt = 0;
@@ -153,7 +153,12 @@ function count_ck(obj){
       if(chkbox[i].checked){
          chkCnt++;
       }         
-   }   
+   }
+   if(chkCnt == 0) {
+	   alert('관심사 선택하세요')
+	   return false;
+   }
+   
    if(chkCnt > 1){
       alert("관심사는 1개까지 선택가능합니다");
       obj.checked = false;

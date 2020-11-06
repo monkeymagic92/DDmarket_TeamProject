@@ -42,4 +42,20 @@ main {width: 1030px; margin: 250px auto;}
 #div-wrap-article .card-wrap a .card-addr {font-size: 13px; margin: 5px 0 5px 10px; position: relative; color: #3B3B3D;}
 #div-wrap-article .card-wrap a .card-addr .icon-map {position: absolute; left: 6px; top: -0.5px;}
 
-
+/* div-wrap-page */
+#div-wrap-page {display: flex; justify-content: center;}
+#div-wrap-page a {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-right: 12px;
+    border: 1px solid #AEAEAE;
+    background: rgb(255, 255, 255);
+    border-radius: 2px;
+    color: #3B73C8;
+    border-radius: 3px;
+}

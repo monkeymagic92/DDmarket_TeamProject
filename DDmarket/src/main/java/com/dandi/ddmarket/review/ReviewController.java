@@ -31,6 +31,7 @@ public class ReviewController {
 		param.setRating(rating);
 		model.addAttribute("data", service.insReview(param));
 		
-		return ViewRef.USER_MYPAGE;
+		return "redirect:/" + ViewRef.USER_MYPAGE;
 	}
+	
 }

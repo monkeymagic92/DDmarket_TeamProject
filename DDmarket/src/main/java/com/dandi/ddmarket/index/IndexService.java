@@ -73,6 +73,10 @@ public class IndexService {
 	public String selCdSearchNm(BoardPARAM param) {
 		return mapper.selCdSearchNm(param);
 	}
+	
+	public int selSearchListCnt(BoardPARAM param) {
+		return mapper.selSearchListCnt(param);
+	}
 
 
 	}

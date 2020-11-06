@@ -1,110 +1,120 @@
 -- DDmarket.sql
--- À§¿¡¼­ ¾Æ·¡·Î ¼øÂ÷ÀûÀ¸·Î ½ÇÇàÇÏ¸éµÊ 
+-- ìœ„ì—ì„œ ì•„ëž˜ë¡œ ìˆœì°¨ì ìœ¼ë¡œ ì‹¤í–‰í•˜ë©´ë¨ 
 
 
+SELECT B.i_user ,B.profile_img, B.nick, A.ctnt, A.r_dt FROM t_cmt A
+				
+LEFT JOIN t_user B
+ON A.i_user = B.i_user
 
--- À¯ÀúÅ×ÀÌºí
--- 10.20 buy Ãß°¡
+WHERE A.i_board = 2
+ORDER BY A.r_dt DESC;
+
+
+-- ìœ ì €í…Œì´ë¸”
+-- 10.20 buy ì¶”ê°€
 CREATE TABLE t_user(
-	i_user INT UNSIGNED AUTO_INCREMENT, -- È¸¿ø °íÀ¯ pk°ª
-	user_id VARCHAR(20) NOT NULL UNIQUE, -- È¸¿ø ¾ÆÀÌµð (Áßº¹¹æÁö)
-	user_pw VARCHAR(70) NOT NULL, -- È¸¿ø ºñ¹Ð¹øÈ£ (¾ÏÈ£È­ °ªÀÌ µé¾î°¥¼ö ÀÖ°Ô Å©±â 70ÀâÀ½)
+	i_user INT UNSIGNED AUTO_INCREMENT, -- íšŒì› ê³ ìœ  pkê°’
+	user_id VARCHAR(20) NOT NULL UNIQUE, -- íšŒì› ì•„ì´ë”” (ì¤‘ë³µë°©ì§€)
+	user_pw VARCHAR(70) NOT NULL, -- íšŒì› ë¹„ë°€ë²ˆí˜¸ (ì•”í˜¸í™” ê°’ì´ ë“¤ì–´ê°ˆìˆ˜ ìžˆê²Œ í¬ê¸° 70ìž¡ìŒ)
 	salt VARCHAR(80) NOT NULL,
-	nick VARCHAR(15) NOT NULL, -- À¯Àú ´Ð³×ÀÓ
-	nm VARCHAR(10) NOT NULL, -- È¸¿ø ÀÌ¸§ (°¡²û Æ¯ÀÌÇÑ ÀÌ¸§µµ ÀÖÀ¸´Ï Å©±â 12·Î ÁáÀ½)	
-	email VARCHAR(30) NOT NULL,	-- È¸¿ø ¸ÞÀÏ	
-	post VARCHAR(30) NOT NULL, -- ¿ìÆí¹øÈ£
-	addr VARCHAR(30) NOT NULL, -- Áö¹ø
-	road VARCHAR(30) NOT NULL, -- µµ·Î¸í		
+	nick VARCHAR(15) NOT NULL, -- ìœ ì € ë‹‰ë„¤ìž„
+	nm VARCHAR(10) NOT NULL, -- íšŒì› ì´ë¦„ (ê°€ë” íŠ¹ì´í•œ ì´ë¦„ë„ ìžˆìœ¼ë‹ˆ í¬ê¸° 12ë¡œ ì¤¬ìŒ)	
+	email VARCHAR(30) NOT NULL,	-- íšŒì› ë©”ì¼	
+	post VARCHAR(30) NOT NULL, -- ìš°íŽ¸ë²ˆí˜¸
+	addr VARCHAR(30), -- ì§€ë²ˆ
+	road VARCHAR(30) NOT NULL, -- ë„ë¡œëª…		
 	joinPass INT(2) NOT NULL,
 	uNum INT(9) NOT NULL,
-	favI_cg_1 INT DEFAULT 1, -- ¼±È£Ä«Å×°í¸® 1 	
-	favI_cg_2 INT DEFAULT 1, -- ¼±È£Ä«Å×°í¸® 2
-	favI_cg_3 INT DEFAULT 1, -- ¼±È£Ä«Å×°í¸® 3 	 																					
-	grade DOUBLE, -- È¸¿ø ½Å¿ëµî±Þ( È¸¿øÀÇ °Å·¡ Ã»°áÀ¯¹« // Å×ÀÌºí µû·Î •û¼­ °ü¸®ÇØµµµÊ )	
-	buy INT, -- ±¸¸Å¿Ï·á ( ÀÏ´Ü ¿ì¼± ³Ö¾îº»°ÅÀÓ )
-	profile_img VARCHAR(50), -- È¸¿ø »çÁø (µî·Ï ¿©ºÎ ÀÚÀ¯, »çÁø¾øÀ»½Ã ¹« ¸¶ÄÏ ´ëÇ¥ defaultÀÌ¹ÌÁö Á¤ÇÏ±â)	
-	r_dt DATETIME DEFAULT NOW(), -- È¸¿ø °¡ÀÔ½Ã µî·ÏµÇ´Â ³¯Â¥
-	m_dt DATETIME DEFAULT NOW(), -- ""  ¼öÁ¤½Ã      ""
+	favI_cg_1 INT DEFAULT 1, -- ì„ í˜¸ì¹´í…Œê³ ë¦¬ 1 	
+	favI_cg_2 INT DEFAULT 1, -- ì„ í˜¸ì¹´í…Œê³ ë¦¬ 2
+	favI_cg_3 INT DEFAULT 1, -- ì„ í˜¸ì¹´í…Œê³ ë¦¬ 3 	 																					
+	grade DOUBLE, -- íšŒì› ì‹ ìš©ë“±ê¸‰( íšŒì›ì˜ ê±°ëž˜ ì²­ê²°ìœ ë¬´ // í…Œì´ë¸” ë”°ë¡œ ëº´ì„œ ê´€ë¦¬í•´ë„ë¨ )	
+	buy INT, -- êµ¬ë§¤ì™„ë£Œ ( ì¼ë‹¨ ìš°ì„  ë„£ì–´ë³¸ê±°ìž„ )
+	profile_img VARCHAR(50), -- íšŒì› ì‚¬ì§„ (ë“±ë¡ ì—¬ë¶€ ìžìœ , ì‚¬ì§„ì—†ì„ì‹œ ë¬´ ë§ˆì¼“ ëŒ€í‘œ defaultì´ë¯¸ì§€ ì •í•˜ê¸°)	
+	r_dt DATETIME DEFAULT NOW(), -- íšŒì› ê°€ìž…ì‹œ ë“±ë¡ë˜ëŠ” ë‚ ì§œ
+	m_dt DATETIME DEFAULT NOW(), -- ""  ìˆ˜ì •ì‹œ      ""
 	PRIMARY KEY (i_user)
 );
 
-SELECT * FROM t_user;
 
+SELECT A.i_user, A.i_board, B.nick, A.title, A.post, A.addr, A.road, A.r_dt,
+	    A.ctnt, A.hits, C.cg_nm, A.price, ifnull(D.cnt, 0) as tolike, B.grade,
+	    CASE WHEN E.i_board IS NULL THEN 0 ELSE 1 END AS is_tolike,
+		A.thumImage, A.image_1, A.image_2, A.image_3, A.image_4, A.image_5
+		FROM t_board A
+  
+		LEFT JOIN t_user B
+		ON A.i_user = B.i_user
+  
+		LEFT JOIN(
+			SELECT i_board, COUNT(i_board) as cnt
+			FROM t_board_like
+			WHERE i_board = 2
+			GROUP BY i_board
+		)D
+		ON A.i_board = D.i_board
+		
+		LEFT JOIN t_category C
+		ON A.i_cg = C.i_cg
+		
+		LEFT JOIN t_board_like E
+		ON A.i_board = E.i_board
+		AND E.i_user = 1
+		WHERE A.i_board = 2;
 
-
--- Ä«Å×°í¸® Å×ÀÌºí --
+-- ì¹´í…Œê³ ë¦¬ í…Œì´ë¸” --
 CREATE TABLE t_category(
-	i_cg INT UNSIGNED PRIMARY KEY AUTO_INCREMENT, -- Ä«Å×°í¸® °íÀ¯ pk°ª
-	cg_nm VARCHAR(15) NOT NULL -- Ä«Å×°í¸® ÀÌ¸§ Ãß°¡
+	i_cg INT UNSIGNED PRIMARY KEY AUTO_INCREMENT, -- ì¹´í…Œê³ ë¦¬ ê³ ìœ  pkê°’
+	cg_nm VARCHAR(15) NOT NULL -- ì¹´í…Œê³ ë¦¬ ì´ë¦„ ì¶”ê°€
 );
 
-INSERT INTO t_category (i_cg, cg_nm) VALUES (1, '¿©¼ºÀÇ·ù');
-INSERT INTO t_category (i_cg, cg_nm) VALUES (2, '³²¼ºÀÇ·ù');
-INSERT INTO t_category (i_cg, cg_nm) VALUES (3, 'ÆÐ¼ÇÀâÈ­');
-INSERT INTO t_category (i_cg, cg_nm) VALUES (4, 'µðÁöÅÐ|°¡Àü');
-INSERT INTO t_category (i_cg, cg_nm) VALUES (5, 'ºäÆ¼|¹Ì¿ë');
-INSERT INTO t_category (i_cg, cg_nm) VALUES (6, '»ýÈ°|°¡±¸');
-INSERT INTO t_category (i_cg, cg_nm) VALUES (7, 'µµ¼­|Æ¼ÄÏ');
-INSERT INTO t_category (i_cg, cg_nm) VALUES (8, 'À¯¾Æµ¿|Ãâ»ê');
-INSERT INTO t_category (i_cg, cg_nm) VALUES (9, '±âÅ¸');
-INSERT INTO t_category (i_cg, cg_nm) VALUES (10,'¹«·á³ª´®');
 
-SELECT * FROM t_category;
 
-SELECT * FROM t_user;
+INSERT INTO t_category (i_cg, cg_nm) VALUES (1, 'ì—¬ì„±ì˜ë¥˜');
+INSERT INTO t_category (i_cg, cg_nm) VALUES (2, 'ë‚¨ì„±ì˜ë¥˜');
+INSERT INTO t_category (i_cg, cg_nm) VALUES (3, 'íŒ¨ì…˜ìž¡í™”');
+INSERT INTO t_category (i_cg, cg_nm) VALUES (4, 'ë””ì§€í„¸|ê°€ì „');
+INSERT INTO t_category (i_cg, cg_nm) VALUES (5, 'ë·°í‹°|ë¯¸ìš©');
+INSERT INTO t_category (i_cg, cg_nm) VALUES (6, 'ìƒí™œ|ê°€êµ¬');
+INSERT INTO t_category (i_cg, cg_nm) VALUES (7, 'ë„ì„œ|í‹°ì¼“');
+INSERT INTO t_category (i_cg, cg_nm) VALUES (8, 'ìœ ì•„ë™|ì¶œì‚°');
+INSERT INTO t_category (i_cg, cg_nm) VALUES (9, 'ê¸°íƒ€');
+INSERT INTO t_category (i_cg, cg_nm) VALUES (10,'ë¬´ë£Œë‚˜ëˆ”');
 
 
 
 
-
-
--- °Ô½Ã±Û Å×ÀÌºí --
+-- ê²Œì‹œê¸€ í…Œì´ë¸” --
 CREATE TABLE t_board(
-	i_board INT UNSIGNED AUTO_INCREMENT,	 -- °Ô½Ã±Û °íÀ¯ pk°ª
-	i_cg INT UNSIGNED, 	-- Ä«Å×°í¸® Å×ÀÌºí°ú Á¶ÀÎ
+	i_board INT UNSIGNED AUTO_INCREMENT,	 -- ê²Œì‹œê¸€ ê³ ìœ  pkê°’
+	i_cg INT UNSIGNED, 	-- ì¹´í…Œê³ ë¦¬ í…Œì´ë¸”ê³¼ ì¡°ì¸
 	i_user INT UNSIGNED,
-	title VARCHAR(70) NOT NULL,	-- Á¦¸ñ 
-	ctnt VARCHAR(2000) NOT NULL,		-- ³»¿ë
+	title VARCHAR(70) NOT NULL,	-- ì œëª© 
+	ctnt VARCHAR(2000) NOT NULL,		-- ë‚´ìš©
 	thumImage VARCHAR(50),
-	image_1 VARCHAR(50),		-- »óÇ° »çÁø ( images_1 Àº ´ëÇ¥»çÁø µî·Ï, ´ëÇ¥»çÁøÀº ÃßÈÄ ³ªÀÇ Âò¸ñ·Ï¿¡ ³ªÅ¸³¾ ´ëÇ¥»çÁø )
+	image_1 VARCHAR(50),		-- ìƒí’ˆ ì‚¬ì§„ ( images_1 ì€ ëŒ€í‘œì‚¬ì§„ ë“±ë¡, ëŒ€í‘œì‚¬ì§„ì€ ì¶”í›„ ë‚˜ì˜ ì°œëª©ë¡ì— ë‚˜íƒ€ë‚¼ ëŒ€í‘œì‚¬ì§„ )
 	image_2 VARCHAR(50),		
 	image_3 VARCHAR(50),		
 	image_4 VARCHAR(50),		
 	image_5 VARCHAR(50),
-	post VARCHAR(30) NOT NULL, -- ¿ìÆí¹øÈ£
-	addr VARCHAR(30) NOT NULL, -- Áö¹ø
-	road VARCHAR(30) NOT NULL, -- µµ·Î¸í
-	hits INT DEFAULT 0, 	-- Á¶È¸¼ö
-	price INT,	-- °¡°Ý ¼³Á¤			
-	sold INT DEFAULT 0,  --  0ÀÌ¸é °Å·¡ ¹Ì¿Ï·á, 1ÀÌ¸é °Å·¡¿Ï·á
-	r_dt DATETIME DEFAULT NOW(),	-- °Ô½Ã±Û µî·Ï½Ã ³¯Â¥
-	m_dt DATETIME DEFAULT NOW(),	-- ""  ¼öÁ¤½Ã      ""
+	post VARCHAR(30) NOT NULL, -- ìš°íŽ¸ë²ˆí˜¸
+	addr VARCHAR(30) NOT NULL, -- ì§€ë²ˆ
+	road VARCHAR(30) NOT NULL, -- ë„ë¡œëª…
+	hits INT DEFAULT 0, 	-- ì¡°íšŒìˆ˜
+	price INT(13),	-- ê°€ê²© ì„¤ì •			
+	sold INT DEFAULT 0,  --  0ì´ë©´ ê±°ëž˜ ë¯¸ì™„ë£Œ, 1ì´ë©´ ê±°ëž˜ì™„ë£Œ
+	r_dt DATETIME DEFAULT NOW(),	-- ê²Œì‹œê¸€ ë“±ë¡ì‹œ ë‚ ì§œ
+	m_dt DATETIME DEFAULT NOW(),	-- ""  ìˆ˜ì •ì‹œ      ""
    PRIMARY KEY (i_board, i_cg, i_user),
-	FOREIGN KEY (i_cg) REFERENCES t_category(i_cg),
-	FOREIGN KEY (i_user) REFERENCES t_user(i_user)
+	FOREIGN KEY (i_cg) REFERENCES t_category(i_cg) ON DELETE CASCADE,
+	FOREIGN KEY (i_user) REFERENCES t_user(i_user) ON DELETE CASCADE
 );
 
-DROP TABLE t_board;
-
-SELECT * FROM t_board;
-
-SELECT B.cg_nm FROM t_board A
-LEFT JOIN t_category B
-ON A.i_cg = B.i_cg
-WHERE i_board = 6;
-
-
-SELECT * FROM t_board A
-LEFT JOIN t_user B
-ON A.i_user = B.i_user;
-
-SELECT * FROM t_board;
 
 
 
-
--- Âò  Å×ÀÌºí
+-- ì°œ  í…Œì´ë¸”
 CREATE TABLE t_board_like(
 	i_user INT UNSIGNED,
 	i_board INT UNSIGNED,
@@ -116,10 +126,10 @@ CREATE TABLE t_board_like(
 );
 
 
--- Âò¸ñ·Ï Å×½ºÆ®
+-- ì°œëª©ë¡ í…ŒìŠ¤íŠ¸
 INSERT INTO t_board_like (i_user, i_board) VALUES (1, 2);
 
--- @@ Âò¸ñ·Ï Äõ¸®¹® @@ 
+-- @@ ì°œëª©ë¡ ì¿¼ë¦¬ë¬¸ @@ 
 SELECT C.i_user, C.nm, A.title, A.ctnt, A.r_dt FROM t_board A
 	LEFT JOIN t_board_like B
 	ON A.i_board = B.i_board
@@ -131,49 +141,46 @@ SELECT C.i_user, C.nm, A.title, A.ctnt, A.r_dt FROM t_board A
 
 
 
-SELECT * FROM t_user;
 
 
--- ¸®ºä Å×ÀÌºí ( ´ñ±ÛÀÌ¶û ´Ù¸§!, ¹°°Ç ±¸¸ÅÇßÀ»½Ã ÀÛ¼º)
+SELECT A.i_board, A.image_1, A.title, A.price, A.r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr
+FROM t_board A
+LEFT JOIN t_user B
+ON A.i_user = B.i_user
+WHERE SUBSTRING_INDEX(A.addr," ",2) in (SELECT SUBSTRING_INDEX(B.addr," ",2) FROM t_user WHERE B.i_user = 1)
+ORDER BY A.r_dt DESC;
+
+
+
+-- ë¦¬ë·° í…Œì´ë¸” ( ëŒ“ê¸€ì´ëž‘ ë‹¤ë¦„!, ë¬¼ê±´ êµ¬ë§¤í–ˆì„ì‹œ ìž‘ì„±)
 CREATE TABLE t_review(
-	i_review INT UNSIGNED AUTO_INCREMENT,	-- myReview °íÀ¯ pk°ª (t_userinfo, t_board Å×ÀÌºí°ú join ÇÒ½Ã »ç¿ë)
+	i_review INT UNSIGNED AUTO_INCREMENT,	-- myReview ê³ ìœ  pkê°’ (t_userinfo, t_board í…Œì´ë¸”ê³¼ join í• ì‹œ ì‚¬ìš©)
 	i_board INT UNSIGNED,
 	i_user INT UNSIGNED,
-	ctnt VARCHAR(200) NOT NULL,	-- ¸®ºä³»¿ë
-	rating DOUBLE NOT NULL, -- Á¡¼ö°ü·Ã ÆÀ¿ø°ú »óÀÇÇÏ±â (Å×ÀÌºí µû·Î »¬°ÇÁö? 1,2,3,4,5 Á¡ ½ÄÀ¸·ÎÁÙ°ÇÁö Á¡¼ö¸¦ ¾î¶»°ÔÁÙ°ÇÁö)
+	ctnt VARCHAR(200) NOT NULL,	-- ë¦¬ë·°ë‚´ìš©
+	rating DOUBLE NOT NULL, -- ì ìˆ˜ê´€ë ¨ íŒ€ì›ê³¼ ìƒì˜í•˜ê¸° (í…Œì´ë¸” ë”°ë¡œ ëº„ê±´ì§€? 1,2,3,4,5 ì  ì‹ìœ¼ë¡œì¤„ê±´ì§€ ì ìˆ˜ë¥¼ ì–´ë–»ê²Œì¤„ê±´ì§€)
 	r_dt DATETIME DEFAULT NOW(),	
 	m_dt DATETIME DEFAULT NOW(),
    PRIMARY KEY (i_review, i_board, i_user),
-	FOREIGN KEY (i_user) REFERENCES t_user(i_user), -- userinfo == review Å×ÀÌºí (³ªÀÇ ¸®ºä¸®½ºÆ® º¼¶§ È°¿ë)
-	FOREIGN KEY (i_board) REFERENCES t_board(i_board)	-- board == review Å×ÀÌºí ( ÇØ´ç °Ô½Ã±Û¿¡ ¸®ºä ³ªÅ¸³¾‹š )
+	FOREIGN KEY (i_user) REFERENCES t_user(i_user), -- userinfo == review í…Œì´ë¸” (ë‚˜ì˜ ë¦¬ë·°ë¦¬ìŠ¤íŠ¸ ë³¼ë•Œ í™œìš©)
+	FOREIGN KEY (i_board) REFERENCES t_board(i_board)	-- board == review í…Œì´ë¸” ( í•´ë‹¹ ê²Œì‹œê¸€ì— ë¦¬ë·° ë‚˜íƒ€ë‚¼ë–„ )
 );
 
 
-SELECT * FROM t_board;
 
-
-
-
--- ´ñ±Û Å×ÀÌºí
+-- ëŒ“ê¸€ í…Œì´ë¸”
 CREATE TABLE t_cmt(
 	i_cmt INT UNSIGNED AUTO_INCREMENT,
 	i_user INT UNSIGNED,
 	i_board INT UNSIGNED,
 	ctnt VARCHAR(300) NOT null,
-	image_1 VARCHAR(50),
-	image_2 VARCHAR(50),
-	image_3 VARCHAR(50),
+	scr INT DEFAULT 0,
 	r_dt DATETIME DEFAULT NOW(),	
 	m_dt DATETIME DEFAULT NOW(),
   	PRIMARY KEY (i_cmt, i_user, i_board),
-	FOREIGN KEY (i_user) REFERENCES t_user(i_user),	-- È¸¿ø°ú ¿¬°á
-	FOREIGN KEY (i_board) REFERENCES t_board(i_board)	-- °Ô½ÃÆÇ°ú ¿¬°á
+	FOREIGN KEY (i_user) REFERENCES t_user(i_user),	-- íšŒì›ê³¼ ì—°ê²°
+	FOREIGN KEY (i_board) REFERENCES t_board(i_board)	-- ê²Œì‹œíŒê³¼ ì—°ê²°
 );
-
-
-
-
-
 
 
 
