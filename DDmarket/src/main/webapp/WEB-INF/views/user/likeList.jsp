@@ -38,7 +38,7 @@
         
         </main>
       
-    
+    <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 </body>
 <script>
 	function likeListDel(i_board) {

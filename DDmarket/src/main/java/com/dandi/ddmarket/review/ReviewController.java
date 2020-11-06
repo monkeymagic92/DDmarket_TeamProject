@@ -33,4 +33,5 @@ public class ReviewController {
 		
 		return "redirect:/" + ViewRef.USER_MYPAGE;
 	}
+	
 }

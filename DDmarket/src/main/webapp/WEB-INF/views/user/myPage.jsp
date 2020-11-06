@@ -48,15 +48,15 @@
             <section id="section-bottom">
                 <div id="tap_menu">
         			<c:forEach var="item" items="${tapList}" end="${loginUser.i_user == data.i_user ? '4' : '1'}">
-	                 <c:choose>
-	        			<c:when test="${i_tap == item.i_tap}">
-	        				<a style="color: red;" href="/user/myPage?i_tap=${item.i_tap}&i_user=${data.i_user}">${item.tap_nm}</a>
-	        			</c:when>
-	        			<c:otherwise>
-	        				<a href="/user/myPage?i_tap=${item.i_tap}&i_user=${data.i_user}">${item.tap_nm}</a>
-	        			</c:otherwise>
-	        		</c:choose>
-           		  	</c:forEach>
+                  <c:choose>
+                    <c:when test="${i_tap == item.i_tap}">
+                      <a style="color: red;" href="/user/myPage?i_tap=${item.i_tap}&i_user=${data.i_user}">${item.tap_nm}</a>
+                    </c:when>
+                    <c:otherwise>
+                      <a href="/user/myPage?i_tap=${item.i_tap}&i_user=${data.i_user}">${item.tap_nm}</a>
+                    </c:otherwise>
+                </c:choose>
+           		 </c:forEach>
                 </div>
                 
                 <c:if test="${i_tap == 1}">
@@ -108,6 +108,7 @@
 			               		 <a href='<c:url value="/index/search?page=${pageMaker.endPage+1}&searchNm=${searchNm}&i_cg=${i_cg == null ? 0 : i_cg}&searchType=${searchType == null ? 'new' : searchType}"/>'><span class="iconify icon-page-right" data-inline="false" data-icon="mdi-light:chevron-double-right" style="color: #3b73c8; font-size: 47px;"></span></a>
 			           		</c:if>
 			            </div>
+
                 </div>
                 </c:if>
                 
@@ -164,10 +165,13 @@
         </main>
     </div>
 <script src="/res/js/myPage.js"></script>
+<script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 <script>
+
 var starlist = ['0.5', '1', '1.5', '2',
     '2.5', '3', '3.5', '4',
     '4.5', '5']
+
 
 function radiobox(){
         
@@ -227,7 +231,7 @@ if(txt.length != '' || txt.length != 0){
 	
 	////사용자 별점 값 조정
 	var grade = ${data.grade}/5*125;
-	document.querySelector('.star-ratings-css-top').style.width = grade + "%";
+	document.querySelector('.star-ratings-css-top').style.width = grade + "%"
 
 	</script>
 </body>

@@ -21,6 +21,8 @@ import com.dandi.ddmarket.ViewRef;
 import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.cmt.CmtService;
 import com.dandi.ddmarket.cmt.model.CmtVO;
+import com.dandi.ddmarket.review.ReviewService;
+import com.dandi.ddmarket.review.model.ReviewPARAM;
 import com.dandi.ddmarket.trans.TransService;
 import com.dandi.ddmarket.trans.model.TransDMI;
 import com.dandi.ddmarket.trans.model.TransVO;
@@ -40,6 +42,9 @@ public class BoardController {
 	private CmtService cmtService;		// 댓글 서비스
 	
 	@Autowired
+	private ReviewService reviewService;
+  
+  @Autowired
 	private TransService transService;
 	
 	// 판매글 등록,수정
@@ -143,15 +148,18 @@ public class BoardController {
 		}
 	}
 		
-	
+	//수정
 	// 판매글 상세페이지 (detail)
 	@RequestMapping(value="/detail", method = RequestMethod.GET)
+
 	public String detail(Model model, TransDMI transDmi, BoardPARAM param, CmtVO vo, HttpServletRequest req,
 			HttpServletRequest request, HttpSession hs) {
-		int i_user = 0;
+		
+    int i_user = 0;
 		
 		if(!SecurityUtils.isLogout(request)) {
-			service.addHit(param, req);			
+			service.addHit(param, request);			
+
 		}
 		
 		int i_board = Integer.parseInt(request.getParameter("i_board"));
@@ -184,6 +192,9 @@ public class BoardController {
 	    model.addAttribute("cmtPageNum", cmtPageMaker);
 		////// 페이징 end
 		
+
+	    model.addAttribute("reviewList", reviewService.selReview(param));
+	    
 	    // 판매글에 접속한 i_user에 chk값이 1, 0에 따라서 버튼이름 변경  (trans기능에 사용) 
 	    int chk = transService.chkTrans(param);
 	    if(chk == 0) {
@@ -193,7 +204,7 @@ public class BoardController {
 	    }
 	    
 	    
-	    model.addAttribute("selTrans", transService.selTrans(param)); // 구매요청 누른 유저들
+	  model.addAttribute("selTrans", transService.selTrans(param)); // 구매요청 누른 유저들
 		model.addAttribute("cmtCount", cmtService.countCmt(param)); // 댓글 갯수
 		model.addAttribute("cmtList", cmtService.selCmt(param));	// 댓글 내용
 		model.addAttribute("data", service.selBoard(param));		// 판매글 내용

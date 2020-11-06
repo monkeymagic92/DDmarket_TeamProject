@@ -2,11 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dandi.ddmarket.review.ReviewMapper">
 	
+	<select id="selReview" parameterType="BoardPARAM" resultType="ReviewPARAM">
+		SELECT A.i_review, A.i_board, A.i_user, A.ctnt, A.rating,
+			   B.nick
+		FROM t_review A
+		LEFT JOIN t_user B
+			ON A.i_user = B.i_user
+			WHERE A.i_board = #{i_board}
+		LIMIT 5
+	</select>
+	
 	<insert id="insReview">
 		INSERT INTO t_review
 		(i_board, i_user, ctnt, rating)
 		VALUES
 		(#{i_board}, #{i_user}, #{ctnt}, #{rating})
 	</insert>
-
+	
 </mapper>

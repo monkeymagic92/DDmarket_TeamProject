@@ -10,7 +10,14 @@ public class BoardDMI extends BoardVO {
 	private int is_tolike;
 	private double grade;
 	private String profile_img;
+	private double rating;
 	
+	public double getRating() {
+		return rating;
+	}
+	public void setRating(double rating) {
+		this.rating = rating;
+	}
 	public String getProfile_img() {
 		return profile_img;
 	}

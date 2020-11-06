@@ -28,6 +28,16 @@ main {width: 1040px; margin: 250px auto;}
     left: 0;
     overflow: hidden;
   }
+   .star-ratings-top_0 {
+    color: #F1D05F;
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+    display: block;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+  }
   .star-ratings-css-bottom {
     padding: 0;
     display: block;

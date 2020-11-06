@@ -241,32 +241,30 @@
             <section id="section-review">
                 <div id="div-review-left">
                     <div class="review-profile-img"><img src="/res/img/yerin.jpg"></div>
+
                     <div class="review-profile-nick">${data.nick}</div>
+
                     <div class="star-ratings-css">
                         <div class="star-ratings-css-top" style="width:85%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                         <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                     </div>
                     <div class="review-profile-reviewNum">15명의 후기</div>
                 </div>
-                <div id="div-review-right">                    
+                <div id="div-review-right">
                     <div id="reviewWrap">
+	                <c:forEach items="${reviewList}" var="item" begin="0" >
                         <div class="review-right-profile-img"><img src="/res/img/yerin.jpg"></div>
                         <div class="review-right-profile-desc">
                             <div class="nick">
-                                <span>yerin_back</span>
+                            	<span>${item.nick}</span>
+                            	<span class="rating">${item.rating}</span></div>
                                 <div class="star-ratings-css">
-                                    <div class="star-ratings-css-top" style="width:120%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                                    <div class="star-ratings-top_1" style="width:75%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                                     <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                                 </div>
                             </div>
-                            <div class="comment">쿨거래 감사합니다</div>
-                        </div>
-                    </div>
-                    <div id="reviewWrap">
-                        <div class="review-right-profile-img"><img src="/res/img/yerin.jpg"></div>
-                        <div class="review-right-profile-desc">
-                            <div class="nick">yerin_back<span class="rating">(별점)</span></div>
-                            <div class="comment">쿨거래 감사합니다</div>
+                            <div class="comment">${item.ctnt}</div>
+                        </c:forEach>
                         </div>
                     </div>
                 </div>
@@ -288,6 +286,7 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="/res/js/detail.js"></script>
 <script>
+
 	if(${transErr != null}) {
 		alert('${transErr}')
 		
@@ -417,8 +416,29 @@
 	}
 	
 	// 별점
-	var grade = ${data.grade}/5*80;
-	document.querySelector('.star-ratings-css-top').style.width = grade + "%";
+	var rating_1 = 1.5/5*75;
+	var starbar_1 = document.querySelector('.star-ratings-top_1')
+		starbar_1.style.width = rating + "%";
+
+	var rating_2 = 1.5/5*75;
+	var starbar_2 = document.querySelector('.star-ratings-top_2')
+		starbar_2.style.width = rating + "%";
+	
+	var rating_3 = 1.5/5*75;
+	var starbar_3 = document.querySelector('.star-ratings-top_3')
+		starbar_3.style.width = rating + "%";
+	
+	var rating_4 = 1.5/5*75;
+	var starbar_4 = document.querySelector('.star-ratings-top_4')
+		starbar_4.style.width = rating + "%";
+	
+	var rating_5 = 1.5/5*75;
+	var starbar_5 = document.querySelector('.star-ratings-top_5')
+		starbar_5.style.width = rating + "%";
+	
+	var grade = ${data.grade}/5*125;
+	document.querySelector('.star-ratings-css-top').style.width = grade + "%"
+	
 
 	
 	//찜 하기
