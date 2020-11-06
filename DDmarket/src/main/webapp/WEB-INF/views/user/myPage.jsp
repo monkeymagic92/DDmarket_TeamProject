@@ -46,7 +46,6 @@
             </section>
             
             <section id="section-bottom">
-            
                 <div id="tap_menu">
         			<c:forEach var="item" items="${tapList}" end="${loginUser.i_user == data.i_user ? '4' : '1'}">
 	                 <c:choose>
