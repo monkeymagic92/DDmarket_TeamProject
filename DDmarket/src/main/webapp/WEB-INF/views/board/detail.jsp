@@ -105,14 +105,13 @@
                             	<button onclick="moveToDel(${data.i_board})">삭제하기</button>
                         	</c:if>
                         	<c:if test="${loginUser.i_user != data.i_user }">
-                        		<button type="button" onclick="ToLike()">
+                        		<button type="button" onclick="ToLike()">찜
                         		<c:if test="${data.is_tolike == 1}">
                         			<span id="heart" class="iconify icon-btn-heart heart" data-inline="false" data-icon="clarity:heart-solid" style=" font-size: 20px;"></span>
                         		</c:if>
                         		<c:if test="${data.is_tolike == 0}">
 	                 	           	<span id="heart" class="iconify icon-btn-heart unheart" data-inline="false" data-icon="clarity:heart-solid" style=" font-size: 20px;"></span>
-               					</c:if>
-                                 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;찜
+               					</c:if>찜 
                            		</button>
                            		
                            		
@@ -164,7 +163,7 @@
 		                </table>
 		            </div>
 		            <div class="modal-footer">
-		                <button class="close" onclick="closebtn()">취소</button>
+		                <button class="close" onclick="closeBtn()">취소</button>
 		            </div>
 		        </div>
 		    </div>
@@ -416,7 +415,7 @@
 	}
 	
 	// 별점
-	var rating_1 = 1.5/5*75;
+	/*var rating_1 = 1.5/5*75;
 	var starbar_1 = document.querySelector('.star-ratings-top_1')
 		starbar_1.style.width = rating + "%";
 
@@ -435,7 +434,7 @@
 	var rating_5 = 1.5/5*75;
 	var starbar_5 = document.querySelector('.star-ratings-top_5')
 		starbar_5.style.width = rating + "%";
-	
+	*/
 	var grade = ${data.grade}/5*125;
 	document.querySelector('.star-ratings-css-top').style.width = grade + "%"
 	
@@ -497,11 +496,16 @@
 		})
 	}
 	
-	var modal = document.querySelector(".myModal");
 
     function transBtn() {
+	var modal = document.querySelector(".myModal");
        modal.style.display = "block";
     }
+    
+    function closeBtn() {
+    	var modal = document.querySelector(".myModal");
+           modal.style.display = "none";
+        }
 </script>
 </body>
 </html>
