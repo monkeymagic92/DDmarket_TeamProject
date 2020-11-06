@@ -28,6 +28,7 @@ CREATE TABLE t_user(
 	PRIMARY KEY (i_user)
 );
 
+SELECT * FROM t_trans;
 
 
 -- 카테고리 테이블 --
@@ -86,12 +87,15 @@ CREATE TABLE t_trans(
 	i_board INT UNSIGNED,
 	i_user INT UNSIGNED,
 	chk INT DEFAULT 0,
+	buyI_user INT,		-- 구매유저 
+	soldI_user INT,	-- 판매유저
 	r_dt DATETIME DEFAULT NOW(),	-- 게시글 등록시 날짜
 	m_dt DATETIME DEFAULT NOW(),
 	PRIMARY KEY (i_trans, i_board, i_user),
 	FOREIGN KEY (i_board) REFERENCES t_board(i_board) ON DELETE CASCADE,
 	FOREIGN KEY (i_user) REFERENCES t_user(i_user) ON DELETE CASCADE
 );
+
 
 
 
@@ -110,6 +114,7 @@ CREATE TABLE t_trans_cmt(
 	FOREIGN KEY (i_board) REFERENCES t_board(i_board) ON DELETE CASCADE,
 	FOREIGN KEY (i_user) REFERENCES t_user(i_user) ON DELETE CASCADE	
 );
+
 
 
 -- 찜  테이블
