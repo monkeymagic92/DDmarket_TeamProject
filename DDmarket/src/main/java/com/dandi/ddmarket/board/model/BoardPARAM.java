@@ -13,8 +13,17 @@ public class BoardPARAM extends BoardVO{
 	private int perPageNum;
 	private int cmt_pageStart;
 	private int cmt_perPageNum;
+	private int i_user;
 	
 	
+	
+	
+	public int getI_user() {
+		return i_user;
+	}
+	public void setI_user(int i_user) {
+		this.i_user = i_user;
+	}
 	public int getCmt_pageStart() {
 		return cmt_pageStart;
 	}

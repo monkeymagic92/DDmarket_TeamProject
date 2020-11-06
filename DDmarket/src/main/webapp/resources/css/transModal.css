@@ -1,4 +1,6 @@
-.modal {
+@charset "UTF-8";
+
+   .modal {
     display: none; 
     position: fixed; 
     z-index: 4; 
@@ -65,3 +67,12 @@
     align-items: center;
     margin-top: 45px;
     width: 96%; }
+
+.itemRow {
+	cursor: pointer;
+}
+   
+.itemRow: hover {
+	
+	background-color: green;
+}

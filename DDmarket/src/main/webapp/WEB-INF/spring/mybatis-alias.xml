@@ -14,6 +14,7 @@
 		
 		<!-- category -->
 		<typeAlias type="com.dandi.ddmarket.category.model.CategoryVO" alias="CategoryVO" />
+
 		
 		<!-- cmt -->
 		<typeAlias type="com.dandi.ddmarket.cmt.model.CmtVO" alias="CmtVO" />
@@ -23,6 +24,16 @@
 		<!-- review -->
 		<typeAlias type="com.dandi.ddmarket.review.model.ReviewVO" alias="ReviewVO"/>
 		<typeAlias type="com.dandi.ddmarket.review.model.ReviewPARAM" alias="ReviewPARAM"/>
+		
+
+		<!-- tap -->
+		<typeAlias type="com.dandi.ddmarket.tap.TapVO" alias="TapVO" />
+
+		<!-- trans -->
+		<typeAlias type="com.dandi.ddmarket.trans.model.TransVO" alias="TransVO"/>		
+<!--    <typeAlias type="com.dandi.ddmarket.trans.model.TransPARAM" alias="TransPARAM"/> -->
+		<typeAlias type="com.dandi.ddmarket.trans.model.TransDMI" alias="TransDMI"/>
+
 		
 	</typeAliases>	
 </configuration>
