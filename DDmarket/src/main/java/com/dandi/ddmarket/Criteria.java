@@ -5,9 +5,9 @@ public class Criteria {
     private int perPageNum;
     
 
-    public Criteria() {
-        this.page = 1;
-        this.perPageNum = 2;
+    public Criteria(int page, int perPageNum) {
+        this.page = page;
+        this.perPageNum = perPageNum;
     }
     
     public int getPageStart() {

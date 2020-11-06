@@ -60,7 +60,7 @@
                         <div class="user-info">
                             <div class="profile-img">
                             	<c:if test="${data.profile_img == null }">
-                        		<a href="/user/myPage?i_user=${data.i_user}"><img src="/res/img/yerin.jpg" onchange="setThumbnail(e)" alt="" class="img"></a>
+                        		<a href="/user/myPage?i_user=${data.i_user}&i_tap=1"><img src="/res/img/yerin.jpg" onchange="setThumbnail(e)" alt="" class="img"></a>
 	                        	</c:if>
 	                        	<c:if test="${data.profile_img != null }">
 	                                <a href="/user/myPage?i_user=${data.i_user}"><img src="/res/img/profile_img/user/${data.i_user}/${data.profile_img}" class="img"></a>                    	
@@ -419,7 +419,7 @@
 	// 별점
 	var grade = ${data.grade}/5*80;
 	document.querySelector('.star-ratings-css-top').style.width = grade + "%";
-	
+
 	
 	//찜 하기
 	function ToLike(){

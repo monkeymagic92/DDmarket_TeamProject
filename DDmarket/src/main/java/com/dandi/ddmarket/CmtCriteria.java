@@ -7,7 +7,7 @@ public class CmtCriteria {
 
     public CmtCriteria() {
         this.page = 1;
-        this.perPageNum = 2;
+        this.perPageNum = 5;
     }
     
     public int getPageStart() {

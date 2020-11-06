@@ -7,7 +7,7 @@ public class CmtPageMaker {
     private int endPage;
     private boolean prev;
     private boolean next;
-    private int displayPageNum = 5;
+    private int displayPageNum = 3;
     
     public CmtCriteria getCri() {
         return cri;

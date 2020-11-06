@@ -23,7 +23,10 @@ import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.TimeMaximum;
 import com.dandi.ddmarket.board.model.BoardDMI;
 import com.dandi.ddmarket.board.model.BoardPARAM;
+import com.dandi.ddmarket.board.model.BoardVO;
 import com.dandi.ddmarket.category.model.CategoryVO;
+import com.dandi.ddmarket.index.IndexService;
+import com.dandi.ddmarket.tap.TapVO;
 import com.dandi.ddmarket.user.model.UserDMI;
 import com.dandi.ddmarket.user.model.UserPARAM;
 import com.dandi.ddmarket.user.model.UserVO;
@@ -306,6 +309,19 @@ public class UserService {
 		}
 	
 	
+	// myPage탭 리스트 가져오기
+	public List<TapVO> selTapList(TapVO tparam) {
+		return mapper.selTapList(tparam);
+	}
 	
+	// 판매횟수
+	public int selSellCnt(UserPARAM param) {
+		return mapper.selSellCnt(param);
+	}
+	
+	// 판매 글 리스트
+	public List<BoardVO> selSellList(BoardPARAM param) {
+		return IndexService.transferR_dt(mapper.selSellList(param));
+	}
 	
 }
