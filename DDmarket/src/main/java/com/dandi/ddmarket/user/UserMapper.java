@@ -33,7 +33,7 @@ public interface UserMapper {
 	
 	int selSellCnt(UserPARAM param);
 	
-	List<BoardVO> selSellList(UserPARAM param);
+	List<BoardVO> selSellList(BoardPARAM param);
 	
 	// insert
 	int joinUser(UserVO param);		// 회원가입

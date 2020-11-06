@@ -64,11 +64,12 @@
 	</select>
 	
 	<!-- 판매글 리스트 -->
-	<select id="selSellList" parameterType="UserPARAM" resultType="BoardPARAM">
+	<select id="selSellList" parameterType="BoardPARAM" resultType="BoardPARAM">
 		SELECT A.i_board, A.thumImage, A.title, A.price, A.r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr
 		FROM t_board A
 		WHERE i_user = #{i_user}
 		ORDER BY A.r_dt DESC
+		LIMIT #{pageStart}, #{perPageNum}
 	</select>
 	
 							<!-- insert -->

@@ -302,17 +302,21 @@ public class UserController {
 		int i_user = CommonUtils.getIntParameter("i_user", request);
 	
 		if(i_user == 0) {
-			param.setI_user(SecurityUtils.getLoginUserPk(hs));
+			bparam.setI_user(SecurityUtils.getLoginUserPk(hs));
 		} else {
-			param.setI_user(i_user);
+			bparam.setI_user(i_user);
 		}
 		
-		Paging.getPage(model, request, hs, bparam, service.selSellCnt(param));
+		int page = CommonUtils.getIntParameter("page", request);
+		int cperPageNum = 8;
 		
+		if(CommonUtils.getIntParameter("i_tap", request) == 1) {
+			Paging.getPage(service.selSellCnt(param), bparam, page, cperPageNum, model, request, hs);			
+			model.addAttribute("sellCnt", service.selSellCnt(param));
+			model.addAttribute("sellList", service.selSellList(bparam));
+		}
 		
-		model.addAttribute("sellList", service.selSellList(param));
 		model.addAttribute("data", service.selUser(param));
-		model.addAttribute("sellCnt", service.selSellCnt(param));
 		model.addAttribute("tapList", service.selTapList(tparam));
 		model.addAttribute("view",ViewRef.USER_MYPAGE);
 		return ViewRef.DEFAULT_TEMP;

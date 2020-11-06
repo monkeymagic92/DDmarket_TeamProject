@@ -320,7 +320,7 @@ public class UserService {
 	}
 	
 	// 판매 글 리스트
-	public List<BoardVO> selSellList(UserPARAM param) {
+	public List<BoardVO> selSellList(BoardPARAM param) {
 		return IndexService.transferR_dt(mapper.selSellList(param));
 	}
 	

@@ -9,9 +9,9 @@ import com.dandi.ddmarket.board.model.BoardPARAM;
 
 public class Paging {
 	
-	public static void getPage(Model model, HttpServletRequest request, HttpSession hs, BoardPARAM bparam, int tc) {
-		Criteria cri = new Criteria();
-		cri.setPage(CommonUtils.getIntParameter("page", request));
+	public static void getPage(int tc, BoardPARAM bparam, int page, int cperPageNum, Model model, HttpServletRequest request, HttpSession hs) {
+		Criteria cri = new Criteria(page, cperPageNum);
+		cri.setPage(page);
 		hs.setAttribute("page", cri.getPage());
 		PageMaker pageMaker = new PageMaker();
 	    pageMaker.setCri(cri);
@@ -22,7 +22,7 @@ public class Paging {
 	    int perPageNum = cri.getPerPageNum();
 	    bparam.setPageStart(pageStart);
 	    bparam.setPerPageNum(perPageNum);
-	    model.addAttribute("pageMaker", pageMaker);
-	    model.addAttribute("pageNum", pageMaker);
+	    hs.setAttribute("pageMaker", pageMaker);
+	    hs.setAttribute("pageNum", pageMaker);
 	}
 }
