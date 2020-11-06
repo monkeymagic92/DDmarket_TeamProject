@@ -5,6 +5,7 @@
 
 
 /* modal */
+/*
 var modal = document.querySelector(".myModal");
 var btn = document.querySelector(".review");
 var closebtn = document.querySelector(".close");
@@ -29,6 +30,7 @@ window.onclick = function(event) {
         modal.style.display = "none";
         }
     }
+*/
 
 
 function moveToInfo() {

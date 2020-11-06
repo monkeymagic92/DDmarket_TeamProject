@@ -308,9 +308,11 @@ public class UserController {
 		}
 		
 		int page = CommonUtils.getIntParameter("page", request);
-		int cperPageNum = 8;
+		int cperPageNum = 0;
+		int i_tap = CommonUtils.getIntParameter("i_tap", request);
 		
-		if(CommonUtils.getIntParameter("i_tap", request) == 1) {
+		if(i_tap == 1) {
+			cperPageNum = 4;
 			Paging.getPage(service.selSellCnt(param), bparam, page, cperPageNum, model, request, hs);			
 			model.addAttribute("sellCnt", service.selSellCnt(param));
 			model.addAttribute("sellList", service.selSellList(bparam));
