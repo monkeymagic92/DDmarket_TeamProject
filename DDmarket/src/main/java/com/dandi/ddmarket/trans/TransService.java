@@ -33,8 +33,7 @@ public class TransService {
 		} catch(Exception e) {
 			chk = 0;
 		}
-		 
-		System.out.println("서비스 chk : " + chk);
+		
 		return chk;
 	}
 	

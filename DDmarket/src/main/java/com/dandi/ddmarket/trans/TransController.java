@@ -24,7 +24,6 @@ public class TransController {
 		int result = 0;
 		int chk = service.chkTrans(param);
 		
-	    System.out.println("컨트롤 chk 값 : " + chk);
 	    
 	    if(chk == 0) { // 구매요청 	
 	    	result = service.insTrans(vo);

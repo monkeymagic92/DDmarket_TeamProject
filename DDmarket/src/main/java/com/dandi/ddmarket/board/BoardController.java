@@ -142,29 +142,6 @@ public class BoardController {
 			
 		}
 	}
-	
-	//욕 필터
-	private String swearWordFilter(final String ctnt) {
-		String[] filters = CommonUtils.filter();
-		String result = ctnt;
-		for(int i=0; i<filters.length; i++) {
-			result = result.replace(filters[i], "***");
-		}
-		return result;
-	}
-	
-	//스크립트 필터
-	private String scriptFilter(final String ctnt) {
-		String[] filters = {"<script>", "</script>"};
-		String[] filterReplaces = {"&lt;script&gt;", "&lt;/script&gt;"};
-		
-		String result = ctnt;
-		for(int i=0; i<filters.length; i++) {
-			result = result.replace(filters[i], filterReplaces[i]);
-		}
-		return result;
-	}
-	
 		
 	
 	// 판매글 상세페이지 (detail)
@@ -273,6 +250,28 @@ public class BoardController {
 		
 		return "redirect:/index/main";
 			
+	}
+	
+	//욕 필터
+	private String swearWordFilter(final String ctnt) {
+		String[] filters = CommonUtils.filter();
+		String result = ctnt;
+		for(int i=0; i<filters.length; i++) {
+			result = result.replace(filters[i], "***");
+		}
+		return result;
+	}
+	
+	//스크립트 필터
+	private String scriptFilter(final String ctnt) {
+		String[] filters = {"<script>", "</script>"};
+		String[] filterReplaces = {"&lt;script&gt;", "&lt;/script&gt;"};
+		
+		String result = ctnt;
+		for(int i=0; i<filters.length; i++) {
+			result = result.replace(filters[i], filterReplaces[i]);
+		}
+		return result;
 	}
 		
 }

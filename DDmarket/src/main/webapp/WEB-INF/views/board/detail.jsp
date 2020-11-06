@@ -117,9 +117,6 @@
                            		
                            		
                            		
-                           		
-                           		
-                           		
                            		<!-- 거래요청 -->
                           		<form id="transFrm" action="/trans/transRequest" method="post">
                            			<input type="hidden" name="i_user" value="${loginUser.i_user }">
@@ -137,7 +134,7 @@
                     </div>
             </section>
              
-            <button class="review" onclick="reviewbtn()">거래신청 목록보기
+            <button class="review" onclick="transBtn()">거래신청 목록보기
 		    </button>
 		    <div class="myModal modal">
 		        <div class="modal-content">
@@ -146,7 +143,7 @@
 		               		<c:forEach items="${selTrans}" var="item">		               			
 				               	<tr class="itemRow">
 				                	<td onclick="moveToTransChat(${item.i_trans})">${item.i_trans}</td>
-				                	<td onclick="moveToDetail(${item.i_user})">${item.profile_img}
+				                	<td onclick="moveToDetail(${item.i_user})">
 				                		<c:if test="${item.profile_img == null }">
 				                			<img src="/res/img/yerin.jpg" onchange="setThumbnail(e)" alt="" class="img">
 				                		</c:if>
@@ -155,8 +152,13 @@
 				                		</c:if>
 				                	</td>
 				                	<td onclick="moveToDetail(${item.i_user})">${item.nick}</td>
-				                	<td onclick="moveToDetail(${item.i_user})">${item.grade}</td>
-				                	<td onclick="moveToDetail(${item.i_user})">${item.addr}</td>
+				                	<td onclick="moveToDetail(${item.i_user})">${item.grade} grade현재안나옴</td>
+				                </tr>
+				                <tr>
+				                	<td></td>
+				                	<td></td>
+				                	<td><button>대화하기</button></td>				                	
+				                	<td><button>거래완료</button></td>
 				                </tr>
 		                	</c:forEach>
 		                </table>
@@ -235,11 +237,11 @@
             </section>
             
             
-            <h2 class="h2-section-title">상품후기</h2>
+            <h2 class="h2-section-title">판매자 후기</h2>
             <section id="section-review">
                 <div id="div-review-left">
                     <div class="review-profile-img"><img src="/res/img/yerin.jpg"></div>
-                    <div class="review-profile-nick">yerin_back</div>
+                    <div class="review-profile-nick">${data.nick}</div>
                     <div class="star-ratings-css">
                         <div class="star-ratings-css-top" style="width:85%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                         <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
@@ -477,7 +479,7 @@
 	
 	var modal = document.querySelector(".myModal");
 
-    function reviewbtn() {
+    function transBtn() {
        modal.style.display = "block";
     }
 </script>

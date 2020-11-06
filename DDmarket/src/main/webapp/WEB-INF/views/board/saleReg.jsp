@@ -57,7 +57,7 @@
             <span class="line"></span>
             <section class="goods-title">
                     <div class="div-title">
-                        <input type="text" name="title" placeholder="상품 제목을 입력해 주세요" value="${data.title }">
+                        <input type="text" name="title" placeholder="상품 제목을 입력해 주세요" value="${data.title }" maxlength="50">
                     </div>
             </section>
             <h2 class="title">카테고리</h2>
@@ -89,7 +89,7 @@
             <span class="line"></span>
             <section class="goods-price">
                 <div class="div-price">
-                    <input type="text" name="price" id="priceInput" class="img" class="priceInput" required placeholder="가격을 입력 해 주세요" value="${data.price }">
+                    <input type="text" name="price" id="priceInput" class="img" class="priceInput" required placeholder="가격을 입력 해 주세요" value="${data.price }" maxlength="10" oninput="numberMaxLength(this)">
                 </div>
                 &nbsp;&nbsp;
                 <div>
@@ -169,6 +169,14 @@ $('#sample4_roadAddress').hide();
 $('#sample4_postcode').click(function() {
    frm.addrUnChk.value = 'chk'
 })
+	
+	// 가격 길이 제한
+	function numberMaxLength(e){
+        if(e.value.length > e.maxLength){
+            e.value = e.value.slice(0, e.maxLength);
+        }
+    }
+    
 //--------@multiple image preview-----------//
          var sel_files = [];
          

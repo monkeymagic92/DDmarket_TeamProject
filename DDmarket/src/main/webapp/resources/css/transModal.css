@@ -67,3 +67,12 @@
     align-items: center;
     margin-top: 45px;
     width: 96%; }
+
+.itemRow {
+	cursor: pointer;
+}
+   
+.itemRow: hover {
+	
+	background-color: green;
+}

@@ -395,7 +395,3 @@ section:nth-last-child(2) {margin-bottom:0px;}
     margin: 10px 0;
 }
 
-.itemRow: hover {
-	cursor: pointer;
-	background: green;
-}
