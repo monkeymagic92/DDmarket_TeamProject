@@ -22,15 +22,31 @@ public class TransService {
 		return result;
 	}
 	
-	public int chkTrans(BoardPARAM param, int i_user) {
-		int chk = mapper.chkTrans(param, i_user);
+	
+	// 해당 유저의 해당 판매글에 박힌 chk값 반환
+	public int chkTrans(BoardPARAM param) {
+		int chk = 0;
+		try {
+			mapper.chkTrans(param); // 이부분 select 인데 insert로 해서 returning chk 해보기
+			chk = 1;
+			
+		} catch(Exception e) {
+			chk = 0;
+		}
+		
 		return chk;
 	}
 	
 	
-	// 그 해당글의 n번 유저 값 출력
+	// 판매글의 n번 유저 값 출력
 	public List<TransDMI> selTrans(BoardPARAM param) {
 		return mapper.selTrans(param);
+	}
+	
+	
+	// 거래취소 
+	public int delTransUser(TransVO vo) {
+		return mapper.delTransUser(vo);
 	}
 	
 }
