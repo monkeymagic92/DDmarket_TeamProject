@@ -6,6 +6,8 @@ public class TransVO {
 	private int i_board;
 	private int i_user;
 	private int chk;
+	private int buyI_user;
+	private int soldI_user;
 	private String r_dt;
 	private String m_dt;
 	
@@ -33,6 +35,18 @@ public class TransVO {
 	public void setChk(int chk) {
 		this.chk = chk;
 	}
+	public int getBuyI_user() {
+		return buyI_user;
+	}
+	public void setBuyI_user(int buyI_user) {
+		this.buyI_user = buyI_user;
+	}
+	public int getSoldI_user() {
+		return soldI_user;
+	}
+	public void setSoldI_user(int soldI_user) {
+		this.soldI_user = soldI_user;
+	}
 	public String getR_dt() {
 		return r_dt;
 	}
@@ -46,4 +60,5 @@ public class TransVO {
 		this.m_dt = m_dt;
 	}
 	
+		
 }
