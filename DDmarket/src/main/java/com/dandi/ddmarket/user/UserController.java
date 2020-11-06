@@ -18,6 +18,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dandi.ddmarket.CommonUtils;
 import com.dandi.ddmarket.Const;
+import com.dandi.ddmarket.Criteria;
+import com.dandi.ddmarket.PageMaker;
+import com.dandi.ddmarket.Paging;
 import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.ViewRef;
 import com.dandi.ddmarket.board.BoardService;
@@ -303,6 +306,8 @@ public class UserController {
 		} else {
 			param.setI_user(i_user);
 		}
+		
+		Paging.getPage(model, request, hs, bparam, service.selSellCnt(param));
 		
 		
 		model.addAttribute("sellList", service.selSellList(param));

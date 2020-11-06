@@ -91,6 +91,24 @@
 	                        </a>
 	                    </article>
 	                  </c:forEach>
+			            <div id="div-wrap-page">
+			                <c:if test="${pageMaker.prev}">
+			                	<a href='<c:url value="/user/myPage?page=${pageMaker.startPage-1}"/>'><span class="iconify icon-page-left" data-inline="false" data-icon="mdi-light:chevron-double-left" style="color: #3b73c8; font-size: 47px;"></span></a>
+			                </c:if>
+							<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="pageNum">
+						        <c:choose>
+						        <c:when test="${page == pageNum}">
+						        	<a style="color: red;" href='<c:url value="/index/search?page=${pageNum}&searchNm=${searchNm}&i_cg=${i_cg == null ? 0 : i_cg}&searchType=${searchType == null ? 'new' : searchType}"/>'>${pageNum}</a>
+						        </c:when>
+						        <c:otherwise>		        
+						        	<a href='<c:url value="/index/search?page=${pageNum}&searchNm=${searchNm}&i_cg=${i_cg == null ? 0 : i_cg}&searchType=${searchType == null ? 'new' : searchType}"/>'>${pageNum}</a>
+						        </c:otherwise>
+						        </c:choose>
+						    </c:forEach>
+						    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+			               		 <a href='<c:url value="/index/search?page=${pageMaker.endPage+1}&searchNm=${searchNm}&i_cg=${i_cg == null ? 0 : i_cg}&searchType=${searchType == null ? 'new' : searchType}"/>'><span class="iconify icon-page-right" data-inline="false" data-icon="mdi-light:chevron-double-right" style="color: #3b73c8; font-size: 47px;"></span></a>
+			           		</c:if>
+			            </div>
                 </div>
                 </c:if>
                 
