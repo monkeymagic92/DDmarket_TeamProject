@@ -18,7 +18,14 @@
         
             <section id="section-top">
                 <div id="div-top-left">
-                    <div id="profile_img"><img src="/res/img/profile_img/user/${data.i_user }/${data.profile_img}" class="img"></div>
+                    <div id="profile_img">
+                        <c:if test="${data.profile_img == null }">
+                      		<a href="/user/myPage?i_user=${data.i_user}&i_tap=1"><img src="/res/img/yerin.jpg" onchange="setThumbnail(e)" alt="" class="img"></a>
+                       	</c:if>
+                       	<c:if test="${data.profile_img != null }">
+                            <a href="/user/myPage?i_user=${data.i_user}"><img src="/res/img/profile_img/user/${data.i_user}/${data.profile_img}" class="img"></a>                    	
+                       	</c:if>
+                    </div>
                     <span class="profile_nick">${data.nick}</span>
 
                     <div class="star-ratings-css">
@@ -114,7 +121,29 @@
                 
                 <c:if test="${i_tap == 2}">
                 <div id="tap_review">
-                	거래후기
+                <c:forEach var="item" items="${reviewList}">
+	               	 <div id="reviewWrap">
+                         <div class="review-right-profile-img">
+                            <c:if test="${item.profile_img == null }">
+                       		<a href="/user/myPage?i_user=${item.i_user}&i_tap=1"><img src="/res/img/yerin.jpg" onchange="setThumbnail(e)" alt="" class="img"></a>
+                        	</c:if>
+                        	<c:if test="${item.profile_img != null }">
+                                <a href="/user/myPage?i_user=${item.i_user}"><img src="/res/img/profile_img/user/${item.i_user}/${item.profile_img}" class="img"></a>                    	
+                        	</c:if>
+                         </div>
+                         <div class="review-right-profile-desc">
+                             <div class="nick">
+                                 <span>${item.nick}</span>
+                                 <div class="star-ratings-css">
+                                     <div class="star-ratings-css-top" style="width:${item.star}%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                                     <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                                 </div>
+                                 <span class="date">${item.r_dt}</span>
+                             </div>
+                             <div class="comment">${item.ctnt}</div>
+                         </div>
+                     </div>
+                  </c:forEach>
                 </div>
                 </c:if>
                 
@@ -231,8 +260,16 @@ if(txt.length != '' || txt.length != 0){
 	
 	////사용자 별점 값 조정
 	var grade = ${data.grade}/5*125;
-	document.querySelector('.star-ratings-css-top').style.width = grade + "%"
-
+	document.querySelector('.star-ratings-css-top').style.width = grade + "%";
+	
+	/*
+	var rArr = document.getElementsByClassName('star-ratings-css-top'); 
+	for(var i=0; i<rArr.length; i++) {
+		var rGrade = ${item.grade}/5*75;
+		var grade2 = rArr.item(i);
+		grade2.style.width = rGrade + "%";
+	    }
+	*/
 	</script>
 </body>
 </html>

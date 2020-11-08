@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.board.model.BoardVO;
 import com.dandi.ddmarket.category.model.CategoryVO;
+import com.dandi.ddmarket.review.model.ReviewPARAM;
+import com.dandi.ddmarket.review.model.ReviewVO;
 import com.dandi.ddmarket.tap.TapVO;
 import com.dandi.ddmarket.user.model.UserDMI;
 import com.dandi.ddmarket.user.model.UserPARAM;
@@ -34,6 +36,8 @@ public interface UserMapper {
 	int selSellCnt(UserPARAM param);
 	
 	List<BoardVO> selSellList(BoardPARAM param);
+	
+	List<ReviewPARAM> selReviewList(BoardPARAM param);
 	
 	// insert
 	int joinUser(UserVO param);		// 회원가입

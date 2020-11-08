@@ -26,6 +26,8 @@ import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.board.model.BoardVO;
 import com.dandi.ddmarket.category.model.CategoryVO;
 import com.dandi.ddmarket.index.IndexService;
+import com.dandi.ddmarket.review.model.ReviewPARAM;
+import com.dandi.ddmarket.review.model.ReviewVO;
 import com.dandi.ddmarket.tap.TapVO;
 import com.dandi.ddmarket.user.model.UserDMI;
 import com.dandi.ddmarket.user.model.UserPARAM;
@@ -322,6 +324,22 @@ public class UserService {
 	// 판매 글 리스트
 	public List<BoardVO> selSellList(BoardPARAM param) {
 		return IndexService.transferR_dt(mapper.selSellList(param));
+	}
+	
+	// 리뷰 글 별점 width 구하는 메소드
+	public static List<ReviewPARAM> transRating(List<ReviewPARAM> param) {
+		for(ReviewPARAM vo : param) {
+		double star = vo.getRating() / 5 * 75;
+		vo.setStar(star);
+		System.out.println(star);
+		System.out.println(vo.getStar());
+	}
+		return param;
+	}
+	
+	//리뷰 글 리스트
+	public List<ReviewPARAM> selReviewList(BoardPARAM param) {
+		return transRating(mapper.selReviewList(param));
 	}
 	
 }
