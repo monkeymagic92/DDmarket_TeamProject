@@ -25,6 +25,7 @@ import com.dandi.ddmarket.board.model.BoardDMI;
 import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.board.model.BoardVO;
 import com.dandi.ddmarket.category.model.CategoryVO;
+import com.dandi.ddmarket.cmt.model.CmtDMI;
 import com.dandi.ddmarket.index.IndexService;
 import com.dandi.ddmarket.review.model.ReviewPARAM;
 import com.dandi.ddmarket.review.model.ReviewVO;
@@ -345,6 +346,16 @@ public class UserService {
 	//리뷰 글 리스트 총갯수
 	public int selReviewCnt(BoardPARAM param) {
 		return mapper.selReviewCnt(param);
+	}
+	
+	//MY댓글 리스트
+	public List<CmtDMI> selMyCmtList(BoardPARAM param) {
+		return mapper.selMyCmtList(param);
+	}
+	
+	//MY댓글 리스트 총갯수
+	public int selMyCmtCnt(BoardPARAM param) {
+		return mapper.selMyCmtCnt(param);
 	}
 	
 }

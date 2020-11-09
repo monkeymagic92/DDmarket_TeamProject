@@ -321,6 +321,12 @@ public class UserController {
 			cperPageNum = 4;
 			Paging.getPage(service.selReviewCnt(bparam), bparam, page, cperPageNum, model, request, hs);			
 			model.addAttribute("reviewList", service.selReviewList(bparam));
+		} else if(i_tap == 3) {
+			
+		} else if(i_tap == 4) {
+			cperPageNum = 4;
+			Paging.getPage(service.selMyCmtCnt(bparam), bparam, page, cperPageNum, model, request, hs);			
+			model.addAttribute("myCmtList", service.selMyCmtList(bparam));
 		}
 		
 		model.addAttribute("data", service.selUser(param));

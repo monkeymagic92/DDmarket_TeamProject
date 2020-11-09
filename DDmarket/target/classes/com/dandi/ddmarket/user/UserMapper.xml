@@ -74,7 +74,7 @@
 	
 		<!-- 판매글 리스트 -->
 	<select id="selReviewList" parameterType="BoardPARAM" resultType="ReviewPARAM">
-		SELECT A.i_review, A.i_board, A.i_user, A.ctnt, A.rating, C.nick, SUBSTRING_INDEX(A.r_dt," ",1), C.profile_img FROM t_review A
+		SELECT A.i_review, A.i_board, A.i_user, A.ctnt, A.rating, C.nick, SUBSTRING_INDEX(A.r_dt," ",1) as r_dt, C.profile_img FROM t_review A
 		LEFT JOIN t_board B
 		ON A.i_board = B.i_board
 		LEFT JOIN t_user C
@@ -91,6 +91,22 @@
 		LEFT JOIN t_user C
 		ON A.i_user = C.i_user
 		WHERE B.i_user = #{i_user}
+	</select>
+	
+	<!-- My구매 리스트 -->
+	<select id="selMyCmtList" parameterType="BoardPARAM" resultType="CmtDMI">
+		SELECT A.i_cmt, A.i_user, A.i_board, A.ctnt, B.nick, B.profile_img, SUBSTRING_INDEX(A.r_dt," ",1) AS r_dt FROM t_cmt A
+		LEFT JOIN t_user B
+		ON A.i_user = B.i_user
+		WHERE A.i_user = #{i_user}
+		LIMIT #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="selMyCmtCnt" parameterType="BoardPARAM" resultType="Integer">
+		SELECT COUNT(*) FROM t_cmt A
+		LEFT JOIN t_user B
+		ON A.i_user = B.i_user
+		WHERE A.i_user = #{i_user};
 	</select>
 	
 							<!-- insert -->

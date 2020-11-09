@@ -249,10 +249,10 @@ z-index: 0;
 
 
 /* MY댓글 */
-/* div-wrap-myCmtList */
-#div-wrap-myCmtList { width:100%; height: 900px; flex-flow: column wrap; margin-bottom: 50px;}
+/* tap_myCmt */
+#tap_myCmt { width:100%; height: 400px; flex-flow: column wrap; margin-bottom: 50px;}
 
-#div-wrap-myCmtList #reviewWrap {
+#tap_myCmt #reviewWrap {
     display: flex;
     align-items: center;
     border-bottom: 1px solid #EEEEEE;
@@ -260,12 +260,12 @@ z-index: 0;
     padding-bottom: 10px;
     width: 100%;
 }
-#div-wrap-myCmtList #reviewWrap:nth-last-child(1) {
+#tap_myCmt #reviewWrap:nth-last-child(1) {
     display: flex;
     align-items: center;
     border-bottom: none;
 }
-#div-wrap-myCmtList #reviewWrap .review-right-profile-img {
+#tap_myCmt #reviewWrap .review-right-profile-img {
     width: 50px;
     height: 50px; 
     border-radius: 70%;
@@ -273,24 +273,24 @@ z-index: 0;
     float: left;
     margin-right: 20px;
 }
-#div-wrap-myCmtList #reviewWrap .review-right-profile-img img {
+#tap_myCmt #reviewWrap .review-right-profile-img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-#div-wrap-myCmtList #reviewWrap .review-right-profile-desc .nick {
+#tap_myCmt #reviewWrap .review-right-profile-desc .nick {
     font-size: 18px;
     color: #A5A2A2;
     position: relative;
 }
-#div-wrap-myCmtList #reviewWrap .review-right-profile-desc .date {
+#tap_myCmt #reviewWrap .review-right-profile-desc .date {
     font-size: 13px;
     color: #A5A2A2;
     position: absolute;
     width: 200px;
     left: 800px;
 }
-#div-wrap-myCmtList #reviewWrap .review-right-profile-desc .comment {
+#tap_myCmt #reviewWrap .review-right-profile-desc .comment {
     width: 900px;
     font-size: 16px;
     margin: 8px auto 10px auto;

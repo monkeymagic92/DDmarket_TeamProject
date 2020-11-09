@@ -98,8 +98,6 @@
 	                    </article>
 	                  </c:forEach>
                 </div>
-                
-
                 </c:if>
                 
                 <c:if test="${i_tap == 2}">
@@ -137,9 +135,17 @@
 	            </c:if>
 	            
 	            <c:if test="${i_tap == 4}">
-                <div id="tap_myCmt">
-                	MY댓글
-                </div>
+	                <div id="tap_myCmt">
+			            <c:forEach var="item" items="${myCmtList}">
+			    	           <div id="reviewWrap">
+			                       <div class="review-right-profile-img"><img src="../img/yerin.jpg"></div>
+			                       <div class="review-right-profile-desc">
+			                           <div class="nick">${item.nick}<span class="date">${item.r_dt}</span></div>
+			                           <div class="comment">${item.ctnt}</div>
+			                       </div>
+			                   </div>  
+		                </c:forEach>
+	                </div>
                 </c:if>
 	            
 	            <c:if test="${i_tap == 5}">
