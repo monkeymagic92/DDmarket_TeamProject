@@ -26,7 +26,7 @@ public class BoardVO {
 	private String addr;
 	private String road;
 	private int hits;
-	private int price;
+	private String price;
 	private int sold; // 0이면 거래 미완료, 1이면 거래완료, 2 거래중
 	private String r_dt;
 	private String m_dt;
@@ -114,10 +114,10 @@ public class BoardVO {
 	public void setHits(int hits) {
 		this.hits = hits;
 	}
-	public int getPrice() {
+	public String getPrice() {
 		return price;
 	}
-	public void setPrice(int price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 	public int getSold() {

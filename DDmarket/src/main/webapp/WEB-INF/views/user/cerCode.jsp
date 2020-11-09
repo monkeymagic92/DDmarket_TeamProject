@@ -30,14 +30,14 @@
 		    <div class="modal-body">
 		    	<form id="frm" action="/user/cerCode" method="post" onsubmit="return chk()">
 		    		<input type="text" name="cerCode" placeholder="이메일 인증코드 입력">
-                    <input type="submit" class="codebtn" value="입 력">
+                    <input type="submit" class="codebtn" value="입력">
 		    	</form>
 		    </div>
 		    
 		    <!-- Modal bottom -->
 		    <div class="modal-bottom">
 				<button type="button" class="pop_bt" onclick="moveToLogin()">
-					종&nbsp;&nbsp;&nbsp;&nbsp;료
+					종료
 				</button>
 		    </div>
 		</div>

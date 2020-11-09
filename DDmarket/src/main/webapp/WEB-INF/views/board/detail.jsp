@@ -198,7 +198,9 @@
 	               	<div id="commentWrap" class="cmtList">
 	                   <div class="comment-profile-img"><img src="/res/img/profile_img/user/${item.i_user }/${item.profile_img}" class="img"></div>
 	                   <div class="comment-profile-desc">
-	                       <div class="nick">${item.nick}<span class="date">111</span></div>
+	                       <div class="nick">${item.nick}
+	                       <span class="date">${item.r_dt}</span>
+	                       </div>
 	                       <div class="comment">${item.ctnt}</div>
 	                       <div class="etc">
 	                           <c:if test="${loginUser.i_user == item.i_user }">

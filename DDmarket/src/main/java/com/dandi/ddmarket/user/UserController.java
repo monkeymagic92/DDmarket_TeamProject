@@ -478,7 +478,6 @@ public class UserController {
 		param.setI_user(i_user);
 
 		model.addAttribute("data", boardService.selLikeList(param));
-		
 		model.addAttribute("view",ViewRef.USER_LIKELIST);
 		return ViewRef.DEFAULT_TEMP;
 	}

@@ -57,7 +57,7 @@
             <span class="line"></span>
             <section class="goods-title">
                     <div class="div-title">
-                        <input type="text" name="title" placeholder="상품 제목을 입력해 주세요" value="${data.title }" maxlength="50">
+                        <input type="text" name="title" placeholder="상품 제목을 입력해 주세요" value="${data.title }" maxlength="20" oninput="textMaxLength(this)">
                     </div>
             </section>
             <h2 class="title">카테고리</h2>
@@ -89,12 +89,13 @@
             <span class="line"></span>
             <section class="goods-price">
                 <div class="div-price">
-                    <input type="text" name="price" id="priceInput" class="img" class="priceInput" required placeholder="가격을 입력 해 주세요" value="${data.price }" maxlength="10" oninput="numberMaxLength(this)">
+                    <input type="text" name="price" id="priceInput" class="img" class="priceInput" required placeholder="가격을 입력 해 주세요" value="${data.price }" maxlength="9" oninput="numberMaxLength(this)">
                 </div>
-                &nbsp;&nbsp;
-                <div>
-                	무료나눔 <input type="checkbox" name="priceChk" id="priceChk" class="priceChk">
+                <div id="showPrice">
+      				<div id="chk" style="display:none;"> 무료나눔 </div>
+                	<input type="hidden" name="priceChk" id="priceChk" class="priceChk">
                 </div>
+                
             </section>
             <h2 class="title">상품 설명</h2>
             <span class="line"></span>
@@ -125,6 +126,11 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
+
+function chk() {
+		
+}
+
 if(${ImageFail != null}) {
    alert('${ImageFail}')
 }
@@ -132,16 +138,22 @@ if(${serverErr != null}) {
 	alert('${serverErr}')
 }
 // 무료나눔 체크여부에 따라 가격을 0, 또는 직접 입력하게
-$('#priceChk').click(function() {
-	if($("input:checkbox[name=priceChk]").is(":checked") == true) {
+$('#f-wear10').click(function() {
+	if($("input:checkbox[name=i_cg]").is(":checked") == true) {
 		$('#priceInput').hide();
-		$('#pricc').hide();
+		$('#price').hide();
+		$('#chk').show();
+		/*var showPrice = document.querySelector("#showPrice");
+		showPrice.append("무료나눔");*/
 		frm.price.value = 0;
 	 	
 	 	
 	} else if($("input:checkbox[name=priceChk]").is(":checked") == false) {
 		$('#priceInput').show();
-		$('#pricc').show();
+		$('#price').show();
+		$('#chk').hide();
+		/*var showPrice = document.querySelector("#showPrice");
+		$("#showPrice").remove();*/
 		frm.price.value = null;
 	}
 })
@@ -155,7 +167,7 @@ function count_ck(obj){
       }         
    }
    if(chkCnt == 0) {
-	   alert('관심사 선택하세요')
+	  
 	   return false;
    }
    
@@ -173,10 +185,17 @@ $('#sample4_postcode').click(function() {
 	
 	// 가격 길이 제한
 	function numberMaxLength(e){
-        if(e.value.length > e.maxLength){
+        if(e.value.length >= e.maxLength){
             e.value = e.value.slice(0, e.maxLength);
         }
     }
+    
+	//제목 길이 제한
+function textMaxLength(e){
+    if(e.value.length >= e.maxLength){
+        e.value = e.value.slice('', e.maxLength);
+    	}
+	}
     
 //--------@multiple image preview-----------//
          var sel_files = [];

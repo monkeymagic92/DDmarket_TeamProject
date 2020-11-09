@@ -28,7 +28,7 @@ main {width: 1030px; margin: 200px auto;}
 
 .cg-menu-bar-b{ color: #A5A2A2;}
 
-.span-search-reuslt-text-cg {color: red;}
+.span-search-reuslt-text-cg {color: #3B73C8;}
 
 /* div-wrap-top */
 #div-wrap-top {
@@ -48,12 +48,12 @@ main {width: 1030px; margin: 200px auto;}
     margin-top: 50px;
 }
 
-#span-search-reuslt-text { color: #3B73C8;}
+#span-search-reuslt-text { color: #F84C4C;}
 
-.span-search-reuslt-text-cg {color: #AEAEAE;}
+.span-search-reuslt-text-cg {color: #3B73C8;}
 
 #div-wrap-top #div-search-result #span-search-reuslt-text-all {
-    color: #AEAEAE;
+    color: #F84C4C;
 }
 
 #div-wrap-top #div-search-result #span-search-reuslt-number {
