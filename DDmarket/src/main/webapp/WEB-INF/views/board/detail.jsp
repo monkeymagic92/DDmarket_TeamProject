@@ -123,7 +123,7 @@
                            		<%-- 우현 view단 받으면 그대로 그 대화창만 i_trans값 보내기 --%>
                            		<c:if test="${data.i_user != loginUser.i_user}">
                            			<c:if test="${buyList != null}">
-                           				<button onclick="#">${buyList}</button>
+                           				<button>${buyList}</button>
                            			</c:if>
                            		</c:if>
                            		
@@ -316,6 +316,7 @@
 	            	
 	            </div>
 	            
+	            
 	            <%--
                 <c:forEach items="${cmtList}" var="item">
 	               	<div id="commentWrap" class="cmtList">
@@ -428,17 +429,17 @@
 	
 	
 	function makeCmtList(arr) {
-		console.log(arr)
+		
+		
 		
 		var divWrap = document.createElement('div')
 		divWrap.setAttribute('id', 'commentWrap')
-		divWrap.setAttribute('class', 'cmtList')
+		
 		cmtListBox.append(divWrap)
 		
 		var divImg = document.createElement('div')
 		divImg.setAttribute('class', 'comment-profile-img')
 		
-		//divImg.append(arr.ctnt)	
 		divWrap.append(divImg)
 		
 		var img = document.createElement('img')
@@ -448,24 +449,27 @@
 		
 		var divDesc = document.createElement('div')
 		divDesc.setAttribute('class','comment-profile-desc')
-		cmtListBox.append(divDesc)
+		divWrap.append(divDesc)
 		
 		var divNick = document.createElement('div')
 		divNick.setAttribute('class','nick')
 		divNick.append(arr.nick)
 		divDesc.append(divNick)
-		divDesc.append(arr.i_cmt)
 		
 		var divComment = document.createElement('div')
 		divComment.setAttribute('class', 'comment')
 		divDesc.append(divComment)
+		divDesc.append(arr.ctnt)
+		
+		var spanDate = document.createElement('span')
+		spanDate.setAttribute('class', 'date')
+		spanDate.append(arr.r_dt)
+		divNick.append(spanDate)
+		
 		
 	}
 	
 	ajaxSelCmt()
-	
-	
-	
 	
 	$(document).ready(function(){
 	
@@ -643,6 +647,7 @@
 			if(res.data == '1') { // 댓글 등록 완료				
 				frm.ctnt.value = ''
 				ajaxSelCmt()
+				
 						
 			} else if(res.data == '3') {
 				alert('로그인을 해주세요')
@@ -665,6 +670,7 @@
 		console.log('i_board : ' + i_board)
 		
 		ajaxPost(i_user, i_board, ctnt, i_cmt)
+		
 	}	
 	
 	
