@@ -208,7 +208,7 @@ public class BoardController {
 	    
 	    model.addAttribute("selTrans", transService.selTrans(param)); // 구매요청 누른 유저들
 		model.addAttribute("cmtCount", cmtService.countCmt(param)); // 댓글 갯수
-		model.addAttribute("cmtList", cmtService.selCmt(param));	// 댓글 내용
+		//model.addAttribute("cmtList", cmtService.selCmt(param));	// 댓글 내용
 		model.addAttribute("data", service.selBoard(param));		// 판매글 내용
 		model.addAttribute("view", "/board/detail");
 		return ViewRef.DEFAULT_TEMP;

@@ -316,7 +316,7 @@
 	            	
 	            </div>
 	            
-	            
+	            <%--
                 <c:forEach items="${cmtList}" var="item">
 	               	<div id="commentWrap" class="cmtList">
 	                   <div class="comment-profile-img">
@@ -324,7 +324,7 @@
 	                   </div>
 	                   
 	                   <div class="comment-profile-desc">
-	                       <div class="nick">${item.nick}<span class="date">111</span></div>
+	                       <div class="nick">${item.nick}<span class="date">${item.r_dt}</span></div>
 	                       <div class="comment">${item.ctnt}</div>
 	                       
 	                       
@@ -342,6 +342,7 @@
 	                   </div>
 	               </div>
     			</c:forEach>
+    			 --%>
     			 
     			
 			<div class="pageWrap">
@@ -407,46 +408,72 @@
 <script>
 	
 	
-	function makeCmtList() {
-		//cmtListBox.append(divWrap)
-		const divCmtListBox = document.createElement('div')
-		divCmtListBox.setAttribute('id','cmtListBox')
+	var cmtList = []
+	function ajaxSelCmt() {
+		console.log(`i_board : ${data.i_board}`)
+		axios.get('/cmt/selCmt', {
+			params: {
+				i_board: `${data.i_board}`
+			}
 		
-		divCmtListBox.append(divWrap)
+		}).then(function(res) {	
+			console.log(res)
+			refreshMenu(res.data)
+		})
+	}
+	
+	function refreshMenu(arr) {
 		
-		const divWrap = document.createElement('div')
+		for (let i = 0; i < arr.length; i++) {
+			makeCmtList(arr[i])
+		}	
+	}
+	
+	
+	function makeCmtList(arr) {
+		console.log(arr)
+		
+		var divWrap = document.createElement('div')
 		divWrap.setAttribute('id', 'commentWrap')
 		divWrap.setAttribute('class', 'cmtList')
+		cmtListBox.append(divWrap)
 		
-		const divImg = document.createElement('div')
+		var divImg = document.createElement('div')
 		divImg.setAttribute('class', 'comment-profile-img')
-		
+		divImg.append(arr.i_cmt)
+		divImg.append(arr.ctnt)
 		divWrap.append(divImg)
 		
-		const img = document.createElement('img')
+		var img = document.createElement('img')
 		img.setAttribute('class', 'img')
-		img.setAttribute('src',`/res/img/profile_img/user/${item.i_user }/${item.profile_img}`)
-		
+		img.setAttribute('src',`/res/img/profile_img/user/\${arr.i_user}/\${arr.profile_img}`)
 		divImg.append(img)
 		
-		const divDesc = document.createElement('div')
+		var divDesc = document.createElement('div')
 		divDesc.setAttribute('class','comment-profile-desc')
+		cmtListBox.append(divDesc)
 		
-		const divNick = document.createElement('div')
+		var divNick = document.createElement('div')
 		divNick.setAttribute('class','nick')
-		
+		divNick.append(arr.nick)
 		divDesc.append(divNick)
+		divDesc.append(arr.i_cmt)
 		
-		const divComment = document.createElement('div')
+		var divComment = document.createElement('div')
 		divComment.setAttribute('class', 'comment')
-		
 		divDesc.append(divComment)
 		
 		
 		
 		
 		
+		
 	}
+	
+	ajaxSelCmt()
+	
+	
+	
 	
 	$(document).ready(function(){
 	
