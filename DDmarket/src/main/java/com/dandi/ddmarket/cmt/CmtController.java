@@ -30,6 +30,7 @@ public class CmtController {
 	// 댓글 뿌리기
 	@RequestMapping(value="/selCmt", method=RequestMethod.GET)
 	private @ResponseBody List<CmtDMI> selCmt(BoardPARAM param){
+		System.out.println("댓글뿌리기");
 		System.out.println(param.getI_board());
 		return service.selCmt(param);
 	}

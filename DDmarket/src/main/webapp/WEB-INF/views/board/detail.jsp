@@ -327,8 +327,6 @@
 	                       <div class="nick">${item.nick}<span class="date">${item.r_dt}</span></div>
 	                       <div class="comment">${item.ctnt}</div>
 	                       
-	                       
-	                       
 	                       <div class="etc">
 	                           <c:if test="${loginUser.i_user == item.i_user }">
 								   					                           
@@ -422,8 +420,7 @@
 		})
 	}
 	
-	function refreshMenu(arr) {
-		
+	function refreshMenu(arr) {		
 		for (let i = 0; i < arr.length; i++) {
 			makeCmtList(arr[i])
 		}	
@@ -440,8 +437,8 @@
 		
 		var divImg = document.createElement('div')
 		divImg.setAttribute('class', 'comment-profile-img')
-		divImg.append(arr.i_cmt)
-		divImg.append(arr.ctnt)
+		
+		//divImg.append(arr.ctnt)	
 		divWrap.append(divImg)
 		
 		var img = document.createElement('img')
@@ -462,11 +459,6 @@
 		var divComment = document.createElement('div')
 		divComment.setAttribute('class', 'comment')
 		divDesc.append(divComment)
-		
-		
-		
-		
-		
 		
 	}
 	
@@ -648,9 +640,9 @@
 			ctnt : ctnt
 			
 		}).then(function(res) {
-			if(res.data == '1') { // 댓글 등록 완료
-				location.reload() // 댓글 아작스로 뿌리면 없애기
+			if(res.data == '1') { // 댓글 등록 완료				
 				frm.ctnt.value = ''
+				ajaxSelCmt()
 						
 			} else if(res.data == '3') {
 				alert('로그인을 해주세요')
@@ -763,7 +755,7 @@
 		}).then(function(res) {
 						
 			if(res.data == '1') { // 댓글 삭제 완료
-				location.reload();	// 댓글 아작스로 뿌리면 없애기
+				
 				
 			} else if(res.data == '2') {
 				alert("잘못된 접근방식 입니다");
