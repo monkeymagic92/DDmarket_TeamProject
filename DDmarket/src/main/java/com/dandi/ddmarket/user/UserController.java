@@ -27,6 +27,7 @@ import com.dandi.ddmarket.board.BoardService;
 import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.mail.MailSendService;
 import com.dandi.ddmarket.mail.model.EmailVO;
+import com.dandi.ddmarket.review.model.ReviewPARAM;
 import com.dandi.ddmarket.tap.TapVO;
 import com.dandi.ddmarket.user.model.UserDMI;
 import com.dandi.ddmarket.user.model.UserPARAM;
@@ -342,10 +343,22 @@ public class UserController {
 	@RequestMapping(value="/myPage", method = RequestMethod.POST)
 	public String myPage(Model model, UserPARAM param) {
 		
-		// service 작업하기
 		
 		model.addAttribute("view",ViewRef.USER_MYPAGE);
 		return "redirect:/" + ViewRef.MENU_TEMP;
+	}
+	
+	// MY리뷰 삭제
+	@RequestMapping(value="/delMyReview", method = RequestMethod.GET)
+	public String myPage(Model model, ReviewPARAM param, HttpSession hs, HttpServletRequest request) {
+		
+		// 세션에 있는 i_user 받아오기
+		param.setI_user(SecurityUtils.getLoginUserPk(hs));
+		param.setI_review(CommonUtils.getIntParameter("i_review", request));
+	
+		service.delMyReview(param);
+		
+		return "redirect:/user/myPage?i_user=" + SecurityUtils.getLoginUserPk(hs) + "&i_tap=5";
 	}
 		
 	// 개인정보변경 (info)

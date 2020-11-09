@@ -76,6 +76,8 @@ public interface UserMapper {
 	int delProfile_img(UserPARAM param);
 	
 	int delboardLike(UserPARAM param);
+	
+	int delMyReview(ReviewPARAM param);
 
 	
 	

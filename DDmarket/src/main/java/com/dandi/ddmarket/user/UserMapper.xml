@@ -112,23 +112,18 @@
 		WHERE A.i_user = #{i_user};
 	</select>
 	
-	<!-- MY리뷰 리스트 -->
+	<!-- MY후기 리스트 -->
 	<select id="selMyReviewList" parameterType="BoardPARAM" resultType="ReviewPARAM">
-		SELECT A.i_review, A.i_board, A.i_user, A.ctnt, A.rating, C.nick, SUBSTRING_INDEX(A.r_dt," ",1) as r_dt, C.profile_img FROM t_review A
-		LEFT JOIN t_board B
-		ON A.i_board = B.i_board
+		SELECT A.i_review, A.i_board, A.i_user, A.ctnt, A.rating, C.nick, SUBSTRING_INDEX(A.r_dt," ",1) AS r_dt, C.profile_img FROM t_review A
 		LEFT JOIN t_user C
 		ON A.i_user = C.i_user
-		WHERE B.i_user = #{i_user}
-		ORDER BY A.i_review DESC
+		WHERE A.i_user = #{i_user}
 		LIMIT #{pageStart}, #{perPageNum}
 	</select>
 	
 	<!-- MY리뷰 글갯수 -->
 	<select id="selMyReviewCnt" parameterType="BoardPARAM" resultType="Integer">
 		SELECT COUNT(*) FROM t_review A
-		LEFT JOIN t_user B
-		ON A.i_user = B.i_user
 		WHERE A.i_user = #{i_user}
 	</select>
 	
@@ -216,6 +211,12 @@
 	<delete id="delboardLike" parameterType="UserPARAM">
 		DELETE FROM t_board_like
 		WHERE i_board = #{i_board}
+		AND i_user = #{i_user}
+	</delete>
+	
+	<delete id="delMyReview" parameterType="ReviewPARAM">
+		DELETE FROM t_review
+		WHERE i_review = #{i_review}
 		AND i_user = #{i_user}
 	</delete>
 	

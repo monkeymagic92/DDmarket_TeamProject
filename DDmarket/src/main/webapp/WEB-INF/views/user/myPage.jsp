@@ -57,14 +57,14 @@
         			<c:forEach var="item" items="${tapList}" end="${loginUser.i_user == data.i_user ? '4' : '1'}">
                   <c:choose>
                     <c:when test="${i_tap == item.i_tap}">
-                    <div class="tap_menu_div tap_menu_div_active">
+                    <div class="tap_menu_div tap_menu_div_active" onclick="moveToTap(${item.i_tap})">
                       <a href="/user/myPage?i_tap=${item.i_tap}&i_user=${data.i_user}">
                       ${item.tap_nm}
                       </a>
                      </div>
                     </c:when>
                     <c:otherwise>
-                    <div class="tap_menu_div">
+                    <div class="tap_menu_div" onclick="moveToTap(${item.i_tap})">
                       <a href="/user/myPage?i_tap=${item.i_tap}&i_user=${data.i_user}">
                       ${item.tap_nm}
                       </a>
@@ -186,7 +186,7 @@
                              </div>
                              <div class="comment">${item.ctnt}</div>
                              <div class="control">
-                                <a href="#">
+                                <a href="#" onclick="return delMyReview(${item.i_review})">
                                 	<div class="del">
                                 		<span class="iconify" data-inline="false" data-icon="ant-design:delete-outlined" style="color: #A5A2A2; font-size: 13px;">
                                 		</span>
@@ -316,14 +316,23 @@ if(txt.length != '' || txt.length != 0){
 	var grade = ${data.grade}/5*125;
 	document.querySelector('.star-ratings-css-top').style.width = grade + "%";
 	
-	/*
-	var rArr = document.getElementsByClassName('star-ratings-css-top'); 
-	for(var i=0; i<rArr.length; i++) {
-		var rGrade = ${item.grade}/5*75;
-		var grade2 = rArr.item(i);
-		grade2.style.width = rGrade + "%";
-	    }
-	*/
+	
+	//MY리뷰 삭제
+	function delMyReview(i_review) {
+		var chk = confirm('삭제 하시겠습니까?');
+		
+		if(chk) {
+			location.href = "/user/delMyReview?i_review=" + i_review;
+		} else {
+			return false;
+		}
+	}
+	
+	//TAP 이동
+	function moveToTap(i_tap) {
+		location.href = "/user/myPage?i_tap=" + i_tap + "&i_user=${data.i_user}" 
+	}
+	
 	</script>
 </body>
 </html>

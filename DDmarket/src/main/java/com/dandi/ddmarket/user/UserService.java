@@ -358,12 +358,17 @@ public class UserService {
 	
 	//MY리뷰 글 리스트
 	public List<ReviewPARAM> selMyReviewList(BoardPARAM param) {
-		return transRating(mapper.selReviewList(param));
+		return transRating(mapper.selMyReviewList(param));
 	}
 	
 	//MY리뷰 글 리스트 총갯수
 	public int selMyReviewCnt(BoardPARAM param) {
 		return mapper.selReviewCnt(param);
+	}
+	
+	//MY리뷰 삭제
+	public int delMyReview(ReviewPARAM param) {
+		return mapper.delMyReview(param);
 	}
 	
 }
