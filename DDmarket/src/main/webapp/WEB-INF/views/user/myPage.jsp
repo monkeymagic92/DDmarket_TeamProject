@@ -99,24 +99,7 @@
 	                  </c:forEach>
                 </div>
                 
-	            <div id="tap_sellList_page">
-	                <c:if test="${pageMaker.prev}">
-	                	<a href='<c:url value="/user/myPage?page=${pageMaker.startPage-1}&i_tap=${i_tap}&i_user=${data.i_user}"/>'><span class="iconify icon-page-left" data-inline="false" data-icon="mdi-light:chevron-double-left" style="color: #3b73c8; font-size: 47px;"></span></a>
-	                </c:if>
-					<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="pageNum">
-				        <c:choose>
-				        <c:when test="${page == pageNum}">
-				        	<a style="color: red;" href='<c:url value="/user/myPage?page=${pageNum}&i_tap=${i_tap}&i_user=${data.i_user}"/>'>${pageNum}</a>
-				        </c:when>
-				        <c:otherwise>		        
-				        	<a href='<c:url value="/user/myPage?page=${pageNum}&i_tap=${i_tap}&i_user=${data.i_user}"/>'>${pageNum}</a>
-				        </c:otherwise>
-				        </c:choose>
-				    </c:forEach>
-				    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
-	               		 <a href='<c:url value="/user/myPage?page=${pageMaker.endPage+1}&i_tap=${i_tap}&i_user=${data.i_user}"/>'><span class="iconify icon-page-right" data-inline="false" data-icon="mdi-light:chevron-double-right" style="color: #3b73c8; font-size: 47px;"></span></a>
-	           		</c:if>
-	            </div>
+
                 </c:if>
                 
                 <c:if test="${i_tap == 2}">
@@ -164,6 +147,25 @@
                 	MY후기
                 </div>
                 </c:if>
+                
+                 <div id="tap_sellList_page">
+	                <c:if test="${pageMaker.prev}">
+	                	<a href='<c:url value="/user/myPage?page=${pageMaker.startPage-1}&i_tap=${i_tap}&i_user=${data.i_user}"/>'><span class="iconify icon-page-left" data-inline="false" data-icon="mdi-light:chevron-double-left" style="color: #3b73c8; font-size: 47px;"></span></a>
+	                </c:if>
+					<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="pageNum">
+				        <c:choose>
+				        <c:when test="${page == pageNum}">
+				        	<a style="color: red;" href='<c:url value="/user/myPage?page=${pageNum}&i_tap=${i_tap}&i_user=${data.i_user}"/>'>${pageNum}</a>
+				        </c:when>
+				        <c:otherwise>		        
+				        	<a href='<c:url value="/user/myPage?page=${pageNum}&i_tap=${i_tap}&i_user=${data.i_user}"/>'>${pageNum}</a>
+				        </c:otherwise>
+				        </c:choose>
+				    </c:forEach>
+				    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+	               		 <a href='<c:url value="/user/myPage?page=${pageMaker.endPage+1}&i_tap=${i_tap}&i_user=${data.i_user}"/>'><span class="iconify icon-page-right" data-inline="false" data-icon="mdi-light:chevron-double-right" style="color: #3b73c8; font-size: 47px;"></span></a>
+	           		</c:if>
+	            </div>
        
             </section>
             

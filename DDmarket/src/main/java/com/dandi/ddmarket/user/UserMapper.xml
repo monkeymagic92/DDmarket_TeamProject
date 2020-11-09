@@ -80,6 +80,17 @@
 		LEFT JOIN t_user C
 		ON A.i_user = C.i_user
 		WHERE B.i_user = #{i_user}
+		LIMIT #{pageStart}, #{perPageNum}
+	</select>
+	
+	<!-- 판매글 리스트 글 숫자 -->
+	<select id="selReviewCnt" parameterType="BoardPARAM" resultType="Integer">
+		SELECT COUNT(*) FROM t_review A
+		LEFT JOIN t_board B
+		ON A.i_board = B.i_board
+		LEFT JOIN t_user C
+		ON A.i_user = C.i_user
+		WHERE B.i_user = #{i_user}
 	</select>
 	
 							<!-- insert -->

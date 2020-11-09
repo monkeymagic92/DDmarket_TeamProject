@@ -10,6 +10,7 @@ import com.dandi.ddmarket.board.model.BoardPARAM;
 public class Paging {
 	
 	public static void getPage(int tc, BoardPARAM bparam, int page, int cperPageNum, Model model, HttpServletRequest request, HttpSession hs) {
+	
 		Criteria cri = new Criteria(page, cperPageNum);
 		cri.setPage(page);
 		hs.setAttribute("page", cri.getPage());

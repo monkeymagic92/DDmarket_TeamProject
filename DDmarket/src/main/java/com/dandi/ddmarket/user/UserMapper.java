@@ -39,6 +39,8 @@ public interface UserMapper {
 	
 	List<ReviewPARAM> selReviewList(BoardPARAM param);
 	
+	int selReviewCnt(BoardPARAM param);
+	
 	// insert
 	int joinUser(UserVO param);		// 회원가입
 	

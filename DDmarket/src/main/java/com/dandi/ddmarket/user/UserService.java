@@ -342,4 +342,9 @@ public class UserService {
 		return transRating(mapper.selReviewList(param));
 	}
 	
+	//리뷰 글 리스트 총갯수
+	public int selReviewCnt(BoardPARAM param) {
+		return mapper.selReviewCnt(param);
+	}
+	
 }

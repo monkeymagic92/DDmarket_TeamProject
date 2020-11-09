@@ -319,7 +319,7 @@ public class UserController {
 			model.addAttribute("sellList", service.selSellList(bparam));
 		} else if(i_tap == 2) {
 			cperPageNum = 4;
-			Paging.getPage(service.selSellCnt(param), bparam, page, cperPageNum, model, request, hs);			
+			Paging.getPage(service.selReviewCnt(bparam), bparam, page, cperPageNum, model, request, hs);			
 			model.addAttribute("reviewList", service.selReviewList(bparam));
 		}
 		
