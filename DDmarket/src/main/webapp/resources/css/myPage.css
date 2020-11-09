@@ -376,7 +376,7 @@ z-index: 0;
 }
 
 /* modal css */
-
+/* 
 .modal {
     display: none; 
     position: fixed; 
@@ -522,3 +522,4 @@ input:checked + .startRadio__img {
     width: 500px;
     height: 40px;
     pointer-events: none; }
+    */

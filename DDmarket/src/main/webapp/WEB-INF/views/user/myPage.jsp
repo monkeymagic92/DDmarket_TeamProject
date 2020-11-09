@@ -10,12 +10,10 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="/res/css/myPage.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
 </head>
 <body>
 	<div id="container">
         <main>
-        
             <section id="section-top">
                 <div id="div-top-left">
                     <div id="profile_img">
