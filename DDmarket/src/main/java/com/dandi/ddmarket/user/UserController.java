@@ -314,19 +314,23 @@ public class UserController {
 		model.addAttribute("sellCnt", service.selSellCnt(param));
 		
 		if(i_tap == 1) {
-			cperPageNum = 4;
+			cperPageNum = 12;
 			Paging.getPage(service.selSellCnt(param), bparam, page, cperPageNum, model, request, hs);			
 			model.addAttribute("sellList", service.selSellList(bparam));
 		} else if(i_tap == 2) {
-			cperPageNum = 4;
+			cperPageNum = 6;
 			Paging.getPage(service.selReviewCnt(bparam), bparam, page, cperPageNum, model, request, hs);			
 			model.addAttribute("reviewList", service.selReviewList(bparam));
 		} else if(i_tap == 3) {
 			
 		} else if(i_tap == 4) {
-			cperPageNum = 4;
+			cperPageNum = 6;
 			Paging.getPage(service.selMyCmtCnt(bparam), bparam, page, cperPageNum, model, request, hs);			
 			model.addAttribute("myCmtList", service.selMyCmtList(bparam));
+		} else if(i_tap == 5) {
+			cperPageNum = 6;
+			Paging.getPage(service.selMyReviewCnt(bparam), bparam, page, cperPageNum, model, request, hs);			
+			model.addAttribute("myReviewList", service.selMyReviewList(bparam));
 		}
 		
 		model.addAttribute("data", service.selUser(param));

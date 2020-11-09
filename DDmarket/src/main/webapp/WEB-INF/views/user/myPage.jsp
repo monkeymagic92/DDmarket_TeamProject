@@ -138,7 +138,14 @@
 	                <div id="tap_myCmt">
 			            <c:forEach var="item" items="${myCmtList}">
 			    	           <div id="reviewWrap">
-			                       <div class="review-right-profile-img"><img src="../img/yerin.jpg"></div>
+			                       <div class="review-right-profile-img">
+					                    <c:if test="${item.profile_img == null }">
+			                       		<a href="/user/myPage?i_user=${item.i_user}&i_tap=1"><img src="/res/img/yerin.jpg" alt="" class="img"></a>
+			                        	</c:if>
+			                        	<c:if test="${item.profile_img != null }">
+			                                <a href="/user/myPage?i_user=${item.i_user}"><img src="/res/img/profile_img/user/${item.i_user}/${item.profile_img}" class="img"></a>                    	
+			                        	</c:if>
+			                       </div>
 			                       <div class="review-right-profile-desc">
 			                           <div class="nick">${item.nick}<span class="date">${item.r_dt}</span></div>
 			                           <div class="comment">${item.ctnt}</div>
@@ -150,11 +157,42 @@
 	            
 	            <c:if test="${i_tap == 5}">
                 <div id="tap_myReview">
-                	MY후기
+                	<c:forEach var="item" items="${myReviewList}">
+	               	 <div id="reviewWrap">
+                         <div class="review-right-profile-img">
+                            <c:if test="${item.profile_img == null }">
+                       		<a href="/user/myPage?i_user=${item.i_user}&i_tap=1"><img src="/res/img/yerin.jpg" onchange="setThumbnail(e)" alt="" class="img"></a>
+                        	</c:if>
+                        	<c:if test="${item.profile_img != null }">
+                                <a href="/user/myPage?i_user=${item.i_user}"><img src="/res/img/profile_img/user/${item.i_user}/${item.profile_img}" class="img"></a>                    	
+                        	</c:if>
+                         </div>
+                         <div class="review-right-profile-desc">
+                             <div class="nick">
+                                 <span>${item.nick}</span>
+                                 <div class="star-ratings-css">
+                                     <div class="star-ratings-css-top" style="width:${item.star}%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                                     <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                                 </div>
+                                 <span class="date">${item.r_dt}</span>
+                             </div>
+                             <div class="comment">${item.ctnt}</div>
+                             <div class="control">
+                                <a href="#">
+                                	<div class="del">
+                                		<span class="iconify" data-inline="false" data-icon="ant-design:delete-outlined" style="color: #A5A2A2; font-size: 13px;">
+                                		</span>
+                                		삭제하기
+                                	</div>
+                                </a>
+                             </div>
+                         </div>
+                     </div>
+                  </c:forEach>
                 </div>
                 </c:if>
                 
-                 <div id="tap_sellList_page">
+                 <div id="paging">
 	                <c:if test="${pageMaker.prev}">
 	                	<a href='<c:url value="/user/myPage?page=${pageMaker.startPage-1}&i_tap=${i_tap}&i_user=${data.i_user}"/>'><span class="iconify icon-page-left" data-inline="false" data-icon="mdi-light:chevron-double-left" style="color: #3b73c8; font-size: 47px;"></span></a>
 	                </c:if>

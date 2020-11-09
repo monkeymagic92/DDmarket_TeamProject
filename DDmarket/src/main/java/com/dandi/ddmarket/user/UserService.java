@@ -358,4 +358,14 @@ public class UserService {
 		return mapper.selMyCmtCnt(param);
 	}
 	
+	//MY리뷰 글 리스트
+	public List<ReviewPARAM> selMyReviewList(BoardPARAM param) {
+		return transRating(mapper.selReviewList(param));
+	}
+	
+	//MY리뷰 글 리스트 총갯수
+	public int selMyReviewCnt(BoardPARAM param) {
+		return mapper.selReviewCnt(param);
+	}
+	
 }

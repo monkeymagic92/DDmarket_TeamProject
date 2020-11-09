@@ -98,7 +98,7 @@ public class IndexController {
 		
 		
 		/////// 페이징 start
-		Criteria cri = new Criteria(1, 2);
+		Criteria cri = new Criteria(1, 16);
 		cri.setPage(CommonUtils.getIntParameter("page", request));
 		hs.setAttribute("page", cri.getPage());
 		PageMaker pageMaker = new PageMaker();

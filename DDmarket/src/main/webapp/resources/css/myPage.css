@@ -151,9 +151,9 @@ z-index: 0;
 #tap_sellList .card-wrap a .card-addr {font-size: 13px; margin: 5px 0 5px 10px; position: relative; color: #3B3B3D;}
 #tap_sellList .card-wrap a .card-addr .icon-map {position: absolute; left: 6px; top: -0.5px;}
 
-/* div-wrap-page */
-#tap_sellList_page {display: flex; justify-content: center;}
-#tap_sellList_page a {
+/* 페이징 */
+#paging {display: flex; justify-content: center; margin-top:100px;}
+#paging a {
     width: 35px;
     height: 35px;
     display: flex;
@@ -298,9 +298,9 @@ z-index: 0;
 
 
 /* MY후기 */
-/* div-wrap-myReviewList */
-#div-wrap-myReviewList { width:100%; height: 900px; flex-flow: column wrap; margin-bottom: 50px;}
-#div-wrap-myReviewList #reviewWrap {
+/* tap_myReview */
+#tap_myReview { width:100%; height: 400px; flex-flow: column wrap; margin-bottom: 50px;}
+#tap_myReview #reviewWrap {
     display: flex;
     align-items: center;
     border-bottom: 1px solid #EEEEEE;
@@ -308,12 +308,12 @@ z-index: 0;
     padding-bottom: 10px;
     width: 100%;
 }
-#div-wrap-myReviewList #reviewWrap:nth-last-child(1) {
+#tap_myReview #reviewWrap:nth-last-child(1) {
     display: flex;
     align-items: center;
     border-bottom: none;
 }
-#div-wrap-myReviewList #reviewWrap .review-right-profile-img {
+#tap_myReview #reviewWrap .review-right-profile-img {
     width: 50px;
     height: 50px; 
     border-radius: 70%;
@@ -321,46 +321,46 @@ z-index: 0;
     float: left;
     margin-right: 20px;
 }
-#div-wrap-myReviewList #reviewWrap .review-right-profile-img img {
+#tap_myReview #reviewWrap .review-right-profile-img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-#div-wrap-myReviewList #reviewWrap .review-right-profile-desc .nick {
+#tap_myReview #reviewWrap .review-right-profile-desc .nick {
     font-size: 18px;
     color: #A5A2A2;
     position: relative;
     display: flex;
 }
-#div-wrap-myReviewList #reviewWrap .review-right-profile-desc .date {
+#tap_myReview #reviewWrap .review-right-profile-desc .date {
     font-size: 13px;
     color: #A5A2A2;
     position: absolute;
     width: 200px;
     left: 800px;
 }
-#div-wrap-myReviewList #reviewWrap .review-right-profile-desc .comment {
+#tap_myReview #reviewWrap .review-right-profile-desc .comment {
     width: 900px;
     font-size: 16px;
     margin: 8px auto 10px auto;
 }
-#div-wrap-myReviewList #reviewWrap .review-right-profile-desc .control {
+#tap_myReview #reviewWrap .review-right-profile-desc .control {
     display: flex;
 }
-#div-wrap-myReviewList #reviewWrap .review-right-profile-desc .control a {
+#tap_myReview #reviewWrap .review-right-profile-desc .control a {
     font-size: 13px;
     color: #A5A2A2;
 }
-#div-wrap-myReviewList #reviewWrap .review-right-profile-desc .control .mod {
+#tap_myReview #reviewWrap .review-right-profile-desc .control .mod {
     display: flex;
     align-items: center;
     margin-right: 15px;
 }
-#div-wrap-myReviewList #reviewWrap .review-right-profile-desc .control .del {
+#tap_myReview #reviewWrap .review-right-profile-desc .control .del {
    display: flex;
    align-items: center;
 }
-#div-wrap-myReviewList #reviewWrap .review-right-profile-desc .control .iconify {
+#tap_myReview #reviewWrap .review-right-profile-desc .control .iconify {
  margin-right: 2px;
 }
 
