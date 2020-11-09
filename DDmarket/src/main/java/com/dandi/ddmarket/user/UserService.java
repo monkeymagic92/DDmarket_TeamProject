@@ -332,8 +332,6 @@ public class UserService {
 		for(ReviewPARAM vo : param) {
 		double star = vo.getRating() / 5 * 75;
 		vo.setStar(star);
-		System.out.println(star);
-		System.out.println(vo.getStar());
 	}
 		return param;
 	}

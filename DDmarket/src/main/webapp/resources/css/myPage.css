@@ -134,11 +134,16 @@ z-index: 0;
 }
 
 /* TAP */
-
+#tap_menu { font-size: 0; height: 35px; margin-bottom: 30px; display: flex; align-items: center; flex-flow: row nowrap; }
+#tap_menu .tap_menu_div { width: 20%; height: 40px; font-size: 16px; text-align: center; border: 1px solid #eee; border-right: 0; box-sizing: border-box; line-height: 35px;}
+#tap_menu .tap_menu_div:last-child { border-right: 1px solid #eee; }
+#tap_menu .tap_menu_div_active { background: #3B3B3D; color:white;}
+#tap_menu .tap_menu_div_active a {color:white;}
+#tap_menu .tab_list a { display: block; width: 100%; height: 100%; text-decoration: none; color: #222; }
 
 /* 판매목록 */
 /* div-wrap-article */
-#tap_sellList {display: flex; flex-flow: row wrap; margin-bottom: 30px;}
+#tap_sellList {display: flex; flex-flow: row wrap; margin-bottom: 50px;}
 #tap_sellList .card-wrap {width: 20%; height: 300px; background: #EEEEEE; text-align: center; margin:35px 35px 0px 10px}
 #tap_sellList .card-wrap a .card-pic {width: 100%; height: 170.44px;}
 #tap_sellList .card-wrap a .card-pic img {width: 100%; height: 100%;}
@@ -152,7 +157,7 @@ z-index: 0;
 #tap_sellList .card-wrap a .card-addr .icon-map {position: absolute; left: 6px; top: -0.5px;}
 
 /* 페이징 */
-#paging {display: flex; justify-content: center; margin-top:100px;}
+#paging {display: flex; justify-content: center;}
 #paging a {
     width: 35px;
     height: 35px;
@@ -171,7 +176,7 @@ z-index: 0;
 
 /* MY구매 */
 /* #div-wrap-buyList */
-#tap_myBuyList {flex-flow: column wrap; margin-bottom: 50px;  padding-top: 0px; height: 900px;}
+#tap_myBuyList {flex-flow: column wrap; margin-bottom: 50px;  padding-top: 0px; height: 900px; margin-bottom: 400px;}
 #tap_myBuyList .div-wrap-buyList-article {width: 100%; margin-bottom: 0px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid #EEEEEE; position: relative;}
 #tap_myBuyList .div-wrap-buyList-article:nth-last-child(1) {border-bottom: none;}
 #tap_myBuyList .div-wrap-buyList-article .card-image {width: 20%; height:150px; margin-right: 20px;}
@@ -200,7 +205,7 @@ z-index: 0;
 
 /* 거래후기 */
 /* div-wrap-reviewList */
-#tap_review { width:100%; height: 400px; flex-flow: column wrap; margin-bottom: 50px;}
+#tap_review { width:100%; height: 400px; flex-flow: column wrap; margin-bottom: 230px;}
 
 #tap_review #reviewWrap {
     display: flex;
@@ -250,7 +255,7 @@ z-index: 0;
 
 /* MY댓글 */
 /* tap_myCmt */
-#tap_myCmt { width:100%; height: 400px; flex-flow: column wrap; margin-bottom: 50px;}
+#tap_myCmt { width:100%; height: 400px; flex-flow: column wrap; margin-bottom: 230px;}
 
 #tap_myCmt #reviewWrap {
     display: flex;
@@ -299,7 +304,7 @@ z-index: 0;
 
 /* MY후기 */
 /* tap_myReview */
-#tap_myReview { width:100%; height: 400px; flex-flow: column wrap; margin-bottom: 50px;}
+#tap_myReview { width:100%; height: 400px; flex-flow: column wrap; margin-bottom: 380px;}
 #tap_myReview #reviewWrap {
     display: flex;
     align-items: center;

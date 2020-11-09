@@ -57,10 +57,18 @@
         			<c:forEach var="item" items="${tapList}" end="${loginUser.i_user == data.i_user ? '4' : '1'}">
                   <c:choose>
                     <c:when test="${i_tap == item.i_tap}">
-                      <a style="color: red;" href="/user/myPage?i_tap=${item.i_tap}&i_user=${data.i_user}">${item.tap_nm}</a>
+                    <div class="tap_menu_div tap_menu_div_active">
+                      <a href="/user/myPage?i_tap=${item.i_tap}&i_user=${data.i_user}">
+                      ${item.tap_nm}
+                      </a>
+                     </div>
                     </c:when>
                     <c:otherwise>
-                      <a href="/user/myPage?i_tap=${item.i_tap}&i_user=${data.i_user}">${item.tap_nm}</a>
+                    <div class="tap_menu_div">
+                      <a href="/user/myPage?i_tap=${item.i_tap}&i_user=${data.i_user}">
+                      ${item.tap_nm}
+                      </a>
+                      </div>
                     </c:otherwise>
                 </c:choose>
            		 </c:forEach>
