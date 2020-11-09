@@ -104,20 +104,31 @@
                         		<button onclick="moveToUpd(${data.i_board})">수정하기</button>
                             	<button onclick="moveToDel(${data.i_board})">삭제하기</button>
                         	</c:if>
-                        	<c:if test="${loginUser.i_user != data.i_user }">
-                        		<button type="button" onclick="ToLike()">
-                        		<c:if test="${data.is_tolike == 1}">
-                        			<span id="heart" class="iconify icon-btn-heart heart" data-inline="false" data-icon="clarity:heart-solid" style=" font-size: 20px;"></span>
-                        		</c:if>
-                        		<c:if test="${data.is_tolike == 0}">
-	                 	           	<span id="heart" class="iconify icon-btn-heart unheart" data-inline="false" data-icon="clarity:heart-solid" style=" font-size: 20px;"></span>
-               					</c:if>
-                                 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;찜
-                           		</button>
+                        	<c:if test="${loginUser != null }">                        	
+	                        	<c:if test="${loginUser.i_user != data.i_user }">
+	                        		<button type="button" onclick="ToLike()">
+	                        		<c:if test="${data.is_tolike == 1}">
+	                        			<span id="heart" class="iconify icon-btn-heart heart" data-inline="false" data-icon="clarity:heart-solid" style=" font-size: 20px;"></span>
+	                        		</c:if>
+	                        		<c:if test="${data.is_tolike == 0}">
+		                 	           	<span id="heart" class="iconify icon-btn-heart unheart" data-inline="false" data-icon="clarity:heart-solid" style=" font-size: 20px;"></span>
+	               					</c:if>
+	                                 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;찜
+	                           		</button>
+                           	</c:if>
                            		
                            		
+                           		<br><br>
+                           		<%-- 구매요청 누른사람은 판매자와 1:1채팅할수있게 --%>
+                           		<%-- 우현 view단 받으면 그대로 그 대화창만 i_trans값 보내기 --%>
+                           		<c:if test="${data.i_user != loginUser.i_user}">
+                           			<c:if test="${buyList != null}">
+                           				<button onclick="#">${buyList}</button>
+                           			</c:if>
+                           		</c:if>
                            		
-                           		<!-- 거래요청 -->
+                           		
+                           		<%-- 구매요청 버튼 --%>
                           		<form id="transFrm" action="/trans/transRequest" method="post">
                            			<input type="hidden" name="i_user" value="${loginUser.i_user }">
                            			<input type="hidden" name="i_board" value="${data.i_board }">
@@ -126,7 +137,6 @@
 	                      				<button type="submit" name="chkSubmit" id="chkSubmit" onclick="chkValue()">${transBtn}</button>
                       				</c:if>
                            		</form>
-                           		
                          		
                           	                           		
                         	</c:if>				
@@ -134,36 +144,142 @@
                     </div>
             </section>
              
-            <button class="review" onclick="transBtn()">거래신청 목록보기
+            <button class="review" onclick="transBtn()">거래신청 목록보기</button>
             
-		    </button>
+            
+            
+            
 		    <div class="myModal modal">
 		        <div class="modal-content">
 		            <div class="modal-body">
-		                <table>		                
-		               		<c:forEach items="${selTrans}" var="item">		               			
-				               	<tr class="itemRow">
-				                	<td onclick="moveToTransChat(${item.i_trans})">${item.i_trans}</td>
-				                	<td onclick="moveToDetail(${item.i_user})">
-				                		<c:if test="${item.profile_img == null }">
-				                			<img src="/res/img/yerin.jpg" onchange="setThumbnail(e)" alt="" class="img">
+		               <div id="chatbox">
+							<div id="friendslist">
+						        <div id="topmenu">
+						        	<!-- 탑메뉴 -->
+						        </div>
+						        
+					        <!-- 구매요청 누른 유저 목록(forEach 돌리기) -->
+					        <div id="friends">
+					        	<div class="friend">
+					        		<c:forEach items="${selTrans}" var="item">
+					            		<c:if test="${item.profile_img == null }">
+				                			<img src="/res/img/lion.jpg" onchange="setThumbnail(e)" alt="" class="img">
 				                		</c:if>
 				                		<c:if test="${item.profile_img != null}">
 				                			<img src="/res/img/profile_img/user/${item.i_user}/${item.profile_img}" class="img">
 				                		</c:if>
-				                	</td>
-				                	<td onclick="moveToDetail(${item.i_user})">${item.nick}</td>
-				                	<td onclick="moveToDetail(${item.i_user})">${item.grade} grade현재안나옴</td>
-				                </tr>
-				                <tr>
-				                	<td></td>
-				                	<td></td>
-				                	<td><button>대화하기</button></td>				                	
-				                	<td><button>거래완료</button></td>
-				                </tr>
-		                	</c:forEach>
-		                </table>
+						                <p>
+						                	<strong>${item.nick}</strong>
+							                <span>${item.grade}</span>
+						                </p>
+					                <div class="status available"></div> <%-- 리스트 옆에 색깔 나오는거 --%>
+					                </c:forEach>
+					            </div>
+					        </div>    
+					    </div>	
+						    
+					    <!-- 채팅 상단 프로필 -->
+					    <div id="chatview" class="p1">    	
+					        <div id="profile">
+					
+					            <div id="close">
+					                <div class="cy"></div>
+					                <div class="cx"></div>
+					            </div>
+					            
+					            <p>Miro Badev</p>
+					            <span>miro@badev@gmail.com</span>
+					        </div>
+						
+					        <div id="chat-messages">
+					        	<label>Thursday 02</label>
+					            
+					            <!-- 댓글 왼쪽(판매자) -->
+					            <div class="message">
+					            	<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1_copy.jpg" />
+					                <div class="bubble">
+					                	Really cool stuff!
+					                    <div class="corner"></div>
+					                    <span>3 min</span>
+					                </div>
+					            </div>
+					            
+					            <div class="message">
+					            	<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1_copy.jpg" />
+					                <div class="bubble">
+					                	Really cool stuff!
+					                    <div class="corner"></div>
+					                    <span>3 min</span>
+					                </div>
+					            </div>
+					            
+					            <div class="message">
+					            	<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1_copy.jpg" />
+					                <div class="bubble">
+					                	Really cool stuff!
+					                    <div class="corner"></div>
+					                    <span>3 min</span>
+					                </div>
+					            </div>
+					            
+					            <div class="message">
+					            	<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1_copy.jpg" />
+					                <div class="bubble">
+					                	Really cool stuff!
+					                    <div class="corner"></div>
+					                    <span>3 min</span>
+					                </div>
+					            </div>
+						
+					            <!-- 댓글 오른쪽(구매자) -->
+					            <div class="message right">
+					            	<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" />
+					                <div class="bubble">
+					                	Can you share a link for the tutorial?
+					                    <div class="corner"></div>
+					                    <span>1 min</span>
+					                </div>
+					            </div>
+					            
+					            <div class="message right">
+					            	<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" />
+					                <div class="bubble">
+					                	Can you share a link for the tutorial?
+					                    <div class="corner"></div>
+					                    <span>1 min</span>
+					                </div>
+					            </div>
+					            
+					            <div class="message right">
+					            	<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" />
+					                <div class="bubble">
+					                	Can you share a link for the tutorial?
+					                    <div class="corner"></div>
+					                    <span>1 min</span>
+					                </div>
+					            </div>
+					            
+					            <div class="message right">
+					            	<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" />
+					                <div class="bubble">
+					                	Can you share a link for the tutorial?
+					                    <div class="corner"></div>
+					                    <span>1 min</span>
+					                </div>
+					            </div>
+					        </div>
+				        
+				        <!-- 댓글 입력창(아작스로 값 넣기) -->
+				        <div id="sendmessage">
+				        	<input type="text" value="Send message..." />
+				            <button id="send"></button>
+				        </div>
+				    
+				    </div>        
+				</div>
 		            </div>
+		            
+		            
 		            <div class="modal-footer">
 		                <button class="close" onclick="closeBtn()">취소</button>
 		            </div>
@@ -196,16 +312,26 @@
                     	
 	            </form>
 	            
+	            <div id="cmtListBox">
+	            	
+	            </div>
+	            
+	            
                 <c:forEach items="${cmtList}" var="item">
 	               	<div id="commentWrap" class="cmtList">
-	                   <div class="comment-profile-img"><img src="/res/img/profile_img/user/${item.i_user }/${item.profile_img}" class="img"></div>
+	                   <div class="comment-profile-img">
+	                       <img src="/res/img/profile_img/user/${item.i_user }/${item.profile_img}" class="img">
+	                   </div>
+	                   
 	                   <div class="comment-profile-desc">
 	                       <div class="nick">${item.nick}<span class="date">111</span></div>
 	                       <div class="comment">${item.ctnt}</div>
+	                       
+	                       
+	                       
 	                       <div class="etc">
 	                           <c:if test="${loginUser.i_user == item.i_user }">
-	                           
-								   				<%-- 수정 --%>	                           
+								   					                           
 	                           	   <div><a onclick="updCmt('${item.ctnt}', ${item.i_cmt})"><span><span class="iconify icon-del" data-inline="false" data-icon="ant-design:delete-outlined" style="color: #A5A2A2; font-size: 12px;"></span>수정하기</span></a></div>
 	                           	   
 	                           	   
@@ -216,6 +342,7 @@
 	                   </div>
 	               </div>
     			</c:forEach>
+    			 
     			
 			<div class="pageWrap">
                 <c:if test="${cmtPageMaker.prev}">
@@ -269,7 +396,6 @@
                         </div>
                     </div>
                 </div>
-                 
             </section>
         </main>
     </div>
@@ -279,6 +405,136 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="/res/js/detail.js"></script>
 <script>
+	
+	
+	function makeCmtList() {
+		//cmtListBox.append(divWrap)
+		const divCmtListBox = document.createElement('div')
+		divCmtListBox.setAttribute('id','cmtListBox')
+		
+		divCmtListBox.append(divWrap)
+		
+		const divWrap = document.createElement('div')
+		divWrap.setAttribute('id', 'commentWrap')
+		divWrap.setAttribute('class', 'cmtList')
+		
+		const divImg = document.createElement('div')
+		divImg.setAttribute('class', 'comment-profile-img')
+		
+		divWrap.append(divImg)
+		
+		const img = document.createElement('img')
+		img.setAttribute('class', 'img')
+		img.setAttribute('src',`/res/img/profile_img/user/${item.i_user }/${item.profile_img}`)
+		
+		divImg.append(img)
+		
+		const divDesc = document.createElement('div')
+		divDesc.setAttribute('class','comment-profile-desc')
+		
+		const divNick = document.createElement('div')
+		divNick.setAttribute('class','nick')
+		
+		divDesc.append(divNick)
+		
+		const divComment = document.createElement('div')
+		divComment.setAttribute('class', 'comment')
+		
+		divDesc.append(divComment)
+		
+		
+		
+		
+		
+	}
+	
+	$(document).ready(function(){
+	
+    var preloadbg = document.createElement("img");
+    preloadbg.src = "https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/timeline1.png";
+    
+      $("#searchfield").focus(function(){
+          if($(this).val() == "Search contacts..."){
+              $(this).val("");
+          }
+      });
+      $("#searchfield").focusout(function(){
+          if($(this).val() == ""){
+              $(this).val("Search contacts...");
+              
+          }
+      });
+      
+      $("#sendmessage input").focus(function(){
+          if($(this).val() == "Send message..."){
+              $(this).val("");
+          }
+      });
+      $("#sendmessage input").focusout(function(){
+          if($(this).val() == ""){
+              $(this).val("Send message...");
+              
+          }
+      });
+          
+      
+      $(".friend").each(function(){		
+          $(this).click(function(){
+              var childOffset = $(this).offset();
+              var parentOffset = $(this).parent().parent().offset();
+              var childTop = childOffset.top - parentOffset.top;
+              var clone = $(this).find('img').eq(0).clone();
+              var top = childTop+12+"px";
+              
+              $(clone).css({'top': top}).addClass("floatingImg").appendTo("#chatbox");									
+              
+              setTimeout(function(){$("#profile p").addClass("animate");$("#profile").addClass("animate");}, 100);
+              setTimeout(function(){
+                  $("#chat-messages").addClass("animate");
+                  $('.cx, .cy').addClass('s1');
+                  setTimeout(function(){$('.cx, .cy').addClass('s2');}, 100);
+                  setTimeout(function(){$('.cx, .cy').addClass('s3');}, 200);			
+              }, 150);														
+              
+              $('.floatingImg').animate({
+                  'width': "68px",
+                  'left':'108px',
+                  'top':'20px'
+              }, 200);
+              
+              var name = $(this).find("p strong").html();
+              var email = $(this).find("p span").html();														
+              $("#profile p").html(name);
+              $("#profile span").html(email);			
+              
+              $(".message").not(".right").find("img").attr("src", $(clone).attr("src"));									
+              $('#friendslist').fadeOut();
+              $('#chatview').fadeIn();
+          
+              
+              $('#close').unbind("click").click(function(){				
+                  $("#chat-messages, #profile, #profile p").removeClass("animate");
+                  $('.cx, .cy').removeClass("s1 s2 s3");
+                  $('.floatingImg').animate({
+                      'width': "40px",
+                      'top':top,
+                      'left': '12px'
+                  }, 200, function(){$('.floatingImg').remove()});				
+                  
+                  setTimeout(function(){
+                      $('#chatview').fadeOut();
+                      $('#friendslist').fadeIn();				
+                  }, 50);
+              });
+              
+          });
+      });			
+  });
+
+
+
+
+
 	
 	if(${transErr != null}) {
 		alert('${transErr}')
@@ -366,7 +622,7 @@
 			
 		}).then(function(res) {
 			if(res.data == '1') { // 댓글 등록 완료
-				location.reload()
+				location.reload() // 댓글 아작스로 뿌리면 없애기
 				frm.ctnt.value = ''
 						
 			} else if(res.data == '3') {
@@ -480,7 +736,7 @@
 		}).then(function(res) {
 						
 			if(res.data == '1') { // 댓글 삭제 완료
-				location.reload();
+				location.reload();	// 댓글 아작스로 뿌리면 없애기
 				
 			} else if(res.data == '2') {
 				alert("잘못된 접근방식 입니다");

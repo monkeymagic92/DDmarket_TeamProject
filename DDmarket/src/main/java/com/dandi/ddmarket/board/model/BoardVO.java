@@ -26,39 +26,10 @@ public class BoardVO {
 	private String addr;
 	private String road;
 	private int hits;
-	private int price;
+	private String price;
 	private int sold; // 0이면 거래 미완료, 1이면 거래완료, 2 거래중
 	private String r_dt;
 	private String m_dt;
-	
-	
-	
-	
-	public int getSeq() {
-		return seq;
-	}
-	public void setSeq(int seq) {
-		this.seq = seq;
-	}
-	public String getThumImage() {
-		return thumImage;
-	}
-	public void setThumImage(String thumImage) {
-		this.thumImage = thumImage;
-	}
-	public String getImageFile() {
-		return imageFile;
-	}
-	public void setImageFile(String imageFile) {
-		this.imageFile = imageFile;
-	}
-	public List<BoardVO> getImageFileList() {
-		return imageFileList;
-	}
-	public void setImageFileList(List<BoardVO> imageFileList) {
-		this.imageFileList = imageFileList;
-	}
-	
 	public int getI_board() {
 		return i_board;
 	}
@@ -89,54 +60,29 @@ public class BoardVO {
 	public void setCtnt(String ctnt) {
 		this.ctnt = ctnt;
 	}
-		
-	public String getPost() {
-		return post;
+	public int getSeq() {
+		return seq;
 	}
-	public void setPost(String post) {
-		this.post = post;
+	public void setSeq(int seq) {
+		this.seq = seq;
 	}
-	public String getAddr() {
-		return addr;
+	public String getThumImage() {
+		return thumImage;
 	}
-	public void setAddr(String addr) {
-		this.addr = addr;
+	public void setThumImage(String thumImage) {
+		this.thumImage = thumImage;
 	}
-	public String getRoad() {
-		return road;
+	public String getImageFile() {
+		return imageFile;
 	}
-	public void setRoad(String road) {
-		this.road = road;
+	public void setImageFile(String imageFile) {
+		this.imageFile = imageFile;
 	}
-	public int getHits() {
-		return hits;
+	public List<BoardVO> getImageFileList() {
+		return imageFileList;
 	}
-	public void setHits(int hits) {
-		this.hits = hits;
-	}
-	public int getPrice() {
-		return price;
-	}
-	public void setPrice(int price) {
-		this.price = price;
-	}
-	public int getSold() {
-		return sold;
-	}
-	public void setSold(int sold) {
-		this.sold = sold;
-	}
-	public String getR_dt() {
-		return r_dt;
-	}
-	public void setR_dt(String r_dt) {
-		this.r_dt = r_dt;
-	}
-	public String getM_dt() {
-		return m_dt;
-	}
-	public void setM_dt(String m_dt) {
-		this.m_dt = m_dt;
+	public void setImageFileList(List<BoardVO> imageFileList) {
+		this.imageFileList = imageFileList;
 	}
 	public String getImage_1() {
 		return image_1;
@@ -168,5 +114,57 @@ public class BoardVO {
 	public void setImage_5(String image_5) {
 		this.image_5 = image_5;
 	}
-			
+	public String getPost() {
+		return post;
+	}
+	public void setPost(String post) {
+		this.post = post;
+	}
+	public String getAddr() {
+		return addr;
+	}
+	public void setAddr(String addr) {
+		this.addr = addr;
+	}
+	public String getRoad() {
+		return road;
+	}
+	public void setRoad(String road) {
+		this.road = road;
+	}
+	public int getHits() {
+		return hits;
+	}
+	public void setHits(int hits) {
+		this.hits = hits;
+	}
+	public String getPrice() {
+		return price;
+	}
+	public void setPrice(String price) {
+		this.price = price;
+	}
+	public int getSold() {
+		return sold;
+	}
+	public void setSold(int sold) {
+		this.sold = sold;
+	}
+	public String getR_dt() {
+		return r_dt;
+	}
+	public void setR_dt(String r_dt) {
+		this.r_dt = r_dt;
+	}
+	public String getM_dt() {
+		return m_dt;
+	}
+	public void setM_dt(String m_dt) {
+		this.m_dt = m_dt;
+	}
+	
+	
+	
+	
+	
 }

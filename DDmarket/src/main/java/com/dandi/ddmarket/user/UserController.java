@@ -473,9 +473,15 @@ public class UserController {
 	
 	// 찜목록 리스트
 	@RequestMapping(value="/likeList", method = RequestMethod.GET)
-	public String likeList(BoardPARAM param, HttpSession hs, Model model) {
-		int i_user = SecurityUtils.getLoginUserPk(hs);
-		param.setI_user(i_user);
+	public String likeList(BoardPARAM param, HttpSession hs, Model model,
+			RedirectAttributes ra) {
+		try {
+			int i_user = SecurityUtils.getLoginUserPk(hs);
+			param.setI_user(i_user);
+		} catch(Exception e) {
+			model.addAttribute("likeListLoginMsg","로그인을 해주세요");
+			return ViewRef.ORIGIN_TEMP;
+		}
 
 		model.addAttribute("data", boardService.selLikeList(param));
 		
@@ -492,6 +498,4 @@ public class UserController {
 		
 		return "redirect:/user/likeList";
 	}
-	
-
 }
