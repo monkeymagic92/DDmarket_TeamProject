@@ -19,7 +19,7 @@
             </form>
             <div class="div-api">
                 <div><a href="#"><img src="/res/img/login_naver.png"></a></div>
-                <div><a href="#"><img src="/res/img/login_kakao.png"></a></div>
+                <div><a href="#" onclick="moveToKakao()"><img src="/res/img/login_kakao.png"></a></div>
             </div>
             <ul class="ul-bottom">
                 <li><a href="/user/findId">아이디 찾기</a></li>
@@ -41,6 +41,10 @@ if(${data != null}) {
 	
 } else if (${emailErr != null}) {
 	alert('${emailErr}')
+}
+
+function moveToKakao() {
+	location.href = "/user/SNSController?snsPlatform=kakao"
 }
 
 

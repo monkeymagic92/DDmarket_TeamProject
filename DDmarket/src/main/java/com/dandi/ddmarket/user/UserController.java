@@ -1,7 +1,14 @@
 package com.dandi.ddmarket.user;
 
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File; // 여기부분 에러뜨면 빌드패스 자바jre 확인   ( 체크했을시 다시 임포트 파일 해주면 됨 )
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -23,6 +30,7 @@ import com.dandi.ddmarket.PageMaker;
 import com.dandi.ddmarket.Paging;
 import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.ViewRef;
+import com.dandi.ddmarket.api.SNSInfo;
 import com.dandi.ddmarket.board.BoardService;
 import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.mail.MailSendService;
@@ -32,6 +40,9 @@ import com.dandi.ddmarket.tap.TapVO;
 import com.dandi.ddmarket.user.model.UserDMI;
 import com.dandi.ddmarket.user.model.UserPARAM;
 import com.dandi.ddmarket.user.model.UserVO;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 
 @Controller
@@ -523,5 +534,130 @@ public class UserController {
 		return "redirect:/user/likeList";
 	}
 	
+	
+	//카카오톡 api
+	@RequestMapping(value="/SNSController", method = RequestMethod.GET)
+	public String SNSControl(HttpServletRequest request) {
+		String snsChk = request.getParameter("snsPlatform");
+		String move = null;
+		switch (snsChk) {
+			case "kakao":
+				move = SNSInfo.kakao_login();
+				break;
+		}
+		System.out.println("222222");
+		System.out.println("move : " + move);
+		
+		return "redirect:" + move;
+	}
+	
+	//카카오톡 api 2
+	@RequestMapping(value="/kakaoAPI", method = RequestMethod.GET)
+	public String SNSControl2(HttpServletRequest request) throws Exception {
+		
+		System.out.println("333333");
+		
+		String access_token = getAccessToken(request.getParameter("code"));
+		UserVO userInfo = getUserInfo(access_token);
+		System.out.println("이메일 : "+userInfo.getEmail());
+		System.out.println("닉네임 : "+userInfo.getNick());
+		System.out.println("유저아이디 : "+userInfo.getUser_id());
+		System.out.println("패스워드 : "+userInfo.getUser_pw());
+		System.out.println("가입경로 : "+userInfo.getJoinPass());
+		System.out.println("프사 : "+userInfo.getProfile_img());
+		
+		return "redirect:/index/main";
+	}
+	
+	public static UserVO getUserInfo (String access_Token) throws Exception {
+	    UserVO param = new UserVO();
+	    String reqURL = "https://kapi.kakao.com/v2/user/me";
+	    try {
+	        URL url = new URL(reqURL);
+	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+	        conn.setRequestMethod("POST");
+	        
+	        //요청에 필요한 Header에 포함될 내용
+	        conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+	        
+	        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	        
+	        String line = "", result = "";
+	        
+	        while ((line = br.readLine()) != null) {
+	            result += line;
+	        }
+	        JsonParser parser = new JsonParser();
+	        JsonElement element = parser.parse(result);
+	        
+	        JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
+	        JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
+	        
+	        String user_id = element.getAsJsonObject().get("id").getAsString();
+	        String nickname = "", profile_image ="", email = "";
 
+	        nickname = properties.getAsJsonObject().get("nickname").getAsString();
+	        email = kakao_account.getAsJsonObject().get("email").getAsString();
+	        profile_image = properties.getAsJsonObject().get("profile_image").getAsString();
+	        
+	        param.setUser_id(user_id);
+	        param.setUser_pw(user_id);
+	        param.setJoinPass("2");
+	       
+	        
+	        if(!"".equals(email)) {param.setEmail(email);}
+	        if(!"".equals(nickname)) {param.setNick(nickname);}
+	        if(!"".equals(profile_image)) {
+	        	param.setProfile_img(profile_image);
+//	        	param.setChkProfile(param.getU_profile().substring(0, 4));
+	        }  
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	    return param;
+	}
+	
+	public static String getAccessToken(String authorize_code) {
+		String access_Token = "";
+		String reqURL = "https://kauth.kakao.com/oauth/token";
+
+		try {
+			URL url = new URL(reqURL);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+			// POST 요청을 위해 기본값이 false인 setDoOutput을 true로
+			conn.setRequestMethod("POST");
+			conn.setDoOutput(true);
+
+			// POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+			StringBuilder sb = new StringBuilder();
+			sb.append("grant_type=authorization_code");
+			sb.append("&"+SNSInfo.getKakaoClientId());
+			sb.append("&redirect_uri="+SNSInfo.getKakaoRedirectUri());
+			sb.append("&code=" + authorize_code);
+            bw.write(sb.toString());
+            bw.flush();
+            
+            //요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line = "";
+            String result = "";
+            
+            while ((line = br.readLine()) != null) {result += line;}
+            
+            //Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
+            JsonParser parser = new JsonParser();
+            JsonElement element = parser.parse(result);
+            
+            access_Token = element.getAsJsonObject().get("access_token").getAsString();
+            
+            br.close();
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } 
+        return access_Token;
+	}
+	
 }
