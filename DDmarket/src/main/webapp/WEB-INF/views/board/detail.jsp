@@ -141,147 +141,60 @@
                     </div>
             </section>
              
-            <button class="review" onclick="transBtn()">거래신청 목록보기</button>
-            
-            
-            
-            
-		    <div class="myModal modal">
-		        <div class="modal-content">
-		            <div class="modal-body">
-		               <div id="chatbox">
-							<div id="friendslist">
-						        <div id="topmenu">
-						        	<!-- 탑메뉴 -->
-						        </div>
-						        
-					        <!-- 구매요청 누른 유저 목록(forEach 돌리기) -->
-					        <div id="friends">
-					        	<div class="friend">
-					        		<c:forEach items="${selTrans}" var="item">
-					            		<c:if test="${item.profile_img == null }">
-				                			<img src="/res/img/lion.jpg" onchange="setThumbnail(e)" alt="" class="img">
-				                		</c:if>
-				                		<c:if test="${item.profile_img != null}">
-				                			<img src="/res/img/profile_img/user/${item.i_user}/${item.profile_img}" class="img">
-				                		</c:if>
-						                <p>
-						                	<strong>${item.nick}</strong>
-							                <span>${item.grade}</span>
-						                </p>
-					                <div class="status available"></div> <%-- 리스트 옆에 색깔 나오는거 --%>
-					                </c:forEach>
-					            </div>
-					        </div>    
-					    </div>	
-						    
-					    <!-- 채팅 상단 프로필 -->
-					    <div id="chatview" class="p1">    	
-					        <div id="profile">
-					
-					            <div id="close">
-					                <div class="cy"></div>
-					                <div class="cx"></div>
-					            </div>
-					            
-					            <p>Miro Badev</p>
-					            <span>miro@badev@gmail.com</span>
-					        </div>
-						
-					        <div id="chat-messages">
-					        	<label>Thursday 02</label>
-					            
-					            <!-- 댓글 왼쪽(판매자) -->
-					            <div class="message">
-					            	<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1_copy.jpg" />
-					                <div class="bubble">
-					                	Really cool stuff!
-					                    <div class="corner"></div>
-					                    <span>3 min</span>
-					                </div>
-					            </div>
-					            
-					            <div class="message">
-					            	<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1_copy.jpg" />
-					                <div class="bubble">
-					                	Really cool stuff!
-					                    <div class="corner"></div>
-					                    <span>3 min</span>
-					                </div>
-					            </div>
-					            
-					            <div class="message">
-					            	<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1_copy.jpg" />
-					                <div class="bubble">
-					                	Really cool stuff!
-					                    <div class="corner"></div>
-					                    <span>3 min</span>
-					                </div>
-					            </div>
-					            
-					            <div class="message">
-					            	<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1_copy.jpg" />
-					                <div class="bubble">
-					                	Really cool stuff!
-					                    <div class="corner"></div>
-					                    <span>3 min</span>
-					                </div>
-					            </div>
-						
-					            <!-- 댓글 오른쪽(구매자) -->
-					            <div class="message right">
-					            	<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" />
-					                <div class="bubble">
-					                	Can you share a link for the tutorial?
-					                    <div class="corner"></div>
-					                    <span>1 min</span>
-					                </div>
-					            </div>
-					            
-					            <div class="message right">
-					            	<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" />
-					                <div class="bubble">
-					                	Can you share a link for the tutorial?
-					                    <div class="corner"></div>
-					                    <span>1 min</span>
-					                </div>
-					            </div>
-					            
-					            <div class="message right">
-					            	<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" />
-					                <div class="bubble">
-					                	Can you share a link for the tutorial?
-					                    <div class="corner"></div>
-					                    <span>1 min</span>
-					                </div>
-					            </div>
-					            
-					            <div class="message right">
-					            	<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" />
-					                <div class="bubble">
-					                	Can you share a link for the tutorial?
-					                    <div class="corner"></div>
-					                    <span>1 min</span>
-					                </div>
-					            </div>
-					        </div>
-				        
-				        <!-- 댓글 입력창(아작스로 값 넣기) -->
-				        <div id="sendmessage">
-				        	<input type="text" value="Send message..." />
-				            <button id="send"></button>
-				        </div>
-				    
-				    </div>        
-				</div>
+            <%-- <button class="review" onclick="transBtn()">거래신청 목록보기</button>--%>
+            <button id="chatting" onclick="chatBtn()">버튼</button>
+            <div id="ChatBox">
+		        <div id="SaleList">
+		            <div id="close" onclick="CloBox()">
+		                                  닫기
 		            </div>
-		            
-		            
-		            <div class="modal-footer">
-		                <button class="close" onclick="closeBtn()">취소</button>
+		            <div id="Buyers">
+		                <div class="buyer" onclick="moveChat()">
+		                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1_copy.jpg" />
+		                    <p>
+		                        <strong>닉네임</strong>
+		                        <span>별점</span>
+		                    </p>
+		                </div>
+		                <div class="buyer">
+		                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1_copy.jpg" />
+		                    <p>
+		                        <strong>닉네임</strong>
+		                        <span>별점</span>
+		                    </p>
+		                </div>
+		            </div>
+		        </div>
+		        <div id="chatView" draggable="true" ondrag="moveCtnt()">
+		            <div id="chatClose" class="p1" onclick="CloChat()">
+		              	  닫기
+		            </div>
+		            <div id="chat-Msg">
+		                <div class="message">
+		                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1_copy.jpg" alt="">
+		                    <div class="bubble">안녕하세요
+		                        <div class="corner"></div>
+		                        <span>1분</span>
+		                    </div>
+		                </div>
+		                <div class="message Mychat">
+		                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" alt="">
+		                    <div class="bubble">안녕하세요
+		                        <div class="corner"></div>
+		                        <span>10초</span>
+		                    </div>
+		                </div>
+		            </div>
+		            <div id="sendMessage">
+		                <input type="text">
+		                <button id="send" onclick="send()"></button>
 		            </div>
 		        </div>
 		    </div>
+           		    
+           		    
+           		    
+           		    
 		    
 		    
 		    
@@ -793,6 +706,25 @@
         modal.style.display = "none";
      }
     
+
+    
+    
+    
+    function chatBtn(){
+        ChatBox.style.display = 'flex'   
+    }
+    function CloChat(){
+        chatView.style.display = 'none'
+    }
+    function moveChat(){
+        chatView.style.display = 'flex'
+    }
+    function CloBox(){
+        ChatBox.style.display = 'none'
+    }
+    
+
+
 
 </script>
 </body>
