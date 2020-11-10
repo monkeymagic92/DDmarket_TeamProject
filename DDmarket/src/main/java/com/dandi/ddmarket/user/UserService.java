@@ -136,12 +136,10 @@ public class UserService {
 	
 	// SNS 로그인
 	// SUCCESS 1:로그인 성공,  NO_ID 2:아이디 없음,  NO_PW 3:비번 틀림
-	public int selSNSUser(UserPARAM param) {
-		if(param.getUser_id().equals("")) {
-			return Const.BLANK_ID; 
-		}
+	public int SNSLogin(UserPARAM param) {
 		
-		UserDMI SNSUser = mapper.selUser(param);
+		UserDMI SNSUser = mapper.selSNSUser(param);
+		System.out.println(SNSUser);
 		
 		if(SNSUser == null) {
 			return Const.NO_ID; 

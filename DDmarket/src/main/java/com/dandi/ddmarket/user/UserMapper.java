@@ -30,6 +30,8 @@ public interface UserMapper {
 	
 	UserDMI selDetailUser(UserPARAM param);
 	
+	UserDMI selSNSUser(UserPARAM param); // api 아이디 체크
+	
 	List<CategoryVO> selCategory();		// 카테고리 리스트
 	
 	List<TapVO> selTapList(TapVO tparam); // mypage 탭 메뉴 가져오기

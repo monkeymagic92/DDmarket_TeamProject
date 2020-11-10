@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +20,12 @@
             <div class="div-logo">
                 <a href="/index/main"><img src="/res/img/logo.jpg" alt=""></a>
             </div>
-            <form id="frm" action="/user/join" method="post" class="FrmJoin"  onsubmit="return chk()">
+            <c:if test="${userAPI == null}">
+            <form id="frm" action="/user/join" method="post" class="FrmJoin"  onsubmit="return chk()">          
+            </c:if>
+            <c:if test="${userAPI != null}">
+            <form id="frm" action="/user/join" method="post" class="FrmJoin">          
+            </c:if>
                 <h2 class="title">약관동의</h2>
                 <span class="line"></span>
                 <div class="div-chkbox">
@@ -49,6 +57,7 @@
                         </div>
                     </div>
                 </div>
+               <c:if test="${userAPI == null}">
                 <h2 class="title">가입 여부 조회</h2>
                 <span class="line"></span>
                 <div class="div-email">
@@ -59,9 +68,15 @@
                         <i id="emailClick" class="animate__rubberBand animate__animated fas fa-check"></i>
                     </div>
                 </div>
+                </c:if>
+                ${userAPI.nick}
+                <c:if test="${userAPI != null}">
+                 	<input type="hidden" name="email" value="${userAPI.email}">
+                </c:if>
                 <h2 class="title">개인 정보 입력</h2>
                 <span class="line"></span>
                 <div class="div-input">
+                <c:if test="${userAPI == null}">
                     <div>
                         <input type="text" name="user_id" id="id_input" placeholder="아이디">
                         <button type="button" id="idChk" onclick="chkId()">아이디 중복체크</button>
@@ -70,9 +85,14 @@
                     </div>
                     <div><input type="password" name="user_pw" id="pw_input" placeholder="비밀번호"></div>
                     <div><input type="password" name="user_rpw" id="pw_input2" placeholder="비밀번호 확인"></div>
+                 </c:if>
+                 <c:if test="${userAPI != null}">
+                 		<input type="hidden" name="user_id" value="${userAPI.user_id}">
+                 		<input type="hidden" name="user_pw" value="${userAPI.user_pw}">
+                 </c:if>
                     <div><input type="text" name="nm" id="nm_input" placeholder="이름"></div>
                     <div>
-                        <input type="text" name="nick" id="nick_input" placeholder="닉네임">
+                        <input type="text" name="nick" id="nick_input" placeholder="닉네임" value="${userAPI.nick}">
                         <button type="button" id="nickChk" onclick="chkNick()">닉네임 중복체크</button>
                         <i id="nickClick" class="animate__rubberBand animate__animated fas fa-check" ></i>
                         <input id="nickUnChk" name="nickUnChk" type="hidden" value="unChk">

@@ -14,6 +14,13 @@
 		<if test="user_id != null and user_id != ''"> user_id = #{user_id}</if>
 	</select>
 	
+	<select id="selSNSUser" parameterType="UserPARAM" resultType="UserDMI"> 
+		SELECT i_user, user_id, user_pw, salt, nm, nick, email, post, addr, road, joinPass,
+		profile_img, r_dt, m_dt, grade
+		FROM t_user
+		WHERE user_id = #{user_id} and joinPass = #{joinPass}
+	</select>
+	
 	
 	<!-- 마이페이지 가기위한 selUser 값   (selUser 메소드에서 where절 뺏음) -->							
 	<select id="selDetailUser" parameterType="UserPARAM" resultType="UserDMI"> 

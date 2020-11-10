@@ -550,34 +550,41 @@ public class UserController {
 	
 	//카카오톡 api 2
 	@RequestMapping(value="/kakaoAPI", method = RequestMethod.GET)
-	public String SNSControl2(HttpServletRequest request, Model model, HttpSession hs) throws Exception {
+	public String SNSControl2(UserPARAM param, HttpServletRequest request, Model model, HttpSession hs, RedirectAttributes ra) throws Exception {
 		
 		String msg = null;
-		
-		System.out.println("프로필 API");
-		
+
 		String access_token = getAccessToken(request.getParameter("code"));
-		UserPARAM userInfo = getUserInfo(access_token);
-		int result = service.selSNSUser(userInfo);
+		
+		// 카카오 API 를  통해  회원의 정보를 가져와서 값을 넣어줌
+		UserPARAM userAPI = getUserInfo(access_token);
+		
+		int result = service.SNSLogin(userAPI);
+		
+		System.out.println("result : " + result);
+		
+		System.out.println("이메일 : " + userAPI.getEmail());
+		System.out.println("닉네임 : " + userAPI.getNick());
+		System.out.println("유저아이디 : " + userAPI.getUser_id());
+		System.out.println("패스워드 : " + userAPI.getUser_pw());
+		System.out.println("가입경로 : " + userAPI.getJoinPass());
+		
 		
 		//1: 로그인 성공,  2 : 아이디 없음
 		if(result == Const.NO_ID) {
-			request.setAttribute("userInfo", userInfo);
+			ra.addFlashAttribute("userAPI", userAPI);
 			return "redirect:/" + ViewRef.USER_JOIN;
 		} else if (result == Const.SUCCESS) {
-			hs.setAttribute(Const.LOGIN_USER, userInfo);
+			param.setUser_id(userAPI.getUser_id());
+			param.setJoinPass(userAPI.getJoinPass());
+			hs.setAttribute(Const.LOGIN_USER, service.selUser(param));
 			return "redirect:/" + ViewRef.INDEX_MAIN;
 		} else if (result == Const.NO_PW) {
 			msg = "비밀번호를 확인해 주세요";
 		}
 		
-		System.out.println("이메일 : " + userInfo.getEmail());
-		System.out.println("닉네임 : " + userInfo.getNick());
-		System.out.println("유저아이디 : " + userInfo.getUser_id());
-		System.out.println("패스워드 : " + userInfo.getUser_pw());
-		System.out.println("가입경로 : " + userInfo.getJoinPass());
-		System.out.println("프사 : " + userInfo.getProfile_img());
 		
+		ra.addFlashAttribute("data", msg);
 		return "redirect:/" + ViewRef.USER_LOGIN;
 	}
 	
@@ -610,16 +617,20 @@ public class UserController {
 
 	        nickname = properties.getAsJsonObject().get("nickname").getAsString();
 	        email = kakao_account.getAsJsonObject().get("email").getAsString();
-	        profile_image = properties.getAsJsonObject().get("profile_image").getAsString();
+	        try {
+	        	profile_image = properties.getAsJsonObject().get("profile_image").getAsString();
+	        } catch (Exception e) {
+	        	profile_image = null;
+	        }
 	        
 	        param.setUser_id(user_id);
 	        param.setUser_pw(user_id);
-	        param.setJoinPass("2");
+	        param.setJoinPass(2);
 	       
 	        
 	        if(!"".equals(email)) {param.setEmail(email);}
 	        if(!"".equals(nickname)) {param.setNick(nickname);}
-	        if(!"".equals(profile_image)) {
+	        if(profile_image != null && !"".equals(profile_image)) {
 	        	param.setProfile_img(profile_image);
 //	        	param.setChkProfile(param.getU_profile().substring(0, 4));
 	        }  

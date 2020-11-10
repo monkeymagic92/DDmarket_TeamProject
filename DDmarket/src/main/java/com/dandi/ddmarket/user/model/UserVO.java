@@ -12,7 +12,7 @@ public class UserVO {
 	private String post;	// 우편번호
 	private String addr;    // 나머지주소
 	private String road;
-	private String joinPass;
+	private int joinPass;
 	private String uNum;
 
 	// 추가적으로 등록되는 VO
@@ -26,6 +26,12 @@ public class UserVO {
 	private int hits;
 	
 	
+	public int getJoinPass() {
+		return joinPass;
+	}
+	public void setJoinPass(int joinPass) {
+		this.joinPass = joinPass;
+	}
 	public int getHits() {
 		return hits;
 	}
@@ -91,12 +97,6 @@ public class UserVO {
 	}
 	public void setRoad(String road) {
 		this.road = road;
-	}
-	public String getJoinPass() {
-		return joinPass;
-	}
-	public void setJoinPass(String joinPass) {
-		this.joinPass = joinPass;
 	}
 	public String getuNum() {
 		return uNum;
