@@ -50,6 +50,8 @@ public interface UserMapper {
 	
 	int selMyReviewCnt(BoardPARAM param);
 	
+	
+	
 	// insert
 	int joinUser(UserVO param);		// 회원가입
 	

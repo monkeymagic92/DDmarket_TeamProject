@@ -133,6 +133,38 @@ public class UserService {
 		
 		return Const.SUCCESS;
 	}
+	
+	// SNS 로그인
+	// SUCCESS 1:로그인 성공,  NO_ID 2:아이디 없음,  NO_PW 3:비번 틀림
+	public int selSNSUser(UserPARAM param) {
+		if(param.getUser_id().equals("")) {
+			return Const.BLANK_ID; 
+		}
+		
+		UserDMI SNSUser = mapper.selUser(param);
+		
+		if(SNSUser == null) {
+			return Const.NO_ID; 
+		} 
+						
+		String cryptPw = SecurityUtils.getEncrypt(param.getUser_pw(), SNSUser.getSalt());
+		if(!cryptPw.equals(SNSUser.getUser_pw())) {return Const.NO_PW;} // 3
+		
+		param.setI_user(SNSUser.getI_user());
+		param.setUser_pw(null);
+		param.setNm(SNSUser.getNm());
+		param.setNick(SNSUser.getNick());
+		param.setEmail(SNSUser.getEmail());
+		param.setProfile_img(SNSUser.getProfile_img());		
+		param.setAddr(SNSUser.getAddr());
+		param.setPost(SNSUser.getPost());
+		param.setRoad(SNSUser.getRoad());
+		param.setJoinPass(SNSUser.getJoinPass());
+		param.setR_dt(SNSUser.getR_dt());
+		param.setM_dt(SNSUser.getM_dt());
+		
+		return Const.SUCCESS;
+	}
 
 	
 	// 회원가입
@@ -370,5 +402,7 @@ public class UserService {
 	public int delMyReview(ReviewPARAM param) {
 		return mapper.delMyReview(param);
 	}
+	
+	
 	
 }

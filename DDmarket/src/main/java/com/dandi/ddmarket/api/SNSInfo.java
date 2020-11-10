@@ -35,8 +35,8 @@ public class SNSInfo {
 		
 		//네이버 정보
 		private static final String NAVER_URI = "https://nid.naver.com/oauth2.0/authorize?";
-		private static final String NAVER_CLIENT_ID = "client_id=gtb_8Ij5V31vLTCJA7F3";
-		private static final String NAVER_CLIENT_SECRET = "client_secret=8dYiJWFqmT";
+		private static final String NAVER_CLIENT_ID = "client_id=YIr7Gxd2BdUCHJEiDs_l";
+		private static final String NAVER_CLIENT_SECRET = "client_secret=c9XqJOU7y5";
 		
 		public static String kakao_login() {
 			StringBuilder sb = new StringBuilder();
@@ -44,7 +44,6 @@ public class SNSInfo {
 			sb.append(SNSInfo.KAKAO_CLIENT_ID);
 			sb.append(SNSInfo.REDIRECT_URI+SNSInfo.KAKAO_REDIRECT_URI);
 			sb.append(SNSInfo.RESPONSE_TYPE);
-			System.out.println("111111");
 			return sb.toString();
 		}
 		

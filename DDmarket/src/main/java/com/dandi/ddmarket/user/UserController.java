@@ -527,8 +527,7 @@ public class UserController {
 	// 찜목록 삭제
 	@RequestMapping(value="/likeListDel", method = RequestMethod.GET)
 	public String likeListDel(BoardPARAM param, HttpServletRequest request) {
-		//System.out.println("param.getI_board():" + param.getI_board());
-		//System.out.println("param.getI_user():" + param.getI_user());
+		
 		boardService.likeListDel(param);
 		
 		return "redirect:/user/likeList";
@@ -545,32 +544,45 @@ public class UserController {
 				move = SNSInfo.kakao_login();
 				break;
 		}
-		System.out.println("222222");
-		System.out.println("move : " + move);
 		
 		return "redirect:" + move;
 	}
 	
 	//카카오톡 api 2
 	@RequestMapping(value="/kakaoAPI", method = RequestMethod.GET)
-	public String SNSControl2(HttpServletRequest request) throws Exception {
+	public String SNSControl2(HttpServletRequest request, Model model, HttpSession hs) throws Exception {
 		
-		System.out.println("333333");
+		String msg = null;
+		
+		System.out.println("프로필 API");
 		
 		String access_token = getAccessToken(request.getParameter("code"));
-		UserVO userInfo = getUserInfo(access_token);
-		System.out.println("이메일 : "+userInfo.getEmail());
-		System.out.println("닉네임 : "+userInfo.getNick());
-		System.out.println("유저아이디 : "+userInfo.getUser_id());
-		System.out.println("패스워드 : "+userInfo.getUser_pw());
-		System.out.println("가입경로 : "+userInfo.getJoinPass());
-		System.out.println("프사 : "+userInfo.getProfile_img());
+		UserPARAM userInfo = getUserInfo(access_token);
+		int result = service.selSNSUser(userInfo);
 		
-		return "redirect:/index/main";
+		//1: 로그인 성공,  2 : 아이디 없음
+		if(result == Const.NO_ID) {
+			request.setAttribute("userInfo", userInfo);
+			return "redirect:/" + ViewRef.USER_JOIN;
+		} else if (result == Const.SUCCESS) {
+			hs.setAttribute(Const.LOGIN_USER, userInfo);
+			return "redirect:/" + ViewRef.INDEX_MAIN;
+		} else if (result == Const.NO_PW) {
+			msg = "비밀번호를 확인해 주세요";
+		}
+		
+		System.out.println("이메일 : " + userInfo.getEmail());
+		System.out.println("닉네임 : " + userInfo.getNick());
+		System.out.println("유저아이디 : " + userInfo.getUser_id());
+		System.out.println("패스워드 : " + userInfo.getUser_pw());
+		System.out.println("가입경로 : " + userInfo.getJoinPass());
+		System.out.println("프사 : " + userInfo.getProfile_img());
+		
+		return "redirect:/" + ViewRef.USER_LOGIN;
 	}
 	
-	public static UserVO getUserInfo (String access_Token) throws Exception {
-	    UserVO param = new UserVO();
+	public static UserPARAM getUserInfo (String access_Token) throws Exception {
+	    UserPARAM param = new UserPARAM();
 	    String reqURL = "https://kapi.kakao.com/v2/user/me";
 	    try {
 	        URL url = new URL(reqURL);
