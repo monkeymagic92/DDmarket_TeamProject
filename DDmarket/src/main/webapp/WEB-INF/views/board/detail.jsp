@@ -312,9 +312,11 @@
                     	
 	            </form>
 	            
+	           
 	            <div id="cmtListBox">
 	            	
 	            </div>
+	             
 	            
 	            
 	            <%--
@@ -331,10 +333,10 @@
 	                       <div class="etc">
 	                           <c:if test="${loginUser.i_user == item.i_user }">
 								   					                           
-	                           	   <div><a onclick="updCmt('${item.ctnt}', ${item.i_cmt})"><span><span class="iconify icon-del" data-inline="false" data-icon="ant-design:delete-outlined" style="color: #A5A2A2; font-size: 12px;"></span>수정하기</span></a></div>
+	                           	   <a onclick="updCmt('${item.ctnt}', ${item.i_cmt})"><span><span class="iconify icon-del" data-inline="false" data-icon="ant-design:delete-outlined" style="color: #A5A2A2; font-size: 12px;"></span>수정하기</span></a>
 	                           	   
 	                           	   
-	                           	   <div><a onclick="delCmt(${item.i_cmt})"><span><span class="iconify icon-del" data-inline="false" data-icon="ant-design:delete-outlined" style="color: #A5A2A2; font-size: 12px;"></span>삭제하기</span></a></div>
+	                           	   <a onclick="delCmt(${item.i_cmt})"><span><span class="iconify icon-del" data-inline="false" data-icon="ant-design:delete-outlined" style="color: #A5A2A2; font-size: 12px;"></span>삭제하기</span></a>
 	                           	   
 	                           </c:if> 
 	                       </div>
@@ -342,7 +344,6 @@
 	               </div>
     			</c:forEach>
     			 --%>
-    			 
     			
 			<div class="pageWrap">
                 <c:if test="${cmtPageMaker.prev}">
@@ -430,8 +431,6 @@
 	
 	function makeCmtList(arr) {
 		
-		
-		
 		var divWrap = document.createElement('div')
 		divWrap.setAttribute('id', 'commentWrap')
 		
@@ -444,7 +443,11 @@
 		
 		var img = document.createElement('img')
 		img.setAttribute('class', 'img')
-		img.setAttribute('src',`/res/img/profile_img/user/\${arr.i_user}/\${arr.profile_img}`)
+		if(arr.profile_img != null) {
+			img.setAttribute('src',`/res/img/profile_img/user/\${arr.i_user}/\${arr.profile_img}`)
+		} else {
+			img.setAttribute('src','/res/img/lion.jpg')
+		}
 		divImg.append(img)
 		
 		var divDesc = document.createElement('div')
@@ -466,6 +469,9 @@
 		spanDate.append(arr.r_dt)
 		divNick.append(spanDate)
 		
+		var divEtc = document.createElement('div')
+		divEte.setAttribute('class', 'etc')
+		divDesc.append(divEtc)
 		
 	}
 	
