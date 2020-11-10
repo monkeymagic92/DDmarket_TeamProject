@@ -111,7 +111,7 @@ public class BoardController {
 					return "redirect:/" + ViewRef.BOARD_SALEREG;
 					
 				} else {
-					ra.addFlashAttribute("ImageFail","사진은 총 5장까지 등록이 가능합니다");
+					ra.addFlashAttribute("ImageFail","서버에러 다시 다시 시도해주세요");
 					return "redirect:/" + ViewRef.BOARD_SALEREG;
 				}
 				
@@ -155,7 +155,7 @@ public class BoardController {
 	public String detail(Model model, TransDMI transDmi, BoardPARAM param, CmtVO vo, HttpServletRequest req,
 			HttpServletRequest request, HttpSession hs) {
 		
-    int i_user = 0;
+		int i_user = 0;
 		
 		if(!SecurityUtils.isLogout(request)) {
 			service.addHit(param, request);			
@@ -199,14 +199,16 @@ public class BoardController {
 	    int chk = transService.chkTrans(param);
 	    if(chk == 0) {
 	    	model.addAttribute("transBtn", "구매요청");
-	    } else {
+	    	
+	    } else { // 구매자 입장에서 구매요청 눌렀을시 판매자와 1:1문의 버튼 나오게 (판매자는 안보임JSTL로 막아놨음)
 	    	model.addAttribute("transBtn", "구매취소");
+	    	model.addAttribute("buyList", "1:1문의");
 	    }
 	    
 	    
-	  model.addAttribute("selTrans", transService.selTrans(param)); // 구매요청 누른 유저들
+	    model.addAttribute("selTrans", transService.selTrans(param)); // 구매요청 누른 유저들
 		model.addAttribute("cmtCount", cmtService.countCmt(param)); // 댓글 갯수
-		model.addAttribute("cmtList", cmtService.selCmt(param));	// 댓글 내용
+		//model.addAttribute("cmtList", cmtService.selCmt(param));	// 댓글 내용
 		model.addAttribute("data", service.selBoard(param));		// 판매글 내용
 		model.addAttribute("view", "/board/detail");
 		return ViewRef.DEFAULT_TEMP;

@@ -30,35 +30,6 @@ public class BoardVO {
 	private int sold; // 0이면 거래 미완료, 1이면 거래완료, 2 거래중
 	private String r_dt;
 	private String m_dt;
-	
-	
-	
-	
-	public int getSeq() {
-		return seq;
-	}
-	public void setSeq(int seq) {
-		this.seq = seq;
-	}
-	public String getThumImage() {
-		return thumImage;
-	}
-	public void setThumImage(String thumImage) {
-		this.thumImage = thumImage;
-	}
-	public String getImageFile() {
-		return imageFile;
-	}
-	public void setImageFile(String imageFile) {
-		this.imageFile = imageFile;
-	}
-	public List<BoardVO> getImageFileList() {
-		return imageFileList;
-	}
-	public void setImageFileList(List<BoardVO> imageFileList) {
-		this.imageFileList = imageFileList;
-	}
-	
 	public int getI_board() {
 		return i_board;
 	}
@@ -89,7 +60,60 @@ public class BoardVO {
 	public void setCtnt(String ctnt) {
 		this.ctnt = ctnt;
 	}
-		
+	public int getSeq() {
+		return seq;
+	}
+	public void setSeq(int seq) {
+		this.seq = seq;
+	}
+	public String getThumImage() {
+		return thumImage;
+	}
+	public void setThumImage(String thumImage) {
+		this.thumImage = thumImage;
+	}
+	public String getImageFile() {
+		return imageFile;
+	}
+	public void setImageFile(String imageFile) {
+		this.imageFile = imageFile;
+	}
+	public List<BoardVO> getImageFileList() {
+		return imageFileList;
+	}
+	public void setImageFileList(List<BoardVO> imageFileList) {
+		this.imageFileList = imageFileList;
+	}
+	public String getImage_1() {
+		return image_1;
+	}
+	public void setImage_1(String image_1) {
+		this.image_1 = image_1;
+	}
+	public String getImage_2() {
+		return image_2;
+	}
+	public void setImage_2(String image_2) {
+		this.image_2 = image_2;
+	}
+	public String getImage_3() {
+		return image_3;
+	}
+	public void setImage_3(String image_3) {
+		this.image_3 = image_3;
+	}
+	public String getImage_4() {
+		return image_4;
+	}
+	public void setImage_4(String image_4) {
+		this.image_4 = image_4;
+	}
+	public String getImage_5() {
+		return image_5;
+	}
+	public void setImage_5(String image_5) {
+		this.image_5 = image_5;
+	}
 	public String getPost() {
 		return post;
 	}
@@ -138,35 +162,9 @@ public class BoardVO {
 	public void setM_dt(String m_dt) {
 		this.m_dt = m_dt;
 	}
-	public String getImage_1() {
-		return image_1;
-	}
-	public void setImage_1(String image_1) {
-		this.image_1 = image_1;
-	}
-	public String getImage_2() {
-		return image_2;
-	}
-	public void setImage_2(String image_2) {
-		this.image_2 = image_2;
-	}
-	public String getImage_3() {
-		return image_3;
-	}
-	public void setImage_3(String image_3) {
-		this.image_3 = image_3;
-	}
-	public String getImage_4() {
-		return image_4;
-	}
-	public void setImage_4(String image_4) {
-		this.image_4 = image_4;
-	}
-	public String getImage_5() {
-		return image_5;
-	}
-	public void setImage_5(String image_5) {
-		this.image_5 = image_5;
-	}
-			
+	
+	
+	
+	
+	
 }
