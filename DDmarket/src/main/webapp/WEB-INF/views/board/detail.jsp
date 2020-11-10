@@ -104,21 +104,18 @@
                         		<button onclick="moveToUpd(${data.i_board})">수정하기</button>
                             	<button onclick="moveToDel(${data.i_board})">삭제하기</button>
                         	</c:if>
-                        	<c:if test="${loginUser != null }">                        	
-	                        	<c:if test="${loginUser.i_user != data.i_user }">
-	                        		<button type="button" onclick="ToLike()">
-	                        		<c:if test="${data.is_tolike == 1}">
-	                        			<span id="heart" class="iconify icon-btn-heart heart" data-inline="false" data-icon="clarity:heart-solid" style=" font-size: 20px;"></span>
-	                        		</c:if>
-	                        		<c:if test="${data.is_tolike == 0}">
-		                 	           	<span id="heart" class="iconify icon-btn-heart unheart" data-inline="false" data-icon="clarity:heart-solid" style=" font-size: 20px;"></span>
-	               					</c:if>
-	                                 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;찜
-	                           		</button>
-                           	</c:if>
-                           		
-                           		
-                           		<br><br>
+
+                        	<c:if test="${loginUser.i_user != data.i_user }">
+                        		<button type="button" onclick="ToLike()">찜
+                        		<c:if test="${data.is_tolike == 1}">
+                        			<span id="heart" class="iconify icon-btn-heart heart" data-inline="false" data-icon="clarity:heart-solid" style=" font-size: 20px;"></span>
+                        		</c:if>
+                        		<c:if test="${data.is_tolike == 0}">
+	                 	           	<span id="heart" class="iconify icon-btn-heart unheart" data-inline="false" data-icon="clarity:heart-solid" style=" font-size: 20px;"></span>
+               					</c:if>찜 
+                           		</button>
+
+                              <br><br>
                            		<%-- 구매요청 누른사람은 판매자와 1:1채팅할수있게 --%>
                            		<%-- 우현 view단 받으면 그대로 그 대화창만 i_trans값 보내기 --%>
                            		<c:if test="${data.i_user != loginUser.i_user}">
@@ -240,7 +237,12 @@
 	                   </div>
 	                   
 	                   <div class="comment-profile-desc">
-	                       <div class="nick">${item.nick}<span class="date">${item.r_dt}</span></div>
+
+	                       <div class="nick">${item.nick}
+	                       <span class="date">${item.r_dt}</span>
+	                       </div>
+
+
 	                       <div class="comment">${item.ctnt}</div>
 	                       
 	                       <div class="etc">
@@ -609,7 +611,7 @@
 	}
 	
 	// 별점
-	/*
+  /*
 	var rating_1 = 1.5/5*75;
 	var starbar_1 = document.querySelector('.star-ratings-top_1')
 		starbar_1.style.width = rating + "%";
@@ -694,14 +696,17 @@
 	
     function transBtn() {
        var modal = document.querySelector(".myModal");
+
        modal.style.display = "block";
     }
     
     function closeBtn() {
+
         var modal = document.querySelector(".myModal");
         modal.style.display = "none";
      }
     
+
     
     
     
@@ -718,6 +723,9 @@
         ChatBox.style.display = 'none'
     }
     
+
+
+
 </script>
 </body>
 </html>
