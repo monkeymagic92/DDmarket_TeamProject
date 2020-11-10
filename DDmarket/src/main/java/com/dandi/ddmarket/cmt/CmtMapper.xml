@@ -5,14 +5,14 @@
 						<!-- select -->
 	<!-- 댓글 나타내기 -->
 	<select id="selCmt" resultType="CmtDMI" parameterType="BoardPARAM">
-		SELECT A.i_cmt, B.i_user ,B.profile_img, B.nick, A.ctnt, A.r_dt FROM t_cmt A
+		SELECT A.i_board, A.i_cmt, B.i_user ,B.profile_img, B.nick, A.ctnt, A.r_dt FROM t_cmt A
 				
 		LEFT JOIN t_user B
 		ON A.i_user = B.i_user
 		
 		WHERE A.i_board = #{i_board}
 		ORDER BY A.r_dt DESC
-		LIMIT #{cmt_pageStart}, #{cmt_perPageNum}
+		<!-- LIMIT #{cmt_pageStart}, #{cmt_perPageNum} -->
 	</select>	
 	
 	

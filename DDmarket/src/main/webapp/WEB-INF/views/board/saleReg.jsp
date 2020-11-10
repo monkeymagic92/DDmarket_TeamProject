@@ -89,7 +89,7 @@
             <span class="line"></span>
             <section class="goods-price">
                 <div class="div-price">
-                    <input type="text" name="price" id="priceInput" class="img" class="priceInput" required placeholder="가격을 입력 해 주세요" value="${data.price }" maxlength="10" oninput="numberMaxLength(this)">
+                    <input type="text" name="price" id="priceInput" class="img" class="priceInput" required placeholder="가격을 입력 해 주세요" value="${data.price }" maxlength="12" oninput="numberMaxLength(this)">
                 </div>
                 &nbsp;&nbsp;
                 <div>

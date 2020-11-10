@@ -30,6 +30,11 @@
 </body>
 <script>
 
+/*
+ 		인터셉터로 다빼기 @@@@@@@@@@@@@@@@@@@@@@ 
+ 
+ */
+
 // 로그아웃 메세지 띄움
 if(${logoutMsg != null}) {
 	alert('${logoutMsg}');
@@ -51,6 +56,12 @@ if(${loginMsg != null}) {
 if(${delmsg != null}) {
 	alert('${delMsg}');	
 }
+
+// 비로그인상태에서 찜목록 누를경우
+if(${likeListLoginMsg != null}) {
+	alert('${likeListLoginMsg}')
+	location.href="/user/login"
+} 
 
 </script>
 </html>
