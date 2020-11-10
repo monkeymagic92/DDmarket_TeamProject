@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dandi.ddmarket.board.model.BoardPARAM;
+import com.dandi.ddmarket.trans.model.TransCmtVO;
 import com.dandi.ddmarket.trans.model.TransDMI;
 import com.dandi.ddmarket.trans.model.TransVO;
-import com.dandi.ddmarket.user.model.UserPARAM;
 
 @Service
 public class TransService {
@@ -48,5 +48,12 @@ public class TransService {
 	public int delTransUser(TransVO vo) {
 		return mapper.delTransUser(vo);
 	}
+	
+	
+	// 구매목록 댓글 등록
+	public int insTransCmt(TransCmtVO vo) {
+		return mapper.insTransCmt(vo);
+	}
+	
 	
 }

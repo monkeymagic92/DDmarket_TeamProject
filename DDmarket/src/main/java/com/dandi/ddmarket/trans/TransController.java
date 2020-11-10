@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dandi.ddmarket.board.model.BoardPARAM;
-import com.dandi.ddmarket.trans.cmt.model.TransCmtVO;
+import com.dandi.ddmarket.trans.model.TransCmtVO;
 import com.dandi.ddmarket.trans.model.TransVO;
 
 @Controller
@@ -47,12 +47,13 @@ public class TransController {
 	}
 	
 	
-	// 
+	// 추후 판매자가 구매요청 목록 눌렀을시 채팅창 띄우기 ?? (아직 미정) 
 	@RequestMapping(value="/moveChat", method=RequestMethod.POST) 
     private @ResponseBody String moveChat(@RequestBody TransVO vo, HttpSession hs, HttpServletRequest request) {
 		
 		return "";
 	}
+	
 	
 	
 	// 판매자나 구매자 파싱후 댓글등록
@@ -64,7 +65,11 @@ public class TransController {
 		System.out.println("판매유저 : " + vo.getSaleI_user());
 		System.out.println("댓내용 : " + vo.getTransCmt());
 		
-		return "";
+		int result = service.insTransCmt(vo);
+		
+		return String.valueOf(result);
 	}
+		
+	
 	
 }

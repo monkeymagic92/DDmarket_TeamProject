@@ -31,9 +31,13 @@
 
 		<!-- trans -->
 		<typeAlias type="com.dandi.ddmarket.trans.model.TransVO" alias="TransVO"/>		
-<!--    <typeAlias type="com.dandi.ddmarket.trans.model.TransPARAM" alias="TransPARAM"/> -->
-		<typeAlias type="com.dandi.ddmarket.trans.model.TransDMI" alias="TransDMI"/>
+    <!--<typeAlias type="com.dandi.ddmarket.trans.model.TransPARAM" alias="TransPARAM"/>-->
+		<typeAlias type="com.dandi.ddmarket.trans.model.TransDMI" alias="TransDMI"/>		
+		<typeAlias type="com.dandi.ddmarket.trans.model.TransCmtVO" alias="TransCmtVO"/>
 
+
+		
+		
 		
 	</typeAliases>	
 </configuration>

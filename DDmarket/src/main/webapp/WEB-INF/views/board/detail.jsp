@@ -424,13 +424,16 @@
 		var transCmt = transCmtId.value
 		
 		axios.post('/trans/insTransCmt', {
+			
 			i_board : `${data.i_board}`,
 			i_user : `${loginUser.i_user}`,			
 			saleI_user : `${data.i_user}`,
 			transCmt
 			
 		}).then(function(res) {
-			
+			if (res.data == '1') {
+				// div 태그안에 값을 = '' 초기화 시켜주고 아작스 댓글 뿌리는 함수 넣기
+			}
 		})
 	}
 	
@@ -511,10 +514,6 @@
 	
 	
 	
-	// 클릭했을시 1:1 채팅 가능하게끔
-	function moveToTransChat(i_trans) {
-		location.href="/test/test?i_trans="+i_trans
-	}
 		
 	function moveToDetail(i_user) {
 		location.href="/user/myPage?i_user="+i_user
