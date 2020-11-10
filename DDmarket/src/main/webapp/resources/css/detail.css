@@ -462,7 +462,11 @@ border-radius:6px;
 
 
 /* 페이징 */
-.pageWrap {display: flex; justify-content: center;}
+.pageWrap {
+	display: flex; 
+	justify-content: center;
+	margin-bottom: 100px;
+	}
 .pageWrap a {
     width: 22px;
     height: 22px;
@@ -568,7 +572,7 @@ section:nth-last-child(2) {margin-bottom:0px;}
     margin-top: 85px;
     text-align: end;
 }
-#section-info #div-info-right #buttonWrap button {
+#section-info #div-info-right #buttonWrap button{
     width: 100px;
     height: 40px;
     background: #3B73C8;
@@ -577,16 +581,30 @@ section:nth-last-child(2) {margin-bottom:0px;}
     font-weight: bold;
     cursor: pointer;
     margin-left: 15px;
+    text-align: center;
 }
+
+#section-info #div-info-right #buttonWrap #heart{
+	
+}
+
 #section-info #div-info-right #buttonWrap button:nth-child(1) {
+    margin-left: 20px;
+    float: right;
+}
+
+#section-info #div-info-right #buttonWrap button:nth-child(2) {
     margin-left: 0px;
-    position: relative;
+    float: right;
+   
 }
-#section-info #div-info-right #buttonWrap .icon-btn-heart {
-    position: absolute;
-    top: 10px;
-    right: 50px;
+
+#section-info #div-info-right #buttonWrap {
+	margin-top: 70px;
 }
+
+
+
 
 /* section-desc */
 #section-desc {
@@ -655,6 +673,8 @@ section:nth-last-child(2) {margin-bottom:0px;}
     border-bottom: 1px solid #EEEEEE;
     margin-bottom: 10px;
     padding-bottom: 10px;
+    word-break: keep-all;
+    word-wrap: break-word;
 }
 #section-comment #commentWrap:nth-last-child(2) {
     display: flex;
@@ -686,7 +706,7 @@ section:nth-last-child(2) {margin-bottom:0px;}
 #section-comment #commentWrap .comment-profile-desc .comment {
     font-size: 16px;
     width: 900px;
-    margin: 10px 0;
+    margin: 10px 0px 15px 0px;
 }
 #section-comment #commentWrap .comment-profile-desc .etc {
     margin-top: 10px;

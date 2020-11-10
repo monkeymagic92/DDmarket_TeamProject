@@ -61,7 +61,7 @@
                                        <a href="/board/detail?i_board=${item.i_board}">  
                                            <div class="card-pic">
                                               <c:choose>
-                                                 <c:when test="${item.thumImage == ''}">
+                                                 <c:when test="${item.thumImage == null}">
                                                     <img src="/res/img/lion.jpg">
                                                  </c:when>
                                                  <c:otherwise>
