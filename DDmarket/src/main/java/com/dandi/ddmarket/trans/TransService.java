@@ -44,6 +44,9 @@ public class TransService {
 		return mapper.selTrans(param);
 	}
 	
+	public int updSold(BoardPARAM param) {
+		return mapper.updSold(param);
+	}
 	
 	// 거래취소 
 	public int delTransUser(TransVO vo) {

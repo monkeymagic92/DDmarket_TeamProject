@@ -9,7 +9,7 @@
 		SELECT MAX(i_board) + 1 FROM t_board
 	</select>
 
-
+	
 	<!-- 디테일에서 판매글 정보 나타내기 -->
 
 	<select id="selBoard" resultType="BoardDMI" parameterType="BoardPARAM">

@@ -124,6 +124,7 @@
                                 <br><br>
                            		<c:if test="${data.i_user != loginUser.i_user}">
                            			<c:if test="${buyList != null}">
+
                            				<button class="buyChat" onclick="buyChatBtn()">${buyList}</button>
                            			</c:if>
                            		</c:if>
@@ -136,9 +137,7 @@
                            			<c:if test="${loginUser != null}">
 	                      				<button type="submit" name="chkSubmit" id="chkSubmit" onclick="chkValue()">${transBtn}</button>
                       				</c:if>
-                           		</form>
-                         		
-                          	                           		
+                           		</form>               		
                         	</c:if>				
                         </div>
                     </div>
@@ -151,7 +150,7 @@
              
              
             <%-- <button class="review" onclick="transBtn()">거래신청 목록보기</button>--%>
-            <button id="chatting" onclick="chatBtn()">버튼</button>
+            <button id="chatting" onclick="chatBtn()">거래신청 목록</button>
             <div id="ChatBox">
 
 		        <div id="SaleList">
@@ -161,6 +160,23 @@
 		            
 		            
 		            <div id="Buyers">
+
+		                <div class="buyer" onclick="moveChat()">
+		                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1_copy.jpg" />
+		                    <p>
+		                        <strong>닉네임</strong>
+		                        <span>별점</span>
+		                        <button onclick="soldSuccess()">거래완료</button>
+		                    </p>
+		                </div>
+		                <div class="buyer">
+		                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1_copy.jpg" />
+		                    <p>
+		                        <strong>닉네임</strong>
+		                        <span>별점</span>
+		                    </p>
+		                </div>
+
 		            	<c:forEach items="${selTrans}" var="item">
 			                <div class="buyer" onclick="moveChat()">
 			                    <c:if test="${item.profile_img == null }">
@@ -175,6 +191,7 @@
 			                    </p>
 			                </div>
 			            </c:forEach>		               
+
 		            </div>
 		        </div>
 		        
@@ -405,21 +422,22 @@
                     <div class="review-profile-reviewNum">15명의 후기</div>
                 </div>
                 <div id="div-review-right">
+	                <c:forEach items="${reviewList}" var="item" >
                     <div id="reviewWrap">
-	                <c:forEach items="${reviewList}" var="item" begin="0" >
                         <div class="review-right-profile-img"><img src="/res/img/yerin.jpg"></div>
                         <div class="review-right-profile-desc">
                             <div class="nick">
                             	<span>${item.nick}</span>
-                            	<span class="rating">${item.rating}</span></div>
+                            </div>
+                                <span class="rating">${item.rating}</span>
                                 <div class="star-ratings-css">
                                     <div class="star-ratings-top_1" style="width:75%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                                     <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                                 </div>
                             </div>
                             <div class="comment">${item.ctnt}</div>
-                        </c:forEach>
                         </div>
+                    </c:forEach>
                     </div>
                 </div>
             </section>
@@ -615,8 +633,10 @@
 	
 	
 	function chkValue() {
+		
 		transFrm.chk.value = 1
 		location.reload()
+		
 	}
 	
 	/*
@@ -823,6 +843,7 @@
 	}
 	
 	// 별점
+
     /*
 	var rating_1 = 1.5/5*75;
 	var starbar_1 = document.querySelector('.star-ratings-top_1')
@@ -892,7 +913,7 @@
         var modal = document.querySelector(".myModal");
         modal.style.display = "none";
      }
-     
+
     function chatBtn(){
         ChatBox.style.display = 'flex'   
     }
@@ -906,6 +927,13 @@
         ChatBox.style.display = 'none'
     }
     
+
+	//거래완료
+	function soldSuccess() {
+		if(!confirm('거래를 완료하시겠습니까?')){ return }
+		location.href = "/trans/sold?i_board=${data.i_board}"
+	}
+
     if(${transErr != null}) {
 		alert('${transErr}')		
 	}
@@ -919,7 +947,7 @@
 	})
 	*/
 
-   
+
 
 </script>
 </body>
