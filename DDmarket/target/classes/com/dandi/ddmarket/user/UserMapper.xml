@@ -221,12 +221,10 @@
 		AND i_user = #{i_user}
 	</delete>
 	
-
 	<delete id="delMyReview" parameterType="ReviewPARAM">
 		DELETE FROM t_review
 		WHERE i_review = #{i_review}
 		AND i_user = #{i_user}
 	</delete>
 	
-
 </mapper>
