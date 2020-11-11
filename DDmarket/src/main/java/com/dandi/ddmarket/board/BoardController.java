@@ -152,7 +152,7 @@ public class BoardController {
 	// 판매글 상세페이지 (detail)
 	@RequestMapping(value="/detail", method = RequestMethod.GET)
 
-	public String detail(Model model, TransDMI transDmi, BoardPARAM param, CmtVO vo, HttpServletRequest req,
+	public String detail(Model model, TransDMI transDmi, ReviewPARAM rparam, BoardPARAM param, CmtVO vo, HttpServletRequest req,
 			HttpServletRequest request, HttpSession hs) {
 		
 		int i_user = 0;
@@ -192,8 +192,10 @@ public class BoardController {
 	    model.addAttribute("cmtPageNum", cmtPageMaker);
 		////// 페이징 end
 		
-
+	    int rating = CommonUtils.getIntParameter("rating", request);
 	    model.addAttribute("reviewList", reviewService.selReview(param));
+	    model.addAttribute("data", reviewService.selReview(param));
+	    rparam.setRating(rating);
 	    
 	    // 판매글에 접속한 i_user에 chk값이 1, 0에 따라서 버튼이름 변경  (trans기능에 사용) 
 	    int chk = transService.chkTrans(param);

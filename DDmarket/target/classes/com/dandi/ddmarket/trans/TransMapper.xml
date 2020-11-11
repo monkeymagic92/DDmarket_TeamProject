@@ -38,6 +38,12 @@
 	
 		
 	<!-- update -->
+		
+	<update id="updSold">
+		UPDATE t_board
+		SET sold = 1
+		WHERE i_board = #{i_board}
+	</update>
 	
 	
 	<!-- delete -->

@@ -2,10 +2,12 @@ package com.dandi.ddmarket.trans;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.dandi.ddmarket.CommonUtils;
 import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.trans.model.TransVO;
 
@@ -37,6 +39,15 @@ public class TransController {
     	}
 		
 	    
+		return "redirect:/board/detail?i_board="+param.getI_board();
+	}
+	
+	@RequestMapping(value = "/sold")
+	public String sold(Model model, BoardPARAM param) {
+		
+		int i_board = CommonUtils.parseStringToInt("i_board");
+		model.addAttribute("data", service.updSold(param));
+		
 		return "redirect:/board/detail?i_board="+param.getI_board();
 	}
 	

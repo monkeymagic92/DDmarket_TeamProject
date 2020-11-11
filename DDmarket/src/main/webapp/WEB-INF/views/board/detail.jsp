@@ -120,9 +120,35 @@
                            		<%-- 우현 view단 받으면 그대로 그 대화창만 i_trans값 보내기 --%>
                            		<c:if test="${data.i_user != loginUser.i_user}">
                            			<c:if test="${buyList != null}">
-                           				<button>${buyList}</button>
+                           				<button onclick="movebuy()">${buyList}</button>
                            			</c:if>
                            		</c:if>
+                           		
+                           	<!-- 	<div id="chatView" draggable="true" ondrag="moveCtnt()">
+						            <div id="chatClose" class="p1" onclick="CloChat()">
+						              	  닫기
+						            </div>
+						            <div id="chat-Msg">
+						                <div class="message">
+						                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1_copy.jpg" alt="">
+						                    <div class="bubble">안녕하세요
+						                        <div class="corner"></div>
+						                        <span>1분</span>
+						                    </div>
+						                </div>
+						                <div class="message Mychat">
+						                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" alt="">
+						                    <div class="bubble">안녕하세요
+						                        <div class="corner"></div>
+						                        <span>10초</span>
+						                    </div>
+						                </div>
+						            </div>
+						            <div id="sendMessage">
+						                <input type="text">
+						                <button id="send" onclick="send()"></button>
+						            </div>
+						        </div>  -->
                            		
                            		
                            		<%-- 구매요청 버튼 --%>
@@ -133,16 +159,14 @@
                            			<c:if test="${loginUser != null}">
 	                      				<button type="submit" name="chkSubmit" id="chkSubmit" onclick="chkValue()">${transBtn}</button>
                       				</c:if>
-                           		</form>
-                         		
-                          	                           		
+                           		</form>               		
                         	</c:if>				
                         </div>
                     </div>
             </section>
              
             <%-- <button class="review" onclick="transBtn()">거래신청 목록보기</button>--%>
-            <button id="chatting" onclick="chatBtn()">버튼</button>
+            <button id="chatting" onclick="chatBtn()">거래신청 목록</button>
             <div id="ChatBox">
 		        <div id="SaleList">
 		            <div id="close" onclick="CloBox()">
@@ -154,6 +178,7 @@
 		                    <p>
 		                        <strong>닉네임</strong>
 		                        <span>별점</span>
+		                        <button onclick="soldSuccess()">거래완료</button>
 		                    </p>
 		                </div>
 		                <div class="buyer">
@@ -295,21 +320,22 @@
                     <div class="review-profile-reviewNum">15명의 후기</div>
                 </div>
                 <div id="div-review-right">
+	                <c:forEach items="${reviewList}" var="item" >
                     <div id="reviewWrap">
-	                <c:forEach items="${reviewList}" var="item" begin="0" >
                         <div class="review-right-profile-img"><img src="/res/img/yerin.jpg"></div>
                         <div class="review-right-profile-desc">
                             <div class="nick">
                             	<span>${item.nick}</span>
-                            	<span class="rating">${item.rating}</span></div>
+                            </div>
+                                <span class="rating">${item.rating}</span>
                                 <div class="star-ratings-css">
                                     <div class="star-ratings-top_1" style="width:75%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                                     <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                                 </div>
                             </div>
                             <div class="comment">${item.ctnt}</div>
-                        </c:forEach>
                         </div>
+                    </c:forEach>
                     </div>
                 </div>
             </section>
@@ -496,8 +522,10 @@
 	
 	
 	function chkValue() {
+		
 		transFrm.chk.value = 1
 		location.reload()
+		
 	}
 	
 	/*
@@ -611,11 +639,13 @@
 	}
 	
 	// 별점
-  /*
-	var rating_1 = 1.5/5*75;
-	var starbar_1 = document.querySelector('.star-ratings-top_1')
-		starbar_1.style.width = rating + "%";
-
+	var starbar = document.querySelector('.star-ratings-top_1')
+	var bar = ${item.rating}/5*75
+	starbar.style.width = bar + "%"
+//	var rating_1 = ${data.rating}/5*75;
+//	var starbar_1 = document.querySelector('.star-ratings-top_1')
+//		starbar_1.style.width = rating_1 + "%";
+	 /*
 	var rating_2 = 1.5/5*75;
 	var starbar_2 = document.querySelector('.star-ratings-top_2')
 		starbar_2.style.width = rating + "%";
@@ -706,7 +736,9 @@
         modal.style.display = "none";
      }
     
-
+//	function movebuy() {
+//		chatView.style.display = 'flex'
+//	}
     
     
     
@@ -723,8 +755,11 @@
         ChatBox.style.display = 'none'
     }
     
-
-
+	//거래완료
+	function soldSuccess() {
+		if(!confirm('거래를 완료하시겠습니까?')){ return }
+		location.href = "/trans/sold?i_board=${data.i_board}"
+	}
 
 </script>
 </body>
