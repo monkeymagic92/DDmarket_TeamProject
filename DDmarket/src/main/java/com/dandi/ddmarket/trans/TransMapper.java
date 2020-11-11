@@ -17,6 +17,8 @@ public interface TransMapper {
 	
 	int chkTrans(BoardPARAM param);
 	
+	List<TransCmtVO> selTransCmt(TransCmtVO param);
+	
 	// insert
 	int insTrans(TransVO vo);  // 구매요청 눌렀을시 해당 유저값 저장
 	

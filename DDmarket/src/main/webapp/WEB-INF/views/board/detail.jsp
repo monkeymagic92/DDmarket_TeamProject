@@ -124,7 +124,7 @@
                                 <br><br>
                            		<c:if test="${data.i_user != loginUser.i_user}">
                            			<c:if test="${buyList != null}">
-                           				<button class="buyChat" onclick="buyChatBtn(${data.i_user}, ${loginUser.i_user}, ${data.i_board})">${buyList}</button>
+                           				<button class="buyChat" onclick="buyChatBtn()">${buyList}</button>
                            			</c:if>
                            		</c:if>
                            		
@@ -181,7 +181,7 @@
 		            </div>
 		        </div>
 		        
-		        <%-- 판매자가 구매요청 유저 리스트에서 1:1 대화창 --%>
+		        <%-- '판매자'가 구매요청 유저 리스트에서 1:1 대화창 --%>
 		        <div id="chatView" draggable="true" ondrag="moveCtnt()">
 		            <div id="chatClose" class="p1" onclick="CloChat()">
 		              	  닫기
@@ -220,33 +220,31 @@
 		    </div>
 		    
 		    
-		    <%-- 구매자만 보이는 채팅창(판매자 1:1) --%>
+		    
+		    
+		    
+		    
+		    
+		    
+		    <%-- '구매자'만 보이는 채팅창(판매자 1:1) --%>
 		    <div class="buyChatList" id="buyChatView" draggable="true" ondrag="moveCtnt()">
 	            <div id="chatClose" class="p1" onclick="CloBuyChat()">
 	              	  닫기
 	            </div>
 	            <div id="chat-Msg">
 	            
-	            	<%-- 판매자 --%>
-	            
-	                <div class="message">
-	                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1_copy.jpg" alt="">
-	                    <div class="bubble">안녕하세요
-	                        <div class="corner"></div>
-	                        <span>1분</span>
-	                    </div>
-	                </div>               
-	                <%-- 구매자 --%>
-	                <div class="message Mychat">
-	                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" alt="">
-	                    <div class="bubble">안녕하세요
-	                        <div class="corner"></div>
-	                        <span>10초</span>
-	                    </div>
-	                </div>
+	            	<c:if test="${loginUser != null}">
+		                <div id="TransChatView" class="message Mychat">
+		                   
+		                </div>             
+	                </c:if>
+	                <c:if test="${loginUser == null}">
+	                	<div id="TransChatView" class="message Mychat">
+		                   
+		                </div>
+	                </c:if>	              
 	            </div>
-	            
-	            
+	                        
 	            
 	            <%-- 아작스로 댓글 등록하기 --%>
 	            <div id="sendMessage">
@@ -260,8 +258,6 @@
 		    
 		    
 		    <%-- -	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	 --%>
-		    
-		    
 		    
 		    
 		    
@@ -393,16 +389,6 @@
 <script>
 
 
-	if(${transErr != null}) {
-		alert('${transErr}')		
-	}
-	
-	// 구매자 판매자 1:1문의 창 띄우기
-	$('.buyChatList').hide();
-	
-	$('.buyChatBtn').click(function() {
-		$('.buyChatList').show();
-	})
 	
 	
 	// 1:1문의 창 띄웠을시 여기서 아작스로 select 해서 채팅창 띄우기
@@ -419,25 +405,86 @@
 	}
 	
 	
-	// 판매 구매 1:1 문의창에서 댓글입력 아작스로 보내기 (추후 쿼리문에서 t_trans_cmt의 i_board값을 t_trans 테이블로 조인걸기 (많은 데이터양 관리차원))
+	
+	// '구매자 채팅입력'
 	function transCmt() {
 		var transCmt = transCmtId.value
 		
 		axios.post('/trans/insTransCmt', {
 			
 			i_board : `${data.i_board}`,
-			i_user : `${loginUser.i_user}`,			
+			i_user : `${loginUser.i_user}`,	
 			saleI_user : `${data.i_user}`,
 			transCmt
 			
 		}).then(function(res) {
-			if (res.data == '1') {
-				// div 태그안에 값을 = '' 초기화 시켜주고 아작스 댓글 뿌리는 함수 넣기
+			
+			refreshBuyChat(res.data)
+			
+		})
+	}
+		
+	
+	//	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+	
+	
+	
+	
+	
+		
+	// 구매자 1:1문의 채팅창 띄우기	-	-	-	-	-	-	-	-	-	-	-	-
+	var saleProfile_img = `${data.profile_img}`
+	
+	function buyChatBtn() {
+		axios.get('/trans/selTransCmt', {
+			
+			// saleProfile_img (판매자 사진) 못받을경우 대체이미지로 if문 써서 서버에 넘기거나 서버단에서 if문으로 get에 넣기 
+			
+			params: {
+				saleI_user : `${data.i_user}`,
+				i_user : `${loginUser.i_user}`,				
+				i_board : `${data.i_board}`
 			}
+		
+		}).then(function(res) {
+			refreshBuyChat(res.data)
+			$('.buyChatList').show();
 		})
 	}
 	
+	function refreshBuyChat(arr) {
+		for (let i = 0; i < arr.length; i++) {
+			makeTransBuyChat(arr)
+		}
+	}
 	
+	function makeTransBuyChat(arr) {
+		
+		var img = document.createElement('img')
+		if(arr.profile_img != null || arr.profile_img != '') {
+			img.setAttribute('src',`/res/img/profile_img/user/\${arr.transCmtChk}/\${arr.profile_img}`)
+		} else {
+			img.setAttribute('src','/res/img/lion.jpg')
+		}
+		TransChatView.append(img)
+		
+		var divBubble = document.createElement('div')
+		divBubble.setAttribute('class', 'bubble')
+		TransChatView.append(divBubble)
+		
+		var spanChatDate = document.createElement('span')
+		spanChatDate.setAttribute('class', 'chatDate')
+		spanChatDate.append(arr.r_dt)
+		
+		divBubble.append(spanChatDate)
+		
+	}
+	
+	//	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+	
+	
+		
+	// 댓글 뿌리는 아작스	-	-	-	-	-	-	-	-	-	-	-	
 	var cmtList = []
 	function ajaxSelCmt() {
 		console.log(`i_board : ${data.i_board}`)
@@ -505,9 +552,9 @@
 		
 	}
 	
-	
-	
 	ajaxSelCmt()
+	
+	//	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	
 	
 	
 	
@@ -594,7 +641,6 @@
 			if(res.data == '1') { // 댓글 등록 완료				
 				frm.ctnt.value = ''
 				ajaxSelCmt()
-				
 						
 			} else if(res.data == '3') {
 				alert('로그인을 해주세요')
@@ -619,8 +665,6 @@
 		ajaxPost(i_user, i_board, ctnt, i_cmt)
 		
 	}	
-	
-	
 
 	if(${updMsg != null}) {
 		alert('${updMsg}')
@@ -749,6 +793,18 @@
         ChatBox.style.display = 'none'
     }
     
+    if(${transErr != null}) {
+		alert('${transErr}')		
+	}
+	
+	// 구매자 판매자 1:1문의 창 띄우기
+	$('.buyChatList').hide();
+	
+	/*
+	$('.buyChatBtn').click(function() {
+		$('.buyChatList').show();
+	})
+	*/
 
 
 

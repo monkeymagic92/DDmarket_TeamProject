@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dandi.ddmarket.board.model.BoardPARAM;
+import com.dandi.ddmarket.trans.model.TransCmtDMI;
 import com.dandi.ddmarket.trans.model.TransCmtVO;
 import com.dandi.ddmarket.trans.model.TransDMI;
 import com.dandi.ddmarket.trans.model.TransVO;
@@ -55,5 +56,9 @@ public class TransService {
 		return mapper.insTransCmt(vo);
 	}
 	
+	
+	public List<TransCmtVO> selTransCmt(TransCmtDMI param) {
+		return mapper.selTransCmt(param);
+	}
 	
 }
