@@ -51,31 +51,31 @@
                 <div id="div-search-standard">
 	                <c:choose>
 	                	<c:when test="${searchType == 'new'}">
-		                	<a style="color: red;" href="/index/search?searchType=new&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}" class="search-standard-a">최신순</a>ㅣ
+		                	<a style="color: #F84C4C;" href="/index/search?searchType=new&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}" class="search-standard-a">최신순</a>ㅣ
 		                	<a href="/index/search?searchType=hot&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}" class="search-standard-b">인기순</a>ㅣ
 		                	<a href="/index/search?searchType=lowPrice&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}" class="search-standard-c">저가순</a>ㅣ
 		                	<a href="/index/search?searchType=highPrice&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}" class="search-standard-d">고가순</a>
 	                	</c:when>
 	                	<c:when test="${searchType == 'hot'}">
 		                	<a href="/index/search?searchType=new&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}" class="search-standard-a">최신순</a>ㅣ
-		                	<a style="color: red;" href="/index/search?searchType=hot&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}" class="search-standard-b">인기순</a>ㅣ
+		                	<a style="color: #F84C4C;" href="/index/search?searchType=hot&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}" class="search-standard-b">인기순</a>ㅣ
 		                	<a href="/index/search?searchType=lowPrice&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}" class="search-standard-c">저가순</a>ㅣ
 		                	<a href="/index/search?searchType=highPrice&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}" class="search-standard-d">고가순</a>
 	                	</c:when>
 	                	<c:when test="${searchType == 'lowPrice'}">
      			            <a href="/index/search?searchType=new&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}" class="search-standard-a">최신순</a>ㅣ
 		                	<a href="/index/search?searchType=hot&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}" class="search-standard-b">인기순</a>ㅣ
-		                	<a style="color: red;" href="/index/search?searchType=lowPrice&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}" class="search-standard-c">저가순</a>ㅣ
+		                	<a style="color: #F84C4C;" href="/index/search?searchType=lowPrice&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}" class="search-standard-c">저가순</a>ㅣ
 		                	<a href="/index/search?searchType=highPrice&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}" class="search-standard-d">고가순</a>
 	                	</c:when>
 	                	<c:when test="${searchType == 'highPrice'}">
 		                	<a href="/index/search?searchType=new&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}" class="search-standard-a">최신순</a>ㅣ
 		                	<a href="/index/search?searchType=hot&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}" class="search-standard-b">인기순</a>ㅣ
 		                	<a href="/index/search?searchType=lowPrice&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}" class="search-standard-c">저가순</a>ㅣ
-		                	<a style="color: red;" href="/index/search?searchType=highPrice&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}" class="search-standard-d">고가순</a>
+		                	<a style="color: #F84C4C;" href="/index/search?searchType=highPrice&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}" class="search-standard-d">고가순</a>
 	                	</c:when>
 	                	<c:when test="${searchType == null}">
-		                	<a style="color: red;" href="/index/search?searchType=new&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}" class="search-standard-a">최신순</a>ㅣ
+		                	<a style="color: #F84C4C;" href="/index/search?searchType=new&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}" class="search-standard-a">최신순</a>ㅣ
 		                	<a href="/index/search?searchType=hot&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}" class="search-standard-b">인기순</a>ㅣ
 		                	<a href="/index/search?searchType=lowPrice&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}" class="search-standard-c">저가순</a>ㅣ
 		                	<a href="/index/search?searchType=highPrice&i_cg=${i_cg > 0 ? i_cg : 0}&searchNm=${searchNm}" class="search-standard-d">고가순</a>

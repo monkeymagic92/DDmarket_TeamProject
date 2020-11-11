@@ -19,7 +19,6 @@ public class ReviewService {
 	}
 	
 	public List<ReviewPARAM> selReview(BoardPARAM param){
-		
 		return mapper.selReview(param);
 	}
 

@@ -11,7 +11,6 @@
 <body>
 		
         <main>
-        
             <div id="div-title">찜 목록</div>
             <div class="tab_content" id="div-wrap-buyList">
             	<c:forEach items="${data}" var="item">
@@ -30,22 +29,23 @@
                         <span class="card-date-text">찜한 날짜</span>
                         <span class="card-date-num">${item.r_dt}</span>
                         </div>
-                        <button onclick="likeListDel(${item.i_board})">삭제</button>
+                        <c:if test="${loginUser.i_user != null}">
+                        	<button onclick="likeListDel(${item.i_board},${item.i_user })">삭제</button>
+                        </c:if>
                     </div>
                 </article>
                 </c:forEach>
             </div>
-        
         </main>
       
-    <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
+<script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 </body>
 <script>
-	function likeListDel(i_board) {
-		if(confirm('삭제 하시겠습니까?')){		
-			location.href='/user/likeListDel?i_board=' + i_board + '&i_user=' + ${loginUser.i_user};
-			}
-	} 
 	
+	function likeListDel(i_board, i_user) {
+		if(confirm('삭제 하시겠습니까?')){		
+			location.href='/user/likeListDel?i_board=' + i_board + '&i_user='+ ${loginUser.i_user}
+		}
+	}
 </script>
 </html>

@@ -121,4 +121,11 @@
 </body>
 <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 <script src="/res/js/common.js"></script>
+<script>
+	if(${likeListLoginMsg != null}) {
+		alert('${likeListLoginMsg}')
+		location.href="/user/login"
+	} 
+</script>
+
 </html>

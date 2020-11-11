@@ -1,11 +1,9 @@
 package com.dandi.ddmarket.cmt;
 
 
-import java.io.IOException;
+import java.util.List;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dandi.ddmarket.SecurityUtils;
-import com.dandi.ddmarket.ViewRef;
+import com.dandi.ddmarket.board.model.BoardPARAM;
+import com.dandi.ddmarket.cmt.model.CmtDMI;
 import com.dandi.ddmarket.cmt.model.CmtVO;
 import com.dandi.ddmarket.user.model.UserPARAM;
 
@@ -26,6 +25,16 @@ public class CmtController {
 	
 	@Autowired
 	private CmtService service;	
+	
+	
+	// 댓글 뿌리기
+	@RequestMapping(value="/selCmt", method=RequestMethod.GET)
+	private @ResponseBody List<CmtDMI> selCmt(BoardPARAM param){
+		System.out.println("댓글뿌리기");
+		System.out.println(param.getI_board());
+		return service.selCmt(param);
+	}
+	
 	
 	
 	// 댓글 등록 / 수정
