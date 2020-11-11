@@ -92,7 +92,7 @@
                  		<input type="hidden" name="profile_img" value="${userAPI.profile_img}">
                  		<input type="hidden" name="joinPass" value="${userAPI.joinPass}">
                  </c:if>
-                    <div><input type="text" name="nm" id="nm_input" placeholder="이름"></div>
+                    <div><input type="text" name="nm" id="nm_input" placeholder="이름" value="${userAPI.nm}"></div>
                     <div>
                         <input type="text" name="nick" id="nick_input" placeholder="닉네임" value="${userAPI.nick}">
                         <button type="button" id="nickChk" onclick="chkNick()">닉네임 중복체크</button>

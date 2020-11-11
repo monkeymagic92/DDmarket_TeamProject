@@ -7,8 +7,10 @@ import java.io.File; // 여기부분 에러뜨면 빌드패스 자바jre 확인 
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -43,6 +45,8 @@ import com.dandi.ddmarket.user.model.UserVO;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 
 @Controller
@@ -534,23 +538,26 @@ public class UserController {
 	}
 	
 	
-	//카카오톡 api
+	//로그인 api
 	@RequestMapping(value="/SNSController", method = RequestMethod.GET)
-	public String SNSControl(HttpServletRequest request) {
+	public String SNSControl(HttpServletRequest request) throws UnsupportedEncodingException {
 		String snsChk = request.getParameter("snsPlatform");
 		String move = null;
 		switch (snsChk) {
 			case "kakao":
 				move = SNSInfo.kakao_login();
 				break;
+			case "naver":
+				move = SNSInfo.naver_login();
+				break;
 		}
 		
 		return "redirect:" + move;
 	}
 	
-	//카카오톡 api 2
+	//카카오톡 api
 	@RequestMapping(value="/kakaoAPI", method = RequestMethod.GET)
-	public String SNSControl2(UserPARAM param, HttpServletRequest request, Model model, HttpSession hs, RedirectAttributes ra) throws Exception {
+	public String kakaoControl(UserPARAM param, HttpServletRequest request, Model model, HttpSession hs, RedirectAttributes ra) throws Exception {
 		
 		String msg = null;
 
@@ -589,9 +596,12 @@ public class UserController {
 		return "redirect:/" + ViewRef.USER_LOGIN;
 	}
 	
+	
 	public static UserPARAM getUserInfo (String access_Token) throws Exception {
 	    UserPARAM param = new UserPARAM();
 	    String reqURL = "https://kapi.kakao.com/v2/user/me";
+	    
+	    
 	    try {
 	        URL url = new URL(reqURL);
 	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -686,5 +696,132 @@ public class UserController {
         } 
         return access_Token;
 	}
+	
+	
+	//네이버 api
+	@RequestMapping(value="/naverAPI", method = RequestMethod.GET)
+	public String naverControl(UserPARAM param, HttpServletRequest request, Model model, HttpSession hs, RedirectAttributes ra) throws Exception {
+		
+		String msg = null;
+		
+		String code = request.getParameter("code");
+		String state = request.getParameter("state");
+
+		String access_token = getAccessToken(code, state);
+		
+		// 카카오 API 를  통해  회원의 정보를 가져와서 값을 넣어줌
+		UserPARAM userAPI = getUserInfo2(access_token);
+		
+		int result = service.SNSLogin(userAPI);
+		
+		System.out.println("result : " + result);
+		
+		System.out.println("이메일 : " + userAPI.getEmail());
+		System.out.println("닉네임 : " + userAPI.getNick());
+		System.out.println("유저아이디 : " + userAPI.getUser_id());
+		System.out.println("패스워드 : " + userAPI.getUser_pw());
+		System.out.println("가입경로 : " + userAPI.getJoinPass());
+		System.out.println("프사 : " + userAPI.getProfile_img());
+		
+		
+		//1: 로그인 성공,  2 : 아이디 없음
+		if(result == Const.NO_ID) {
+			ra.addFlashAttribute("userAPI", userAPI);
+			return "redirect:/" + ViewRef.USER_JOIN;
+		} else if (result == Const.SUCCESS) {
+			param.setUser_id(userAPI.getUser_id());
+			param.setJoinPass(userAPI.getJoinPass());
+			hs.setAttribute(Const.LOGIN_USER, service.selUser(param));
+			return "redirect:/" + ViewRef.INDEX_MAIN;
+		} else if (result == Const.NO_PW) {
+			msg = "비밀번호를 확인해 주세요";
+		}
+		
+		
+		ra.addFlashAttribute("data", msg);
+		return "redirect:/" + ViewRef.USER_LOGIN;
+	}
+	
+	public static String getAccessToken(String code, String state) throws UnsupportedEncodingException {
+		String redirectURI = URLEncoder.encode(SNSInfo.getNaverRedirectUri(),"UTF-8");
+				
+		StringBuffer apiURL = new StringBuffer();
+		apiURL.append("https://nid.naver.com/oauth2.0/token?grant_type=authorization_code");
+		apiURL.append("&"+SNSInfo.getNaverClientId());
+		apiURL.append("&"+SNSInfo.getNaverClientSecret());
+		apiURL.append("&redirect_uri=" + redirectURI);
+		apiURL.append("&code=" + code);
+		apiURL.append("&state=" + state);
+		String access_token = "";
+				
+		try { 
+			  URL url = new URL(apiURL.toString());
+		      HttpURLConnection con = (HttpURLConnection)url.openConnection();
+		      con.setRequestMethod("GET");
+		      int responseCode = con.getResponseCode();
+		      BufferedReader br;
+		      
+		      if(responseCode==200) {
+		    	System.out.println("정상 호출");
+		        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		      } else {  // 에러 발생
+		    	System.out.println("에러 호출");
+		        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+		      }
+		      
+		      String inputLine;
+		      StringBuffer res = new StringBuffer();
+		      
+		      while ((inputLine = br.readLine()) != null) {
+		        res.append(inputLine);
+		      }
+		      br.close();
+		      if(responseCode==200) {
+	    		JSONParser parsing = new JSONParser();
+	    		Object obj = parsing.parse(res.toString());
+	    		JSONObject jsonObj = (JSONObject)obj;
+	    			        
+	    		access_token = (String)jsonObj.get("access_token");
+		      }
+		    } catch (Exception e) {
+		    }
+		return access_token;
+	}
+	
+	public static UserPARAM getUserInfo2(String access_token) throws IOException {
+		String apiurl = "https://openapi.naver.com/v1/nid/me";
+		URL url = new URL(apiurl);
+		HttpURLConnection con = (HttpURLConnection)url.openConnection();
+		con.setRequestMethod("POST");
+		con.setRequestProperty("Authorization", "Bearer " + access_token);
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		
+		String line = "";
+        String result = "";
+        
+        while ((line = br.readLine()) != null) {result += line;}
+        
+		JsonParser parser = new JsonParser();
+		JsonElement element = parser.parse(result);
+		
+		JsonObject property = element.getAsJsonObject().get("response").getAsJsonObject();
+		String user_id = property.getAsJsonObject().get("id").getAsString();
+		String profile_img = property.getAsJsonObject().get("profile_image").getAsString();
+		String email = property.getAsJsonObject().get("email").getAsString();
+		String name = property.getAsJsonObject().get("name").getAsString();
+		String nickname = property.getAsJsonObject().get("nickname").getAsString();
+		
+		UserPARAM userInfo = new UserPARAM();
+		userInfo.setNick(nickname);
+		userInfo.setUser_id(user_id);
+        userInfo.setUser_pw(user_id);
+		userInfo.setNm(name);
+		userInfo.setProfile_img(profile_img);
+		userInfo.setEmail(email);
+		userInfo.setJoinPass(3);
+		return userInfo;
+	}
+
 	
 }

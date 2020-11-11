@@ -13,7 +13,7 @@ public class SNSInfo {
 		//REDIRECT_URI
 		private static final String KAKAO_REDIRECT_URI = HOST_URI + "/user/kakaoAPI";
 		private static final String GOOGLE_REDIRECT_URI = HOST_URI + "/googleAPI";
-		private static final String NAVER_REDIRECT_URI = HOST_URI + "/naverAPI";
+		private static final String NAVER_REDIRECT_URI = HOST_URI + "/user/naverAPI";
 		
 		//공통 정보
 		private static final String RESPONSE_TYPE = "&response_type=code";
@@ -71,6 +71,7 @@ public class SNSInfo {
 			sb.append(state);
 			return sb.toString();
 		}
+		
 		public static String getKakaoRedirectUri() {
 			return KAKAO_REDIRECT_URI;
 		}

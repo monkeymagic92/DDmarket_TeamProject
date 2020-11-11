@@ -18,7 +18,7 @@
                 
             </form>
             <div class="div-api">
-                <div><a href="#"><img src="/res/img/login_naver.png"></a></div>
+                <div><a href="#" onclick="moveToNaver()"><img src="/res/img/login_naver.png"></a></div>
                 <div><a href="#" onclick="moveToKakao()"><img src="/res/img/login_kakao.png"></a></div>
             </div>
             <ul class="ul-bottom">
@@ -45,6 +45,10 @@ if(${data != null}) {
 
 function moveToKakao() {
 	location.href = "/user/SNSController?snsPlatform=kakao"
+}
+
+function moveToNaver() {
+	location.href = "/user/SNSController?snsPlatform=naver"
 }
 
 

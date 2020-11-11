@@ -17,11 +17,18 @@
             <section id="section-top">
                 <div id="div-top-left">
                     <div id="profile_img">
-                        <c:if test="${data.profile_img == null }">
-                      		<a href="/user/myPage?i_user=${data.i_user}&i_tap=1"><img src="/res/img/yerin.jpg" onchange="setThumbnail(e)" alt="" class="img"></a>
+                        <c:if test="${data.profile_img == null || data.profile_img == ''}">
+                      		<a href="/user/myPage?i_user=${data.i_user}&i_tap=1"><img src="/res/img/yerin.jpg"></a>
                        	</c:if>
-                       	<c:if test="${data.profile_img != null }">
-                            <a href="/user/myPage?i_user=${data.i_user}"><img src="/res/img/profile_img/user/${data.i_user}/${data.profile_img}" class="img"></a>                    	
+                       	<c:if test="${data.profile_img != null}">
+                       		<c:choose>
+                       		<c:when test="${fn:contains(data.profile_img, 'http')}">
+                       			<a href="/user/myPage?i_user=${data.i_user}"><img src="${data.profile_img}"></a>
+                       		</c:when>
+                       		<c:otherwise>                       		
+                          		 <a href="/user/myPage?i_user=${data.i_user}"><img src="/res/img/profile_img/user/${data.i_user}/${data.profile_img}"></a>                    	
+                       		</c:otherwise>
+                       		</c:choose>
                        	</c:if>
                     </div>
                     <span class="profile_nick">${data.nick}</span>
