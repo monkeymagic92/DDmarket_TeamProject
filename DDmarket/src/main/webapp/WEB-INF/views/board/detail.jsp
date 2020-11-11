@@ -724,6 +724,7 @@
 		}).then(function(res) {
 			if(res.data == '1') { // 댓글 등록 완료				
 				frm.ctnt.value = ''
+				cmtListBox.innerHTML = ''
 				ajaxSelCmt()
 						
 			} else if(res.data == '3') {
