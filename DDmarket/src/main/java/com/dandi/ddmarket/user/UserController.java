@@ -568,6 +568,7 @@ public class UserController {
 		System.out.println("유저아이디 : " + userAPI.getUser_id());
 		System.out.println("패스워드 : " + userAPI.getUser_pw());
 		System.out.println("가입경로 : " + userAPI.getJoinPass());
+		System.out.println("프사 : " + userAPI.getProfile_img());
 		
 		
 		//1: 로그인 성공,  2 : 아이디 없음
@@ -617,11 +618,14 @@ public class UserController {
 
 	        nickname = properties.getAsJsonObject().get("nickname").getAsString();
 	        email = kakao_account.getAsJsonObject().get("email").getAsString();
+//	        profile_image = properties.getAsJsonObject().get("profile_image").getAsString();
+	       
 	        try {
 	        	profile_image = properties.getAsJsonObject().get("profile_image").getAsString();
 	        } catch (Exception e) {
-	        	profile_image = null;
+	        	profile_image = "";
 	        }
+	        
 	        
 	        param.setUser_id(user_id);
 	        param.setUser_pw(user_id);
@@ -630,7 +634,7 @@ public class UserController {
 	        
 	        if(!"".equals(email)) {param.setEmail(email);}
 	        if(!"".equals(nickname)) {param.setNick(nickname);}
-	        if(profile_image != null && !"".equals(profile_image)) {
+	        if(!"".equals(profile_image)) {
 	        	param.setProfile_img(profile_image);
 //	        	param.setChkProfile(param.getU_profile().substring(0, 4));
 	        }  

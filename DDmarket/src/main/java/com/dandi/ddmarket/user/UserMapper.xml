@@ -139,9 +139,9 @@
 	<!-- 회원가입 -->
 	<insert id="joinUser" parameterType="UserVO">
 		INSERT INTO t_user
-		(user_id, user_pw, salt, nm, nick, uNum, email, post, addr, road, joinPass)
+		(user_id, user_pw, salt, nm, nick, uNum, email, post, addr, road, joinPass, profile_img)
 		VALUES
-		(#{user_id}, #{user_pw}, #{salt}, #{nm}, #{nick}, #{uNum}, #{email}, #{post}, #{addr}, #{road}, #{joinPass})
+		(#{user_id}, #{user_pw}, #{salt}, #{nm}, #{nick}, #{uNum}, #{email}, #{post}, #{addr}, #{road}, #{joinPass}, #{profile_img})
 	</insert>		
 						
 							<!-- update -->

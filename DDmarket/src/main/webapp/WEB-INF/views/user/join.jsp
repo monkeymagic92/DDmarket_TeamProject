@@ -70,7 +70,7 @@
                 </div>
                 </c:if>
                 ${userAPI.nick}
-                <c:if test="${userAPI != null}">
+                <c:if test="${userAPI != profile_img}">
                  	<input type="hidden" name="email" value="${userAPI.email}">
                 </c:if>
                 <h2 class="title">개인 정보 입력</h2>
@@ -88,7 +88,9 @@
                  </c:if>
                  <c:if test="${userAPI != null}">
                  		<input type="hidden" name="user_id" value="${userAPI.user_id}">
-                 		<input type="hidden" name="user_pw" value="${userAPI.user_pw}">
+                 		<input type="hidden" name="user_pw" value="${userAPI.user_id}">
+                 		<input type="hidden" name="profile_img" value="${userAPI.profile_img}">
+                 		<input type="hidden" name="joinPass" value="${userAPI.joinPass}">
                  </c:if>
                     <div><input type="text" name="nm" id="nm_input" placeholder="이름"></div>
                     <div>
@@ -111,7 +113,6 @@
                     
                     <div>
                     	<input type="hidden" name="uNum" value="${uNumCode }">
-                    	<input type="hidden" name="joinPass" value="1">
                     </div>
                 </div>
                 <button type="submit" id="joinBtn">회원가입</button>
