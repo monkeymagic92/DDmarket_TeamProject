@@ -625,6 +625,7 @@
    
    
    ajaxSelCmt()
+   
    // 업데이트 메소드 만들기 (아작스로)
    function updCmt(ctnt, i_cmt) {
       frm.ctnt.value = ctnt
@@ -654,6 +655,7 @@
          
       }).then(function(res) {
          if(res.data == '1') { // 댓글 등록 완료            
+            cmtSubmit.value = '등록'
             frm.ctnt.value = ''
             cmtListBox.innerHTML = ''
             ajaxSelCmt()
@@ -695,17 +697,12 @@
             alert("잘못된 접근방식 입니다");
             location.href="/user/login";
             return false;
-            
          } 
       })
    }
    //	-	-	- 누나	-	-	-	-	-	-	-	-	-	-	-	
 	
-	
-	
-	
-	
-	
+
 		
 	function moveToDetail(i_user) {
 		location.href="/user/myPage?i_user="+i_user
