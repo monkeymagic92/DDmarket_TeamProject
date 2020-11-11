@@ -60,10 +60,10 @@
                     <div id="div-info-right">
                         <div class="user-info">
                             <div class="profile-img">
-                            	<c:if test="${data.profile_img == null }">
+                            	<c:if test="${data.profile_img == null}">
                         		<a href="/user/myPage?i_user=${data.i_user}&i_tap=1"><img src="/res/img/yerin.jpg" onchange="setThumbnail(e)" alt="" class="img"></a>
 	                        	</c:if>
-	                        	<c:if test="${data.profile_img != null }">
+	                        	<c:if test="${data.profile_img != null}">
 	                                <a href="/user/myPage?i_user=${data.i_user}"><img src="/res/img/profile_img/user/${data.i_user}/${data.profile_img}" class="img"></a>                    	
 	                        	</c:if>
                             </div>
@@ -693,8 +693,11 @@
          i_cmt : i_cmt,
          
       }).then(function(res) {
+    	  
                   
          if(res.data == '1') { // 댓글 삭제 완료
+        	 cmtListBox.innerHTML = '';
+        	 ajaxSelCmt();
          } else if(res.data == '2') {
             alert("잘못된 접근방식 입니다");
             location.href="/user/login";
