@@ -742,6 +742,7 @@ public class UserController {
 		return "redirect:/" + ViewRef.USER_LOGIN;
 	}
 	
+	//네이버 api
 	public static String getAccessToken(String code, String state) throws UnsupportedEncodingException {
 		String redirectURI = URLEncoder.encode(SNSInfo.getNaverRedirectUri(),"UTF-8");
 				
@@ -788,6 +789,7 @@ public class UserController {
 		return access_token;
 	}
 	
+	//네이버 api
 	public static UserPARAM getUserInfo2(String access_token) throws IOException {
 		String apiurl = "https://openapi.naver.com/v1/nid/me";
 		URL url = new URL(apiurl);
