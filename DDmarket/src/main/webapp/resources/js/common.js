@@ -99,9 +99,8 @@ function chkSearch() {
 	}
 }
 
-//myPage로 이동
+//myPage 클릭시
 function moveToMyPage(i_user) {
-	console.log('헤헤');
 	
 	if(i_user == null) {
 		alert('로그인이 필요합니다!');
@@ -113,7 +112,17 @@ function moveToMyPage(i_user) {
 	
 }
 
-
+//likeList 클릭시
+function moveToLikeList(i_user) {
+	
+	if(i_user == null) {
+		alert('로그인이 필요합니다!');
+		location.href = "/user/login";
+		return;
+	}
+	
+	location.href="/user/likeList?i_user=" + i_user
+}
 	
 
 

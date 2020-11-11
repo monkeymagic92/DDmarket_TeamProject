@@ -1,7 +1,16 @@
 package com.dandi.ddmarket.user;
 
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File; // 여기부분 에러뜨면 빌드패스 자바jre 확인   ( 체크했을시 다시 임포트 파일 해주면 됨 )
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -23,14 +32,23 @@ import com.dandi.ddmarket.PageMaker;
 import com.dandi.ddmarket.Paging;
 import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.ViewRef;
+import com.dandi.ddmarket.api.SNSInfo;
+import com.dandi.ddmarket.api.kakao;
+import com.dandi.ddmarket.api.naver;
 import com.dandi.ddmarket.board.BoardService;
 import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.mail.MailSendService;
 import com.dandi.ddmarket.mail.model.EmailVO;
+import com.dandi.ddmarket.review.model.ReviewPARAM;
 import com.dandi.ddmarket.tap.TapVO;
 import com.dandi.ddmarket.user.model.UserDMI;
 import com.dandi.ddmarket.user.model.UserPARAM;
 import com.dandi.ddmarket.user.model.UserVO;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 
 @Controller
@@ -308,12 +326,29 @@ public class UserController {
 		}
 		
 		int page = CommonUtils.getIntParameter("page", request);
-		int cperPageNum = 8;
+		int cperPageNum = 0;
+		int i_tap = CommonUtils.getIntParameter("i_tap", request);
 		
-		if(CommonUtils.getIntParameter("i_tap", request) == 1) {
+		model.addAttribute("sellCnt", service.selSellCnt(param));
+		
+		if(i_tap == 1) {
+			cperPageNum = 12;
 			Paging.getPage(service.selSellCnt(param), bparam, page, cperPageNum, model, request, hs);			
-			model.addAttribute("sellCnt", service.selSellCnt(param));
 			model.addAttribute("sellList", service.selSellList(bparam));
+		} else if(i_tap == 2) {
+			cperPageNum = 6;
+			Paging.getPage(service.selReviewCnt(bparam), bparam, page, cperPageNum, model, request, hs);			
+			model.addAttribute("reviewList", service.selReviewList(bparam));
+		} else if(i_tap == 3) {
+			
+		} else if(i_tap == 4) {
+			cperPageNum = 6;
+			Paging.getPage(service.selMyCmtCnt(bparam), bparam, page, cperPageNum, model, request, hs);			
+			model.addAttribute("myCmtList", service.selMyCmtList(bparam));
+		} else if(i_tap == 5) {
+			cperPageNum = 6;
+			Paging.getPage(service.selMyReviewCnt(bparam), bparam, page, cperPageNum, model, request, hs);			
+			model.addAttribute("myReviewList", service.selMyReviewList(bparam));
 		}
 		
 		model.addAttribute("data", service.selUser(param));
@@ -325,10 +360,22 @@ public class UserController {
 	@RequestMapping(value="/myPage", method = RequestMethod.POST)
 	public String myPage(Model model, UserPARAM param) {
 		
-		// service 작업하기
 		
 		model.addAttribute("view",ViewRef.USER_MYPAGE);
 		return "redirect:/" + ViewRef.MENU_TEMP;
+	}
+	
+	// MY리뷰 삭제
+	@RequestMapping(value="/delMyReview", method = RequestMethod.GET)
+	public String myPage(Model model, ReviewPARAM param, HttpSession hs, HttpServletRequest request) {
+		
+		// 세션에 있는 i_user 받아오기
+		param.setI_user(SecurityUtils.getLoginUserPk(hs));
+		param.setI_review(CommonUtils.getIntParameter("i_review", request));
+	
+		service.delMyReview(param);
+		
+		return "redirect:/user/myPage?i_user=" + SecurityUtils.getLoginUserPk(hs) + "&i_tap=5";
 	}
 		
 	// 개인정보변경 (info)
@@ -491,10 +538,117 @@ public class UserController {
 	// 찜목록 삭제
 	@RequestMapping(value="/likeListDel", method = RequestMethod.GET)
 	public String likeListDel(BoardPARAM param, HttpServletRequest request) {
-		//System.out.println("param.getI_board():" + param.getI_board());
-		//System.out.println("param.getI_user():" + param.getI_user());
+		
 		boardService.likeListDel(param);
 		
 		return "redirect:/user/likeList";
 	}
+
+	
+	
+	//로그인 api
+	@RequestMapping(value="/SNSController", method = RequestMethod.GET)
+	public String SNSControl(HttpServletRequest request) throws UnsupportedEncodingException {
+		String snsChk = request.getParameter("snsPlatform");
+		String move = null;
+		switch (snsChk) {
+			case "kakao":
+				move = SNSInfo.kakao_login();
+				break;
+			case "naver":
+				move = SNSInfo.naver_login();
+				break;
+		}
+		
+		return "redirect:" + move;
+	}
+	
+	//카카오톡 api
+	@RequestMapping(value="/kakaoAPI", method = RequestMethod.GET)
+	public String kakaoControl(UserPARAM param, HttpServletRequest request, Model model, HttpSession hs, RedirectAttributes ra) throws Exception {
+
+		String access_token = kakao.getAccessToken(request.getParameter("code"));
+		
+		// 카카오 API 를  통해  회원의 정보를 가져와서 값을 넣어줌
+		UserPARAM userAPI = kakao.getUserInfo(access_token);
+		
+		int result = service.SNSLogin(userAPI);
+		
+		System.out.println("result : " + result);
+		
+		System.out.println("이메일 : " + userAPI.getEmail());
+		System.out.println("닉네임 : " + userAPI.getNick());
+		System.out.println("유저아이디 : " + userAPI.getUser_id());
+		System.out.println("패스워드 : " + userAPI.getUser_pw());
+		System.out.println("가입경로 : " + userAPI.getJoinPass());
+		System.out.println("프사 : " + userAPI.getProfile_img());
+		
+		
+		String msg = null;
+		
+		//1: 로그인 성공,  2 : 아이디 없음
+		if(result == Const.NO_ID) {
+			ra.addFlashAttribute("userAPI", userAPI);
+			return "redirect:/" + ViewRef.USER_JOIN;
+		} else if (result == Const.SUCCESS) {
+			param.setUser_id(userAPI.getUser_id());
+			param.setJoinPass(userAPI.getJoinPass());
+			hs.setAttribute(Const.LOGIN_USER, service.selUser(param));
+			return "redirect:/" + ViewRef.INDEX_MAIN;
+		} else if (result == Const.NO_PW) {
+			msg = "비밀번호를 확인해 주세요";
+		}
+		
+		
+		ra.addFlashAttribute("data", msg);
+		return "redirect:/" + ViewRef.USER_LOGIN;
+	}
+	
+	
+	//네이버 api
+	@RequestMapping(value="/naverAPI", method = RequestMethod.GET)
+	public String naverControl(UserPARAM param, HttpServletRequest request, Model model, HttpSession hs, RedirectAttributes ra) throws Exception {
+		
+		String code = request.getParameter("code");
+		String state = request.getParameter("state");
+
+		String access_token = naver.getAccessToken(code, state);
+		
+		// 네이버API 를  통해  회원의 정보를 가져와서 값을 넣어줌
+		UserPARAM userAPI = naver.getUserInfo(access_token);
+		
+		int result = service.SNSLogin(userAPI);
+		
+		System.out.println("result : " + result);
+		System.out.println("이메일 : " + userAPI.getEmail());
+		System.out.println("닉네임 : " + userAPI.getNick());
+		System.out.println("유저아이디 : " + userAPI.getUser_id());
+		System.out.println("패스워드 : " + userAPI.getUser_pw());
+		System.out.println("가입경로 : " + userAPI.getJoinPass());
+		System.out.println("프사 : " + userAPI.getProfile_img());
+		
+		
+		String msg = null;
+		
+		//1: 로그인 성공,  2 : 아이디 없음
+		if(result == Const.NO_ID) {
+			ra.addFlashAttribute("userAPI", userAPI);
+			return "redirect:/" + ViewRef.USER_JOIN;
+		} else if (result == Const.SUCCESS) {
+			param.setUser_id(userAPI.getUser_id());
+			param.setJoinPass(userAPI.getJoinPass());
+			hs.setAttribute(Const.LOGIN_USER, service.selUser(param));
+			return "redirect:/" + ViewRef.INDEX_MAIN;
+		} else if (result == Const.NO_PW) {
+			msg = "비밀번호를 확인해 주세요";
+		}
+		
+		
+		ra.addFlashAttribute("data", msg);
+		return "redirect:/" + ViewRef.USER_LOGIN;
+	}
+	
 }
+
+}
+

@@ -5,6 +5,7 @@
 
 
 /* modal */
+/*
 var modal = document.querySelector(".myModal");
 var btn = document.querySelector(".review");
 var closebtn = document.querySelector(".close");
@@ -29,8 +30,11 @@ window.onclick = function(event) {
         modal.style.display = "none";
         }
     }
+*/
 
-
+// 회원정보 변경 클릭시
 function moveToInfo() {
 	location.href="/user/info";
 }
+
+

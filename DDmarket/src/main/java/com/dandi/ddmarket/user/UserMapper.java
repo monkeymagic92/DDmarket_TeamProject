@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.Mapper;
 import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.board.model.BoardVO;
 import com.dandi.ddmarket.category.model.CategoryVO;
+import com.dandi.ddmarket.cmt.model.CmtDMI;
+import com.dandi.ddmarket.review.model.ReviewPARAM;
+import com.dandi.ddmarket.review.model.ReviewVO;
 import com.dandi.ddmarket.tap.TapVO;
 import com.dandi.ddmarket.user.model.UserDMI;
 import com.dandi.ddmarket.user.model.UserPARAM;
@@ -27,6 +30,8 @@ public interface UserMapper {
 	
 	UserDMI selDetailUser(UserPARAM param);
 	
+	UserDMI selSNSUser(UserPARAM param); // api 아이디 체크
+	
 	List<CategoryVO> selCategory();		// 카테고리 리스트
 	
 	List<TapVO> selTapList(TapVO tparam); // mypage 탭 메뉴 가져오기
@@ -34,6 +39,20 @@ public interface UserMapper {
 	int selSellCnt(UserPARAM param);
 	
 	List<BoardVO> selSellList(BoardPARAM param);
+	
+	List<ReviewPARAM> selReviewList(BoardPARAM param);
+	
+	int selReviewCnt(BoardPARAM param);
+	
+	List<CmtDMI> selMyCmtList(BoardPARAM param);
+	
+	int selMyCmtCnt(BoardPARAM param);
+	
+	List<ReviewPARAM> selMyReviewList(BoardPARAM param);
+	
+	int selMyReviewCnt(BoardPARAM param);
+	
+	
 	
 	// insert
 	int joinUser(UserVO param);		// 회원가입
@@ -61,6 +80,8 @@ public interface UserMapper {
 	int delProfile_img(UserPARAM param);
 	
 	int delboardLike(UserPARAM param);
+	
+	int delMyReview(ReviewPARAM param);
 
 	
 	

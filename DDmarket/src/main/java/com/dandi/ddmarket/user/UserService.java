@@ -25,7 +25,10 @@ import com.dandi.ddmarket.board.model.BoardDMI;
 import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.board.model.BoardVO;
 import com.dandi.ddmarket.category.model.CategoryVO;
+import com.dandi.ddmarket.cmt.model.CmtDMI;
 import com.dandi.ddmarket.index.IndexService;
+import com.dandi.ddmarket.review.model.ReviewPARAM;
+import com.dandi.ddmarket.review.model.ReviewVO;
 import com.dandi.ddmarket.tap.TapVO;
 import com.dandi.ddmarket.user.model.UserDMI;
 import com.dandi.ddmarket.user.model.UserPARAM;
@@ -127,6 +130,36 @@ public class UserService {
 		param.setJoinPass(dbUser.getJoinPass());
 		param.setR_dt(dbUser.getR_dt());
 		param.setM_dt(dbUser.getM_dt());
+		
+		return Const.SUCCESS;
+	}
+	
+	// SNS 로그인
+	// SUCCESS 1:로그인 성공,  NO_ID 2:아이디 없음,  NO_PW 3:비번 틀림
+	public int SNSLogin(UserPARAM param) {
+		
+		UserDMI SNSUser = mapper.selSNSUser(param);
+		System.out.println(SNSUser);
+		
+		if(SNSUser == null) {
+			return Const.NO_ID; 
+		} 
+						
+		String cryptPw = SecurityUtils.getEncrypt(param.getUser_pw(), SNSUser.getSalt());
+		if(!cryptPw.equals(SNSUser.getUser_pw())) {return Const.NO_PW;} // 3
+		
+		param.setI_user(SNSUser.getI_user());
+		param.setUser_pw(null);
+		param.setNm(SNSUser.getNm());
+		param.setNick(SNSUser.getNick());
+		param.setEmail(SNSUser.getEmail());
+		param.setProfile_img(SNSUser.getProfile_img());		
+		param.setAddr(SNSUser.getAddr());
+		param.setPost(SNSUser.getPost());
+		param.setRoad(SNSUser.getRoad());
+		param.setJoinPass(SNSUser.getJoinPass());
+		param.setR_dt(SNSUser.getR_dt());
+		param.setM_dt(SNSUser.getM_dt());
 		
 		return Const.SUCCESS;
 	}
@@ -323,5 +356,51 @@ public class UserService {
 	public List<BoardVO> selSellList(BoardPARAM param) {
 		return IndexService.transferR_dt(mapper.selSellList(param));
 	}
+	
+	// 리뷰 글 별점 width 구하는 메소드
+	public static List<ReviewPARAM> transRating(List<ReviewPARAM> param) {
+		for(ReviewPARAM vo : param) {
+		double star = vo.getRating() / 5 * 75;
+		vo.setStar(star);
+	}
+		return param;
+	}
+	
+	//리뷰 글 리스트
+	public List<ReviewPARAM> selReviewList(BoardPARAM param) {
+		return transRating(mapper.selReviewList(param));
+	}
+	
+	//리뷰 글 리스트 총갯수
+	public int selReviewCnt(BoardPARAM param) {
+		return mapper.selReviewCnt(param);
+	}
+	
+	//MY댓글 리스트
+	public List<CmtDMI> selMyCmtList(BoardPARAM param) {
+		return mapper.selMyCmtList(param);
+	}
+	
+	//MY댓글 리스트 총갯수
+	public int selMyCmtCnt(BoardPARAM param) {
+		return mapper.selMyCmtCnt(param);
+	}
+	
+	//MY리뷰 글 리스트
+	public List<ReviewPARAM> selMyReviewList(BoardPARAM param) {
+		return transRating(mapper.selMyReviewList(param));
+	}
+	
+	//MY리뷰 글 리스트 총갯수
+	public int selMyReviewCnt(BoardPARAM param) {
+		return mapper.selReviewCnt(param);
+	}
+	
+	//MY리뷰 삭제
+	public int delMyReview(ReviewPARAM param) {
+		return mapper.delMyReview(param);
+	}
+	
+	
 	
 }

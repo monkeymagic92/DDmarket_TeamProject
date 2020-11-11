@@ -10,15 +10,27 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="/res/css/myPage.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
 </head>
 <body>
 	<div id="container">
         <main>
-        
             <section id="section-top">
                 <div id="div-top-left">
-                    <div id="profile_img"><img src="/res/img/profile_img/user/${data.i_user }/${data.profile_img}" class="img"></div>
+                    <div id="profile_img">
+                        <c:if test="${data.profile_img == null || data.profile_img == ''}">
+                      		<a href="/user/myPage?i_user=${data.i_user}&i_tap=1"><img src="/res/img/yerin.jpg"></a>
+                       	</c:if>
+                       	<c:if test="${data.profile_img != null}">
+                       		<c:choose>
+                       		<c:when test="${fn:contains(data.profile_img, 'http')}">
+                       			<a href="/user/myPage?i_user=${data.i_user}"><img src="${data.profile_img}"></a>
+                       		</c:when>
+                       		<c:otherwise>                       		
+                          		 <a href="/user/myPage?i_user=${data.i_user}"><img src="/res/img/profile_img/user/${data.i_user}/${data.profile_img}"></a>                    	
+                       		</c:otherwise>
+                       		</c:choose>
+                       	</c:if>
+                    </div>
                     <span class="profile_nick">${data.nick}</span>
 
                     <div class="star-ratings-css">
@@ -50,10 +62,18 @@
         			<c:forEach var="item" items="${tapList}" end="${loginUser.i_user == data.i_user ? '4' : '1'}">
                   <c:choose>
                     <c:when test="${i_tap == item.i_tap}">
-                      <a style="color: red;" href="/user/myPage?i_tap=${item.i_tap}&i_user=${data.i_user}">${item.tap_nm}</a>
+                    <div class="tap_menu_div tap_menu_div_active" onclick="moveToTap(${item.i_tap})">
+                      <a href="/user/myPage?i_tap=${item.i_tap}&i_user=${data.i_user}">
+                      ${item.tap_nm}
+                      </a>
+                     </div>
                     </c:when>
                     <c:otherwise>
-                      <a href="/user/myPage?i_tap=${item.i_tap}&i_user=${data.i_user}">${item.tap_nm}</a>
+                    <div class="tap_menu_div" onclick="moveToTap(${item.i_tap})">
+                      <a href="/user/myPage?i_tap=${item.i_tap}&i_user=${data.i_user}">
+                      ${item.tap_nm}
+                      </a>
+                      </div>
                     </c:otherwise>
                 </c:choose>
            		 </c:forEach>
@@ -90,31 +110,34 @@
 	                        </a>
 	                    </article>
 	                  </c:forEach>
-			            <div id="div-wrap-page">
-			                <c:if test="${pageMaker.prev}">
-			                	<a href='<c:url value="/user/myPage?page=${pageMaker.startPage-1}"/>'><span class="iconify icon-page-left" data-inline="false" data-icon="mdi-light:chevron-double-left" style="color: #3b73c8; font-size: 47px;"></span></a>
-			                </c:if>
-							<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="pageNum">
-						        <c:choose>
-						        <c:when test="${page == pageNum}">
-						        	<a style="color: red;" href='<c:url value="/index/search?page=${pageNum}&searchNm=${searchNm}&i_cg=${i_cg == null ? 0 : i_cg}&searchType=${searchType == null ? 'new' : searchType}"/>'>${pageNum}</a>
-						        </c:when>
-						        <c:otherwise>		        
-						        	<a href='<c:url value="/index/search?page=${pageNum}&searchNm=${searchNm}&i_cg=${i_cg == null ? 0 : i_cg}&searchType=${searchType == null ? 'new' : searchType}"/>'>${pageNum}</a>
-						        </c:otherwise>
-						        </c:choose>
-						    </c:forEach>
-						    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
-			               		 <a href='<c:url value="/index/search?page=${pageMaker.endPage+1}&searchNm=${searchNm}&i_cg=${i_cg == null ? 0 : i_cg}&searchType=${searchType == null ? 'new' : searchType}"/>'><span class="iconify icon-page-right" data-inline="false" data-icon="mdi-light:chevron-double-right" style="color: #3b73c8; font-size: 47px;"></span></a>
-			           		</c:if>
-			            </div>
-
                 </div>
                 </c:if>
                 
                 <c:if test="${i_tap == 2}">
                 <div id="tap_review">
-                	거래후기
+                <c:forEach var="item" items="${reviewList}">
+	               	 <div id="reviewWrap">
+                         <div class="review-right-profile-img">
+                            <c:if test="${item.profile_img == null }">
+                       		<a href="/user/myPage?i_user=${item.i_user}&i_tap=1"><img src="/res/img/yerin.jpg" onchange="setThumbnail(e)" alt="" class="img"></a>
+                        	</c:if>
+                        	<c:if test="${item.profile_img != null }">
+                                <a href="/user/myPage?i_user=${item.i_user}"><img src="/res/img/profile_img/user/${item.i_user}/${item.profile_img}" class="img"></a>                    	
+                        	</c:if>
+                         </div>
+                         <div class="review-right-profile-desc">
+                             <div class="nick">
+                                 <span>${item.nick}</span>
+                                 <div class="star-ratings-css">
+                                     <div class="star-ratings-css-top" style="width:${item.star}%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                                     <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                                 </div>
+                                 <span class="date">${item.r_dt}</span>
+                             </div>
+                             <div class="comment">${item.ctnt}</div>
+                         </div>
+                     </div>
+                  </c:forEach>
                 </div>
                 </c:if>
                 
@@ -125,16 +148,81 @@
 	            </c:if>
 	            
 	            <c:if test="${i_tap == 4}">
-                <div id="tap_myCmt">
-                	MY댓글
-                </div>
+	                <div id="tap_myCmt">
+			            <c:forEach var="item" items="${myCmtList}">
+			    	           <div id="reviewWrap">
+			                       <div class="review-right-profile-img">
+					                    <c:if test="${item.profile_img == null }">
+			                       		<a href="/user/myPage?i_user=${item.i_user}&i_tap=1"><img src="/res/img/yerin.jpg" alt="" class="img"></a>
+			                        	</c:if>
+			                        	<c:if test="${item.profile_img != null }">
+			                                <a href="/user/myPage?i_user=${item.i_user}"><img src="/res/img/profile_img/user/${item.i_user}/${item.profile_img}" class="img"></a>                    	
+			                        	</c:if>
+			                       </div>
+			                       <div class="review-right-profile-desc">
+			                           <div class="nick">${item.nick}<span class="date">${item.r_dt}</span></div>
+			                           <div class="comment">${item.ctnt}</div>
+			                       </div>
+			                   </div>  
+		                </c:forEach>
+	                </div>
                 </c:if>
 	            
 	            <c:if test="${i_tap == 5}">
                 <div id="tap_myReview">
-                	MY후기
+                	<c:forEach var="item" items="${myReviewList}">
+	               	 <div id="reviewWrap">
+                         <div class="review-right-profile-img">
+                            <c:if test="${item.profile_img == null }">
+                       		<a href="/user/myPage?i_user=${item.i_user}&i_tap=1"><img src="/res/img/yerin.jpg" onchange="setThumbnail(e)" alt="" class="img"></a>
+                        	</c:if>
+                        	<c:if test="${item.profile_img != null }">
+                                <a href="/user/myPage?i_user=${item.i_user}"><img src="/res/img/profile_img/user/${item.i_user}/${item.profile_img}" class="img"></a>                    	
+                        	</c:if>
+                         </div>
+                         <div class="review-right-profile-desc">
+                             <div class="nick">
+                                 <span>${item.nick}</span>
+                                 <div class="star-ratings-css">
+                                     <div class="star-ratings-css-top" style="width:${item.star}%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                                     <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                                 </div>
+                                 <span class="date">${item.r_dt}</span>
+                             </div>
+                             <div class="comment">${item.ctnt}</div>
+                             <div class="control">
+                                <a href="#" onclick="return delMyReview(${item.i_review})">
+                                	<div class="del">
+                                		<span class="iconify" data-inline="false" data-icon="ant-design:delete-outlined" style="color: #A5A2A2; font-size: 13px;">
+                                		</span>
+                                		삭제하기
+                                	</div>
+                                </a>
+                             </div>
+                         </div>
+                     </div>
+                  </c:forEach>
                 </div>
                 </c:if>
+                
+                 <div id="paging">
+	                <c:if test="${pageMaker.prev}">
+	                	<a href='<c:url value="/user/myPage?page=${pageMaker.startPage-1}&i_tap=${i_tap}&i_user=${data.i_user}"/>'><span class="iconify icon-page-left" data-inline="false" data-icon="mdi-light:chevron-double-left" style="color: #3b73c8; font-size: 47px;"></span></a>
+	                </c:if>
+					<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="pageNum">
+				        <c:choose>
+				        <c:when test="${page == pageNum}">
+				        	<a style="color: red;" href='<c:url value="/user/myPage?page=${pageNum}&i_tap=${i_tap}&i_user=${data.i_user}"/>'>${pageNum}</a>
+				        </c:when>
+				        <c:otherwise>		        
+				        	<a href='<c:url value="/user/myPage?page=${pageNum}&i_tap=${i_tap}&i_user=${data.i_user}"/>'>${pageNum}</a>
+				        </c:otherwise>
+				        </c:choose>
+				    </c:forEach>
+				    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+	               		 <a href='<c:url value="/user/myPage?page=${pageMaker.endPage+1}&i_tap=${i_tap}&i_user=${data.i_user}"/>'><span class="iconify icon-page-right" data-inline="false" data-icon="mdi-light:chevron-double-right" style="color: #3b73c8; font-size: 47px;"></span></a>
+	           		</c:if>
+	            </div>
        
             </section>
             
@@ -231,8 +319,25 @@ if(txt.length != '' || txt.length != 0){
 	
 	////사용자 별점 값 조정
 	var grade = ${data.grade}/5*125;
-	document.querySelector('.star-ratings-css-top').style.width = grade + "%"
-
+	document.querySelector('.star-ratings-css-top').style.width = grade + "%";
+	
+	
+	//MY리뷰 삭제
+	function delMyReview(i_review) {
+		var chk = confirm('삭제 하시겠습니까?');
+		
+		if(chk) {
+			location.href = "/user/delMyReview?i_review=" + i_review;
+		} else {
+			return false;
+		}
+	}
+	
+	//TAP 이동
+	function moveToTap(i_tap) {
+		location.href = "/user/myPage?i_tap=" + i_tap + "&i_user=${data.i_user}" 
+	}
+	
 	</script>
 </body>
 </html>

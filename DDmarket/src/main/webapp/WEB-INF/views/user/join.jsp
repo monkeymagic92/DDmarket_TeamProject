@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +20,12 @@
             <div class="div-logo">
                 <a href="/index/main"><img src="/res/img/logo.jpg" alt=""></a>
             </div>
-            <form id="frm" action="/user/join" method="post" class="FrmJoin"  onsubmit="return chk()">
+            <c:if test="${userAPI == null}">
+            <form id="frm" action="/user/join" method="post" class="FrmJoin" onsubmit="return chk()">          
+            </c:if>
+            <c:if test="${userAPI != null}">
+            <form id="frm" action="/user/join" method="post" class="FrmJoin" onsubmit="return SNSchk()">          
+            </c:if>
                 <h2 class="title">약관동의</h2>
                 <span class="line"></span>
                 <div class="div-chkbox">
@@ -49,6 +57,7 @@
                         </div>
                     </div>
                 </div>
+               <c:if test="${userAPI == null}">
                 <h2 class="title">가입 여부 조회</h2>
                 <span class="line"></span>
                 <div class="div-email">
@@ -59,9 +68,15 @@
                         <i id="emailClick" class="animate__rubberBand animate__animated fas fa-check"></i>
                     </div>
                 </div>
+                </c:if>
+              
+                <c:if test="${userAPI != profile_img}">
+                 	<input type="hidden" name="email" value="${userAPI.email}">
+                </c:if>
                 <h2 class="title">개인 정보 입력</h2>
                 <span class="line"></span>
                 <div class="div-input">
+                <c:if test="${userAPI == null}">
                     <div>
                         <input type="text" name="user_id" id="id_input" placeholder="아이디">
                         <button type="button" id="idChk" onclick="chkId()">아이디 중복체크</button>
@@ -70,9 +85,16 @@
                     </div>
                     <div><input type="password" name="user_pw" id="pw_input" placeholder="비밀번호"></div>
                     <div><input type="password" name="user_rpw" id="pw_input2" placeholder="비밀번호 확인"></div>
-                    <div><input type="text" name="nm" id="nm_input" placeholder="이름"></div>
+                 </c:if>
+                 <c:if test="${userAPI != null}">
+                 		<input type="hidden" name="user_id" value="${userAPI.user_id}">
+                 		<input type="hidden" name="user_pw" value="${userAPI.user_id}">
+                 		<input type="hidden" name="profile_img" value="${userAPI.profile_img}">
+                 		<input type="hidden" name="joinPass" value="${userAPI.joinPass}">
+                 </c:if>
+                    <div><input type="text" name="nm" id="nm_input" placeholder="이름" value="${userAPI.nm}"></div>
                     <div>
-                        <input type="text" name="nick" id="nick_input" placeholder="닉네임">
+                        <input type="text" name="nick" id="nick_input" placeholder="닉네임" value="${userAPI.nick}">
                         <button type="button" id="nickChk" onclick="chkNick()">닉네임 중복체크</button>
                         <i id="nickClick" class="animate__rubberBand animate__animated fas fa-check" ></i>
                         <input id="nickUnChk" name="nickUnChk" type="hidden" value="unChk">
@@ -91,7 +113,6 @@
                     
                     <div>
                     	<input type="hidden" name="uNum" value="${uNumCode }">
-                    	<input type="hidden" name="joinPass" value="1">
                     </div>
                 </div>
                 <button type="submit" id="joinBtn">회원가입</button>
@@ -465,6 +486,69 @@ function sample4_execDaumPostcode() {
             }
         }
     }).open();
+}
+
+//SNS 로그인 체크
+function SNSchk() {
+	if($('#chk1').is(":checked") == false){
+	    alert('약간동의를 체크해 주세요');
+	    return false;
+	    
+	} else if($('#chk2').is(":checked") == false) {
+		alert('약간동의를 체크해 주세요');
+		return false;
+		
+	} else if($('#chk3').is(":checked") == false) {
+		alert('약간동의를 체크해 주세요');
+		return false;
+	}
+	
+	if (frm.nm.value.length == 0 || frm.nm.value.length < 2) {
+		alert("올바른 이름을 입력해 주세요");
+		frm.nm.focus();
+		return false;
+	}
+		
+		// 한글 정규화			
+		if (frm.nm.value.length > 0) {
+			const korean = /[^가-힣]/;
+			
+			if(korean.test(frm.nm.value)) {
+				alert("올바른  이름을 입력해 주세요");
+				frm.nm.focus();
+				return false;
+			}
+		}
+		
+		if (frm.nick.value.length == 0 || frm.nick.value.length < 2) {
+			alert("닉네임은 2글자 이상입니다");
+			frm.nick.focus();
+			return false;
+		} 
+		
+		if (frm.nick.value.length > 13) {
+			alert("닉네임이 너무 깁니다");
+			frm.nick.focus();
+			return false;
+		}
+		
+		if(frm.post.value.length == 0) {
+			alert('주소를 입력해 주세요');
+			return false;
+		}
+		
+		if (frm.nm.value.length > 2 
+				&& frm.nickUnChk.value != 'unChk'
+				) {
+			
+			alert('회원가입이 되었습니다');
+			location.href='/user/login';	
+		}
+		
+		if(frm.nickUnChk.value == 'unChk') {
+			alert('닉네임 중복확인을 클릭해주세요')
+			return false;
+		}	
 }
 </script>
 </html>

@@ -14,6 +14,13 @@
 		<if test="user_id != null and user_id != ''"> user_id = #{user_id}</if>
 	</select>
 	
+	<select id="selSNSUser" parameterType="UserPARAM" resultType="UserDMI"> 
+		SELECT i_user, user_id, user_pw, salt, nm, nick, email, post, addr, road, joinPass,
+		profile_img, r_dt, m_dt, grade
+		FROM t_user
+		WHERE user_id = #{user_id} and joinPass = #{joinPass}
+	</select>
+	
 	
 	<!-- 마이페이지 가기위한 selUser 값   (selUser 메소드에서 where절 뺏음) -->							
 	<select id="selDetailUser" parameterType="UserPARAM" resultType="UserDMI"> 
@@ -68,8 +75,63 @@
 		SELECT A.i_board, A.thumImage, A.title, A.price, A.r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr
 		FROM t_board A
 		WHERE i_user = #{i_user}
-		ORDER BY A.r_dt DESC
+		ORDER BY A.i_board DESC
 		LIMIT #{pageStart}, #{perPageNum}
+	</select>
+	
+		<!-- 판매글 리스트 -->
+	<select id="selReviewList" parameterType="BoardPARAM" resultType="ReviewPARAM">
+		SELECT A.i_review, A.i_board, A.i_user, A.ctnt, A.rating, C.nick, SUBSTRING_INDEX(A.r_dt," ",1) as r_dt, C.profile_img FROM t_review A
+		LEFT JOIN t_board B
+		ON A.i_board = B.i_board
+		LEFT JOIN t_user C
+		ON A.i_user = C.i_user
+		WHERE B.i_user = #{i_user}
+		ORDER BY A.i_review DESC
+		LIMIT #{pageStart}, #{perPageNum}
+	</select>
+	
+	<!-- 판매글 리스트 글 숫자 -->
+	<select id="selReviewCnt" parameterType="BoardPARAM" resultType="Integer">
+		SELECT COUNT(*) FROM t_review A
+		LEFT JOIN t_board B
+		ON A.i_board = B.i_board
+		LEFT JOIN t_user C
+		ON A.i_user = C.i_user
+		WHERE B.i_user = #{i_user}
+	</select>
+	
+	<!-- My구매 리스트 -->
+	<select id="selMyCmtList" parameterType="BoardPARAM" resultType="CmtDMI">
+		SELECT A.i_cmt, A.i_user, A.i_board, A.ctnt, B.nick, B.profile_img, SUBSTRING_INDEX(A.r_dt," ",1) AS r_dt FROM t_cmt A
+		LEFT JOIN t_user B
+		ON A.i_user = B.i_user
+		WHERE A.i_user = #{i_user}
+		ORDER BY A.i_cmt DESC
+		LIMIT #{pageStart}, #{perPageNum}
+	</select>
+	
+	<!-- My구매 글갯수 -->
+	<select id="selMyCmtCnt" parameterType="BoardPARAM" resultType="Integer">
+		SELECT COUNT(*) FROM t_cmt A
+		LEFT JOIN t_user B
+		ON A.i_user = B.i_user
+		WHERE A.i_user = #{i_user};
+	</select>
+	
+	<!-- MY후기 리스트 -->
+	<select id="selMyReviewList" parameterType="BoardPARAM" resultType="ReviewPARAM">
+		SELECT A.i_review, A.i_board, A.i_user, A.ctnt, A.rating, C.nick, SUBSTRING_INDEX(A.r_dt," ",1) AS r_dt, C.profile_img FROM t_review A
+		LEFT JOIN t_user C
+		ON A.i_user = C.i_user
+		WHERE A.i_user = #{i_user}
+		LIMIT #{pageStart}, #{perPageNum}
+	</select>
+	
+	<!-- MY리뷰 글갯수 -->
+	<select id="selMyReviewCnt" parameterType="BoardPARAM" resultType="Integer">
+		SELECT COUNT(*) FROM t_review A
+		WHERE A.i_user = #{i_user}
 	</select>
 	
 							<!-- insert -->
@@ -77,9 +139,9 @@
 	<!-- 회원가입 -->
 	<insert id="joinUser" parameterType="UserVO">
 		INSERT INTO t_user
-		(user_id, user_pw, salt, nm, nick, uNum, email, post, addr, road, joinPass)
+		(user_id, user_pw, salt, nm, nick, uNum, email, post, addr, road, joinPass, profile_img)
 		VALUES
-		(#{user_id}, #{user_pw}, #{salt}, #{nm}, #{nick}, #{uNum}, #{email}, #{post}, #{addr}, #{road}, #{joinPass})
+		(#{user_id}, #{user_pw}, #{salt}, #{nm}, #{nick}, #{uNum}, #{email}, #{post}, #{addr}, #{road}, #{joinPass}, #{profile_img})
 	</insert>		
 						
 							<!-- update -->
@@ -156,6 +218,12 @@
 	<delete id="delboardLike" parameterType="UserPARAM">
 		DELETE FROM t_board_like
 		WHERE i_board = #{i_board}
+		AND i_user = #{i_user}
+	</delete>
+	
+	<delete id="delMyReview" parameterType="ReviewPARAM">
+		DELETE FROM t_review
+		WHERE i_review = #{i_review}
 		AND i_user = #{i_user}
 	</delete>
 	
