@@ -127,17 +127,7 @@
                            				<button class="buyChat" onclick="buyChatBtn()">${buyList}</button>
                            			</c:if>
                            		</c:if>
-                           		
-                           		
-                           		
-                           		
-                           		
-                           		
-                           		
-                           		
-                           		
-                           		                           		
-                           		
+
                            		<%-- 구매요청 버튼 --%>
                           		<form id="transFrm" action="/trans/transRequest" method="post">
                            			<input type="hidden" name="i_user" value="${loginUser.i_user }">
@@ -154,9 +144,16 @@
                     </div>
             </section>
              
+             
+             
+             
+             
+             
+             
             <%-- <button class="review" onclick="transBtn()">거래신청 목록보기</button>--%>
             <button id="chatting" onclick="chatBtn()">버튼</button>
             <div id="ChatBox">
+
 		        <div id="SaleList">
 		            <div id="close" onclick="CloBox()">
 		                                  닫기
@@ -264,6 +261,54 @@
 		    
 		    
 		    
+              <div id="SaleList">
+                  <div id="close" onclick="CloBox()">닫기</div>
+                  <div id="Buyers">
+                     <c:forEach items="${selTrans}" var="item">
+                         <div class="buyer" onclick="moveChat()">
+                             <c:if test="${item.profile_img == null }">
+                               <img src="/res/img/lion.jpg" onchange="setThumbnail(e)" alt="" class="img">
+                            </c:if>
+                            <c:if test="${item.profile_img != null}">
+                               <img src="/res/img/profile_img/user/${item.i_user}/${item.profile_img}" class="img">
+                            </c:if>
+                             <p>
+                                 <strong>${item.nick}</strong>
+                                 <span>${item.grade}</span>
+                             </p>
+                         </div>
+                     </c:forEach>                     
+                  </div>
+              </div>
+              <div id="chatView" draggable="true" ondrag="moveCtnt()">
+                  <div id="chatClose" class="p1" onclick="CloChat()">닫기</div>
+                  <div id="chat-Msg">
+                     <%-- 판매자 --%>
+                      <div class="message">
+                          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1_copy.jpg" alt="">
+                          <div class="bubble">안녕하세요
+                              <div class="corner"></div>
+                              <span>1분</span>
+                          </div>
+                      </div>
+                      <%-- 구매자 --%>
+                      <div class="message Mychat">
+                          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" alt="">
+                          <div class="bubble">안녕하세요
+                              <div class="corner"></div>
+                              <span>10초</span>
+                          </div>
+                      </div>
+                  </div>
+                  <%-- 아작스로 댓글 등록하기 --%>
+                  <div id="sendMessage">
+                      <input type="text">
+                      <button id="send" onclick="send()"></button>
+                  </div>
+              </div>
+          </div>
+         
+
             <h2 class="h2-section-title">상품정보</h2>
             <section id="section-desc">
                 <p>${data.ctnt }</p>
@@ -275,7 +320,7 @@
                         
             	<!-- 댓글 등록 -->
             	
-                <form id="frm" action="/cmt/cmtReg" method="post">
+                <form id="frm">
                 	<br>
                     <div id="inputWrap">
                     	<textarea name="ctnt" placeholder="상품문의를 입력 해 주세요"></textarea>
@@ -284,22 +329,21 @@
                     	<input type="hidden" name="i_board" value="${data.i_board}"> <!-- 이값은 아작스할떄는 필요 없는거같음 학원가서 보고 지우든가 쓰던가 하기 -->
                     </div>
                     	<input type="button" id="cmtSubmit" onclick="cmtReg()" value="등록">
-                    	<button type="button" onclick="clkCmtCancel()">취소</button>
-                    	
+                    	<button type="button" onclick="clkCmtCancel()">취소</button>               	
 	            </form>
 	            
-	           
+	           <%-- 댓글 등록 부분 --%>
 	            <div id="cmtListBox">
 	            	
 	            </div>
 	             
 	            
 	            
-	            <%--
+	            <!--  
                 <c:forEach items="${cmtList}" var="item">
 	               	<div id="commentWrap" class="cmtList">
 	                   <div class="comment-profile-img">
-	                       <img src="/res/img/profile_img/user/${item.i_user }/${item.profile_img}" class="img">
+	                       <img src="/res/img/profile_img/user/${item.i_user }/${item.profile_img}" class="profileImg">
 	                   </div>
 	                   
 	                   <div class="comment-profile-desc">
@@ -324,7 +368,7 @@
 	                   </div>
 	               </div>
     			</c:forEach>
-    			 --%>
+    			 -->
     			
 			<div class="pageWrap">
                 <c:if test="${cmtPageMaker.prev}">
@@ -500,54 +544,56 @@
 	}
 	
 	function refreshMenu(arr) {		
-		for (let i = 0; i < arr.length; i++) {
+		for (let i = 0; i<arr.length; i++) {
 			makeCmtList(arr[i])
 		}	
 	}
 	
 	
+	
 	function makeCmtList(arr) {
 		
-		var divWrap = document.createElement('div')
-		divWrap.setAttribute('id', 'commentWrap')
+		var divCommentWrap = document.createElement('div')
+		divCommentWrap.setAttribute('id', 'commentWrap')
+	
+		var divCommentProfileImg = document.createElement('div')
+		divCommentProfileImg.setAttribute('class', 'comment-profile-img')
 		
-		cmtListBox.append(divWrap)
-		
-		var divImg = document.createElement('div')
-		divImg.setAttribute('class', 'comment-profile-img')
-		
-		divWrap.append(divImg)
-		
-		var img = document.createElement('img')
-		img.setAttribute('class', 'img')
+		var profileImg = document.createElement('img')
+		profileImg.setAttribute('class', 'profileImg')
 		if(arr.profile_img != null) {
-			img.setAttribute('src',`/res/img/profile_img/user/\${arr.i_user}/\${arr.profile_img}`)
+			profileImg.setAttribute('src',`/res/img/profile_img/user/\${arr.i_user}/\${arr.profile_img}`)
 		} else {
-			img.setAttribute('src','/res/img/lion.jpg')
+			profileImg.setAttribute('src','/res/img/lion.jpg')
 		}
-		divImg.append(img)
+
+		divCommentProfileImg.append(profileImg)
+		divCommentWrap.append(divCommentProfileImg)
 		
-		var divDesc = document.createElement('div')
-		divDesc.setAttribute('class','comment-profile-desc')
-		divWrap.append(divDesc)
+		
+		var divCommentProfileDesc = document.createElement('div')
+		divCommentProfileDesc.setAttribute('class','comment-profile-desc')
 		
 		var divNick = document.createElement('div')
 		divNick.setAttribute('class','nick')
 		divNick.append(arr.nick)
-		divDesc.append(divNick)
-		
-		var divComment = document.createElement('div')
-		divComment.setAttribute('class', 'comment')
-		divDesc.append(divComment)
-		divDesc.append(arr.ctnt)
-		
+
 		var spanDate = document.createElement('span')
 		spanDate.setAttribute('class', 'date')
 		spanDate.append(arr.r_dt)
 		divNick.append(spanDate)
 		
+		divCommentProfileDesc.append(divNick)
+		
+		var divComment = document.createElement('div')
+		divComment.setAttribute('class', 'comment')
+		divComment.append(arr.ctnt)
+		
+		divCommentProfileDesc.append(divComment)
+		
 		var divEtc = document.createElement('div')
 		divEtc.setAttribute('class', 'etc')
+
 		divDesc.append(divEtc)
 		
 	}
@@ -575,40 +621,58 @@
 	
 	/*
 	function chkUpd() {
+
 		
-		const i_user = transFrm.i_user.value
-		const i_board = transFrm.i_board.value
-		const chk = transFrm.chk.value
+		var updBtn = document.createElement('a')
+		updBtn.onclick = function(){
+			updCmt(arr.ctnt, arr.i_cmt);
+		}
 		
+		var updBtnSpan = document.createElement('span')
+		updBtnSpan.setAttribute('class', 'updBtnSpan')
 		
-		console.log('i_user : ' + i_user)
-		console.log('i_board : ' + i_board)
-		console.log('chk : ' + chk)
-		
-		ajaxTrans(i_user, i_board, chk)
-	}	
-	
-	
-	function ajaxTrans(i_user, i_board, chk) {
-		axios.post('/trans/transRequest',{
-			i_user,
-			i_board,
-			chk
-			
-		}).then(function(res) {
-			if(res.data == '1') {
-				console.log('리설트 1')
-				transFrm.chkSubmit.value = '구매요청'
+		var updBtnSpanIconfy = document.createElement('span')
+		updBtnSpanIconfy.setAttribute('class', 'iconify')
+		updBtnSpanIconfy.setAttribute('data-inline', 'false')
+		updBtnSpanIconfy.setAttribute('data-icon', 'si-glyph:arrow-change')
+		updBtnSpanIconfy.setAttribute('style', 'color: #a5a2a2, font-size: 12px')
 				
-			} else if(res.data == '2') {
-				console.log('리설트 2')
-				transFrm.chkSubmit.value = '구매취소'
-			}
-				
-		})
+		updBtnSpan.innerHTML = '수정하기'
+		updBtnSpan.append(updBtnSpanIconfy)
+		updBtn.append(updBtnSpan)
+
+		
+		divEtc.append(updBtn)
+		
+		var delBtn = document.createElement('a')
+		delBtn.onclick = function(){
+			delCmt(arr.i_cmt);
+		}
+
+		var delBtnSpan = document.createElement('span')
+		delBtnSpan.setAttribute('class', 'delBtnSpan')
+		
+		var delBtnSpanIconfy = document.createElement('span')
+		delBtnSpanIconfy.setAttribute('class', 'iconify icon-del')
+		delBtnSpanIconfy.setAttribute('data-inline', 'false')
+		delBtnSpanIconfy.setAttribute('data-icon', 'ant-design:delete-outlined')
+		delBtnSpanIconfy.setAttribute('style', 'color: #a5a2a2, font-size: 16px')
+		
+		delBtnSpan.innerHTML = '삭제하기'
+		delBtnSpan.append(delBtnSpanIconfy)
+		delBtn.append(delBtnSpan)
+
+		divEtc.append(delBtn)
+		
+		divCommentProfileDesc.append(divEtc)
+		divCommentWrap.append(divCommentProfileDesc)
+		
+		var cmtListBox = document.querySelector('#cmtListBox')
+		cmtListBox.append(divCommentWrap)
 	}
-	*/
 	
+	
+	ajaxSelCmt()
 	// 업데이트 메소드 만들기 (아작스로)
 	function updCmt(ctnt, i_cmt) {
 		frm.ctnt.value = ctnt
@@ -665,6 +729,84 @@
 		ajaxPost(i_user, i_board, ctnt, i_cmt)
 		
 	}	
+
+	
+	// 댓글 삭제
+	function delCmt(i_cmt) {
+		console.log('삭제값 : ' + i_cmt)				
+		axios.post('/cmt/delete', {
+			i_cmt : i_cmt,
+			
+		}).then(function(res) {
+						
+			if(res.data == '1') { // 댓글 삭제 완료
+			} else if(res.data == '2') {
+				alert("잘못된 접근방식 입니다");
+				location.href="/user/login";
+				return false;
+				
+			} 
+		})
+	}
+	
+	
+	if(${transErr != null}) {
+		alert('${transErr}')
+		
+	}
+	
+	// 클릭했을시 1:1 채팅 가능하게끔
+	function moveToTransChat(i_trans) {
+		location.href="/test/test?i_trans="+i_trans
+	}
+		
+	function moveToDetail(i_user) {
+		location.href="/user/myPage?i_user="+i_user
+	}
+	
+	
+	function chkValue() {
+		transFrm.chk.value = 1
+		location.reload()
+	}
+	
+	/*
+	function chkUpd() {
+		
+		const i_user = transFrm.i_user.value
+		const i_board = transFrm.i_board.value
+		const chk = transFrm.chk.value
+		
+		
+		console.log('i_user : ' + i_user)
+		console.log('i_board : ' + i_board)
+		console.log('chk : ' + chk)
+		
+		ajaxTrans(i_user, i_board, chk)
+	}	
+	
+	
+	function ajaxTrans(i_user, i_board, chk) {
+		axios.post('/trans/transRequest',{
+			i_user,
+			i_board,
+			chk
+			
+		}).then(function(res) {
+			if(res.data == '1') {
+				console.log('리설트 1')
+				transFrm.chkSubmit.value = '구매요청'
+				
+			} else if(res.data == '2') {
+				console.log('리설트 2')
+				transFrm.chkSubmit.value = '구매취소'
+			}
+				
+		})
+	}
+	*/
+	
+
 
 	if(${updMsg != null}) {
 		alert('${updMsg}')
@@ -739,31 +881,6 @@
 		})	
     }       
 
-		
-	
-	
-	// 댓글 삭제
-	function delCmt(i_cmt) {
-		console.log('삭제값 : ' + i_cmt)				
-		axios.post('/cmt/delete', {
-			
-			i_cmt
-			
-		}).then(function(res) {
-						
-			if(res.data == '1') { // 댓글 삭제 완료
-				
-				
-			} else if(res.data == '2') {
-				alert("잘못된 접근방식 입니다");
-				location.href="/user/login";
-				return false;
-				
-			} 
-		})
-	}
-	
-	
     function transBtn() {
        var modal = document.querySelector(".myModal");
 
@@ -775,11 +892,7 @@
         var modal = document.querySelector(".myModal");
         modal.style.display = "none";
      }
-    
-
-    
-    
-    
+     
     function chatBtn(){
         ChatBox.style.display = 'flex'   
     }
@@ -806,7 +919,7 @@
 	})
 	*/
 
-
+   
 
 </script>
 </body>
