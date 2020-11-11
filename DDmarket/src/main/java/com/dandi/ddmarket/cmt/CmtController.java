@@ -8,11 +8,15 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.dandi.ddmarket.CmtCriteria;
+import com.dandi.ddmarket.CmtPageMaker;
+import com.dandi.ddmarket.CommonUtils;
 import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.cmt.model.CmtDMI;
@@ -29,9 +33,29 @@ public class CmtController {
 	
 	// 댓글 뿌리기
 	@RequestMapping(value="/selCmt", method=RequestMethod.GET)
-	private @ResponseBody List<CmtDMI> selCmt(BoardPARAM param){
-		System.out.println("댓글뿌리기");
-		System.out.println(param.getI_board());
+	private @ResponseBody List<CmtDMI> selCmt(Model model, BoardPARAM param, HttpServletRequest request, HttpSession hs){
+		
+		/////// 페이징 start
+		CmtCriteria cri = new CmtCriteria();
+		System.out.println("cmtpage : " + CommonUtils.getIntParameter("cmtPage", request));
+		cri.setPage(CommonUtils.getIntParameter("cmtPage", request));
+		hs.setAttribute("cmtPage", cri.getPage());
+		CmtPageMaker cmtPageMaker = new CmtPageMaker();
+		cmtPageMaker.setCmtCriteria(cri);
+	    ///// 전체글 수 구하기
+	    int cmtCount = service.countCmt(param);
+	    hs.setAttribute("cmtCount", cmtCount);
+	    
+	    cmtPageMaker.setTotalCount(cmtCount);
+	    int pageStart = cri.getPageStart();
+	    int perPageNum = cri.getPerPageNum();
+	    
+	    param.setCmt_pageStart(pageStart);
+	    param.setCmt_perPageNum(perPageNum);
+	    model.addAttribute("cmtPageMaker", cmtPageMaker);
+	    model.addAttribute("cmtPageNum", cmtPageMaker);
+		////// 페이징 end
+		
 		return service.selCmt(param);
 	}
 	

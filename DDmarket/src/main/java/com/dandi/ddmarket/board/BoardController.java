@@ -192,6 +192,7 @@ public class BoardController {
 	    model.addAttribute("cmtPageNum", cmtPageMaker);
 		////// 페이징 end
 		
+		
 	    int rating = CommonUtils.getIntParameter("rating", request);
 	    model.addAttribute("reviewList", reviewService.selReview(param));
 	    model.addAttribute("data", reviewService.selReview(param));

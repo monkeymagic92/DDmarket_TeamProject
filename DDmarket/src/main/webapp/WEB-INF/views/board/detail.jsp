@@ -321,7 +321,7 @@
 	               </div>
     			</c:forEach>
     			 --%>
-    			
+    		<%-- 
 			<div class="pageWrap">
                 <c:if test="${cmtPageMaker.prev}">
                 	<a href='<c:url value="/board/detail?i_board=${data.i_board}&cmtPage=${cmtPageMaker.startPage-1}"/>'><span class="iconify icon-page-left" data-inline="false" data-icon="mdi-light:chevron-double-left" style="color: #3b73c8; font-size: 47px;"></span></a>
@@ -338,6 +338,26 @@
 			    </c:forEach>
 			    <c:if test="${cmtPageMaker.next && cmtPageMaker.endPage > 0}">
            			<a href='<c:url value="/board/detail?i_board=${data.i_board}&cmtPage=${cmtPageMaker.endPage+1}"/>'><span class="iconify icon-page-right" data-inline="false" data-icon="mdi-light:chevron-double-right" style="color: #3b73c8; font-size: 47px;"></span></a>
+           		</c:if>
+            </div>
+            --%>
+            
+           <div class="pageWrap">
+                <c:if test="${cmtPageMaker.prev}">
+                	<a href='<c:url value="/board/detail?i_board=${data.i_board}&cmtPage=${cmtPageMaker.startPage-1}"/>'><span class="iconify icon-page-left" data-inline="false" data-icon="mdi-light:chevron-double-left" style="color: #3b73c8; font-size: 47px;"></span></a>
+                </c:if>
+				<c:forEach begin="${cmtPageMaker.startPage}" end="${cmtPageMaker.endPage}" var="pageNum">
+			        <c:choose>
+			        <c:when test="${cmtPage == pageNum}">
+			        	<span style="color:red;" onclick="ajaxPageSelCmt(${pageNum})">${pageNum}</span>
+			        </c:when>
+			        <c:otherwise>
+			        	<span onclick="ajaxPageSelCmt(${pageNum})">${pageNum}</span>		        
+			        </c:otherwise>
+			        </c:choose>
+			    </c:forEach>
+			    <c:if test="${cmtPageMaker.next && cmtPageMaker.endPage > 0}">
+           			<span onclick="ajaxPageSelCmt(${cmtPageMaker.endPage+1})" class="iconify icon-page-right" data-inline="false" data-icon="mdi-light:chevron-double-right" style="color: #3b73c8; font-size: 47px;"></span>
            		</c:if>
             </div>
             </section>
@@ -514,11 +534,19 @@
 	
 	//	-	-	- 누나	-	-	-
 	var cmtList = []
-   function ajaxSelCmt() {
+		
+	// 별점   
+	var grade = ${data.grade}/5*125;
+	document.querySelector('.star-ratings-css-top').style.width = grade + "%";
+		
+	// 댓글 뿌리기 (첨에 한번 실행 됨)
+	function ajaxSelCmt() {
       console.log(`i_board : ${data.i_board}`)
       axios.get('/cmt/selCmt', {
          params: {
-            i_board: `${data.i_board}`
+            i_board: `${data.i_board}`,
+           	cmt_pageStart: 1,
+           	cmt_perPageNum: 5
          }
       
       }).then(function(res) {   
@@ -526,6 +554,26 @@
          refreshMenu(res.data)
       })
    }
+	
+	// 페이지 눌렀을때 댓글 뿌리기
+	function ajaxPageSelCmt(cmtPage) {
+      console.log(`i_board : ${data.i_board}`)
+      axios.get('/cmt/selCmt', {
+         params: {
+            i_board: `${data.i_board}`,
+            cmtPage: cmtPage
+         }
+      
+      }).then(function(res) {   
+         console.log(res)
+         cmtListBox.innerHTML = '';
+         refreshMenu(res.data)
+      })
+   }
+	
+	
+	
+	
    
    function refreshMenu(arr) {      
       for (let i = 0; i<arr.length; i++) {
@@ -625,8 +673,8 @@
       cmtListBox.append(divCommentWrap)
    }
    
-   
-   ajaxSelCmt();
+   // 댓글 뿌리기
+	ajaxSelCmt();
    
    // 업데이트 메소드 만들기 (아작스로)
    function updCmt(ctnt, i_cmt) {
@@ -669,6 +717,7 @@
          }
       })
    }
+   
    
    //댓글 등록
    function cmtReg() {
@@ -733,11 +782,7 @@
 		location.href="/board/saleDel?i_board="+i_board;
 		}
 	}
-	
-	// 별점   
-	var grade = ${data.grade}/5*125;
-	document.querySelector('.star-ratings-css-top').style.width = grade + "%"
-	
+
 	
 	//찜 하기
 	function ToLike(){
