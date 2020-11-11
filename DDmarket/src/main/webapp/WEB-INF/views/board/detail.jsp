@@ -275,7 +275,6 @@
 
                         
             	<!-- 댓글 등록 -->
-            	
                 <form id="frm" action="/cmt/cmtReg" method="post">
                 	<br>
                     <div id="inputWrap">
@@ -285,8 +284,7 @@
                     	<input type="hidden" name="i_board" value="${data.i_board}"> <!-- 이값은 아작스할떄는 필요 없는거같음 학원가서 보고 지우든가 쓰던가 하기 -->
                     </div>
                     	<input type="button" id="cmtSubmit" onclick="cmtReg()" value="등록">
-                    	<button type="button" onclick="clkCmtCancel()">취소</button>
-                    	
+                    	<button type="button" onclick="clkCmtCancel()">취소</button>	
 	            </form>
 	            
 	           
@@ -583,6 +581,8 @@
          updCmt(arr.ctnt, arr.i_cmt);
       }
       
+      if(arr.i_user == `${loginUser.i_user}`) {
+    	  console.log('내가 댓글 쓴 갯수');
       var updBtnSpan = document.createElement('span')
       updBtnSpan.setAttribute('class', 'updBtnSpan')
       
@@ -617,6 +617,8 @@
       divEtc.append(delBtn)
       
       divCommentProfileDesc.append(divEtc)
+      }
+      
       divCommentWrap.append(divCommentProfileDesc)
       
       var cmtListBox = document.querySelector('#cmtListBox')
@@ -624,7 +626,7 @@
    }
    
    
-   ajaxSelCmt()
+   ajaxSelCmt();
    
    // 업데이트 메소드 만들기 (아작스로)
    function updCmt(ctnt, i_cmt) {
