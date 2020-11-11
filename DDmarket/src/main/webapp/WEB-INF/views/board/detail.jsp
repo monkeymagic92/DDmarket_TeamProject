@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="/res/css/transModal.css">
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
 <body>
 <!-- test -->
@@ -124,11 +125,20 @@
                                 <br><br>
                            		<c:if test="${data.i_user != loginUser.i_user}">
                            			<c:if test="${buyList != null}">
-
                            				<button class="buyChat" onclick="buyChatBtn()">${buyList}</button>
                            			</c:if>
                            		</c:if>
-
+                           		
+                           		
+                           		
+                           		
+                           		
+                           		
+                           		
+                           		
+                           		
+                           		                           		
+                           		
                            		<%-- 구매요청 버튼 --%>
                           		<form id="transFrm" action="/trans/transRequest" method="post">
                            			<input type="hidden" name="i_user" value="${loginUser.i_user }">
@@ -137,22 +147,17 @@
                            			<c:if test="${loginUser != null}">
 	                      				<button type="submit" name="chkSubmit" id="chkSubmit" onclick="chkValue()">${transBtn}</button>
                       				</c:if>
-                           		</form>               		
+                           		</form>
+                         		
+                          	                           		
                         	</c:if>				
                         </div>
                     </div>
             </section>
              
-             
-             
-             
-             
-             
-             
             <%-- <button class="review" onclick="transBtn()">거래신청 목록보기</button>--%>
-            <button id="chatting" onclick="chatBtn()">거래신청 목록</button>
+            <button id="chatting" onclick="chatBtn()">버튼</button>
             <div id="ChatBox">
-
 		        <div id="SaleList">
 		            <div id="close" onclick="CloBox()">
 		                                  닫기
@@ -160,23 +165,6 @@
 		            
 		            
 		            <div id="Buyers">
-
-		                <div class="buyer" onclick="moveChat()">
-		                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1_copy.jpg" />
-		                    <p>
-		                        <strong>닉네임</strong>
-		                        <span>별점</span>
-		                        <button onclick="soldSuccess()">거래완료</button>
-		                    </p>
-		                </div>
-		                <div class="buyer">
-		                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1_copy.jpg" />
-		                    <p>
-		                        <strong>닉네임</strong>
-		                        <span>별점</span>
-		                    </p>
-		                </div>
-
 		            	<c:forEach items="${selTrans}" var="item">
 			                <div class="buyer" onclick="moveChat()">
 			                    <c:if test="${item.profile_img == null }">
@@ -191,7 +179,6 @@
 			                    </p>
 			                </div>
 			            </c:forEach>		               
-
 		            </div>
 		        </div>
 		        
@@ -278,54 +265,6 @@
 		    
 		    
 		    
-              <div id="SaleList">
-                  <div id="close" onclick="CloBox()">닫기</div>
-                  <div id="Buyers">
-                     <c:forEach items="${selTrans}" var="item">
-                         <div class="buyer" onclick="moveChat()">
-                             <c:if test="${item.profile_img == null }">
-                               <img src="/res/img/lion.jpg" onchange="setThumbnail(e)" alt="" class="img">
-                            </c:if>
-                            <c:if test="${item.profile_img != null}">
-                               <img src="/res/img/profile_img/user/${item.i_user}/${item.profile_img}" class="img">
-                            </c:if>
-                             <p>
-                                 <strong>${item.nick}</strong>
-                                 <span>${item.grade}</span>
-                             </p>
-                         </div>
-                     </c:forEach>                     
-                  </div>
-              </div>
-              <div id="chatView" draggable="true" ondrag="moveCtnt()">
-                  <div id="chatClose" class="p1" onclick="CloChat()">닫기</div>
-                  <div id="chat-Msg">
-                     <%-- 판매자 --%>
-                      <div class="message">
-                          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1_copy.jpg" alt="">
-                          <div class="bubble">안녕하세요
-                              <div class="corner"></div>
-                              <span>1분</span>
-                          </div>
-                      </div>
-                      <%-- 구매자 --%>
-                      <div class="message Mychat">
-                          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" alt="">
-                          <div class="bubble">안녕하세요
-                              <div class="corner"></div>
-                              <span>10초</span>
-                          </div>
-                      </div>
-                  </div>
-                  <%-- 아작스로 댓글 등록하기 --%>
-                  <div id="sendMessage">
-                      <input type="text">
-                      <button id="send" onclick="send()"></button>
-                  </div>
-              </div>
-          </div>
-         
-
             <h2 class="h2-section-title">상품정보</h2>
             <section id="section-desc">
                 <p>${data.ctnt }</p>
@@ -337,7 +276,7 @@
                         
             	<!-- 댓글 등록 -->
             	
-                <form id="frm">
+                <form id="frm" action="/cmt/cmtReg" method="post">
                 	<br>
                     <div id="inputWrap">
                     	<textarea name="ctnt" placeholder="상품문의를 입력 해 주세요"></textarea>
@@ -346,30 +285,28 @@
                     	<input type="hidden" name="i_board" value="${data.i_board}"> <!-- 이값은 아작스할떄는 필요 없는거같음 학원가서 보고 지우든가 쓰던가 하기 -->
                     </div>
                     	<input type="button" id="cmtSubmit" onclick="cmtReg()" value="등록">
-                    	<button type="button" onclick="clkCmtCancel()">취소</button>               	
+                    	<button type="button" onclick="clkCmtCancel()">취소</button>
+                    	
 	            </form>
 	            
-	           <%-- 댓글 등록 부분 --%>
+	           
 	            <div id="cmtListBox">
 	            	
 	            </div>
 	             
 	            
 	            
-	            <!--  
+	            <%--
                 <c:forEach items="${cmtList}" var="item">
 	               	<div id="commentWrap" class="cmtList">
 	                   <div class="comment-profile-img">
-	                       <img src="/res/img/profile_img/user/${item.i_user }/${item.profile_img}" class="profileImg">
+	                       <img src="/res/img/profile_img/user/${item.i_user }/${item.profile_img}" class="img">
 	                   </div>
 	                   
 	                   <div class="comment-profile-desc">
-
 	                       <div class="nick">${item.nick}
 	                       <span class="date">${item.r_dt}</span>
 	                       </div>
-
-
 	                       <div class="comment">${item.ctnt}</div>
 	                       
 	                       <div class="etc">
@@ -385,7 +322,7 @@
 	                   </div>
 	               </div>
     			</c:forEach>
-    			 -->
+    			 --%>
     			
 			<div class="pageWrap">
                 <c:if test="${cmtPageMaker.prev}">
@@ -422,22 +359,21 @@
                     <div class="review-profile-reviewNum">15명의 후기</div>
                 </div>
                 <div id="div-review-right">
-	                <c:forEach items="${reviewList}" var="item" >
                     <div id="reviewWrap">
+	                <c:forEach items="${reviewList}" var="item" begin="0" >
                         <div class="review-right-profile-img"><img src="/res/img/yerin.jpg"></div>
                         <div class="review-right-profile-desc">
                             <div class="nick">
                             	<span>${item.nick}</span>
-                            </div>
-                                <span class="rating">${item.rating}</span>
+                            	<span class="rating">${item.rating}</span></div>
                                 <div class="star-ratings-css">
                                     <div class="star-ratings-top_1" style="width:75%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                                     <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                                 </div>
                             </div>
                             <div class="comment">${item.ctnt}</div>
+                        </c:forEach>
                         </div>
-                    </c:forEach>
                     </div>
                 </div>
             </section>
@@ -449,9 +385,9 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="/res/js/detail.js"></script>
 <script>
-
-
 	
+	
+	//-	-	- 재용	-	-	-	-	-
 	
 	// 1:1문의 창 띄웠을시 여기서 아작스로 select 해서 채팅창 띄우기
 	function buyChatBtn(i_user, loginI_user, i_board) {
@@ -485,13 +421,6 @@
 			
 		})
 	}
-		
-	
-	//	-	-	-	-	-	-	-	-	-	-	-	-	-	-
-	
-	
-	
-	
 	
 		
 	// 구매자 1:1문의 채팅창 띄우기	-	-	-	-	-	-	-	-	-	-	-	-
@@ -520,6 +449,9 @@
 		}
 	}
 	
+	
+	
+	
 	function makeTransBuyChat(arr) {
 		
 		var img = document.createElement('img')
@@ -541,294 +473,251 @@
 		divBubble.append(spanChatDate)
 		
 	}
+	//	-	-	-	- 1:1구매 부분	-	-	-	-	-
 	
-	//	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+	//	-	-	- 재용	-	-	-	-	-
 	
 	
-		
-	// 댓글 뿌리는 아작스	-	-	-	-	-	-	-	-	-	-	-	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+				// DMZ구역
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//	-	-	- 누나	-	-	-
 	var cmtList = []
-	function ajaxSelCmt() {
-		console.log(`i_board : ${data.i_board}`)
-		axios.get('/cmt/selCmt', {
-			params: {
-				i_board: `${data.i_board}`
-			}
-		
-		}).then(function(res) {	
-			console.log(res)
-			refreshMenu(res.data)
-		})
-	}
-	
-	function refreshMenu(arr) {		
-		for (let i = 0; i<arr.length; i++) {
-			makeCmtList(arr[i])
-		}	
-	}
-	
-	
-	
-	function makeCmtList(arr) {
-		
-		var divCommentWrap = document.createElement('div')
-		divCommentWrap.setAttribute('id', 'commentWrap')
-	
-		var divCommentProfileImg = document.createElement('div')
-		divCommentProfileImg.setAttribute('class', 'comment-profile-img')
-		
-		var profileImg = document.createElement('img')
-		profileImg.setAttribute('class', 'profileImg')
-		if(arr.profile_img != null) {
-			profileImg.setAttribute('src',`/res/img/profile_img/user/\${arr.i_user}/\${arr.profile_img}`)
-		} else {
-			profileImg.setAttribute('src','/res/img/lion.jpg')
-		}
-
-		divCommentProfileImg.append(profileImg)
-		divCommentWrap.append(divCommentProfileImg)
-		
-		
-		var divCommentProfileDesc = document.createElement('div')
-		divCommentProfileDesc.setAttribute('class','comment-profile-desc')
-		
-		var divNick = document.createElement('div')
-		divNick.setAttribute('class','nick')
-		divNick.append(arr.nick)
-
-		var spanDate = document.createElement('span')
-		spanDate.setAttribute('class', 'date')
-		spanDate.append(arr.r_dt)
-		divNick.append(spanDate)
-		
-		divCommentProfileDesc.append(divNick)
-		
-		var divComment = document.createElement('div')
-		divComment.setAttribute('class', 'comment')
-		divComment.append(arr.ctnt)
-		
-		divCommentProfileDesc.append(divComment)
-		
-		var divEtc = document.createElement('div')
-		divEtc.setAttribute('class', 'etc')
-
-		divDesc.append(divEtc)
-		
-	}
-	
-	ajaxSelCmt()
-	
-	//	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	
-	
-	
-	
-	
-	
-	
-		
-	function moveToDetail(i_user) {
-		location.href="/user/myPage?i_user="+i_user
-	}
-	
-	
-	
-	function chkValue() {
-		
-		transFrm.chk.value = 1
-		location.reload()
-		
-	}
-	
-	/*
-	function chkUpd() {
-
-		
-		var updBtn = document.createElement('a')
-		updBtn.onclick = function(){
-			updCmt(arr.ctnt, arr.i_cmt);
-		}
-		
-		var updBtnSpan = document.createElement('span')
-		updBtnSpan.setAttribute('class', 'updBtnSpan')
-		
-		var updBtnSpanIconfy = document.createElement('span')
-		updBtnSpanIconfy.setAttribute('class', 'iconify')
-		updBtnSpanIconfy.setAttribute('data-inline', 'false')
-		updBtnSpanIconfy.setAttribute('data-icon', 'si-glyph:arrow-change')
-		updBtnSpanIconfy.setAttribute('style', 'color: #a5a2a2, font-size: 12px')
-				
-		updBtnSpan.innerHTML = '수정하기'
-		updBtnSpan.append(updBtnSpanIconfy)
-		updBtn.append(updBtnSpan)
-
-		
-		divEtc.append(updBtn)
-		
-		var delBtn = document.createElement('a')
-		delBtn.onclick = function(){
-			delCmt(arr.i_cmt);
-		}
-
-		var delBtnSpan = document.createElement('span')
-		delBtnSpan.setAttribute('class', 'delBtnSpan')
-		
-		var delBtnSpanIconfy = document.createElement('span')
-		delBtnSpanIconfy.setAttribute('class', 'iconify icon-del')
-		delBtnSpanIconfy.setAttribute('data-inline', 'false')
-		delBtnSpanIconfy.setAttribute('data-icon', 'ant-design:delete-outlined')
-		delBtnSpanIconfy.setAttribute('style', 'color: #a5a2a2, font-size: 16px')
-		
-		delBtnSpan.innerHTML = '삭제하기'
-		delBtnSpan.append(delBtnSpanIconfy)
-		delBtn.append(delBtnSpan)
-
-		divEtc.append(delBtn)
-		
-		divCommentProfileDesc.append(divEtc)
-		divCommentWrap.append(divCommentProfileDesc)
-		
-		var cmtListBox = document.querySelector('#cmtListBox')
-		cmtListBox.append(divCommentWrap)
-	}
-	
-	
-	ajaxSelCmt()
-	// 업데이트 메소드 만들기 (아작스로)
-	function updCmt(ctnt, i_cmt) {
-		frm.ctnt.value = ctnt
-		frm.i_cmt.value = i_cmt
-		cmtSubmit.value = '수정'
-		console.log(i_cmt)
-	}
-	
-	
-	function clkCmtCancel() {
-		frm.i_cmt.value = 0
-		frm.ctnt.value = ''  //홑따옴표
-
-		cmtSubmit.value = '등록'
-	}
-	
-	function ajaxPost(i_user, i_board, ctnt, i_cmt) {
-		console.log('i_cmt : ' + i_cmt)
-		console.log('ctnt : ' + ctnt)
-		console.log('i_user : ' + i_user)
-		console.log('i_board : ' + i_board)
-		
-		axios.post('/cmt/cmtReg',{
-			i_user : i_user,
-			i_board : i_board,
-			i_cmt : i_cmt,
-			ctnt : ctnt
-			
-		}).then(function(res) {
-			if(res.data == '1') { // 댓글 등록 완료				
-				frm.ctnt.value = ''
-				cmtListBox.innerHTML = ''
-				ajaxSelCmt()
-						
-			} else if(res.data == '3') {
-				alert('로그인을 해주세요')
-				location.href="/user/login"
-				return false;
-			}
-		})
-	}
-	
-	//댓글 등록
-	function cmtReg() {
-		const i_user = `${loginUser.i_user}`;
-		const i_board = `${data.i_board}`
-		const ctnt = frm.ctnt.value
-		const i_cmt = frm.i_cmt.value
-		
-		console.log('i_cmt : ' + i_cmt)
-		console.log('ctnt : ' + ctnt)
-		console.log('i_user : ' + i_user)
-		console.log('i_board : ' + i_board)
-		
-		ajaxPost(i_user, i_board, ctnt, i_cmt)
-		
-	}	
-
-	
-	// 댓글 삭제
-	function delCmt(i_cmt) {
-		console.log('삭제값 : ' + i_cmt)				
-		axios.post('/cmt/delete', {
-			i_cmt : i_cmt,
-			
-		}).then(function(res) {
-						
-			if(res.data == '1') { // 댓글 삭제 완료
-			} else if(res.data == '2') {
-				alert("잘못된 접근방식 입니다");
-				location.href="/user/login";
-				return false;
-				
-			} 
-		})
-	}
+   function ajaxSelCmt() {
+      console.log(`i_board : ${data.i_board}`)
+      axios.get('/cmt/selCmt', {
+         params: {
+            i_board: `${data.i_board}`
+         }
+      
+      }).then(function(res) {   
+         console.log(res)
+         refreshMenu(res.data)
+      })
+   }
+   
+   function refreshMenu(arr) {      
+      for (let i = 0; i<arr.length; i++) {
+         makeCmtList(arr[i])
+      }   
+   }
+   
+   
+   
+   function makeCmtList(arr) {
+      
+      var divCommentWrap = document.createElement('div')
+      divCommentWrap.setAttribute('id', 'commentWrap')
+   
+      var divCommentProfileImg = document.createElement('div')
+      divCommentProfileImg.setAttribute('class', 'comment-profile-img')
+      
+      var profileImg = document.createElement('img')
+      profileImg.setAttribute('class', 'profileImg')
+      if(arr.profile_img != null) {
+         profileImg.setAttribute('src',`/res/img/profile_img/user/\${arr.i_user}/\${arr.profile_img}`)
+      } else {
+         profileImg.setAttribute('src','/res/img/lion.jpg')
+      }
+      divCommentProfileImg.append(profileImg)
+      divCommentWrap.append(divCommentProfileImg)
+      
+      
+      var divCommentProfileDesc = document.createElement('div')
+      divCommentProfileDesc.setAttribute('class','comment-profile-desc')
+      
+      var divNick = document.createElement('div')
+      divNick.setAttribute('class','nick')
+      divNick.append(arr.nick)
+      var spanDate = document.createElement('span')
+      spanDate.setAttribute('class', 'date')
+      spanDate.append(arr.r_dt)
+      divNick.append(spanDate)
+      
+      divCommentProfileDesc.append(divNick)
+      
+      var divComment = document.createElement('div')
+      divComment.setAttribute('class', 'comment')
+      divComment.append(arr.ctnt)
+      
+      divCommentProfileDesc.append(divComment)
+      
+      var divEtc = document.createElement('div')
+      divEtc.setAttribute('class', 'etc')
+      
+      var updBtn = document.createElement('a')
+      updBtn.onclick = function(){
+         updCmt(arr.ctnt, arr.i_cmt);
+      }
+      
+      var updBtnSpan = document.createElement('span')
+      updBtnSpan.setAttribute('class', 'updBtnSpan')
+      
+      var updBtnSpanIconfy = document.createElement('span')
+      updBtnSpanIconfy.setAttribute('class', 'iconify')
+      updBtnSpanIconfy.setAttribute('data-inline', 'false')
+      updBtnSpanIconfy.setAttribute('data-icon', 'si-glyph:arrow-change')
+      updBtnSpanIconfy.setAttribute('style', 'color: #a5a2a2, font-size: 12px')
+            
+      updBtnSpan.innerHTML = '수정하기'
+      updBtnSpan.append(updBtnSpanIconfy)
+      updBtn.append(updBtnSpan)
+      
+      divEtc.append(updBtn)
+      
+      var delBtn = document.createElement('a')
+      delBtn.onclick = function(){
+         delCmt(arr.i_cmt);
+      }
+      var delBtnSpan = document.createElement('span')
+      delBtnSpan.setAttribute('class', 'delBtnSpan')
+      
+      var delBtnSpanIconfy = document.createElement('span')
+      delBtnSpanIconfy.setAttribute('class', 'iconify icon-del')
+      delBtnSpanIconfy.setAttribute('data-inline', 'false')
+      delBtnSpanIconfy.setAttribute('data-icon', 'ant-design:delete-outlined')
+      delBtnSpanIconfy.setAttribute('style', 'color: #a5a2a2, font-size: 16px')
+      
+      delBtnSpan.innerHTML = '삭제하기'
+      delBtnSpan.append(delBtnSpanIconfy)
+      delBtn.append(delBtnSpan)
+      divEtc.append(delBtn)
+      
+      divCommentProfileDesc.append(divEtc)
+      divCommentWrap.append(divCommentProfileDesc)
+      
+      var cmtListBox = document.querySelector('#cmtListBox')
+      cmtListBox.append(divCommentWrap)
+   }
+   
+   
+   ajaxSelCmt()
+   // 업데이트 메소드 만들기 (아작스로)
+   function updCmt(ctnt, i_cmt) {
+      frm.ctnt.value = ctnt
+      frm.i_cmt.value = i_cmt
+      cmtSubmit.value = '수정'
+      //console.log(i_cmt)
+   }
+   
+   
+   function clkCmtCancel() {
+      frm.i_cmt.value = 0
+      frm.ctnt.value = ''  //홑따옴표
+      cmtSubmit.value = '등록'
+   }
+   
+   function ajaxPost(i_user, i_board, ctnt, i_cmt) {
+      console.log('i_cmt : ' + i_cmt)
+      console.log('ctnt : ' + ctnt)
+      console.log('i_user : ' + i_user)
+      console.log('i_board : ' + i_board)
+      
+      axios.post('/cmt/cmtReg',{
+         i_user : i_user,
+         i_board : i_board,
+         i_cmt : i_cmt,
+         ctnt : ctnt
+         
+      }).then(function(res) {
+         if(res.data == '1') { // 댓글 등록 완료            
+            frm.ctnt.value = ''
+            cmtListBox.innerHTML = ''
+            ajaxSelCmt()
+                  
+         } else if(res.data == '3') {
+            alert('로그인을 해주세요')
+            location.href="/user/login"
+            return false;
+         }
+      })
+   }
+   
+   //댓글 등록
+   function cmtReg() {
+      const i_user = `${loginUser.i_user}`;
+      const i_board = `${data.i_board}`
+      const ctnt = frm.ctnt.value
+      const i_cmt = frm.i_cmt.value
+      
+      //console.log('i_cmt : ' + i_cmt)
+      //console.log('ctnt : ' + ctnt)
+      //console.log('i_user : ' + i_user)
+      //console.log('i_board : ' + i_board)
+      
+      ajaxPost(i_user, i_board, ctnt, i_cmt)
+      
+   }   
+   
+   // 댓글 삭제
+   function delCmt(i_cmt) {
+      console.log('삭제값 : ' + i_cmt)            
+      axios.post('/cmt/delete', {
+         i_cmt : i_cmt,
+         
+      }).then(function(res) {
+                  
+         if(res.data == '1') { // 댓글 삭제 완료
+         } else if(res.data == '2') {
+            alert("잘못된 접근방식 입니다");
+            location.href="/user/login";
+            return false;
+            
+         } 
+      })
+   }
+   //	-	-	- 누나	-	-	-	-	-	-	-	-	-	-	-	
 	
 	
-	if(${transErr != null}) {
-		alert('${transErr}')
-		
-	}
 	
-	// 클릭했을시 1:1 채팅 가능하게끔
-	function moveToTransChat(i_trans) {
-		location.href="/test/test?i_trans="+i_trans
-	}
+	
+	
+	
 		
 	function moveToDetail(i_user) {
 		location.href="/user/myPage?i_user="+i_user
 	}
 	
-	
+		
 	function chkValue() {
 		transFrm.chk.value = 1
 		location.reload()
 	}
 	
-	/*
-	function chkUpd() {
-		
-		const i_user = transFrm.i_user.value
-		const i_board = transFrm.i_board.value
-		const chk = transFrm.chk.value
-		
-		
-		console.log('i_user : ' + i_user)
-		console.log('i_board : ' + i_board)
-		console.log('chk : ' + chk)
-		
-		ajaxTrans(i_user, i_board, chk)
-	}	
 	
-	
-	function ajaxTrans(i_user, i_board, chk) {
-		axios.post('/trans/transRequest',{
-			i_user,
-			i_board,
-			chk
-			
-		}).then(function(res) {
-			if(res.data == '1') {
-				console.log('리설트 1')
-				transFrm.chkSubmit.value = '구매요청'
-				
-			} else if(res.data == '2') {
-				console.log('리설트 2')
-				transFrm.chkSubmit.value = '구매취소'
-			}
-				
-		})
-	}
-	*/
-	
-
-
 	if(${updMsg != null}) {
 		alert('${updMsg}')
 	}
@@ -843,33 +732,10 @@
 		}
 	}
 	
-	// 별점
-
-    /*
-	var rating_1 = 1.5/5*75;
-	var starbar_1 = document.querySelector('.star-ratings-top_1')
-		starbar_1.style.width = rating + "%";
-
-	var rating_2 = 1.5/5*75;
-	var starbar_2 = document.querySelector('.star-ratings-top_2')
-		starbar_2.style.width = rating + "%";
-	
-	var rating_3 = 1.5/5*75;
-	var starbar_3 = document.querySelector('.star-ratings-top_3')
-		starbar_3.style.width = rating + "%";
-	
-	var rating_4 = 1.5/5*75;
-	var starbar_4 = document.querySelector('.star-ratings-top_4')
-		starbar_4.style.width = rating + "%";
-	
-	var rating_5 = 1.5/5*75;
-	var starbar_5 = document.querySelector('.star-ratings-top_5')
-		starbar_5.style.width = rating + "%";
-	
+	// 별점   
 	var grade = ${data.grade}/5*125;
 	document.querySelector('.star-ratings-css-top').style.width = grade + "%"
-	*/
-
+	
 	
 	//찜 하기
 	function ToLike(){
@@ -902,19 +768,19 @@
 			}
 		})	
     }       
-
+		
+	
+	
     function transBtn() {
        var modal = document.querySelector(".myModal");
-
        modal.style.display = "block";
     }
     
     function closeBtn() {
-
         var modal = document.querySelector(".myModal");
         modal.style.display = "none";
-     }
-
+     }    
+    
     function chatBtn(){
         ChatBox.style.display = 'flex'   
     }
@@ -928,13 +794,6 @@
         ChatBox.style.display = 'none'
     }
     
-
-	//거래완료
-	function soldSuccess() {
-		if(!confirm('거래를 완료하시겠습니까?')){ return }
-		location.href = "/trans/sold?i_board=${data.i_board}"
-	}
-
     if(${transErr != null}) {
 		alert('${transErr}')		
 	}
@@ -947,9 +806,6 @@
 		$('.buyChatList').show();
 	})
 	*/
-
-
-
 </script>
 </body>
 </html>

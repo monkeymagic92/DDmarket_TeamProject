@@ -1,16 +1,8 @@
 package com.dandi.ddmarket.user;
 
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File; // 여기부분 에러뜨면 빌드패스 자바jre 확인   ( 체크했을시 다시 임포트 파일 해주면 됨 )
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -27,8 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dandi.ddmarket.CommonUtils;
 import com.dandi.ddmarket.Const;
-import com.dandi.ddmarket.Criteria;
-import com.dandi.ddmarket.PageMaker;
 import com.dandi.ddmarket.Paging;
 import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.ViewRef;
@@ -44,12 +34,6 @@ import com.dandi.ddmarket.tap.TapVO;
 import com.dandi.ddmarket.user.model.UserDMI;
 import com.dandi.ddmarket.user.model.UserPARAM;
 import com.dandi.ddmarket.user.model.UserVO;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
 
 @Controller
 @RequestMapping("/user")
@@ -650,5 +634,5 @@ public class UserController {
 	
 }
 
-}
+
 
