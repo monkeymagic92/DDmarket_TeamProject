@@ -1,6 +1,5 @@
 package com.dandi.ddmarket.trans;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,9 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
 import org.springframework.web.bind.annotation.RequestBody;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,6 +19,7 @@ import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.trans.model.TransCmtDMI;
 import com.dandi.ddmarket.trans.model.TransCmtVO;
 import com.dandi.ddmarket.trans.model.TransVO;
+import com.dandi.ddmarket.user.model.UserPARAM;
 
 @Controller
 @RequestMapping("/trans")
@@ -87,7 +85,7 @@ public class TransController {
 	
 	
 	
-	// 판매자나 구매자 파싱후 댓글등록
+	// 판매자나 구매자 파싱후 채팅 뿌리기
 	@RequestMapping(value="/selTransCmt", method=RequestMethod.GET) 
     private @ResponseBody List<TransCmtVO> selTransCmt(TransCmtDMI param, HttpServletRequest request) {
 		
@@ -118,10 +116,10 @@ public class TransController {
 	
 	// 판매자나 구매자 파싱후 댓글등록
 	@RequestMapping(value="/insTransCmt", method=RequestMethod.POST) 
-    private @ResponseBody String insTransCmt(@RequestBody TransCmtVO vo, HttpServletRequest request, HttpSession hs) {
+    private @ResponseBody String insTransCmt(@RequestBody TransCmtVO vo, HttpServletRequest request, HttpSession hs, UserPARAM param) {
 		
-//		int i_user = (int)hs.getAttribute("loginUser");
-//		vo.setTransCmtChk(i_user);
+		param = (UserPARAM)hs.getAttribute("loginUser");
+		vo.setTransCmtChk(param.getI_user());
 		
 		
 		System.out.println("inTransCmt 아작스 - 구매 댓글 등록 -");
@@ -130,14 +128,11 @@ public class TransController {
 		System.out.println("판매유저 : " + vo.getSaleI_user());
 		System.out.println("댓내용 : " + vo.getTransCmt());
 		System.out.println("누가쓴글인지 chk : " + vo.getTransCmtChk());
-		
+		System.out.println("------------------------");
+		System.out.println("------------------------");
 		
 		int result = service.insTransCmt(vo);
 		
 		return String.valueOf(result);
 	}
-		
-	
-	
-
 }

@@ -22,7 +22,7 @@
 	
 	<!-- 구매자 1:1 댓글 뿌리기 -->
 	<select id="selTransCmt" parameterType="TransCmtVO" resultType="TransCmtVO">
-		SELECT B.nick, C.nick, A.transCmtChk, A.transCmt, A.r_dt FROM t_trans_cmt A
+		SELECT A.i_user, B.nick, C.nick, A.transCmtChk, A.transCmt, A.r_dt FROM t_trans_cmt A
 
 		LEFT JOIN t_user B 
 		ON B.i_user = A.i_user
