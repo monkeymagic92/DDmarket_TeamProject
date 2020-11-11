@@ -69,7 +69,7 @@
                     </div>
                 </div>
                 </c:if>
-                ${userAPI.nick}
+              
                 <c:if test="${userAPI != profile_img}">
                  	<input type="hidden" name="email" value="${userAPI.email}">
                 </c:if>

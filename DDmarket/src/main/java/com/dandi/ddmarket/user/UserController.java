@@ -33,6 +33,8 @@ import com.dandi.ddmarket.Paging;
 import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.ViewRef;
 import com.dandi.ddmarket.api.SNSInfo;
+import com.dandi.ddmarket.api.kakao;
+import com.dandi.ddmarket.api.naver;
 import com.dandi.ddmarket.board.BoardService;
 import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.mail.MailSendService;
@@ -558,13 +560,11 @@ public class UserController {
 	//카카오톡 api
 	@RequestMapping(value="/kakaoAPI", method = RequestMethod.GET)
 	public String kakaoControl(UserPARAM param, HttpServletRequest request, Model model, HttpSession hs, RedirectAttributes ra) throws Exception {
-		
-		String msg = null;
 
-		String access_token = getAccessToken(request.getParameter("code"));
+		String access_token = kakao.getAccessToken(request.getParameter("code"));
 		
 		// 카카오 API 를  통해  회원의 정보를 가져와서 값을 넣어줌
-		UserPARAM userAPI = getUserInfo(access_token);
+		UserPARAM userAPI = kakao.getUserInfo(access_token);
 		
 		int result = service.SNSLogin(userAPI);
 		
@@ -577,6 +577,8 @@ public class UserController {
 		System.out.println("가입경로 : " + userAPI.getJoinPass());
 		System.out.println("프사 : " + userAPI.getProfile_img());
 		
+		
+		String msg = null;
 		
 		//1: 로그인 성공,  2 : 아이디 없음
 		if(result == Const.NO_ID) {
@@ -594,107 +596,6 @@ public class UserController {
 		
 		ra.addFlashAttribute("data", msg);
 		return "redirect:/" + ViewRef.USER_LOGIN;
-	}
-	
-	
-	public static UserPARAM getUserInfo (String access_Token) throws Exception {
-	    UserPARAM param = new UserPARAM();
-	    String reqURL = "https://kapi.kakao.com/v2/user/me";
-	    
-	    
-	    try {
-	        URL url = new URL(reqURL);
-	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-	        conn.setRequestMethod("POST");
-	        
-	        //요청에 필요한 Header에 포함될 내용
-	        conn.setRequestProperty("Authorization", "Bearer " + access_Token);
-	        
-	        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-	        
-	        String line = "", result = "";
-	        
-	        while ((line = br.readLine()) != null) {
-	            result += line;
-	        }
-	        JsonParser parser = new JsonParser();
-	        JsonElement element = parser.parse(result);
-	        
-	        JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
-	        JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-	        
-	        String user_id = element.getAsJsonObject().get("id").getAsString();
-	        String nickname = "", profile_image ="", email = "";
-
-	        nickname = properties.getAsJsonObject().get("nickname").getAsString();
-	        email = kakao_account.getAsJsonObject().get("email").getAsString();
-//	        profile_image = properties.getAsJsonObject().get("profile_image").getAsString();
-	       
-	        try {
-	        	profile_image = properties.getAsJsonObject().get("profile_image").getAsString();
-	        } catch (Exception e) {
-	        	profile_image = "";
-	        }
-	        
-	        
-	        param.setUser_id(user_id);
-	        param.setUser_pw(user_id);
-	        param.setJoinPass(2);
-	       
-	        
-	        if(!"".equals(email)) {param.setEmail(email);}
-	        if(!"".equals(nickname)) {param.setNick(nickname);}
-	        if(!"".equals(profile_image)) {
-	        	param.setProfile_img(profile_image);
-//	        	param.setChkProfile(param.getU_profile().substring(0, 4));
-	        }  
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
-	    return param;
-	}
-	
-	public static String getAccessToken(String authorize_code) {
-		String access_Token = "";
-		String reqURL = "https://kauth.kakao.com/oauth/token";
-
-		try {
-			URL url = new URL(reqURL);
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
-			// POST 요청을 위해 기본값이 false인 setDoOutput을 true로
-			conn.setRequestMethod("POST");
-			conn.setDoOutput(true);
-
-			// POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
-			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
-			StringBuilder sb = new StringBuilder();
-			sb.append("grant_type=authorization_code");
-			sb.append("&"+SNSInfo.getKakaoClientId());
-			sb.append("&redirect_uri="+SNSInfo.getKakaoRedirectUri());
-			sb.append("&code=" + authorize_code);
-            bw.write(sb.toString());
-            bw.flush();
-            
-            //요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String line = "";
-            String result = "";
-            
-            while ((line = br.readLine()) != null) {result += line;}
-            
-            //Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
-            JsonParser parser = new JsonParser();
-            JsonElement element = parser.parse(result);
-            
-            access_Token = element.getAsJsonObject().get("access_token").getAsString();
-            
-            br.close();
-            bw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } 
-        return access_Token;
 	}
 	
 	
@@ -702,20 +603,17 @@ public class UserController {
 	@RequestMapping(value="/naverAPI", method = RequestMethod.GET)
 	public String naverControl(UserPARAM param, HttpServletRequest request, Model model, HttpSession hs, RedirectAttributes ra) throws Exception {
 		
-		String msg = null;
-		
 		String code = request.getParameter("code");
 		String state = request.getParameter("state");
 
-		String access_token = getAccessToken(code, state);
+		String access_token = naver.getAccessToken(code, state);
 		
-		// 카카오 API 를  통해  회원의 정보를 가져와서 값을 넣어줌
-		UserPARAM userAPI = getUserInfo2(access_token);
+		// 네이버API 를  통해  회원의 정보를 가져와서 값을 넣어줌
+		UserPARAM userAPI = naver.getUserInfo(access_token);
 		
 		int result = service.SNSLogin(userAPI);
 		
 		System.out.println("result : " + result);
-		
 		System.out.println("이메일 : " + userAPI.getEmail());
 		System.out.println("닉네임 : " + userAPI.getNick());
 		System.out.println("유저아이디 : " + userAPI.getUser_id());
@@ -723,6 +621,8 @@ public class UserController {
 		System.out.println("가입경로 : " + userAPI.getJoinPass());
 		System.out.println("프사 : " + userAPI.getProfile_img());
 		
+		
+		String msg = null;
 		
 		//1: 로그인 성공,  2 : 아이디 없음
 		if(result == Const.NO_ID) {
@@ -741,89 +641,5 @@ public class UserController {
 		ra.addFlashAttribute("data", msg);
 		return "redirect:/" + ViewRef.USER_LOGIN;
 	}
-	
-	//네이버 api
-	public static String getAccessToken(String code, String state) throws UnsupportedEncodingException {
-		String redirectURI = URLEncoder.encode(SNSInfo.getNaverRedirectUri(),"UTF-8");
-				
-		StringBuffer apiURL = new StringBuffer();
-		apiURL.append("https://nid.naver.com/oauth2.0/token?grant_type=authorization_code");
-		apiURL.append("&"+SNSInfo.getNaverClientId());
-		apiURL.append("&"+SNSInfo.getNaverClientSecret());
-		apiURL.append("&redirect_uri=" + redirectURI);
-		apiURL.append("&code=" + code);
-		apiURL.append("&state=" + state);
-		String access_token = "";
-				
-		try { 
-			  URL url = new URL(apiURL.toString());
-		      HttpURLConnection con = (HttpURLConnection)url.openConnection();
-		      con.setRequestMethod("GET");
-		      int responseCode = con.getResponseCode();
-		      BufferedReader br;
-		      
-		      if(responseCode==200) {
-		    	System.out.println("정상 호출");
-		        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-		      } else {  // 에러 발생
-		    	System.out.println("에러 호출");
-		        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-		      }
-		      
-		      String inputLine;
-		      StringBuffer res = new StringBuffer();
-		      
-		      while ((inputLine = br.readLine()) != null) {
-		        res.append(inputLine);
-		      }
-		      br.close();
-		      if(responseCode==200) {
-	    		JSONParser parsing = new JSONParser();
-	    		Object obj = parsing.parse(res.toString());
-	    		JSONObject jsonObj = (JSONObject)obj;
-	    			        
-	    		access_token = (String)jsonObj.get("access_token");
-		      }
-		    } catch (Exception e) {
-		    }
-		return access_token;
-	}
-	
-	//네이버 api
-	public static UserPARAM getUserInfo2(String access_token) throws IOException {
-		String apiurl = "https://openapi.naver.com/v1/nid/me";
-		URL url = new URL(apiurl);
-		HttpURLConnection con = (HttpURLConnection)url.openConnection();
-		con.setRequestMethod("POST");
-		con.setRequestProperty("Authorization", "Bearer " + access_token);
-		
-		BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-		
-		String line = "";
-        String result = "";
-        
-        while ((line = br.readLine()) != null) {result += line;}
-        
-		JsonParser parser = new JsonParser();
-		JsonElement element = parser.parse(result);
-		
-		JsonObject property = element.getAsJsonObject().get("response").getAsJsonObject();
-		String user_id = property.getAsJsonObject().get("id").getAsString();
-		String profile_img = property.getAsJsonObject().get("profile_image").getAsString();
-		String email = property.getAsJsonObject().get("email").getAsString();
-		String name = property.getAsJsonObject().get("name").getAsString();
-		String nickname = property.getAsJsonObject().get("nickname").getAsString();
-		
-		UserPARAM userInfo = new UserPARAM();
-		userInfo.setNick(nickname);
-		userInfo.setUser_id(user_id);
-        userInfo.setUser_pw(user_id);
-		userInfo.setNm(name);
-		userInfo.setProfile_img(profile_img);
-		userInfo.setEmail(email);
-		userInfo.setJoinPass(3);
-		return userInfo;
-	}
-
 	
 }
