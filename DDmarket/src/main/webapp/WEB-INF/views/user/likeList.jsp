@@ -11,7 +11,6 @@
 <body>
 		
         <main>
-        
             <div id="div-title">찜 목록</div>
             <div class="tab_content" id="div-wrap-buyList">
             	<c:forEach items="${data}" var="item">
@@ -37,10 +36,9 @@
                 </article>
                 </c:forEach>
             </div>
-        
         </main>
       
-    <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
+<script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 </body>
 <script>
 	

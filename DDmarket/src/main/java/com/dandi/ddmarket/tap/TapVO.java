@@ -19,6 +19,4 @@ public class TapVO {
 		this.tap_nm = tap_nm;
 	}
 	
-	
-	
 }
