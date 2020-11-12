@@ -104,6 +104,7 @@
                         	<c:if test="${loginUser.i_user == data.i_user }">
                         		<button onclick="moveToUpd(${data.i_board})">수정하기</button>
                             	<button onclick="moveToDel(${data.i_board})">삭제하기</button>
+                            	<button class="buyChat" onclick="selBuyTransCmt()">${buyList}</button>
                         	</c:if>
 
                         	<c:if test="${loginUser.i_user != data.i_user }">
@@ -115,6 +116,32 @@
 	                 	           	<span id="heart" class="iconify icon-btn-heart unheart" data-inline="false" data-icon="clarity:heart-solid" style=" font-size: 20px;"></span>
                					</c:if>찜 
                            		</button>
+                           		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -123,9 +150,13 @@
 
 								<%-- 밑에 buyChatBtn() 만들었음 온클릭했을때 판매자와 구매자 채팅창 아작스로 띄우기 --%>
                                 <br><br>
+                                <%--
                            		<c:if test="${data.i_user != loginUser.i_user}">
                            			<c:if test="${buyList != null}">
-                           				<button class="buyChat" onclick="buyChatBtn()">${buyList}</button>
+                           		 --%>
+                           		 										<%-- 1 : 1 문의 버튼 --%>
+                           				<button class="buyChat" onclick="selBuyTransCmt()">${buyList}</button>
+                           		<%--
                            			</c:if>
                            		</c:if>
 
@@ -138,25 +169,26 @@
 	                      				<button type="submit" name="chkSubmit" id="chkSubmit" onclick="chkValue()">${transBtn}</button>
                       				</c:if>
                            		</form>
-                         		
-                          	                           		
                         	</c:if>				
                         </div>
                     </div>
             </section>
              
-            <%-- <button class="review" onclick="transBtn()">거래신청 목록보기</button>--%>
+             
+             
+             
+            <%--	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ --%>
+            <%-- 판매자가 거래목록 눌렀을시 나타나는 창 --%>            
             <button id="chatting" onclick="chatBtn()">버튼</button>
+            
             <div id="ChatBox">
 		        <div id="SaleList">
 		            <div id="close" onclick="CloBox()">
 		                                  닫기
-		            </div>
-		            
-		            
+		            </div>		            		            
 		            <div id="Buyers">
 		            	<c:forEach items="${selTrans}" var="item">
-			                <div class="buyer" onclick="moveChat()">
+			                <div class="buyer" onclick="transChat(${data.i_board}, ${loginUser.i_user}, ${data.i_user})">  <%-- 구매유저 리스트에서 1:1 채팅 --%>
 			                    <c:if test="${item.profile_img == null }">
 		                			<img src="/res/img/lion.jpg" onchange="setThumbnail(e)" alt="" class="img">
 		                		</c:if>
@@ -172,26 +204,22 @@
 		            </div>
 		        </div>
 		        
-		        <%-- '판매자'가 구매요청 유저 리스트에서 1:1 대화창 --%>
-		        <div id="chatView" draggable="true" ondrag="moveCtnt()">
-		            <div id="chatClose" class="p1" onclick="CloChat()">
+		        
+		        
+		        
+		        
+		        <%-- ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	판매자 목록ㅡ	ㅡ	ㅡ	ㅡ	ㅡㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ --%>
+		        
+		        
+		        <div class="ChatList" id="chatView" draggable="true" ondrag="moveCtnt()">
+		        
+	            	<div id="chatClose" class="p1" onclick="CloChat()">
 		              	  닫기
 		            </div>
 		            <div id="chat-Msg">
-		            
-		            	<%-- 판매자 --%>
-		            
-		                <div class="message">
-		                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1_copy.jpg" alt="">
-		                    <div class="bubble">안녕하세요
-		                        <div class="corner"></div>
-		                        <span>1분</span>
-		                    </div>
-		                </div>
-		                
-		                
-		                <%-- 구매자 --%>
-		                
+		               <div id="TransChatView" class="message">
+		               <div>판매 1:1창</div>
+		               <%--
 		                <div class="message Mychat">
 		                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" alt="">
 		                    <div class="bubble">안녕하세요
@@ -199,52 +227,73 @@
 		                        <span>10초</span>
 		                    </div>
 		                </div>
+		               --%>
+		               </div>
 		            </div>
-		            
-		            
-		            <%-- 아작스로 댓글 등록하기 --%>
 		            <div id="sendMessage">
-		                <input  type="text" name="transCmt">
-		                <button id="send"></button>
+			            <input id="transCmtId" type="text" name="transCmt">
+		                <button id="send" onclick="transCmt()"></button>
 		            </div>
 		        </div>
 		    </div>
 		    
 		    
+		    <%-- ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	구매자 목록ㅡ	ㅡ	ㅡ	ㅡ	ㅡㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ --%>
 		    
-		    
-		    
-		    
-		    
-		    
-		    <%-- '구매자'만 보이는 채팅창(판매자 1:1) --%>
-		    <div class="buyChatList" id="buyChatView" draggable="true" ondrag="moveCtnt()">
+		    <div class="buyChatList" id="buyChatView">
 	            <div id="chatClose" class="p1" onclick="CloBuyChat()">
 	              	  닫기
 	            </div>
 	            <div id="chat-Msg">
-	            
-	            	<c:if test="${loginUser != null}">
-		                <div id="TransChatView" class="message Mychat">
-		                   
-		                </div>             
-	                </c:if>
-	                <c:if test="${loginUser == null}">
-	                	<div id="TransChatView" class="message Mychat">
-		                   
-		                </div>
-	                </c:if>	              
+	                <div id="transBuyChatView" class="message Mychat">
+	                	
+	                    <%--  자스로 들어가는 부분		                    
+						    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" alt="">
+						    <div class="bubble">안녕하세요
+						        <div class="corner"></div>
+						        <div class="buyNick"></div>
+						        <span>10초</span>
+						    </div>
+						--%>
+	                </div>   
+	                
+	                          
 	            </div>
-	                        
 	            
-	            <%-- 아작스로 댓글 등록하기 --%>
 	            <div id="sendMessage">
-	                <input id="transCmtId" type="text" name="transCmt">
-	                <button id="send" onclick="transCmt()"></button>
+	                <input id="buyTransCmtId" type="text" name="transCmt">
+	                <button id="send" onclick="buyTransCmt()"></button>
 	            </div>
 	        </div>
 
-		    <%-- -	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	 --%>
+	         
+		   
+		    
+		    
+		    
+		    <%--	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡㅡ	ㅡ	ㅡ	ㅡ	 --%>
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+
 		    
 
             <h2 class="h2-section-title">상품정보</h2>
@@ -269,31 +318,7 @@
 	            </form>
 	            
 
-	           
-	            <div id="cmtListBox">
-	            	
-	            </div>
-	             
-			<div class="pageWrap">
-                <c:if test="${cmtPageMaker.prev}">
-                	<a href='<c:url value="/board/detail?i_board=${data.i_board}&cmtPage=${cmtPageMaker.startPage-1}"/>'><span class="iconify icon-page-left" data-inline="false" data-icon="mdi-light:chevron-double-left" style="color: #3b73c8; font-size: 47px;"></span></a>
-                </c:if>
-				<c:forEach begin="${cmtPageMaker.startPage}" end="${cmtPageMaker.endPage}" var="pageNum">
-			        <c:choose>
-			        <c:when test="${cmtPage == pageNum}">
-			        	<a style="color: red;" href='<c:url value="/board/detail?i_board=${data.i_board}&cmtPage=${pageNum}"/>'>${pageNum}</a>
-			        </c:when>
-			        <c:otherwise>
-			        	<a href='<c:url value="/board/detail?i_board=${data.i_board}&cmtPage=${pageNum}"/>'>${pageNum}</a>		        
-			        </c:otherwise>
-			        </c:choose>
-			    </c:forEach>
-			    <c:if test="${cmtPageMaker.next && cmtPageMaker.endPage > 0}">
-           			<a href='<c:url value="/board/detail?i_board=${data.i_board}&cmtPage=${cmtPageMaker.endPage+1}"/>'><span class="iconify icon-page-right" data-inline="false" data-icon="mdi-light:chevron-double-right" style="color: #3b73c8; font-size: 47px;"></span></a>
-           		</c:if>
-            </div>
-            </section>
-            
+
 	            <div id="cmtListBox"></div>
 	            <div id="divSelMoreCtn"></div>
 
@@ -331,122 +356,134 @@
             </section>
         </main>
     </div>
+    
+    
 <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="/res/js/detail.js"></script>
 <script>
-	
-	
-	//-	-	- 재용	-	-	-	-	-
-	
-	// 1:1문의 창 띄웠을시 여기서 아작스로 select 해서 채팅창 띄우기
-	function buyChatBtn(i_user, loginI_user, i_board) {
-		$('.buyChatList').show();
-		console.log(i_user)
-		console.log(loginI_user)
-		console.log(i_board)
+	if(${transErr != null}) {
+		alert('${transErr}')		
 	}
 	
+	//-	-	- 채팅	-	-	-	-	-
 	
+	// 1:1문의 창 띄웠을시 여기서 아작스로 select 해서 채팅창 띄우기
 	function CloBuyChat() {
 		buyChatView.style.display = 'none'
 	}
 	
-	
-	
 	// '구매자 채팅입력'
-	function transCmt() {
-		var transCmt = transCmtId.value
+	function buyTransCmt() {
 		
+		var transCmt = buyTransCmtId.value
+	
 		axios.post('/trans/insTransCmt', {
 			
 			i_board : `${data.i_board}`,
-			i_user : `${loginUser.i_user}`,	
+			i_user : `${loginUser.i_user}`, //
 			saleI_user : `${data.i_user}`,
+			transCmtChk : `${loginUser.i_user}`, //
 			transCmt
 			
-		}).then(function(res) {
-			
-			refreshBuyChat(res.data)
-			
+		}).then(function(res) {		
+			buyTransCmtId.value = ''
+			//refreshBuyChat(res.data)		
+			transBuyChatView.innerHTML = ''
+			transChat()
 		})
 	}
-	
 		
+	
+	
+	
 	// 구매자 1:1문의 채팅창 띄우기	-	-	-	-	-	-	-	-	-	-	-	-
 	var saleProfile_img = `${data.profile_img}`
 	
-	function buyChatBtn() {
+	function selBuyTransCmt() {
+		buyChatView.style.display = 'flex'
+		selBuyChat()
+	}		
+	
+	function transChat() {
+		
 		axios.get('/trans/selTransCmt', {
 			
 			// saleProfile_img (판매자 사진) 못받을경우 대체이미지로 if문 써서 서버에 넘기거나 서버단에서 if문으로 get에 넣기 
 			
 			params: {
 				saleI_user : `${data.i_user}`,
-				i_user : `${loginUser.i_user}`,				
+				i_user : `${loginUser.i_user}`, //		
 				i_board : `${data.i_board}`
 			}
 		
-		}).then(function(res) {
+		}).then(function(res) {		
+			for(var i=0; i<res.data.length; i++) {
+				console.log(res.data[i])
+			}
+			
 			refreshBuyChat(res.data)
-			$('.buyChatList').show();
 		})
 	}
 	
 	function refreshBuyChat(arr) {
 		for (let i = 0; i < arr.length; i++) {
-			makeTransBuyChat(arr)
+			makeTransBuyChat(arr[i])
 		}
 	}
-	
-	
-	
 	
 	function makeTransBuyChat(arr) {
 		
+		
 		var img = document.createElement('img')
-		if(arr.profile_img != null || arr.profile_img != '') {
-			img.setAttribute('src',`/res/img/profile_img/user/\${arr.transCmtChk}/\${arr.profile_img}`)
-		} else {
-			img.setAttribute('src','/res/img/lion.jpg')
-		}
-		TransChatView.append(img)
+		if(arr.buyProfile_img != null) {
+            img.setAttribute('src',`/res/img/profile_img/user/\${arr.buyI_user}/\${arr.buyProfile_img}`)
+	    } else {
+	        img.setAttribute('src','/res/img/lion.jpg')	        
+	    }		
+		
+		transBuyChatView.append(img)
 		
 		var divBubble = document.createElement('div')
 		divBubble.setAttribute('class', 'bubble')
-		TransChatView.append(divBubble)
+		divBubble.append(arr.transCmt)
+		transBuyChatView.append(divBubble)
 		
-		var spanChatDate = document.createElement('span')
-		spanChatDate.setAttribute('class', 'chatDate')
-		spanChatDate.append(arr.r_dt)
+		var divCorner = document.createElement('div')
+		divCorner.setAttribute('class', 'corner')
+		divBubble.append(divCorner)
 		
-		divBubble.append(spanChatDate)
+		var divBuyNick = document.createElement('div')
+		divBuyNick.setAttribute('class', 'buyNick')
+		divBuyNick.append(arr.buyNick)
+		divBubble.append(divBuyNick)
 		
+		var span = document.createElement('span')
+		span.append(arr.r_dt)
+		divBubble.append(span)
 	}
-	//	-	-	-	- 1:1구매 부분	-	-	-	-	-
+			
 	
-	//	-	-	- 재용	-	-	-	-	-
-	
-	
+	//	-	-	- 채팅	-	-	-	-	-
 	
 	
+	// 구매자 목록 눌렀을시 목록 '띄우기'
+	function chatBtn() {
+		ChatBox.style.display = 'flex'
+	}	
+	// 구매자 목록 눌렀을시 목록 '닫기'
+	function CloBox() {
+		ChatBox.style.display = 'none'
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-				// DMZ구역
-	
+	// 1:1문의 눌렀을시 채팅창 '닫기'
+	function CloBuyChat() {
+		buyChatView.style.display = 'none'
+	}	
+		
+	// DMZ구역
 	
 	
 	
@@ -463,8 +500,23 @@
 	
 	
 	
+				
 	
-	//	-	-	- 누나	-	-	-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	var cmtList = []
 		
 	var cmtCnt = 0;
@@ -763,7 +815,8 @@
          } 
       })
    }
-   //	-	-	- 누나	-	-	-	-	-	-	-	-	-	-	-	
+
+
 		
 	function moveToDetail(i_user) {
 		location.href="/user/myPage?i_user="+i_user
@@ -823,43 +876,6 @@
 		})	
     }       
 		
-	
-	
-    function transBtn() {
-       var modal = document.querySelector(".myModal");
-       modal.style.display = "block";
-    }
-    
-    function closeBtn() {
-        var modal = document.querySelector(".myModal");
-        modal.style.display = "none";
-     }    
-    
-    function chatBtn(){
-        ChatBox.style.display = 'flex'   
-    }
-    function CloChat(){
-        chatView.style.display = 'none'
-    }
-    function moveChat(){
-        chatView.style.display = 'flex'
-    }
-    function CloBox(){
-        ChatBox.style.display = 'none'
-    }
-    
-    if(${transErr != null}) {
-		alert('${transErr}')		
-	}
-	
-	// 구매자 판매자 1:1문의 창 띄우기
-	$('.buyChatList').hide();
-	
-	/*
-	$('.buyChatBtn').click(function() {
-		$('.buyChatList').show();
-	})
-	*/
 </script>
 </body>
 </html>

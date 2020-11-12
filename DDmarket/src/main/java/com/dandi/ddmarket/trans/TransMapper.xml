@@ -21,8 +21,9 @@
 	
 	
 	<!-- 구매자 1:1 댓글 뿌리기 -->
-	<select id="selTransCmt" parameterType="TransCmtVO" resultType="TransCmtVO">
-		SELECT B.nick, C.nick, A.transCmtChk, A.transCmt, A.r_dt FROM t_trans_cmt A
+	<select id="selTransCmt" parameterType="TransCmtDMI" resultType="TransCmtDMI">
+		SELECT C.profile_img as 'profile_img', B.profile_img as 'buyProfile_img', A.i_user as 'buyI_user',
+		B.nick as 'buyNick', C.nick, A.transCmtChk, A.transCmt, A.r_dt FROM t_trans_cmt A
 
 		LEFT JOIN t_user B 
 		ON B.i_user = A.i_user
@@ -31,7 +32,6 @@
 		ON A.saleI_user = C.i_user
 		
 		WHERE A.i_board = #{i_board}
-		AND B.i_user = #{i_user}
 		AND A.saleI_user = #{saleI_user}
 		ORDER BY A.r_dt ASC
 	</select>
@@ -47,7 +47,7 @@
 	<!-- insert -->
 	
 	<!-- 구매요청 댓글 입력 / 가격요청 눌렀을시 트랜스테이블 저장 -->
-	<insert id="insTrans" parameterType="TransVO">
+	<insert id="insTrans" parameterType="TransDMI">
 		INSERT INTO t_trans
 		(i_user, i_board, chk)
 		VALUES
