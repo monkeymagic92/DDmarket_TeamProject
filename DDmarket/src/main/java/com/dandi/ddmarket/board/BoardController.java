@@ -194,7 +194,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/detail", method = RequestMethod.POST)
-	public String detail(Model model, TransVO vo) {
+	public String detail(Model model, TransDMI vo) {
 		int result = transService.insTrans(vo);  // 거래요청 클릭시 trans테이블에 값 추가
 		
 		

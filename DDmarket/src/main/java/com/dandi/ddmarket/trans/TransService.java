@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.trans.model.TransCmtDMI;
-import com.dandi.ddmarket.trans.model.TransCmtVO;
 import com.dandi.ddmarket.trans.model.TransDMI;
 import com.dandi.ddmarket.trans.model.TransVO;
 
@@ -18,9 +17,9 @@ public class TransService {
 	private TransMapper mapper;
 	
 	// 가격요청 눌렀을시 n번유저 저장
-	public int insTrans(TransVO vo) {
-		int result = mapper.insTrans(vo);
-		return result;
+	public int insTrans(TransDMI vo) {
+		int i_room = mapper.insTrans(vo);
+		return i_room;
 	}
 	
 	
@@ -51,6 +50,20 @@ public class TransService {
 	// 거래취소 
 	public int delTransUser(TransVO vo) {
 		return mapper.delTransUser(vo);
+	}
+	
+	
+	// i_trans 값 반환 (채팅방 pk값 이용하려고)
+	public int intI_trans(TransDMI vo) {
+		
+		int i_trans = mapper.intI_trans(vo);
+		return i_trans;
+	}
+	
+	
+	// 채팅글 등록
+	public int insTransCmt(TransCmtDMI vo) {
+		return mapper.insTransCmt(vo);
 	}
 	
 	

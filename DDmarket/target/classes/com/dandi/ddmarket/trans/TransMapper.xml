@@ -7,7 +7,7 @@
 	
 	<!-- 해당n번 게시글의 가격요청 누른 유저정보 -->	
 	<select id="selTrans" parameterType="BoardPARAM" resultType="TransDMI">
-		SELECT A.chk, B.i_user ,B.nick, B.profile_img, B.addr, B.grade FROM t_trans A
+		SELECT A.i_trans, A.chk, B.i_user ,B.nick, B.profile_img, B.addr, B.grade FROM t_trans A
 		LEFT JOIN t_user B
 		ON A.i_user = B.i_user 
 		
@@ -27,13 +27,26 @@
 		AND i_user = #{i_user}  
 	</select>
 	
-	
+	<!-- 구매요청 눌렀을시 i_trans값 반환 -->
+	<select id="intI_trans" resultType="Integer">
+		SELECT i_trans FROM t_trans
+		WHERE i_board = #{i_board}
+		AND i_user = #{i_user}
+	</select>	
+
 	
 	<!-- insert -->
 	
+	<!-- 채팅글입력 -->
+	<insert id="insTransCmt" parameterType="TransCmtDMI">
+		INSERT INTO t_trans_cmt
+		(i_user, i_board, saleI_user, transCmt)
+		VALUES
+		(#{i_user}, #{i_board}, #{saleI_user}, #{transCmt})
+	</insert>
 	
 	
-	<!-- 구매요청 댓글 입력 / 가격요청 눌렀을시 트랜스테이블 저장 -->
+	<!-- 가격요청 눌렀을시 트랜스테이블 저장 -->
 	<insert id="insTrans" parameterType="TransDMI">
 		INSERT INTO t_trans
 		(i_user, i_board, chk)

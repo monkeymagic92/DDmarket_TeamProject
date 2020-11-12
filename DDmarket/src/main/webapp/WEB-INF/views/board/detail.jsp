@@ -146,6 +146,8 @@
 		            <div id="Buyers">
 		            	<c:forEach items="${selTrans}" var="item">
 			                <div class="buyer" onclick="transChat()">  <%-- 구매유저 리스트에서 1:1 채팅 --%>
+			                	<input id="transValue" type="hidden" value="${item.i_trans}">
+			                	<div>${item.i_trans }</div>			                	
 			                    <c:if test="${item.profile_img == null }">
 		                			<img src="/res/img/lion.jpg" onchange="setThumbnail(e)" alt="" class="img">
 		                		</c:if>
@@ -157,21 +159,18 @@
 			                        <span>${item.grade}</span>
 			                    </p>
 			                </div>
-			            </c:forEach>		               
+		            </c:forEach>	               
 		            </div>
 		        </div>
-		        	
-		        	<%-- --%>
 		        <div class="ChatList" id="chatView" >
 	                <div id="chatClose" class="p1" onclick="CloChat()">
 	                   	   닫기
 	                </div>
                     <div id="chat-Msg">
                          <div id="TransChatView" class="message">  
-                                        
 		                     <div class="message Mychat">
 		                         <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" alt="">
-		                         <div class="bubble">안녕하세요
+		                         <div class="bubble">우측
 		                         	<div class="corner"></div>
 		                        	 <span>10초</span>
 		                     	</div>
@@ -179,22 +178,20 @@
 			                
 		                    <div id="TransChatView" class="message">
 		                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" alt="">
-		                        <div class="bubble">방가
+		                        <div class="bubble">좌측
 		                        	<div class="corner"></div>
 		                         	<span>10초</span>
 		                      </div>
-		                   </div>
-		                   
+		                   </div>		                   
 	                   </div>
-		                  <div id="sendMessage">
-		                     <input id="transCmtId" type="text" name="transCmt">
-		                     <button id="send" onclick="transCmt()"></button>
-		                  </div>
-	              </div> 
-	          </div>
-		        
-		        
-		        
+	               </div>
+              		   <%-- 채팅입력 --%>
+	                   <div id="sendMessage">
+	                      <input id="transCmtId" type="text" name="transCmt">
+	                      <button id="send" onclick="insTransChat()"></button>
+	                   </div>
+		      </div>    
+	        
 		    </div>    
 		    
 		    <%--	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡㅡ	ㅡ	ㅡ	ㅡ	 --%>
@@ -202,17 +199,6 @@
 		    	 
 		           
 		    
-		    
-		    
-		    
-		    
-		    
-		    
-		    
-		    
-		
-		
-	     <%--	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ --%>		    
 		    
 		    
 		    
@@ -296,18 +282,54 @@
 		alert('${transErr}')		
 	}
 	
-	function transChat() {
-		chatView.style.display = 'flex'
-	}
-	
-	// 구매자 목록 눌렀을시 목록 '띄우기'
+	// 구매리스트 창 열기
 	function chatBtn() {
 		ChatBox.style.display = 'flex'
-	}	
-	// 구매자 목록 눌렀을시 목록 '닫기'
+	}
+	// 구매리스트 창 닫기
 	function CloBox() {
 		ChatBox.style.display = 'none'
 	}
+	
+	// 채팅창 열기
+	function transChat() {
+		chatView.style.display = 'flex'
+		
+	}
+	// 채팅창 닫기
+	function CloChat() {
+		chatView.style.display = 'none'
+	}
+	
+	        	 
+	function insTransChat() {
+	    var transCmt = transCmtId.value
+	    var i_trans = transValue.value
+	    
+        axios.post('/trans/insTransCmt',{
+			
+	      i_user : `${loginUser.i_user}`, 
+	      i_board : `${data.i_board}`,
+	      saleI_user : `${data.i_user}`,
+	      transCmt,
+	        
+     	}).then(function(res) {
+     		transCmtId.value = ''
+    	  
+     	})    		 
+	}
+		
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

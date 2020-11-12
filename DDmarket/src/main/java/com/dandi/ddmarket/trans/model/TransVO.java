@@ -5,7 +5,8 @@ public class TransVO {
 	private int i_trans;
 	private int i_board;
 	private int i_user;
-	private int chk;
+	private int i_room;
+	private int chk;	
 	private int buyI_user;
 	private int soldI_user;
 	private String r_dt;
@@ -28,6 +29,13 @@ public class TransVO {
 	}
 	public void setI_user(int i_user) {
 		this.i_user = i_user;
+	}
+	
+	public int getI_room() {
+		return i_room;
+	}
+	public void setI_room(int i_room) {
+		this.i_room = i_room;
 	}
 	public int getChk() {
 		return chk;
