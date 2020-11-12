@@ -2,8 +2,8 @@
 
 ## 우리동네 직거래 중고 마켓 '단디마켓'
 #### logo type
-![logo-blue](C:\Users\Administrator\Downloads\logo-white.jpg)
-<img src="C:\Users\Administrator\Downloads\logo-blue.jpg" alt="logo-blue" style="zoom: 33%;" />
+<img src="C:\Users\Administrator\Downloads\logo-blue.jpg" alt="logo-blue" style="zoom:33%;" />
+
 
 
 
