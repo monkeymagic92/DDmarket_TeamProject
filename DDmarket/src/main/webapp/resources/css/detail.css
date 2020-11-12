@@ -285,7 +285,7 @@ section:nth-last-child(2) {margin-bottom:0px;}
     word-break: keep-all;
     word-wrap: break-word;
 }
-#section-comment #commentWrap:nth-last-child(2) {
+#section-comment #commentWrap:nth-last-child(1) {
     display: flex;
     align-items: center;
     border-bottom: none;
@@ -325,6 +325,9 @@ section:nth-last-child(2) {margin-bottom:0px;}
 #section-comment #commentWrap .comment-profile-desc .etc a {
     font-size: 13px;
     color: #A5A2A2;
+}
+#section-comment #commentWrap .comment-profile-desc .etc a:nth-child(1) {
+    margin-right : 8px;
 }
 #section-comment #commentWrap .comment-profile-desc .etc a div {
     margin-left: 15px;

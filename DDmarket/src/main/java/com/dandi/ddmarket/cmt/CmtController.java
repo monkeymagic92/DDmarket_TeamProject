@@ -8,11 +8,15 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.dandi.ddmarket.CmtCriteria;
+import com.dandi.ddmarket.CmtPageMaker;
+import com.dandi.ddmarket.CommonUtils;
 import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.cmt.model.CmtDMI;
@@ -29,10 +33,16 @@ public class CmtController {
 	
 	// 댓글 뿌리기
 	@RequestMapping(value="/selCmt", method=RequestMethod.GET)
-	private @ResponseBody List<CmtDMI> selCmt(BoardPARAM param){
-		System.out.println("댓글뿌리기");
-		System.out.println(param.getI_board());
+	private @ResponseBody List<CmtDMI> selCmt(Model model, BoardPARAM param, HttpServletRequest request, HttpSession hs){
+		
 		return service.selCmt(param);
+	}
+	
+	// 댓글 수 가져오기 뿌리기
+	@RequestMapping(value="/selCount", method=RequestMethod.GET)
+	private @ResponseBody int selCount(Model model, BoardPARAM param, HttpServletRequest request, HttpSession hs){
+		
+		return service.countCmt(param);
 	}
 	
 	
