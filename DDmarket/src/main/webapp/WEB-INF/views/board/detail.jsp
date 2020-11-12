@@ -571,7 +571,12 @@
       var delBtn = document.createElement('a')
       
       delBtn.onclick = function(){
-         delCmt(arr.i_cmt);
+    	 var chkDelCmt = confirm('삭제하시겠습니까?');
+    	 if(chkDelCmt) {
+         delCmt(arr.i_cmt);    		 
+    	 } else {
+ 			return false;   		 
+    	 }
       }
       
       var delBtnSpan = document.createElement('span')
@@ -668,8 +673,7 @@
          i_cmt : i_cmt,
          
       }).then(function(res) {
-    	  
-                  
+       
          if(res.data == '1') { // 댓글 삭제 완료
         	 cmtListBox.innerHTML = '';
         	 ajaxSelCmt();
