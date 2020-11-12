@@ -60,10 +60,10 @@
                     <div id="div-info-right">
                         <div class="user-info">
                             <div class="profile-img">
-                            	<c:if test="${data.profile_img == null }">
+                            	<c:if test="${data.profile_img == null}">
                         		<a href="/user/myPage?i_user=${data.i_user}&i_tap=1"><img src="/res/img/yerin.jpg" onchange="setThumbnail(e)" alt="" class="img"></a>
 	                        	</c:if>
-	                        	<c:if test="${data.profile_img != null }">
+	                        	<c:if test="${data.profile_img != null}">
 	                                <a href="/user/myPage?i_user=${data.i_user}"><img src="/res/img/profile_img/user/${data.i_user}/${data.profile_img}" class="img"></a>                    	
 	                        	</c:if>
                             </div>
@@ -265,6 +265,7 @@
 	                <button id="send" onclick="buyTransCmt()"></button>
 	            </div>
 	        </div>
+
 	         
 		   
 		    
@@ -292,24 +293,18 @@
 		    
 		    
 		    
+
 		    
-		    
-		    
-		    
-		    
-		    
-		    
+
             <h2 class="h2-section-title">상품정보</h2>
             <section id="section-desc">
                 <p>${data.ctnt }</p>
             </section>
-            <h2 class="h2-section-title">상품문의 (${cmtCount })</h2>
+            <h2 class="h2-section-title" id="h2-section-title"></h2>
             <section id="section-comment">
             
-
-                        
+      
             	<!-- 댓글 등록 -->
-            	
                 <form id="frm" action="/cmt/cmtReg" method="post">
                 	<br>
                     <div id="inputWrap">
@@ -319,36 +314,13 @@
                     	<input type="hidden" name="i_board" value="${data.i_board}"> <!-- 이값은 아작스할떄는 필요 없는거같음 학원가서 보고 지우든가 쓰던가 하기 -->
                     </div>
                     	<input type="button" id="cmtSubmit" onclick="cmtReg()" value="등록">
-                    	<button type="button" onclick="clkCmtCancel()">취소</button>
-                    	
+                    	<button type="button" onclick="clkCmtCancel()">취소</button>	
 	            </form>
 	            
-	           
-	            <div id="cmtListBox">
-	            	
-	            </div>
-	             
-	            	                			
-			<div class="pageWrap">
-                <c:if test="${cmtPageMaker.prev}">
-                	<a href='<c:url value="/board/detail?i_board=${data.i_board}&cmtPage=${cmtPageMaker.startPage-1}"/>'><span class="iconify icon-page-left" data-inline="false" data-icon="mdi-light:chevron-double-left" style="color: #3b73c8; font-size: 47px;"></span></a>
-                </c:if>
-				<c:forEach begin="${cmtPageMaker.startPage}" end="${cmtPageMaker.endPage}" var="pageNum">
-			        <c:choose>
-			        <c:when test="${cmtPage == pageNum}">
-			        	<a style="color: red;" href='<c:url value="/board/detail?i_board=${data.i_board}&cmtPage=${pageNum}"/>'>${pageNum}</a>
-			        </c:when>
-			        <c:otherwise>
-			        	<a href='<c:url value="/board/detail?i_board=${data.i_board}&cmtPage=${pageNum}"/>'>${pageNum}</a>		        
-			        </c:otherwise>
-			        </c:choose>
-			    </c:forEach>
-			    <c:if test="${cmtPageMaker.next && cmtPageMaker.endPage > 0}">
-           			<a href='<c:url value="/board/detail?i_board=${data.i_board}&cmtPage=${cmtPageMaker.endPage+1}"/>'><span class="iconify icon-page-right" data-inline="false" data-icon="mdi-light:chevron-double-right" style="color: #3b73c8; font-size: 47px;"></span></a>
-           		</c:if>
-            </div>
-            </section>
-            
+
+	            <div id="cmtListBox"></div>
+	            <div id="divSelMoreCtn"></div>
+
             
             <h2 class="h2-section-title">판매자 후기</h2>
             <section id="section-review">
@@ -551,11 +523,38 @@
 	
 	//	-	-	- 댓글	-	-	-
 	var cmtList = []
-   function ajaxSelCmt() {
+		
+	var cmtCnt = 0;
+	
+	ajaxSelCount();
+	
+	
+   // ajax로 댓글 수 뽑아오기
+   	function ajaxSelCount() {
+      axios.get('/cmt/selCount', {
+          params: {
+            i_board: `${data.i_board}`,
+          }
+       
+       }).then(function(res) {   
+			cmtCnt = res.data;
+			var h2_section_title_cnt = document.querySelector('#h2-section-title');
+			h2_section_title_cnt.innerText = '상품문의' +'(' + cmtCnt + ')';
+       })
+	}
+		
+	// 별점   
+	var grade = ${data.grade}/5*125;
+	document.querySelector('.star-ratings-css-top').style.width = grade + "%";
+		
+	// 댓글 뿌리기 (첨에 한번 실행 됨)
+	function ajaxSelCmt() {
       console.log(`i_board : ${data.i_board}`)
       axios.get('/cmt/selCmt', {
          params: {
-            i_board: `${data.i_board}`
+            i_board: `${data.i_board}`,
+           	cmt_pageStart: 0,
+           	cmt_perPageNum: 5
          }
       
       }).then(function(res) {   
@@ -563,14 +562,67 @@
          refreshMenu(res.data)
       })
    }
-   
-   function refreshMenu(arr) {      
+	
+	
+	var cmt_pageStart = 0;
+	var limitCnt = 0;
+	var limit = 0;
+	
+	function ajaxSelMore() {
+      axios.get('/cmt/selCmt', {
+          params: {
+            i_board: `${data.i_board}`,
+           	cmt_pageStart: cmt_pageStart + 5,
+           	cmt_perPageNum: 5
+          }
+       
+       }).then(function(res) {   
+   		  cmt_pageStart += 5
+   		  
+   		  ajaxSelCount()
+   		  
+        refreshMenu(res.data)
+        
+ 		  limit = Math.ceil(cmtCnt/5);
+			
+   		  if(limitCnt > limit-3) {
+   		     var divSelMoreCtn = document.querySelector("#divSelMoreCtn")
+  			 divSelMoreCtn.innerHTML = '';
+   		  }
+   		  
+   		limitCnt++
+        
+       })
+	}
+	
+   function refreshMenu(arr) {
+
       for (let i = 0; i<arr.length; i++) {
          makeCmtList(arr[i])
-      }   
+      }
+      
+      console.log('cmtCnt : ' + cmtCnt);
+      
+      /////////더보기 버튼
+      if(cmtCnt > 5) { 
+	      var divSelMoreCtn = document.querySelector("#divSelMoreCtn")
+	      
+	      divSelMoreCtn.innerHTML = '';
+	      
+	      var divSelMore =  document.createElement('div')
+	      divSelMore.setAttribute('id', 'ajaxSelMore')
+	      divSelMore.innerText = '더보기'
+	   	  divSelMore.onclick = function() {
+	    	  ajaxSelMore();
+	      }
+	      
+	      divSelMoreCtn.append(divSelMore)
+      }
+      
    }
    
-   
+
+
    
    function makeCmtList(arr) {
       
@@ -615,11 +667,18 @@
       
       var updBtn = document.createElement('a')
       updBtn.onclick = function(){
+    	  //////// 수정창으로 올라가게 하기
+    	 window.scrollTo({top:780, left:0, behavior:'smooth'});
          updCmt(arr.ctnt, arr.i_cmt);
       }
       
+      if(arr.i_user == `${loginUser.i_user}`) {
+    	  console.log('내가 댓글 쓴 갯수');
       var updBtnSpan = document.createElement('span')
       updBtnSpan.setAttribute('class', 'updBtnSpan')
+      
+      var updBtnSpanText = document.createElement('span')
+      updBtnSpanText.innerText = '수정하기'
       
       var updBtnSpanIconfy = document.createElement('span')
       updBtnSpanIconfy.setAttribute('class', 'iconify')
@@ -627,18 +686,28 @@
       updBtnSpanIconfy.setAttribute('data-icon', 'si-glyph:arrow-change')
       updBtnSpanIconfy.setAttribute('style', 'color: #a5a2a2, font-size: 12px')
             
-      updBtnSpan.innerHTML = '수정하기'
       updBtnSpan.append(updBtnSpanIconfy)
+      updBtnSpan.append(updBtnSpanText)
       updBtn.append(updBtnSpan)
       
       divEtc.append(updBtn)
       
       var delBtn = document.createElement('a')
+      
       delBtn.onclick = function(){
-         delCmt(arr.i_cmt);
+    	 var chkDelCmt = confirm('삭제하시겠습니까?');
+    	 if(chkDelCmt) {
+         delCmt(arr.i_cmt);    		 
+    	 } else {
+ 			return false;   		 
+    	 }
       }
+      
       var delBtnSpan = document.createElement('span')
       delBtnSpan.setAttribute('class', 'delBtnSpan')
+      
+      var delBtnSpanText = document.createElement('span')
+      delBtnSpanText.innerText = '삭제하기'
       
       var delBtnSpanIconfy = document.createElement('span')
       delBtnSpanIconfy.setAttribute('class', 'iconify icon-del')
@@ -646,26 +715,30 @@
       delBtnSpanIconfy.setAttribute('data-icon', 'ant-design:delete-outlined')
       delBtnSpanIconfy.setAttribute('style', 'color: #a5a2a2, font-size: 16px')
       
-      delBtnSpan.innerHTML = '삭제하기'
       delBtnSpan.append(delBtnSpanIconfy)
+  	  delBtnSpan.append(delBtnSpanText)
       delBtn.append(delBtnSpan)
       divEtc.append(delBtn)
       
       divCommentProfileDesc.append(divEtc)
+      }
+      
       divCommentWrap.append(divCommentProfileDesc)
       
       var cmtListBox = document.querySelector('#cmtListBox')
       cmtListBox.append(divCommentWrap)
+     
+      
    }
    
+   // 댓글 뿌리기
+	ajaxSelCmt();
    
-   ajaxSelCmt()
    // 업데이트 메소드 만들기 (아작스로)
    function updCmt(ctnt, i_cmt) {
       frm.ctnt.value = ctnt
       frm.i_cmt.value = i_cmt
       cmtSubmit.value = '수정'
-      //console.log(i_cmt)
    }
    
    
@@ -689,9 +762,13 @@
          
       }).then(function(res) {
          if(res.data == '1') { // 댓글 등록 완료            
+            cmtSubmit.value = '등록'
             frm.ctnt.value = ''
             cmtListBox.innerHTML = ''
+            ajaxSelCount()
             ajaxSelCmt()
+            cmt_pageStart = 0;
+            limitCnt = 0;
                   
          } else if(res.data == '3') {
             alert('로그인을 해주세요')
@@ -700,6 +777,7 @@
          }
       })
    }
+   
    
    //댓글 등록
    function cmtReg() {
@@ -724,23 +802,26 @@
          i_cmt : i_cmt,
          
       }).then(function(res) {
-                  
+       
          if(res.data == '1') { // 댓글 삭제 완료
+        	 cmtListBox.innerHTML = '';
+        	 ajaxSelCount();
+        	 console.log('delcnt : ' + cmtCnt);
+             if(cmtCnt < 7) {
+           	  divSelMoreCtn.innerHTML = '';
+             }
+             cmt_pageStart = 0;
+             limitCnt = 0;
+        	 ajaxSelCmt();
          } else if(res.data == '2') {
             alert("잘못된 접근방식 입니다");
             location.href="/user/login";
             return false;
-            
          } 
       })
    }
-   //	-	-	- 댓글	-	-	-	-	-	-	-	-	-	-	-	
-	
-	
-	
-	
-	
-	
+
+
 		
 	function moveToDetail(i_user) {
 		location.href="/user/myPage?i_user="+i_user
@@ -766,11 +847,7 @@
 		location.href="/board/saleDel?i_board="+i_board;
 		}
 	}
-	
-	// 별점   
-	var grade = ${data.grade}/5*125;
-	document.querySelector('.star-ratings-css-top').style.width = grade + "%"
-	
+
 	
 	//찜 하기
 	function ToLike(){
