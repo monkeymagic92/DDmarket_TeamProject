@@ -553,24 +553,32 @@
       var updBtnSpan = document.createElement('span')
       updBtnSpan.setAttribute('class', 'updBtnSpan')
       
+      var updBtnSpanText = document.createElement('span')
+      updBtnSpanText.innerText = '수정하기'
+      
       var updBtnSpanIconfy = document.createElement('span')
       updBtnSpanIconfy.setAttribute('class', 'iconify')
       updBtnSpanIconfy.setAttribute('data-inline', 'false')
       updBtnSpanIconfy.setAttribute('data-icon', 'si-glyph:arrow-change')
       updBtnSpanIconfy.setAttribute('style', 'color: #a5a2a2, font-size: 12px')
             
-      updBtnSpan.innerHTML = '수정하기'
       updBtnSpan.append(updBtnSpanIconfy)
+      updBtnSpan.append(updBtnSpanText)
       updBtn.append(updBtnSpan)
       
       divEtc.append(updBtn)
       
       var delBtn = document.createElement('a')
+      
       delBtn.onclick = function(){
          delCmt(arr.i_cmt);
       }
+      
       var delBtnSpan = document.createElement('span')
       delBtnSpan.setAttribute('class', 'delBtnSpan')
+      
+      var delBtnSpanText = document.createElement('span')
+      delBtnSpanText.innerText = '삭제하기'
       
       var delBtnSpanIconfy = document.createElement('span')
       delBtnSpanIconfy.setAttribute('class', 'iconify icon-del')
@@ -578,8 +586,8 @@
       delBtnSpanIconfy.setAttribute('data-icon', 'ant-design:delete-outlined')
       delBtnSpanIconfy.setAttribute('style', 'color: #a5a2a2, font-size: 16px')
       
-      delBtnSpan.innerHTML = '삭제하기'
       delBtnSpan.append(delBtnSpanIconfy)
+  	  delBtnSpan.append(delBtnSpanText)
       delBtn.append(delBtnSpan)
       divEtc.append(delBtn)
       
