@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.dandi.ddmarket.board.model.BoardPARAM;
+import com.dandi.ddmarket.trans.model.TransCmtDMI;
 import com.dandi.ddmarket.trans.model.TransCmtVO;
 import com.dandi.ddmarket.trans.model.TransDMI;
 import com.dandi.ddmarket.trans.model.TransVO;
@@ -17,7 +18,7 @@ public interface TransMapper {
 	
 	int chkTrans(BoardPARAM param);
 	
-	List<TransCmtVO> selTransCmt(TransCmtVO param);
+	List<TransCmtDMI> selTransCmt(TransCmtDMI param);
 	
 	// insert
 	int insTrans(TransVO vo);  // 구매요청 눌렀을시 해당 유저값 저장
@@ -25,7 +26,7 @@ public interface TransMapper {
 
 	int updSold(BoardPARAM param);
 
-	int insTransCmt(TransCmtVO vo); 	// 거래댓글 등록
+	int insTransCmt(TransCmtDMI vo); 	// 거래댓글 등록
 
 	
 	// delete

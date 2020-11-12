@@ -55,12 +55,12 @@ public class TransService {
 	
 	
 	// 구매목록 댓글 등록
-	public int insTransCmt(TransCmtVO vo) {
+	public int insTransCmt(TransCmtDMI vo) {
 		return mapper.insTransCmt(vo);
 	}
 	
 	
-	public List<TransCmtVO> selTransCmt(TransCmtDMI param) {
+	public List<TransCmtDMI> selTransCmt(TransCmtDMI param) {
 		return mapper.selTransCmt(param);
 	}
 	

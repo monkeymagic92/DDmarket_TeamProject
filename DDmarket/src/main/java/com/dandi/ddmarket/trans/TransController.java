@@ -87,13 +87,14 @@ public class TransController {
 	
 	// 판매자나 구매자 파싱후 채팅 뿌리기
 	@RequestMapping(value="/selTransCmt", method=RequestMethod.GET) 
-    private @ResponseBody List<TransCmtVO> selTransCmt(TransCmtDMI param, HttpServletRequest request) {
+    private @ResponseBody List<TransCmtDMI> selTransCmt(TransCmtDMI param, HttpServletRequest request) {
 		
+		System.out.println("-------------------------------");
 		System.out.println("채팅창 뿌리기");
 		System.out.println("판매자 pk값 saleI_user : " + param.getSaleI_user());
 		System.out.println("구매자 pk값 i_user : " + param.getI_user());
 		System.out.println("게시글 i_board : " + param.getI_board());
-		
+		System.out.println("--------------------------------");
 		return service.selTransCmt(param);
 	}
 	
@@ -116,11 +117,7 @@ public class TransController {
 	
 	// 판매자나 구매자 파싱후 댓글등록
 	@RequestMapping(value="/insTransCmt", method=RequestMethod.POST) 
-    private @ResponseBody String insTransCmt(@RequestBody TransCmtVO vo, HttpServletRequest request, HttpSession hs, UserPARAM param) {
-		
-		param = (UserPARAM)hs.getAttribute("loginUser");
-		vo.setTransCmtChk(param.getI_user());
-		
+    private @ResponseBody String insTransCmt(@RequestBody TransCmtDMI vo, HttpServletRequest request, HttpSession hs, UserPARAM param) {
 		
 		System.out.println("inTransCmt 아작스 - 구매 댓글 등록 -");
 		System.out.println("판매자 : " + vo.getI_user());
@@ -129,7 +126,7 @@ public class TransController {
 		System.out.println("댓내용 : " + vo.getTransCmt());
 		System.out.println("누가쓴글인지 chk : " + vo.getTransCmtChk());
 		System.out.println("------------------------");
-		System.out.println("------------------------");
+		
 		
 		int result = service.insTransCmt(vo);
 		
