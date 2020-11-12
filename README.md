@@ -1,14 +1,15 @@
 # DDmarket_TeamProject
-======================
-## 우리동네 직거래 중고 마켓 **'단디마켓'**
+
+## 우리동네 직거래 중고 마켓 '단디마켓'
 ![logo](https://user-images.githubusercontent.com/66930491/98903697-77c93b80-24fb-11eb-8598-fc0ac2a47b7b.jpg)
 
 ### List
-1. 프로젝트 작업일정
-2. 주요기능
-3. 사용기술
-4. 개발자 소개
-#### Project DATE
+[1. Project DATE](# Project DATE
+[2. Web Preview](# Web Preview)
+[3. Developer Tools](# Developer Tools)
+[4. Developer Information](# Developer Information)
+
+### Project DATE
 > Start : 2020-10-08
 > > End : 2020-11-12 현재 마무리 단계
 
@@ -21,9 +22,9 @@
 | 백엔드 구현       |       |       |       | ✔     | ✔     | ✔     |
 | 테스트 및 디버깅  |       |       |       |       | ✔     | ✔     |
 
-#### Web Preview
+### Web Preview
 
-#### Developer Tools
+### Developer Tools
 
 | Planning | Date-base | Front-end  | Back-end   | API          | Server        |
 | -------- | --------- | ---------- | ---------- | ------------ | ------------- |
@@ -33,8 +34,12 @@
 |          |           | Ajax       |            |              |               |
 |          |           | Bootstrap  |            |              |               |
 
-#### Developer Information
+### Developer Information
 🙌 이재용(monkeymagic92)
+<br/>
 🙌 정유정(kayoyo)
+<br/>
 🙌 조우현(dngus2673)
+<br/>
 🙌 황병진(teddy0818)
+<br/>
