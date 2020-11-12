@@ -20,23 +20,6 @@
 	
 	
 	
-	<!-- 구매자 1:1 댓글 뿌리기 -->
-	<select id="selTransCmt" parameterType="TransCmtDMI" resultType="TransCmtDMI">
-		SELECT C.profile_img as 'profile_img', B.profile_img as 'buyProfile_img', A.i_user as 'buyI_user',
-		B.nick as 'buyNick', C.nick, A.transCmtChk, A.transCmt, A.r_dt FROM t_trans_cmt A
-
-		LEFT JOIN t_user B 
-		ON B.i_user = A.i_user
-
-		LEFT JOIN t_user C 
-		ON A.saleI_user = C.i_user
-		
-		WHERE A.i_board = #{i_board}
-		AND A.saleI_user = #{saleI_user}
-		ORDER BY A.r_dt ASC
-	</select>
-	
-		
 	<!-- 거래요청 / 거래취소 버튼 나누게 하기위해  -->
 	<select id="chkTrans" parameterType="BoardPARAM" resultType="Integer">
 		SELECT chk FROM t_trans
@@ -44,7 +27,11 @@
 		AND i_user = #{i_user}  
 	</select>
 	
+	
+	
 	<!-- insert -->
+	
+	
 	
 	<!-- 구매요청 댓글 입력 / 가격요청 눌렀을시 트랜스테이블 저장 -->
 	<insert id="insTrans" parameterType="TransDMI">
@@ -54,15 +41,6 @@
 		(#{i_user}, #{i_board}, #{chk})
 	</insert>
 	
-	
-	
-	<!-- insert  추후 returnig 값 i_trans 주기-->
-	<insert id="insTransCmt" parameterType="TransCmtVO">
-		INSERT INTO t_trans_cmt
-		(i_board, i_user, saleI_user, transCmt, transCmtChk)
-		VALUES
-		(#{i_board}, #{i_user}, #{saleI_user}, #{transCmt}, #{transCmtChk})
-	</insert>
 	
 		
 	<!-- update -->
@@ -82,9 +60,5 @@
 	</delete>
 	
 	
-	
-
-	
-
 	
 </mapper>

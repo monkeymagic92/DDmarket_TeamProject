@@ -28,7 +28,7 @@ public class TransService {
 	public int chkTrans(BoardPARAM param) {
 		int chk = 0;
 		try {
-			mapper.chkTrans(param); // 이부분 select 인데 insert로 해서 returning chk 해보기
+			mapper.chkTrans(param);
 			chk = 1;
 			
 		} catch(Exception e) {
@@ -53,15 +53,5 @@ public class TransService {
 		return mapper.delTransUser(vo);
 	}
 	
-	
-	// 구매목록 댓글 등록
-	public int insTransCmt(TransCmtDMI vo) {
-		return mapper.insTransCmt(vo);
-	}
-	
-	
-	public List<TransCmtDMI> selTransCmt(TransCmtDMI param) {
-		return mapper.selTransCmt(param);
-	}
 	
 }

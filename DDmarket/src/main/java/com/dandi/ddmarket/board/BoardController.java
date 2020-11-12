@@ -159,7 +159,6 @@ public class BoardController {
 		
 		if(!SecurityUtils.isLogout(request)) {
 			service.addHit(param, request);			
-
 		}
 		
 		int i_board = Integer.parseInt(request.getParameter("i_board"));
