@@ -30,21 +30,21 @@
                 <div id="div-search-result">
                 	<c:if test="${searchNm == null && cdSearchNm != null}">
                 		<span class="span-search-reuslt-text-cg">${cdSearchNm}</span>
-                		<span id="span-search-reuslt-text-all">전체</span>의  검색결과
+                		<span class="span-search-reuslt-text">전체</span>의  검색결과
                 	</c:if>
                 	<c:if test="${searchNm == '' && cdSearchNm != null}">
                 		<span class="span-search-reuslt-text-cg">${cdSearchNm}</span>
-                		<span id="span-search-reuslt-text-all">전체</span>의 검색결과
+                		<span class="span-search-reuslt-text">전체</span>의 검색결과
                 	</c:if>
                 	<c:if test="${searchNm != '' && cdSearchNm == null}">
-	                	<span id="span-search-reuslt-text">${searchNm}</span>의 검색결과
+	                	<span class="span-search-reuslt-text">${searchNm}</span>의 검색결과
                 	</c:if>
                 	<c:if test="${searchNm != '' && cdSearchNm != null && searchNm != null}">
 	                	<span class="span-search-reuslt-text-cg">${cdSearchNm}</span>
-	                	<span id="span-search-reuslt-text">${searchNm}</span>의 검색결과
+	                	<span class="span-search-reuslt-text">${searchNm}</span>의 검색결과
                 	</c:if>
                 	<c:if test="${searchNm == '' && cdSearchNm == null}">
-	                	<span id="span-search-reuslt-text-all">전체</span>의 검색결과
+	                	<span class="span-search-reuslt-text-all">전체</span>의 검색결과
                 	</c:if>
                 	<span id="span-search-reuslt-number">${totalCount}개</span>
                 </div>
