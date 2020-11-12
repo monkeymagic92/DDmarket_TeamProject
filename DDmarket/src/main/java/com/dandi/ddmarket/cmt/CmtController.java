@@ -35,27 +35,6 @@ public class CmtController {
 	@RequestMapping(value="/selCmt", method=RequestMethod.GET)
 	private @ResponseBody List<CmtDMI> selCmt(Model model, BoardPARAM param, HttpServletRequest request, HttpSession hs){
 		
-		/////// 페이징 start
-		CmtCriteria cri = new CmtCriteria();
-		System.out.println("cmtpage : " + CommonUtils.getIntParameter("cmtPage", request));
-		cri.setPage(CommonUtils.getIntParameter("cmtPage", request));
-		hs.setAttribute("cmtPage", cri.getPage());
-		CmtPageMaker cmtPageMaker = new CmtPageMaker();
-		cmtPageMaker.setCmtCriteria(cri);
-	    ///// 전체글 수 구하기
-	    int cmtCount = service.countCmt(param);
-	    hs.setAttribute("cmtCount", cmtCount);
-	    
-	    cmtPageMaker.setTotalCount(cmtCount);
-	    int pageStart = cri.getPageStart();
-	    int perPageNum = cri.getPerPageNum();
-	    
-	    param.setCmt_pageStart(pageStart);
-	    param.setCmt_perPageNum(perPageNum);
-	    model.addAttribute("cmtPageMaker", cmtPageMaker);
-	    model.addAttribute("cmtPageNum", cmtPageMaker);
-		////// 페이징 end
-		
 		return service.selCmt(param);
 	}
 	

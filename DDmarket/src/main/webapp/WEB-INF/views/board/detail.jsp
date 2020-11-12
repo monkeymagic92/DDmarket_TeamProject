@@ -253,18 +253,10 @@
 	                <button id="send" onclick="transCmt()"></button>
 	            </div>
 	        </div>
-		    
-		    
-		    
-		    
-		    
+
 		    <%-- -	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	 --%>
 		    
-		    
-		    
-		    
-		    
-		    
+
             <h2 class="h2-section-title">상품정보</h2>
             <section id="section-desc">
                 <p>${data.ctnt }</p>
@@ -272,8 +264,7 @@
             <h2 class="h2-section-title">상품문의 (${cmtCount })</h2>
             <section id="section-comment">
             
-
-                        
+      
             	<!-- 댓글 등록 -->
                 <form id="frm" action="/cmt/cmtReg" method="post">
                 	<br>
@@ -287,79 +278,9 @@
                     	<button type="button" onclick="clkCmtCancel()">취소</button>	
 	            </form>
 	            
-	           
 	            <div id="cmtListBox">
-	            	
 	            </div>
-	             
-	            
-	            
-	            <%--
-                <c:forEach items="${cmtList}" var="item">
-	               	<div id="commentWrap" class="cmtList">
-	                   <div class="comment-profile-img">
-	                       <img src="/res/img/profile_img/user/${item.i_user }/${item.profile_img}" class="img">
-	                   </div>
-	                   
-	                   <div class="comment-profile-desc">
-	                       <div class="nick">${item.nick}
-	                       <span class="date">${item.r_dt}</span>
-	                       </div>
-	                       <div class="comment">${item.ctnt}</div>
-	                       
-	                       <div class="etc">
-	                           <c:if test="${loginUser.i_user == item.i_user }">
-								   					                           
-	                           	   <a onclick="updCmt('${item.ctnt}', ${item.i_cmt})"><span><span class="iconify icon-del" data-inline="false" data-icon="ant-design:delete-outlined" style="color: #A5A2A2; font-size: 12px;"></span>수정하기</span></a>
-	                           	   
-	                           	   
-	                           	   <a onclick="delCmt(${item.i_cmt})"><span><span class="iconify icon-del" data-inline="false" data-icon="ant-design:delete-outlined" style="color: #A5A2A2; font-size: 12px;"></span>삭제하기</span></a>
-	                           	   
-	                           </c:if> 
-	                       </div>
-	                   </div>
-	               </div>
-    			</c:forEach>
-    			 --%>
-    		<%-- 
-			<div class="pageWrap">
-                <c:if test="${cmtPageMaker.prev}">
-                	<a href='<c:url value="/board/detail?i_board=${data.i_board}&cmtPage=${cmtPageMaker.startPage-1}"/>'><span class="iconify icon-page-left" data-inline="false" data-icon="mdi-light:chevron-double-left" style="color: #3b73c8; font-size: 47px;"></span></a>
-                </c:if>
-				<c:forEach begin="${cmtPageMaker.startPage}" end="${cmtPageMaker.endPage}" var="pageNum">
-			        <c:choose>
-			        <c:when test="${cmtPage == pageNum}">
-			        	<a style="color: red;" href='<c:url value="/board/detail?i_board=${data.i_board}&cmtPage=${pageNum}"/>'>${pageNum}</a>
-			        </c:when>
-			        <c:otherwise>
-			        	<a href='<c:url value="/board/detail?i_board=${data.i_board}&cmtPage=${pageNum}"/>'>${pageNum}</a>		        
-			        </c:otherwise>
-			        </c:choose>
-			    </c:forEach>
-			    <c:if test="${cmtPageMaker.next && cmtPageMaker.endPage > 0}">
-           			<a href='<c:url value="/board/detail?i_board=${data.i_board}&cmtPage=${cmtPageMaker.endPage+1}"/>'><span class="iconify icon-page-right" data-inline="false" data-icon="mdi-light:chevron-double-right" style="color: #3b73c8; font-size: 47px;"></span></a>
-           		</c:if>
-            </div>
-            --%>
-            
-           <div class="pageWrap">
-                <c:if test="${cmtPageMaker.prev}">
-                	<a href='<c:url value="/board/detail?i_board=${data.i_board}&cmtPage=${cmtPageMaker.startPage-1}"/>'><span class="iconify icon-page-left" data-inline="false" data-icon="mdi-light:chevron-double-left" style="color: #3b73c8; font-size: 47px;"></span></a>
-                </c:if>
-				<c:forEach begin="${cmtPageMaker.startPage}" end="${cmtPageMaker.endPage}" var="pageNum">
-			        <c:choose>
-			        <c:when test="${cmtPage == pageNum}">
-			        	<span style="color:red;" onclick="ajaxPageSelCmt(${pageNum})">${pageNum}</span>
-			        </c:when>
-			        <c:otherwise>
-			        	<span onclick="ajaxPageSelCmt(${pageNum})">${pageNum}</span>		        
-			        </c:otherwise>
-			        </c:choose>
-			    </c:forEach>
-			    <c:if test="${cmtPageMaker.next && cmtPageMaker.endPage > 0}">
-           			<span onclick="ajaxPageSelCmt(${cmtPageMaker.endPage+1})" class="iconify icon-page-right" data-inline="false" data-icon="mdi-light:chevron-double-right" style="color: #3b73c8; font-size: 47px;"></span>
-           		</c:if>
-            </div>
+            <div onclick="ajaxSelMore()">더보기</div> 
             </section>
             
             
@@ -545,7 +466,7 @@
       axios.get('/cmt/selCmt', {
          params: {
             i_board: `${data.i_board}`,
-           	cmt_pageStart: 1,
+           	cmt_pageStart: 0,
            	cmt_perPageNum: 5
          }
       
@@ -555,26 +476,24 @@
       })
    }
 	
-	// 페이지 눌렀을때 댓글 뿌리기
-	function ajaxPageSelCmt(cmtPage) {
-      console.log(`i_board : ${data.i_board}`)
+	
+	var cmt_pageStart = 0;
+	
+	function ajaxSelMore() {
       axios.get('/cmt/selCmt', {
-         params: {
+          params: {
             i_board: `${data.i_board}`,
-            cmtPage: cmtPage
-         }
-      
-      }).then(function(res) {   
-         console.log(res)
-         cmtListBox.innerHTML = '';
-         refreshMenu(res.data)
-      })
-   }
+           	cmt_pageStart: cmt_pageStart + 5,
+           	cmt_perPageNum: 5
+          }
+       
+       }).then(function(res) {   
+   		  cmt_pageStart += 5
+          console.log(res)
+          refreshMenu(res.data)
+       })
+	}
 	
-	
-	
-	
-   
    function refreshMenu(arr) {      
       for (let i = 0; i<arr.length; i++) {
          makeCmtList(arr[i])
@@ -681,7 +600,6 @@
       frm.ctnt.value = ctnt
       frm.i_cmt.value = i_cmt
       cmtSubmit.value = '수정'
-      //console.log(i_cmt)
    }
    
    
@@ -755,8 +673,6 @@
       })
    }
    //	-	-	- 누나	-	-	-	-	-	-	-	-	-	-	-	
-	
-
 		
 	function moveToDetail(i_user) {
 		location.href="/user/myPage?i_user="+i_user

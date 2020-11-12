@@ -172,27 +172,6 @@ public class BoardController {
 			param.setI_user(i_user);
 		}
 		
-		/////// 페이징 start
-		CmtCriteria cri = new CmtCriteria();
-		cri.setPage(CommonUtils.getIntParameter("cmtPage", request));
-		hs.setAttribute("cmtPage", cri.getPage());
-		CmtPageMaker cmtPageMaker = new CmtPageMaker();
-		cmtPageMaker.setCmtCriteria(cri);
-	    ///// 전체글 수 구하기
-	    int cmtCount = cmtService.countCmt(param);
-	    hs.setAttribute("cmtCount", cmtCount);
-	    
-	    cmtPageMaker.setTotalCount(cmtCount);
-	    int pageStart = cri.getPageStart();
-	    int perPageNum = cri.getPerPageNum();
-	    
-	    param.setCmt_pageStart(pageStart);
-	    param.setCmt_perPageNum(perPageNum);
-	    model.addAttribute("cmtPageMaker", cmtPageMaker);
-	    model.addAttribute("cmtPageNum", cmtPageMaker);
-		////// 페이징 end
-		
-		
 	    int rating = CommonUtils.getIntParameter("rating", request);
 	    model.addAttribute("reviewList", reviewService.selReview(param));
 	    model.addAttribute("data", reviewService.selReview(param));
