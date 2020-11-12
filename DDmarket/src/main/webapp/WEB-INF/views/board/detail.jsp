@@ -128,17 +128,7 @@
                            				<button class="buyChat" onclick="buyChatBtn()">${buyList}</button>
                            			</c:if>
                            		</c:if>
-                           		
-                           		
-                           		
-                           		
-                           		
-                           		
-                           		
-                           		
-                           		
-                           		                           		
-                           		
+
                            		<%-- 구매요청 버튼 --%>
                           		<form id="transFrm" action="/trans/transRequest" method="post">
                            			<input type="hidden" name="i_user" value="${loginUser.i_user }">
@@ -294,36 +284,6 @@
 	            	
 	            </div>
 	             
-	            
-	            
-	            <%--
-                <c:forEach items="${cmtList}" var="item">
-	               	<div id="commentWrap" class="cmtList">
-	                   <div class="comment-profile-img">
-	                       <img src="/res/img/profile_img/user/${item.i_user }/${item.profile_img}" class="img">
-	                   </div>
-	                   
-	                   <div class="comment-profile-desc">
-	                       <div class="nick">${item.nick}
-	                       <span class="date">${item.r_dt}</span>
-	                       </div>
-	                       <div class="comment">${item.ctnt}</div>
-	                       
-	                       <div class="etc">
-	                           <c:if test="${loginUser.i_user == item.i_user }">
-								   					                           
-	                           	   <a onclick="updCmt('${item.ctnt}', ${item.i_cmt})"><span><span class="iconify icon-del" data-inline="false" data-icon="ant-design:delete-outlined" style="color: #A5A2A2; font-size: 12px;"></span>수정하기</span></a>
-	                           	   
-	                           	   
-	                           	   <a onclick="delCmt(${item.i_cmt})"><span><span class="iconify icon-del" data-inline="false" data-icon="ant-design:delete-outlined" style="color: #A5A2A2; font-size: 12px;"></span>삭제하기</span></a>
-	                           	   
-	                           </c:if> 
-	                       </div>
-	                   </div>
-	               </div>
-    			</c:forEach>
-    			 --%>
-    			
 			<div class="pageWrap">
                 <c:if test="${cmtPageMaker.prev}">
                 	<a href='<c:url value="/board/detail?i_board=${data.i_board}&cmtPage=${cmtPageMaker.startPage-1}"/>'><span class="iconify icon-page-left" data-inline="false" data-icon="mdi-light:chevron-double-left" style="color: #3b73c8; font-size: 47px;"></span></a>
@@ -359,23 +319,22 @@
                     <div class="review-profile-reviewNum">15명의 후기</div>
                 </div>
                 <div id="div-review-right">
-                    <div id="reviewWrap">
 	                <c:forEach items="${reviewList}" var="item" begin="0" >
+                    <div id="reviewWrap">
                         <div class="review-right-profile-img"><img src="/res/img/yerin.jpg"></div>
                         <div class="review-right-profile-desc">
                             <div class="nick">
                             	<span>${item.nick}</span>
                             	<span class="rating">${item.rating}</span></div>
                                 <div class="star-ratings-css">
-                                    <div class="star-ratings-top_1" style="width:75%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                                    <div class="star-ratings-top_1" style="width:${item.rating}"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                                     <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                                 </div>
                             </div>
                             <div class="comment">${item.ctnt}</div>
-                        </c:forEach>
-                        </div>
-                    </div>
-                </div>
+                         </div>
+                       </c:forEach>
+                  </div>
             </section>
         </main>
     </div>
@@ -494,8 +453,6 @@
 	
 	
 				// DMZ구역
-	
-	
 	
 	
 	

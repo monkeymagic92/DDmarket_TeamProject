@@ -16,8 +16,6 @@ public class BoardPARAM extends BoardVO{
 	private int i_user;
 	
 	
-	
-	
 	public int getI_user() {
 		return i_user;
 	}

@@ -10,5 +10,5 @@ import com.dandi.ddmarket.review.model.ReviewPARAM;
 @Mapper
 public interface ReviewMapper {
 	int insReview(ReviewPARAM param);
-	List<ReviewPARAM> selReview(BoardPARAM param);
+	List<ReviewPARAM> selReview(ReviewPARAM param);
 }
