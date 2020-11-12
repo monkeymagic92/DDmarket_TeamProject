@@ -19,7 +19,7 @@
                 </div>
                 <div class="head-user">
                     <span class="head-user-txt">
-                        <a href="/user/logout">로그아웃</a> ㅣ <a href="#">단디톡</a>
+                        <a href="/user/logout">로그아웃</a> ㅣ <a href="#">글쓰기</a>
                     </span>
                 </div>
             </div>
@@ -82,12 +82,15 @@
             <section class="user-addr">
                 <form id="addrFrm" action="/user/info" method="post" onsubmit="return addrChk()">
                 	<div class="div_addr">
-                    	<input type="text" id="sample4_postcode" name="post" class="addr_input" placeholder="클릭할시 주소검색창이 나타납니다" onclick="sample4_execDaumPostcode()"><br>
                     	<input id="addrUnChk" name="addrUnChk" type="hidden" value="unChk">
-						<input type="text" id="sample4_jibunAddress" name="addr" class="addr_input" placeholder="지번주소" onclick="sample4_execDaumPostcode()"><br>
-						<input type="text" id="sample4_roadAddress" name="road" class="addr_input" placeholder="도로명주소" onclick="sample4_execDaumPostcode()">
+                    	
+                    	<input type="text" id="sample4_postcode" name="post" class="addr_input" placeholder="클릭할시 주소검색창이 나타납니다" onclick="sample4_execDaumPostcode()" value="${loginUser.addr}"><br>
+						<input type="text" id="sample4_jibunAddress" name="addr" class="addr_input" placeholder="지번주소" onclick="sample4_execDaumPostcode()" ><br>
+						<input type="text" id="sample4_roadAddress" name="road" class="addr_input" placeholder="도로명주소" onclick="sample4_execDaumPostcode()" >
+						
 						<input id="postChk" name="postChk" type="hidden" value="unChk">
 						<span id="guide" style="color:#999;display:none"></span>
+						
 						<input type="hidden" id="sample4_detailAddress" placeholder="상세주소">
 						<input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
 						<input type="hidden" name="result" value="5">
@@ -116,8 +119,14 @@
                 <form id="likeFrm" action="/user/info" method="post" onsubmit="return likeChk()">
 	                    <div class="category-box">
 	                    	<c:forEach items="${categoryList}" var="item">
+	                    		<c:if test="${loginUser.favI_cg_1 == item.i_cg}">
+		                    	<input type="checkbox" class="cg" name="categoryLike" id="f-wear" value="${item.i_cg }" onclick="count_ck(this);" checked>
+		                        <label for="f-wear">${item.cg_nm}</label>
+		                        </c:if>
+                    	        <c:if test="${loginUser.favI_cg_1 != item.i_cg}">
 		                    	<input type="checkbox" class="cg" name="categoryLike" id="f-wear" value="${item.i_cg }" onclick="count_ck(this);">
-		                        <label for="f-wear">${item.cg_nm }</label>
+		                        <label for="f-wear">${item.cg_nm}</label>
+		                        </c:if>
 	                        </c:forEach>
 	                    </div>          	
                     <input type="hidden" name="result" value="7">
@@ -287,7 +296,7 @@ $('.emailChk').click(function() {
 		}
 	}
 	
-	// 관심사 체크, 최대갯수 3개제한 
+	// 관심사 체크, 최대갯수 1개제한 
 	function count_ck(obj){
 		var chkbox = document.getElementsByName("categoryLike");
 		var chkCnt = 0;
@@ -434,7 +443,7 @@ $('.emailChk').click(function() {
 	            }
 
 	            // 우편번호와 주소 정보를 해당 필드에 넣는다.
-	            document.getElementById('sample4_postcode').value = data.zonecode;
+	            document.getElementById("sample4_postcode").value = data.zonecode;
 	            document.getElementById("sample4_roadAddress").value = roadAddr;
 	            document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
 	            

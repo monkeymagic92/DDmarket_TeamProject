@@ -17,8 +17,6 @@ public class UserVO {
 
 	// 추가적으로 등록되는 VO
 	private String favI_cg_1;  // 관심카테고리 
-	private String favI_cg_2;
-	private String favI_cg_3;
 	private double grade;	   // 신용점수
 	private String profile_img;
 	private String r_dt;
@@ -109,18 +107,6 @@ public class UserVO {
 	}
 	public void setFavI_cg_1(String favI_cg_1) {
 		this.favI_cg_1 = favI_cg_1;
-	}
-	public String getFavI_cg_2() {
-		return favI_cg_2;
-	}
-	public void setFavI_cg_2(String favI_cg_2) {
-		this.favI_cg_2 = favI_cg_2;
-	}
-	public String getFavI_cg_3() {
-		return favI_cg_3;
-	}
-	public void setFavI_cg_3(String favI_cg_3) {
-		this.favI_cg_3 = favI_cg_3;
 	}
 	public double getGrade() {
 		return grade;

@@ -7,7 +7,7 @@
 							
 	<!-- n번 회원 상세정보 -->							
 	<select id="selUser" parameterType="UserPARAM" resultType="UserDMI"> 
-		SELECT i_user, user_id, user_pw, salt, nm, nick, email, post, addr, road, joinPass,
+		SELECT i_user, user_id, user_pw, salt, nm, nick, email, post, addr, road, joinPass, favI_cg_1
 		profile_img, r_dt, m_dt, grade
 		FROM t_user
 		WHERE <if test="i_user > 0"> i_user = #{i_user}</if>
@@ -15,7 +15,7 @@
 	</select>
 	
 	<select id="selSNSUser" parameterType="UserPARAM" resultType="UserDMI"> 
-		SELECT i_user, user_id, user_pw, salt, nm, nick, email, post, addr, road, joinPass,
+		SELECT i_user, user_id, user_pw, salt, nm, nick, email, post, addr, road, joinPass, favI_cg_1,
 		profile_img, r_dt, m_dt, grade
 		FROM t_user
 		WHERE user_id = #{user_id} and joinPass = #{joinPass}
@@ -24,7 +24,7 @@
 	
 	<!-- 마이페이지 가기위한 selUser 값   (selUser 메소드에서 where절 뺏음) -->							
 	<select id="selDetailUser" parameterType="UserPARAM" resultType="UserDMI"> 
-		SELECT i_user, user_id, user_pw, salt, nm, nick, email, post, addr, road, joinPass,
+		SELECT i_user, user_id, user_pw, salt, nm, nick, email, post, addr, road, joinPass, favI_cg_1,
 		profile_img, r_dt, m_dt, grade
 		FROM t_user
 		WHERE <if test="i_user > 0"> i_user = #{i_user}</if>
