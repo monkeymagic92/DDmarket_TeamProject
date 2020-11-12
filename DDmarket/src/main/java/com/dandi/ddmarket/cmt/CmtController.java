@@ -38,6 +38,13 @@ public class CmtController {
 		return service.selCmt(param);
 	}
 	
+	// 댓글 수 가져오기 뿌리기
+	@RequestMapping(value="/selCount", method=RequestMethod.GET)
+	private @ResponseBody int selCount(Model model, BoardPARAM param, HttpServletRequest request, HttpSession hs){
+		
+		return service.countCmt(param);
+	}
+	
 	
 	
 	// 댓글 등록 / 수정

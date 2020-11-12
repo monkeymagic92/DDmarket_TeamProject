@@ -261,7 +261,7 @@
             <section id="section-desc">
                 <p>${data.ctnt }</p>
             </section>
-            <h2 class="h2-section-title">상품문의 (${cmtCount })</h2>
+            <h2 class="h2-section-title" id="h2-section-title"></h2>
             <section id="section-comment">
             
       
@@ -278,11 +278,8 @@
                     	<button type="button" onclick="clkCmtCancel()">취소</button>	
 	            </form>
 	            
-	            <div id="cmtListBox">
-	            </div>
-            <div onclick="ajaxSelMore()">더보기</div> 
-            </section>
-            
+	            <div id="cmtListBox"></div>
+	            <div id="divSelMoreCtn"></div>
             
             <h2 class="h2-section-title">판매자 후기</h2>
             <section id="section-review">
@@ -456,6 +453,25 @@
 	//	-	-	- 누나	-	-	-
 	var cmtList = []
 		
+	var cmtCnt = 0;
+	
+	ajaxSelCount();
+	
+	
+   // ajax로 댓글 수 뽑아오기
+   	function ajaxSelCount() {
+      axios.get('/cmt/selCount', {
+          params: {
+            i_board: `${data.i_board}`,
+          }
+       
+       }).then(function(res) {   
+			cmtCnt = res.data;
+			var h2_section_title_cnt = document.querySelector('#h2-section-title');
+			h2_section_title_cnt.innerText = '상품문의' +'(' + cmtCnt + ')';
+       })
+	}
+		
 	// 별점   
 	var grade = ${data.grade}/5*125;
 	document.querySelector('.star-ratings-css-top').style.width = grade + "%";
@@ -478,6 +494,8 @@
 	
 	
 	var cmt_pageStart = 0;
+	var limitCnt = 0;
+	var limit = 0;
 	
 	function ajaxSelMore() {
       axios.get('/cmt/selCmt', {
@@ -489,18 +507,51 @@
        
        }).then(function(res) {   
    		  cmt_pageStart += 5
-          console.log(res)
-          refreshMenu(res.data)
+   		  
+   		  ajaxSelCount()
+   		  
+        refreshMenu(res.data)
+        
+ 		  limit = Math.ceil(cmtCnt/5);
+			
+   		  if(limitCnt > limit-3) {
+   		     var divSelMoreCtn = document.querySelector("#divSelMoreCtn")
+  			 divSelMoreCtn.innerHTML = '';
+   		  }
+   		  
+   		limitCnt++
+        
        })
 	}
 	
-   function refreshMenu(arr) {      
+   function refreshMenu(arr) {
+
       for (let i = 0; i<arr.length; i++) {
          makeCmtList(arr[i])
-      }   
+      }
+      
+      console.log('cmtCnt : ' + cmtCnt);
+      
+      /////////더보기 버튼
+      if(cmtCnt > 5) { 
+	      var divSelMoreCtn = document.querySelector("#divSelMoreCtn")
+	      
+	      divSelMoreCtn.innerHTML = '';
+	      
+	      var divSelMore =  document.createElement('div')
+	      divSelMore.setAttribute('id', 'ajaxSelMore')
+	      divSelMore.innerText = '더보기'
+	   	  divSelMore.onclick = function() {
+	    	  ajaxSelMore();
+	      }
+	      
+	      divSelMoreCtn.append(divSelMore)
+      }
+      
    }
    
-   
+
+
    
    function makeCmtList(arr) {
       
@@ -605,6 +656,8 @@
       
       var cmtListBox = document.querySelector('#cmtListBox')
       cmtListBox.append(divCommentWrap)
+     
+      
    }
    
    // 댓글 뿌리기
@@ -641,7 +694,10 @@
             cmtSubmit.value = '등록'
             frm.ctnt.value = ''
             cmtListBox.innerHTML = ''
+            ajaxSelCount()
             ajaxSelCmt()
+            cmt_pageStart = 0;
+            limitCnt = 0;
                   
          } else if(res.data == '3') {
             alert('로그인을 해주세요')
@@ -678,6 +734,13 @@
        
          if(res.data == '1') { // 댓글 삭제 완료
         	 cmtListBox.innerHTML = '';
+        	 ajaxSelCount();
+        	 console.log('delcnt : ' + cmtCnt);
+             if(cmtCnt < 7) {
+           	  divSelMoreCtn.innerHTML = '';
+             }
+             cmt_pageStart = 0;
+             limitCnt = 0;
         	 ajaxSelCmt();
          } else if(res.data == '2') {
             alert("잘못된 접근방식 입니다");
