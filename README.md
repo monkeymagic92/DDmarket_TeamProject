@@ -4,7 +4,7 @@
 ![logo](https://user-images.githubusercontent.com/66930491/98903697-77c93b80-24fb-11eb-8598-fc0ac2a47b7b.jpg)
 
 ### List
-[1. Project DATE](# Project DATE
+[1. Project DATE](# Project DATE)
 [2. Web Preview](# Web Preview)
 [3. Developer Tools](# Developer Tools)
 [4. Developer Information](# Developer Information)
