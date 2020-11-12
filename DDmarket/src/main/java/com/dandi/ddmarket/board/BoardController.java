@@ -173,8 +173,7 @@ public class BoardController {
 		}
 		
 	    int rating = CommonUtils.getIntParameter("rating", request);
-	    model.addAttribute("reviewList", reviewService.selReview(param));
-	    model.addAttribute("data", reviewService.selReview(param));
+	    model.addAttribute("reviewList", reviewService.selReview(rparam));
 	    rparam.setRating(rating);
 	    
 	    // 판매글에 접속한 i_user에 chk값이 1, 0에 따라서 버튼이름 변경  (trans기능에 사용) 

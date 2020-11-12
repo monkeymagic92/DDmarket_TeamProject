@@ -159,7 +159,7 @@
                            		<%--
                            			</c:if>
                            		</c:if>
-                           		 --%>
+
                            		<%-- 구매요청 버튼 --%>
                           		<form id="transFrm" action="/trans/transRequest" method="post">
                            			<input type="hidden" name="i_user" value="${loginUser.i_user }">
@@ -318,6 +318,7 @@
 	            </form>
 	            
 
+
 	            <div id="cmtListBox"></div>
 	            <div id="divSelMoreCtn"></div>
 
@@ -336,23 +337,22 @@
                     <div class="review-profile-reviewNum">15명의 후기</div>
                 </div>
                 <div id="div-review-right">
-                    <div id="reviewWrap">
 	                <c:forEach items="${reviewList}" var="item" begin="0" >
+                    <div id="reviewWrap">
                         <div class="review-right-profile-img"><img src="/res/img/yerin.jpg"></div>
                         <div class="review-right-profile-desc">
                             <div class="nick">
                             	<span>${item.nick}</span>
                             	<span class="rating">${item.rating}</span></div>
                                 <div class="star-ratings-css">
-                                    <div class="star-ratings-top_1" style="width:75%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                                    <div class="star-ratings-top_1" style="width:${item.rating}"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                                     <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                                 </div>
                             </div>
                             <div class="comment">${item.ctnt}</div>
-                        </c:forEach>
-                        </div>
-                    </div>
-                </div>
+                         </div>
+                       </c:forEach>
+                  </div>
             </section>
         </main>
     </div>
@@ -517,11 +517,6 @@
 	
 	
 	
-	
-	
-	
-	
-	//	-	-	- 댓글	-	-	-
 	var cmtList = []
 		
 	var cmtCnt = 0;
