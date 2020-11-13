@@ -335,7 +335,7 @@ public class UserController {
 			model.addAttribute("myReviewList", service.selMyReviewList(bparam));
 		}
 		
-		model.addAttribute("data", service.selUser(param));
+		model.addAttribute("data", service.selDetailUser(param));
 		model.addAttribute("tapList", service.selTapList(tparam));
 		model.addAttribute("view",ViewRef.USER_MYPAGE);
 		return ViewRef.DEFAULT_TEMP;
