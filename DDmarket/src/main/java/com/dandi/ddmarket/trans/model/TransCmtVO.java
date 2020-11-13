@@ -2,9 +2,9 @@ package com.dandi.ddmarket.trans.model;
 
 public class TransCmtVO {
 	private int i_trans_cmt;
-	
 	private int i_board;
 	private int i_user;
+	private int i_trans;
 	private int saleI_user;
 	private String transCmt;
 	private int transCmtChk;
@@ -25,6 +25,14 @@ public class TransCmtVO {
 	}
 	public int getI_user() {
 		return i_user;
+	}
+	
+	
+	public int getI_trans() {
+		return i_trans;
+	}
+	public void setI_trans(int i_trans) {
+		this.i_trans = i_trans;
 	}
 	public void setI_user(int i_user) {
 		this.i_user = i_user;
