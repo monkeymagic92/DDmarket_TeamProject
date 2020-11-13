@@ -1,8 +1,8 @@
 @charset "UTF-8";
 
 /* container, main 설정 */ 
-#container {width: 100%; margin: 30px auto 0px auto;}
-main {width: 1040px; margin: 200px auto 200px auto; height: 1500px;}
+#container {width: 100%; margin: 30px auto 0px auto; height: 100%;}
+main {width: 1040px; margin: 200px auto 200px auto;}
 
 
 /*작은 별점*/
@@ -495,16 +495,16 @@ z-index: 0;
     width: 20px;
     height: 40px;
     cursor: pointer; }
-   /*
-input {
+   
+#ModalWrap input {
     opacity: 0 !important;
     height: 0 !important;
     width: 0 !important;
     position: absolute !important; }
 
-input:checked + .startRadio__img {
+#ModalWrap input:checked + .startRadio__img {
     background-color: #F1D05F; }
-    */
+    
     
 .material-icons {
 	position: absolute;

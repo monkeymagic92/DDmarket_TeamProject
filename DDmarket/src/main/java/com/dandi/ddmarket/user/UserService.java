@@ -376,6 +376,18 @@ public class UserService {
 		return mapper.selReviewCnt(param);
 	}
 	
+	//MY구매 글 리스트
+	public List<BoardDMI> selMyBuyList(BoardPARAM param) {
+		return mapper.selMyBuyList(param);
+	}
+	
+	//MY구매 리스트 총갯수
+	public int selMyBuyCnt(BoardPARAM param) {
+		return mapper.selMyBuyCnt(param);
+	}
+	
+	
+	
 	//MY댓글 리스트
 	public List<CmtDMI> selMyCmtList(BoardPARAM param) {
 		return mapper.selMyCmtList(param);

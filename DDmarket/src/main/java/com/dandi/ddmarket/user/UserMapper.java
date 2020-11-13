@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.dandi.ddmarket.board.model.BoardDMI;
 import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.board.model.BoardVO;
 import com.dandi.ddmarket.category.model.CategoryVO;
@@ -43,6 +44,10 @@ public interface UserMapper {
 	List<ReviewPARAM> selReviewList(BoardPARAM param);
 	
 	int selReviewCnt(BoardPARAM param);
+	
+	List<BoardDMI> selMyBuyList(BoardPARAM param);
+	
+	int selMyBuyCnt(BoardPARAM param);
 	
 	List<CmtDMI> selMyCmtList(BoardPARAM param);
 	

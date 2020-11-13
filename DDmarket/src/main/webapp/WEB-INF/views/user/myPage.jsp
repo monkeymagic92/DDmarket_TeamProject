@@ -150,7 +150,30 @@
                 
                 <c:if test="${i_tap == 3}">
                 <div id="tap_myBuyList">
-                	MY구매
+              	  <c:forEach var="item" items="${myBuyList}">
+                	 <article class="div-wrap-buyList-article">
+                          <div class="card-image">
+                        	  <c:choose>
+                                 <c:when test="${item.thumImage == null}">
+                                    <img src="/res/img/lion.jpg">
+                                 </c:when>
+                                 <c:otherwise>
+                                    <img src="/res/img/board/${item.i_board}/${item.thumImage}">
+                                 </c:otherwise>
+                              </c:choose>
+                          </div>
+                          <div class="card-right">
+                              <div class="card-title">${item.title}</div>
+                       		     <c:choose>
+                                   <c:when test="${item.price == 0}"><div class="card-price">무료</div></c:when>
+                                   <c:otherwise><div class="card-price"><fmt:formatNumber value="${item.price}" pattern="#,###" />원</div></c:otherwise>
+                                </c:choose>
+                              <div class="card-addr"><span class="iconify" data-inline="false" data-icon="el:map-marker" style="color: #6f6a6a; font-size: 16px;"></span><span>${item.addr}</span></div>
+                              <div class="card-date"><span class="card-date-text">구매 날짜</span><span class="card-date-num">${item.r_dt}</span></div>
+                              <button type='button' class="review">후기쓰기</button>
+                          </div>
+                     </article>
+                    </c:forEach>
                 </div>
 	            </c:if>
 	            
@@ -297,6 +320,7 @@ function radiobox(){
         }
         
     }
+    
 radiobox()
 
 function Cbtn(){
@@ -321,6 +345,32 @@ if(txt.length != '' || txt.length != 0){
 	modal.style.display = "none";
 	}
 }
+
+/* modal */
+var modal = document.querySelector(".myModal");
+var btn = document.querySelector(".review");
+var closebtn = document.querySelector(".close");
+
+btn.onclick = function() {
+    modal.style.display = "block";
+    }
+
+closebtn.onclick = function() {
+    var txt = document.querySelector('textarea').value
+    if(txt.length == '' || txt.length == 0){
+        alert('후기를 작성해 주세요.')
+        return false
+    }
+    if(txt.length != '' || txt.length != 0){
+        modal.style.display = "none";
+    }
+}
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+        }
+    }
 	
 	
 	
@@ -344,6 +394,8 @@ if(txt.length != '' || txt.length != 0){
 	function moveToTap(i_tap) {
 		location.href = "/user/myPage?i_tap=" + i_tap + "&i_user=${data.i_user}" 
 	}
+	
+	
 	
 	</script>
 </body>

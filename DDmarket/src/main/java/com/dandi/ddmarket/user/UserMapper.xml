@@ -101,6 +101,28 @@
 		WHERE B.i_user = #{i_user}
 	</select>
 	
+	<!-- MY구매 리스트 -->
+	<select id="selMyBuyList" parameterType="BoardPARAM" resultType="BoardDMI">
+		SELECT A.i_buyList, A.i_user, A.i_board, C.thumImage, C.title, C.price, C.addr, C.r_dt  FROM t_user_buylist A
+		LEFT JOIN t_user B
+		ON B.i_user = A.i_user
+		LEFT JOIN t_board C
+		ON C.i_board = A.i_board
+		WHERE A.i_user = #{i_user}
+		ORDER BY A.i_buyList DESC
+		LIMIT #{pageStart}, #{perPageNum}
+	</select>
+	
+	<!-- MY구매 리스트 글 숫자 -->
+	<select id="selMyBuyCnt" parameterType="BoardPARAM" resultType="Integer">
+		SELECT COUNT(*) FROM t_user_buylist A
+		LEFT JOIN t_user B
+		ON B.i_user = A.i_user
+		LEFT JOIN t_board C
+		ON C.i_board = A.i_board
+		WHERE A.i_user = #{i_user}
+	</select>
+	
 	<!-- My구매 리스트 -->
 	<select id="selMyCmtList" parameterType="BoardPARAM" resultType="CmtDMI">
 		SELECT A.i_cmt, A.i_user, A.i_board, A.ctnt, B.nick, B.profile_img, SUBSTRING_INDEX(A.r_dt," ",1) AS r_dt FROM t_cmt A
