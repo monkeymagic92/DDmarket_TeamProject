@@ -170,7 +170,7 @@
                                 </c:choose>
                               <div class="card-addr"><span class="iconify" data-inline="false" data-icon="el:map-marker" style="color: #6f6a6a; font-size: 16px;"></span><span>${item.addr}</span></div>
                               <div class="card-date"><span class="card-date-text">구매 날짜</span><span class="card-date-num">${item.r_dt}</span></div>
-                              <button type='button' class="review">후기쓰기</button>
+                              <button class="review" onclick="reviewbtn()">후기쓰기</button>
                           </div>
                      </article>
                     </c:forEach>
@@ -263,7 +263,7 @@
 		          <span class="material-icons" onclick="Cbtn()">clear</span>
 		          <h2 class="title">라이언 덕후 상점과의 거래는 어떠셨나요?</h2>
 		       </div>
-		       <form id="frm" action="/review/ReviewCmt" method="post">
+		       <form id="frm" action="/review/regReview" method="post">
 			       <div class="starPoint">
 			       	<div class="startRadio"></div>
 			       </div>
@@ -345,33 +345,6 @@ if(txt.length != '' || txt.length != 0){
 	modal.style.display = "none";
 	}
 }
-
-/* modal */
-var modal = document.querySelector(".myModal");
-var btn = document.querySelector(".review");
-var closebtn = document.querySelector(".close");
-
-btn.onclick = function() {
-    modal.style.display = "block";
-    }
-
-closebtn.onclick = function() {
-    var txt = document.querySelector('textarea').value
-    if(txt.length == '' || txt.length == 0){
-        alert('후기를 작성해 주세요.')
-        return false
-    }
-    if(txt.length != '' || txt.length != 0){
-        modal.style.display = "none";
-    }
-}
-
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-        }
-    }
-	
 	
 	
 	////사용자 별점 값 조정

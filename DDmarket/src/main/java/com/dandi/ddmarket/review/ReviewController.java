@@ -19,19 +19,22 @@ public class ReviewController {
 	@Autowired
 	private ReviewService service;
 	
-	@RequestMapping(value = "/ReviewCmt", method = RequestMethod.POST)
-	public String ReviewCmt(Model model, ReviewPARAM param, HttpServletRequest request) {
+	@RequestMapping(value = "/regReview", method = RequestMethod.POST)
+	public String regReview(Model model, ReviewPARAM param, HttpServletRequest request) {
+		System.out.println("??");
+		
 		
 		int i_user = CommonUtils.getIntParameter("i_user", request);
 		double rating = CommonUtils.getDoubleParameter("rating", request);
+		param.setI_user(i_user);
+		param.setRating(rating);
 		System.out.println("별점 :" + param.getRating());
 		System.out.println("ctnt : " + param.getCtnt());
 		System.out.println("i_user:"+param.getI_user());
-		param.setI_user(i_user);
-		param.setRating(rating);
-		model.addAttribute("data", service.insReview(param));
+		service.insReview(param);
 		
-		return "redirect:/" + ViewRef.USER_MYPAGE;
+		model.addAttribute("view",ViewRef.USER_MYPAGE);
+		return ViewRef.DEFAULT_TEMP;
 	}
 	
 }

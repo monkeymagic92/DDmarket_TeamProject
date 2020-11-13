@@ -12,7 +12,7 @@
 		LIMIT 5
 	</select>
 	
-	<insert id="insReview">
+	<insert id="insReview" parameterType="ReviewPARAM">
 		INSERT INTO t_review
 		(i_board, i_user, ctnt, rating)
 		VALUES
