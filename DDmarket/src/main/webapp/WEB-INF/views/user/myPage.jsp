@@ -53,6 +53,13 @@
                             <span class="profile_info_text">상품 판매</span>
                             <span class="profile_info_num">${sellCnt}회</span>
                         </div>
+                        <div class="profile_info_detail">
+                        <span class="iconify" data-inline="false" data-icon="ic:outline-wifi" style="color: #3b73c8; font-size: 20px;"></span>
+                        	<span class="profile_info_text">가입경로</span>
+                        	<c:if test="${data.joinPass == 1}"><span class="profile_info_num" style="color: #3b73c8;">DDmarket</span></c:if>
+                            <c:if test="${data.joinPass == 2}"><span class="profile_info_num" style="color: #FEE500;">kakao</span></c:if>
+                            <c:if test="${data.joinPass == 3}"><span class="profile_info_num" style="color: #2DB400;">NAVER</span></c:if>
+                        </div>
                     </div>
                 </div>
             </section>
