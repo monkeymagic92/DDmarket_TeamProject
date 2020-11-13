@@ -48,7 +48,7 @@
 |          |           | Javascript | Spring Tool Suite  | NAVER login  |               |
 |          |           | jQuery     | JDK                | kakao maps   |               |
 |          |           | Ajax       | Maven              |              |               |
-|          |           | Bootstrap  |                    |              |               |
+
 
 ### Developer Information
 
