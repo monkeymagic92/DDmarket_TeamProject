@@ -121,33 +121,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 								<%-- 밑에 buyChatBtn() 만들었음 온클릭했을때 판매자와 구매자 채팅창 아작스로 띄우기 --%>
                                 <br><br>
                                 <%--
@@ -184,7 +157,7 @@
             <div id="ChatBox">
 		        <div id="SaleList">
 		            <div id="close" onclick="CloBox()">
-		                                  닫기
+		                <img src="/res/img/times-solid.svg" alt="">
 		            </div>		            		            
 		            <div id="Buyers">
 		            	<c:forEach items="${selTrans}" var="item">
@@ -203,78 +176,44 @@
 			            </c:forEach>		               
 		            </div>
 		        </div>
-		        
-		        
-		        
-		        
-		        
+
 		        <%-- ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	판매자 목록ㅡ	ㅡ	ㅡ	ㅡ	ㅡㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ --%>
 		        
-		        
-		        <div class="ChatList" id="chatView" draggable="true" ondrag="moveCtnt()">
-		        
-	            	<div id="chatClose" class="p1" onclick="CloChat()">
-		              	  닫기
-		            </div>
-		            <div id="chat-Msg">
-		               <div id="TransChatView" class="message">
-		               <div>판매 1:1창</div>
-		               <%--
-		                <div class="message Mychat">
-		                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" alt="">
-		                    <div class="bubble">안녕하세요
-		                        <div class="corner"></div>
-		                        <span>10초</span>
-		                    </div>
-		                </div>
-		               --%>
-		               </div>
-		            </div>
-		            <div id="sendMessage">
-			            <input id="transCmtId" type="text" name="transCmt">
-		                <button id="send" onclick="transCmt()"></button>
-		            </div>
-		        </div>
-		    </div>
-		    
-		    
-		    <%-- ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	구매자 목록ㅡ	ㅡ	ㅡ	ㅡ	ㅡㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ --%>
-		    
-		    <div class="buyChatList" id="buyChatView">
-	            <div id="chatClose" class="p1" onclick="CloBuyChat()">
-	              	  닫기
-	            </div>
-	            <div id="chat-Msg">
-	                <div id="transBuyChatView" class="message Mychat">
-	                	
-	                    <%--  자스로 들어가는 부분		                    
-						    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" alt="">
-						    <div class="bubble">안녕하세요
-						        <div class="corner"></div>
-						        <div class="buyNick"></div>
-						        <span>10초</span>
-						    </div>
-						--%>
-	                </div>   
-	                
-	                          
-	            </div>
-	            
-	            <div id="sendMessage">
-	                <input id="buyTransCmtId" type="text" name="transCmt">
-	                <button id="send" onclick="buyTransCmt()"></button>
-	            </div>
+		 <div class="ChatList" id="chatView" >
+	        <div id="chatClose" onclick="CloChat()">
+	            <img src="/res/img/times-solid.svg" alt="">
 	        </div>
-
-	         
-		   
-		    
-		    
-		    
-		    <%--	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡㅡ	ㅡ	ㅡ	ㅡ	 --%>
-		    
-		    
-		    
+	        <div id="chat-Msg">
+	            <ul class="chatBox">
+	                <li id="TransChatView" class="youChat">
+	                    <div class="youPro">
+	                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" alt="">
+	                        <div class="nick">kkdkdkdk</div> 
+	                    </div>
+	                    <div class="bubble">방가
+	                      
+	                        <span>10초</span>
+	                    </div>
+	                </li>
+	                <li id="TransMyChatView" class="myChat">
+	                    <div class="bubble">안녕하세요
+		                        <span>10초</span>
+	                    </div>
+	                    <div class="myPro">
+	                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" alt="">
+	                        <div class="nick">dhdhdhdhd</div>
+	                    </div>
+	                </li>
+	            </ul>
+	        </div> 
+	        <div id="sendMessage">
+	            <input id="transCmtId" type="text" name="transCmt">
+	            <button id="send" onclick="transCmt()">
+	            	<img src="/res/img/paper-plane-solid.svg" alt="">
+	            </button>    
+	        </div>
+	    </div>	         
+    </div>
 		    
 		    
 		    
@@ -364,6 +303,10 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="/res/js/detail.js"></script>
 <script>
+
+//구매 확정
+
+
 	if(${transErr != null}) {
 		alert('${transErr}')		
 	}
@@ -403,7 +346,7 @@
 	var saleProfile_img = `${data.profile_img}`
 	
 	function selBuyTransCmt() {
-		buyChatView.style.display = 'flex'
+		chatView.style.display = 'flex'
 		selBuyChat()
 	}		
 	
@@ -484,23 +427,6 @@
 	}	
 		
 	// DMZ구역
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-				
 	
 	
 	
