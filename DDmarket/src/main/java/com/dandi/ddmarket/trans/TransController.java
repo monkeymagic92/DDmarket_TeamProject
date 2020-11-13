@@ -1,5 +1,7 @@
 package com.dandi.ddmarket.trans;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.dandi.ddmarket.CommonUtils;
 import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.trans.model.TransCmtDMI;
+import com.dandi.ddmarket.trans.model.TransCmtVO;
 import com.dandi.ddmarket.trans.model.TransDMI;
 
 @Controller
@@ -74,8 +77,12 @@ public class TransController {
 		int result = service.insTransCmt(vo);
 		return String.valueOf(result);
 	}
-
-		
 	
+	
+	@RequestMapping(value="/selTransCmt", method=RequestMethod.GET)
+	private @ResponseBody List<TransCmtDMI> selTransCmt(TransCmtDMI vo){
+		
+		return service.selTransCmt(vo);
+	}
 	
 }

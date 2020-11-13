@@ -436,6 +436,7 @@ public class UserController {
 			hs.setAttribute(Const.LOGIN_USER, param2);
 			
 		} catch(Exception e) {
+			e.printStackTrace();
 			ra.addFlashAttribute("imgErr","프로필사진을 새로 등록해 주세요");
 			return "redirect:/" +  ViewRef.USER_INFO;
 		}

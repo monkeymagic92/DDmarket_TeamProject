@@ -7,7 +7,9 @@
 	
 	<!-- 해당n번 게시글의 가격요청 누른 유저정보 -->	
 	<select id="selTrans" parameterType="BoardPARAM" resultType="TransDMI">
-		SELECT A.i_trans, A.chk, B.i_user ,B.nick, B.profile_img, B.addr, B.grade FROM t_trans A
+		SELECT A.i_trans, A.chk, B.i_user ,B.nick, B.profile_img, B.addr, B.grade,
+		A.saleI_user
+		FROM t_trans A
 		LEFT JOIN t_user B
 		ON A.i_user = B.i_user 
 		
@@ -33,6 +35,22 @@
 		WHERE i_board = #{i_board}
 		AND i_user = #{i_user}
 	</select>	
+	
+	<select id="selTransCmt" parameterType="TransCmtDMI" resultType="TransCmtDMI">
+		SELECT C.profile_img as 'profile_img', B.profile_img as 'buyProfile_img', A.i_user as 'buyI_user',
+		A.saleI_user, B.nick as 'buyNick', C.nick, A.transCmtChk, A.transCmt, A.r_dt		
+		FROM t_trans_cmt A
+
+		LEFT JOIN t_user B 
+		ON B.i_user = A.i_user
+
+		LEFT JOIN t_user C 
+		ON A.saleI_user = C.i_user
+		
+		WHERE A.i_trans = #{i_trans}
+		
+		ORDER BY A.r_dt ASC
+	</select>
 
 	
 	<!-- insert -->
@@ -40,18 +58,18 @@
 	<!-- 채팅글입력 -->
 	<insert id="insTransCmt" parameterType="TransCmtDMI">
 		INSERT INTO t_trans_cmt
-		(i_user, i_board, saleI_user, transCmt)
+		(i_trans, i_user, i_board, saleI_user, transCmt)
 		VALUES
-		(#{i_user}, #{i_board}, #{saleI_user}, #{transCmt})
+		(#{i_trans}, #{i_user}, #{i_board}, #{saleI_user}, #{transCmt})
 	</insert>
 	
 	
 	<!-- 가격요청 눌렀을시 트랜스테이블 저장 -->
 	<insert id="insTrans" parameterType="TransDMI">
 		INSERT INTO t_trans
-		(i_user, i_board, chk)
+		(i_user, i_board, chk, saleI_user)
 		VALUES
-		(#{i_user}, #{i_board}, #{chk})
+		(#{i_user}, #{i_board}, #{chk}, #{saleI_user})
 	</insert>
 	
 	

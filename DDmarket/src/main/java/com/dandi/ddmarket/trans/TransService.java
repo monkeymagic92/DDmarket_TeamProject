@@ -66,5 +66,10 @@ public class TransService {
 		return mapper.insTransCmt(vo);
 	}
 	
+	// 채팅글 뿌리기
+	public List<TransCmtDMI> selTransCmt(TransCmtDMI vo) {
+		return mapper.selTransCmt(vo);
+	}
+	
 	
 }

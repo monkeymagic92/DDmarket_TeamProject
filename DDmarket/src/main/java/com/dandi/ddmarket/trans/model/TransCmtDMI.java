@@ -1,6 +1,7 @@
 package com.dandi.ddmarket.trans.model;
 
 public class TransCmtDMI extends TransCmtVO {
+	private int i_trans;
 	private String profile_img;
 	private String saleProfile_img;
 	private String buyNick;
@@ -8,9 +9,14 @@ public class TransCmtDMI extends TransCmtVO {
 	private String buyProfile_img;
 	
 	
-	
-	
-	
+
+	public int getI_trans() {
+		return i_trans;
+	}
+
+	public void setI_trans(int i_trans) {
+		this.i_trans = i_trans;
+	}
 
 	public String getBuyProfile_img() {
 		return buyProfile_img;
