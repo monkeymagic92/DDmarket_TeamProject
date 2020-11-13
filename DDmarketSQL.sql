@@ -1,9 +1,10 @@
 -- DDmarket.sql
 -- 위에서 아래로 순차적으로 실행하면됨 
 
-
 -- 유저테이블
 -- 10.20 buy 추가
+
+
 CREATE TABLE t_user(
 	i_user INT UNSIGNED AUTO_INCREMENT, -- 회원 고유 pk값
 	user_id VARCHAR(20) NOT NULL UNIQUE, -- 회원 아이디 (중복방지)
@@ -28,14 +29,13 @@ CREATE TABLE t_user(
 	PRIMARY KEY (i_user)
 );
 
-SELECT * FROM t_trans;
-
 
 -- 카테고리 테이블 --
 CREATE TABLE t_category(
 	i_cg INT UNSIGNED PRIMARY KEY AUTO_INCREMENT, -- 카테고리 고유 pk값
 	cg_nm VARCHAR(15) NOT NULL -- 카테고리 이름 추가
 );
+
 
 
 
@@ -47,8 +47,10 @@ INSERT INTO t_category (i_cg, cg_nm) VALUES (5, '뷰티|미용');
 INSERT INTO t_category (i_cg, cg_nm) VALUES (6, '생활|가구');
 INSERT INTO t_category (i_cg, cg_nm) VALUES (7, '도서|티켓');
 INSERT INTO t_category (i_cg, cg_nm) VALUES (8, '유아동|출산');
-INSERT INTO t_category (i_cg, cg_nm) VALUES (9, '기타');
-INSERT INTO t_category (i_cg, cg_nm) VALUES (10,'무료나눔');
+INSERT INTO t_category (i_cg, cg_nm) VALUES (9, '미지정');
+INSERT INTO t_category (i_cg, cg_nm) VALUES (10,'기타');
+
+
 
 
 
@@ -81,14 +83,15 @@ CREATE TABLE t_board(
 
 
 
+
 -- 거래관련 목록
 CREATE TABLE t_trans(
 	i_trans INT UNSIGNED AUTO_INCREMENT,
 	i_board INT UNSIGNED,
 	i_user INT UNSIGNED,
+	saleI_user INT UNSIGNED,
 	chk INT DEFAULT 0,
-	buyI_user INT,		-- 구매유저 
-	soldI_user INT,	-- 판매유저
+	cmt_room INT UNSIGNED,
 	r_dt DATETIME DEFAULT NOW(),	-- 게시글 등록시 날짜
 	m_dt DATETIME DEFAULT NOW(),
 	PRIMARY KEY (i_trans, i_board, i_user),
@@ -98,19 +101,30 @@ CREATE TABLE t_trans(
 
 
 
+-- 유저가 거래한 테이블
+CREATE TABLE t_user_buyList(
+	i_buyList INT unsigned AUTO_INCREMENT,
+	i_user INT UNSIGNED,	-- user join
+	i_board INT UNSIGNED, -- board join
+	PRIMARY KEY(i_buyList, i_user, i_board),
+	FOREIGN KEY (i_board) REFERENCES t_board(i_board) ON DELETE CASCADE,
+	FOREIGN KEY (i_user) REFERENCES t_user(i_user) ON DELETE CASCADE	
+);
+
+
 
 -- 거래 1:1 채팅
-CREATE TABLE t_trans_cmt(
+CREATE TABLE t_trans_cmt (
 	i_trans_cmt INT UNSIGNED AUTO_INCREMENT,
-	i_trans INT UNSIGNED,
 	i_board INT UNSIGNED,
 	i_user INT UNSIGNED,
-	transCmt VARCHAR(2000),
-	transCmtChk INT,
+	i_trans INT UNSIGNED,
+	saleI_user INT UNSIGNED,
+	transCmt VARCHAR(2000),			-- 구매자는 1값 넣어주고 구매자가 아닐경우 100 넣어주기 (컨트롤러에서 처리해서 값 전달하기)
+	transCmtChk INT, 	-- 구매자pk값 등록하기
 	r_dt DATETIME DEFAULT NOW(),	-- 게시글 등록시 날짜
 	m_dt DATETIME DEFAULT NOW(),
-	PRIMARY KEY (i_trans_cmt, i_trans, i_board, i_user),
-	FOREIGN KEY (i_trans) REFERENCES t_trans(i_trans) ON DELETE CASCADE,
+	PRIMARY KEY (i_trans_cmt, i_board, i_user),
 	FOREIGN KEY (i_board) REFERENCES t_board(i_board) ON DELETE CASCADE,
 	FOREIGN KEY (i_user) REFERENCES t_user(i_user) ON DELETE CASCADE	
 );
@@ -129,14 +143,6 @@ CREATE TABLE t_board_like(
 );
 
 
-
-
-SELECT A.i_board, A.image_1, A.title, A.price, A.r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr
-FROM t_board A
-LEFT JOIN t_user B
-ON A.i_user = B.i_user
-WHERE SUBSTRING_INDEX(A.addr," ",2) in (SELECT SUBSTRING_INDEX(B.addr," ",2) FROM t_user WHERE B.i_user = 1)
-ORDER BY A.r_dt DESC;
 
 
 
@@ -166,8 +172,8 @@ CREATE TABLE t_cmt(
 	r_dt DATETIME DEFAULT NOW(),	
 	m_dt DATETIME DEFAULT NOW(),
   	PRIMARY KEY (i_cmt, i_user, i_board),
-	FOREIGN KEY (i_user) REFERENCES t_user(i_user),	-- 회원과 연결
-	FOREIGN KEY (i_board) REFERENCES t_board(i_board)	-- 게시판과 연결
+	FOREIGN KEY (i_user) REFERENCES t_user(i_user)  ON DELETE CASCADE,
+	FOREIGN KEY (i_board) REFERENCES t_board(i_board) ON DELETE CASCADE
 );
 
 
@@ -184,10 +190,13 @@ INSERT INTO t_tap (tap_nm) VALUES ('MY구매');
 INSERT INTO t_tap (tap_nm) VALUES ('MY댓글');
 INSERT INTO t_tap (tap_nm) VALUES ('MY후기');
 
+DROP TABLE t_trans_cmt;
 
 
 
 
+
+SELECT * FROM t_trans_cmt;
 
 
 
