@@ -139,7 +139,6 @@
 			    <%--	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡㅡ	ㅡ	ㅡ	ㅡ	 --%>      	
             <button id="chatting" onclick="chatBtn()">경매자 목록</button>            
             <div id="ChatBox">
-            
 		        <div id="SaleList">
 		            <div id="close" onclick="CloBox()">
 		                                  닫기
@@ -166,41 +165,43 @@
 		            	</c:forEach>	               
 		            </div>
 		        </div>
+		        
 		        <div class="ChatList" id="chatView" >
-	                <div id="chatClose" class="p1" onclick="CloChat()">
-	                   	   닫기
-	                </div>
-                    <div id="chat-Msg">
-                    	
-	                         <div id="TransChatView" class="message">  
-	                         	<%--	
-			                     <div class="message Mychat">
-			                         <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" alt="">
-			                         <div class="bubble">우측(내용적기)
-			                         	<div class="corner"></div>		                         	
-			                        	 <span>10초</span>
-			                     	</div>
-				                </div>
-				                
-				                
-			                    <div id="TransChatView" class="message">
+			        <div id="chatClose" onclick="CloChat()">
+			            <img src="/res/img/times-solid.svg" alt="">
+			        </div>
+			        <div id="chat-Msg">
+			            <ul id="liChatBox" class="chatBox">
+			            
+			                <li id="TransChatView" class="youChat">
+			                    <div class="youPro">
 			                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" alt="">
-			                        <div class="bubble">좌측(내용적기)
-			                        	<div class="corner"></div>
-			                         	<span>10초</span>
-			                      </div>
-			                   </div>
-			                		 --%>                   
-		                   </div>
-	                    
-	               </div>
-              		   <%-- 채팅입력 --%>
-	                   <div id="sendMessage">
-	                      <input id="transCmtId" type="text" name="transCmt">
-	                      <button id="send" onclick="insTransChat()"></button>
-	                   </div>
-		      </div>    
-	        
+			                        <div class="nick">kkdkdkdk</div> 
+			                    </div>
+			                    <div class="bubble">방가
+			                      
+			                        <span>10초</span>
+			                    </div>
+			                </li>
+			                
+			                <li id="TransMyChatView" class="myChat">
+			                    <div class="bubble">안녕하세요
+				                        <span>10초</span>
+			                    </div>
+			                    <div class="myPro">
+			                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" alt="">
+			                        <div class="nick">dhdhdhdhd</div>
+			                    </div>
+			                </li>
+			            </ul>
+			        </div> 
+			        <div id="sendMessage">
+			            <input id="transCmtId" type="text" name="transCmt">
+			            <button id="send" onclick="insTransChat()">
+			                <span class="material-icons">send</span>
+			            </button>    
+			        </div>
+				</div>
 		    </div>    
 		    
 		    <%--	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡㅡ	ㅡ	ㅡ	ㅡ	 --%>
@@ -309,10 +310,37 @@
 	
 	
 	
+	
+	
 	// 채팅창 닫기
 	function CloChat() {
+		TransChatView.innerHTML = '';
 		chatView.style.display = 'none'
 	}
+	
+	// 채팅 등록하기
+	function insTransChat() {
+	    var transCmt = transCmtId.value
+	    console.log('transCmt : ' + transCmt)
+	    console.log('param_trans : ' + param_trans)
+	    
+        axios.post('/trans/insTransCmt',{
+			
+	      i_user : `${loginUser.i_user}`, 
+	      i_board : `${data.i_board}`,
+	      saleI_user : `${data.i_user}`,
+	      i_trans : param_trans,
+	      transCmt,
+	        
+     	}).then(function(res) {
+     		transCmtId.value = ''
+     		TransChatView.innerHTML = '';
+     		//transChat(i_trans, saleI_user, i_user)
+     	    transChat(param_trans) //★★★ 안되면 매개변수로 param_trans 넣어보기 ★★★
+    	  
+     	})    		 
+	}
+	
 	
 	
 	var param_trans = 0; // 클릭했을시 나타나는 i_trans 값 받아오기 위한용
@@ -329,23 +357,20 @@
 		if(loginI_user != i_user && dataI_user != loginI_user) {
 			alert('다른사람글은 볼수없어요')
 			return;
-			
-		} else if(loginI_user == i_user || dataI_user == loginI_user) {
-			
-			chatView.style.display = 'flex'
-			console.log('transchat : ' + i_trans)
-			
-			 function chatList(param_trans) {
-				axios.get('/trans/selTransCmt', {
-			          params: {
-			            i_trans : param_trans
-			          }
-			       
-			       }).then(function(res) {
-			    	   refreshSelChat(res.data)
-			       })	
-			 }
-		} 
+		}
+		
+		chatView.style.display = 'flex'
+		console.log('transchat : ' + i_trans)
+	
+		axios.get('/trans/selTransCmt', {
+	          params: {
+	            i_trans : param_trans
+	          }
+	       
+	       }).then(function(res) {
+	    	   refreshSelChat(res.data)
+	       })	
+		 
 	}
 	
 	function refreshSelChat(arr) {
@@ -355,11 +380,12 @@
 	}
 	
 	function makeChatList(arr) {
-		divMychat = document.createElement('div')
+		liChatBox = document.createElement('li')
+		liChatBox.setAttribute('class', 'chatBox')
 		
 		if(`${loginUser.i_user == arr.buyI_user}`) { // 구매자
-			
-			divMychat.setAttribute('class', 'message')
+			liTransChat = document.createElement('li')	
+			liTransChat.setAttribute('class', 'youChat')
 			
 			TransChatView.append(divMychat)
 			
@@ -420,33 +446,10 @@
 			var span = document.createElement('span')
 			span.append(arr.r_dt)
 			divBubble.append(span)
-			
 		}
-		
 	}
 	
-	        	 
-	function insTransChat() {
-	    var transCmt = transCmtId.value
-	    console.log('transCmt : ' + transCmt)
-	    console.log('param_trans : ' + param_trans)
-	    
-        axios.post('/trans/insTransCmt',{
-			
-	      i_user : `${loginUser.i_user}`, 
-	      i_board : `${data.i_board}`,
-	      saleI_user : `${data.i_user}`,
-	      i_trans : param_trans,
-	      transCmt,
-	        
-     	}).then(function(res) {
-     		transCmtId.value = ''
-     		TransChatView.innerHTML = '';
-     		chatList(param_trans)
-     	    //transChat(param_trans) //★★★ 안되면 매개변수로 param_trans 넣어보기 ★★★
-    	  
-     	})    		 
-	}
+	
 	
 	    	   
 		
