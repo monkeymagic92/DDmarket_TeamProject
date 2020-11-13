@@ -28,7 +28,7 @@
 		FROM t_board A
 		LEFT JOIN t_user B
 		ON A.i_user = B.i_user
-		WHERE SUBSTRING_INDEX(A.addr," ",2) in (SELECT SUBSTRING_INDEX(B.addr," ",2) FROM t_user WHERE B.i_user = ${i_user})
+		WHERE SUBSTRING_INDEX(A.addr," ",1) in (SELECT SUBSTRING_INDEX(B.addr," ",1) FROM t_user WHERE B.i_user = ${i_user})
 		ORDER BY A.r_dt DESC
 		LIMIT 12
 	</select>

@@ -26,7 +26,8 @@
                         <div class="swiper-button-next"></div>
                     </div>
                 </section>
-                <div class="sub-title">${loginUser == null ? "단디마켓 인기상품" : "단디마켓 추천상품"}</div>
+                <c:if test="${loginUser == null}"><div class="sub-title"><a href="/index/search?searchType=hot">단디마켓 인기상품</a></div></c:if>
+                <c:if test="${loginUser != null}"><div class="sub-title"><a href="/index/search?searchNm=${fn:substringBefore(loginUser.addr, ' ')}">단디마켓 추천상품</a></div></c:if>
                 <section id="main-section-hot" class="section-cardList">
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
@@ -97,7 +98,7 @@
                 <section class="main-section-banner">
                     <div class="banner-div_image"><img src="/res/img/sub_banner_1.jpg"></div>
                 </section>
-                <div class="sub-title" id="sub-title-new"><span class="iconify icon-new" data-inline="false" data-icon="mdi:new-box" style="color: #f84c4c; font-size: 40.488094329833984px;"></span>새로 등록된 상품</div>
+                <div class="sub-title" id="sub-title-new"><span class="iconify icon-new" data-inline="false" data-icon="mdi:new-box" style="color: #f84c4c; font-size: 40.488094329833984px;"></span><a href="/index/search?searchType=new">새로 등록된 상품</a></div>
                 <section id="main-section-new" class="section-cardList">
                     <div class="swiper-container">
                             <c:set var="newBoardList_endNum" value="0" />
@@ -204,7 +205,7 @@
                 <section class="main-section-banner">
                     <div class="banner-div_image"><img src="/res/img/sub_banner_2.jpg"></div>
                 </section>
-                <div class="sub-title">무료나눔</div>
+                <div class="sub-title"><a href="/index/search?i_cg=10">무료나눔</a></div>
                 <section id="main-section-free" class="section-cardList">
                     <div class="swiper-container">
                             <c:set var="freeBoardList_endNum" value="0" />

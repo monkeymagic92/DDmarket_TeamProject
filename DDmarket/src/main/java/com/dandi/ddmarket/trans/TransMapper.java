@@ -14,20 +14,24 @@ import com.dandi.ddmarket.trans.model.TransVO;
 public interface TransMapper {
 
 	// select
-	List<TransDMI> selTrans(BoardPARAM param);	
+	List<TransDMI> selTrans(BoardPARAM param);	// 구매요청 누른 유저 리스트
 	
-	int chkTrans(BoardPARAM param);
+	int chkTrans(BoardPARAM param);	// 구매요청하기 판별을 위한 chk값 반환
 	
-	List<TransCmtDMI> selTransCmt(TransCmtDMI param);
+	int intI_trans(TransDMI vo); // i_trans값 반환
+	
+	List<TransCmtDMI> selTransCmt(TransCmtDMI vo);
 	
 	// insert
-	int insTrans(TransVO vo);  // 구매요청 눌렀을시 해당 유저값 저장
-	
+	int insTrans(TransDMI vo);  // 구매요청 눌렀을시 해당 유저값 저장
 
 	int updSold(BoardPARAM param);
+	
+	int insTransCmt(TransCmtDMI vo);
 
-	int insTransCmt(TransCmtDMI vo); 	// 거래댓글 등록
-
+	
+	// update
+	
 	
 	// delete
 	int delTransUser(TransVO vo);	// 구매취소 눌렀을시 해당 유저값 삭제
