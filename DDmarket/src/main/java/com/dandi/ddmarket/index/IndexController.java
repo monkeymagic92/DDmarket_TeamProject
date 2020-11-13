@@ -34,7 +34,7 @@ public class IndexController {
 	
 	@RequestMapping(value="/main", method = RequestMethod.GET)
 	public String index(Model model, RedirectAttributes ra, BoardPARAM param,CategoryVO cparam,HttpServletRequest request,HttpSession hs) {
-		//
+		
 		// header 검색값 세션에서  제거
 		hs.removeAttribute("searchNm");
 		hs.removeAttribute("searchType");
