@@ -137,7 +137,7 @@
                         
 			    <%-- 버튼(구매요청 리스트) 눌렀을떄 나오는 부분 --%>      
 			    <%--	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡㅡ	ㅡ	ㅡ	ㅡ	 --%>      	
-            <button id="chatting" onclick="chatBtn()">버튼</button>            
+            <button id="chatting" onclick="chatBtn()">경매자 목록</button>            
             <div id="ChatBox">
             
 		        <div id="SaleList">
@@ -158,6 +158,9 @@
 			                    <p>
 			                        <strong>${item.nick}</strong>
 			                        <span>${item.grade}</span>
+			                        <c:if test="${data.i_user == loginUser.i_user}">
+			                        	<button type="button">거래완료</button>
+			                        </c:if>
 			                    </p>
 			                </div>		
 		            	</c:forEach>	               
@@ -303,7 +306,7 @@
 	}
 	
 	
-	var param_trans = 0; // 클릭했을시 나타나는 i_trans 값 받아오기 위한용
+	
 	
 	
 	// 채팅창 닫기
@@ -311,34 +314,38 @@
 		chatView.style.display = 'none'
 	}
 	
+	
+	var param_trans = 0; // 클릭했을시 나타나는 i_trans 값 받아오기 위한용
 	// 채팅창 열기 및 뿌리기
 	function transChat(i_trans, saleI_user, i_user) {
 		var loginI_user = `${loginUser.i_user}`
 		var dataI_user = `${data.i_user}`
 		
+		param_trans = i_trans	// 글쓰기할때도 사용됨 그래서 param으로 공용으로 사용
+		
 		console.log('EL식 판매자 pk : ' + `${data.i_user}`)
 		console.log('onclick 판매자 pk : ' + saleI_user)
-		
-		if(loginI_user != i_user) {
-			alert('꺼져')
-			return false;
-		}
-		
-		
-		param_trans = i_trans	// 글쓰기할때도 사용됨 그래서 param으로 공용으로 사용
-		chatView.style.display = 'flex'
-		console.log('transchat : ' + i_trans)
-		
-		 axios.get('/trans/selTransCmt', {
-	          params: {
-	            i_trans : param_trans
-	          }
-	       
-	       }).then(function(res) {
-	    	   refreshSelChat(res.data)
-	       })	
 				
-		
+		if(loginI_user != i_user && dataI_user != loginI_user) {
+			alert('다른사람글은 볼수없어요')
+			return;
+			
+		} else if(loginI_user == i_user || dataI_user == loginI_user) {
+			
+			chatView.style.display = 'flex'
+			console.log('transchat : ' + i_trans)
+			
+			 function chatList(param_trans) {
+				axios.get('/trans/selTransCmt', {
+			          params: {
+			            i_trans : param_trans
+			          }
+			       
+			       }).then(function(res) {
+			    	   refreshSelChat(res.data)
+			       })	
+			 }
+		} 
 	}
 	
 	function refreshSelChat(arr) {
@@ -435,7 +442,8 @@
      	}).then(function(res) {
      		transCmtId.value = ''
      		TransChatView.innerHTML = '';
-     	    transChat(param_trans) //★★★ 안되면 매개변수로 param_trans 넣어보기 ★★★
+     		chatList(param_trans)
+     	    //transChat(param_trans) //★★★ 안되면 매개변수로 param_trans 넣어보기 ★★★
     	  
      	})    		 
 	}
