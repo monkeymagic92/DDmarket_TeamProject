@@ -94,7 +94,7 @@
 
                 </div>
                 <div id="showPrice">
-      				<div id="chk" style="display:none;"> 무료나눔 </div>
+      				<div id="chk" style="display:none;"><img src="/res/img/free.jpg"></div>
                 	<input type="hidden" name="priceChk" id="priceChk" class="priceChk">
                 </div>
                 
