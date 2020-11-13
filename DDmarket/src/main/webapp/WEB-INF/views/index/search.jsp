@@ -17,10 +17,10 @@
 	        	<c:forEach var="item" items="${cgList}">
 	        		<c:choose>
 	        			<c:when test="${i_cg == item.i_cg}">
-	        				<div class="cg-menu-bar-div"><a href="/index/search?i_cg=${item.i_cg}&searchNm=${searchNm}" class="cg-menu-bar-a">${item.cg_nm}</a></div>
+	        				<div class="cg-menu-bar-div" onclick="clickTap(${item.i_cg}, '${searchNm}')"><a href="/index/search?i_cg=${item.i_cg}&searchNm=${searchNm}" class="cg-menu-bar-a">${item.cg_nm}</a></div>
 	        			</c:when>
 	        			<c:otherwise>
-	        				<div class="cg-menu-bar-div"><a href="/index/search?i_cg=${item.i_cg}&searchNm=${searchNm}" class="cg-menu-bar-b">${item.cg_nm}</a></div>
+	        				<div class="cg-menu-bar-div" onclick="clickTap(${item.i_cg}, '${searchNm}')"><a href="/index/search?i_cg=${item.i_cg}&searchNm=${searchNm}" class="cg-menu-bar-b">${item.cg_nm}</a></div>
 	        			</c:otherwise>
 	        		</c:choose>
 	            </c:forEach>
@@ -139,4 +139,9 @@
 <script src="/res/js/search.js"></script>
 <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+	function clickTap(i_cg, searchNm) {
+		location.href = '/index/search?i_cg=' + i_cg + '&searchNm=' + searchNm
+	}
+</script>
 </html>
