@@ -403,7 +403,7 @@ public class UserController {
 		if(file.exists()) {
 			result = service.delUserProfileImg(i_user);
 			file.delete();
-			UserPARAM param2 = ((UserPARAM)hs.getAttribute(Const.LOGIN_USER));
+			UserDMI param2 = ((UserDMI)hs.getAttribute(Const.LOGIN_USER));
 			param2.setProfile_img(null);
 			hs.removeAttribute(Const.LOGIN_USER);
 			hs.setAttribute(Const.LOGIN_USER, param2);
@@ -430,7 +430,7 @@ public class UserController {
 			vo.setProfile_img(dbUser);
 			
 			String fileNm = service.insUserProfileImg(mReq, vo);
-			UserPARAM param2 = ((UserPARAM)hs.getAttribute(Const.LOGIN_USER));
+			UserDMI param2 = ((UserDMI)hs.getAttribute(Const.LOGIN_USER));
 			param2.setProfile_img(fileNm);
 			hs.removeAttribute(Const.LOGIN_USER);
 			hs.setAttribute(Const.LOGIN_USER, param2);
