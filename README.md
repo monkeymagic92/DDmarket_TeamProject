@@ -42,13 +42,13 @@
 
 ### Developer Tools
 
-| Planning | Date-base | Front-end  | Back-end   | API          | Server        |
-| -------- | --------- | ---------- | ---------- | ------------ | ------------- |
-| figma    | Maria DB  | HTML+CSS   | Eclips IDE | kakao  login | Apache Tomcat |
-|          |           | Javascript |            | NAVER login  |               |
-|          |           | jQuery     |            | kakao maps   |               |
-|          |           | Ajax       |            |              |               |
-|          |           | Bootstrap  |            |              |               |
+| Planning | Date-base | Front-end  | Back-end           | API          | Server        |
+| -------- | --------- | ---------- | ------------------ | ------------ | ------------- |
+| figma    | Maria DB  | HTML+CSS   | Eclips IDE         | kakao login  | Apache Tomcat |
+|          |           | Javascript | Spring Tool Suite  | NAVER login  |               |
+|          |           | jQuery     | JDK                | kakao maps   |               |
+|          |           | Ajax       | Maven              |              |               |
+|          |           | Bootstrap  |                    |              |               |
 
 ### Developer Information
 
