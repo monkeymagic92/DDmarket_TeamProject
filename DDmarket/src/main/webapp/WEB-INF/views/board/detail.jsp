@@ -116,8 +116,6 @@
                					</c:if>찜 
                            		</button>
                            		
-
-								
                            		<%-- 구매요청 버튼 --%>
                           		<form id="transFrm" action="/trans/transRequest" method="post">
                            			<input type="hidden" name="i_user" value="${loginUser.i_user }">
@@ -141,7 +139,7 @@
             <div id="ChatBox">
 		        <div id="SaleList">
 		            <div id="close" onclick="CloBox()">
-		                                  닫기
+		                <img src="/res/img/times-solid.svg" alt="">
 		            </div>		            		            
 		            <div id="Buyers">
 		            	<c:forEach items="${selTrans}" var="item">
@@ -165,6 +163,8 @@
 		            	</c:forEach>	               
 		            </div>
 		        </div>
+
+
 		        
 		        <div class="ChatList" id="chatView" >
 			        <div id="chatClose" onclick="CloChat()">
@@ -198,28 +198,14 @@
 			        <div id="sendMessage">
 			            <input id="transCmtId" type="text" name="transCmt">
 			            <button id="send" onclick="insTransChat()">
-			                <span class="material-icons">send</span>
+                    <img src="/res/img/paper-plane-solid.svg" alt="">
 			            </button>    
 			        </div>
 				</div>
 		    </div>    
+
 		    
-		    <%--	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡㅡ	ㅡ	ㅡ	ㅡ	 --%>
-		    
-		    	 
-		           
-		    
-		    
-		    
-		    
-		    
-		    
-		    
-		    
-		    
-		    
-		    
-		    
+
 
 		    
 
@@ -288,6 +274,10 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="/res/js/detail.js"></script>
 <script>
+
+//구매 확정
+
+
 	if(${transErr != null}) {
 		alert('${transErr}')		
 	}
@@ -373,6 +363,7 @@
 		 
 	}
 	
+
 	function refreshSelChat(arr) {
 		for (let i = 0; i<arr.length; i++) {
 	         makeChatList(arr[i])
@@ -475,23 +466,6 @@
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-				
 	
 	
 	
