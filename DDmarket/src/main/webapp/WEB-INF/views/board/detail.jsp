@@ -116,6 +116,8 @@
                					</c:if>찜 
                            		</button>
                            		
+
+								
                            		<%-- 구매요청 버튼 --%>
                           		<form id="transFrm" action="/trans/transRequest" method="post">
                            			<input type="hidden" name="i_user" value="${loginUser.i_user }">
@@ -135,11 +137,12 @@
                         
 			    <%-- 버튼(구매요청 리스트) 눌렀을떄 나오는 부분 --%>      
 			    <%--	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡㅡ	ㅡ	ㅡ	ㅡ	 --%>      	
-            <button id="chatting" onclick="chatBtn()">경매자 목록</button>            
+            <button id="chatting" onclick="chatBtn()">버튼</button>            
             <div id="ChatBox">
+            
 		        <div id="SaleList">
 		            <div id="close" onclick="CloBox()">
-		                <img src="/res/img/times-solid.svg" alt="">
+		                                  닫기
 		            </div>		            		            
 		            <div id="Buyers">
 		            	<c:forEach items="${selTrans}" var="item">
@@ -155,57 +158,64 @@
 			                    <p>
 			                        <strong>${item.nick}</strong>
 			                        <span>${item.grade}</span>
-			                        <c:if test="${data.i_user == loginUser.i_user}">
-			                        	<button type="button">거래완료</button>
-			                        </c:if>
 			                    </p>
 			                </div>		
 		            	</c:forEach>	               
 		            </div>
 		        </div>
-
-
-		        
 		        <div class="ChatList" id="chatView" >
-			        <div id="chatClose" onclick="CloChat()">
-			            <img src="/res/img/times-solid.svg" alt="">
-			        </div>
-			        <div id="chat-Msg">
-			            <ul id="liChatBox" class="chatBox">
-			            
-			                <li id="TransChatView" class="youChat">
-			                    <div class="youPro">
+	                <div id="chatClose" class="p1" onclick="CloChat()">
+	                   	   닫기
+	                </div>
+                    <div id="chat-Msg">
+                    	
+	                         <div id="TransChatView" class="message">  
+	                         	<%--	
+			                     <div class="message Mychat">
+			                         <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" alt="">
+			                         <div class="bubble">우측(내용적기)
+			                         	<div class="corner"></div>		                         	
+			                        	 <span>10초</span>
+			                     	</div>
+				                </div>
+				                
+				                
+			                    <div id="TransChatView" class="message">
 			                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" alt="">
-			                        <div class="nick">kkdkdkdk</div> 
-			                    </div>
-			                    <div class="bubble">방가
-			                      
-			                        <span>10초</span>
-			                    </div>
-			                </li>
-			                
-			                <li id="TransMyChatView" class="myChat">
-			                    <div class="bubble">안녕하세요
-				                        <span>10초</span>
-			                    </div>
-			                    <div class="myPro">
-			                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" alt="">
-			                        <div class="nick">dhdhdhdhd</div>
-			                    </div>
-			                </li>
-			            </ul>
-			        </div> 
-			        <div id="sendMessage">
-			            <input id="transCmtId" type="text" name="transCmt">
-			            <button id="send" onclick="insTransChat()">
-                    <img src="/res/img/paper-plane-solid.svg" alt="">
-			            </button>    
-			        </div>
-				</div>
+			                        <div class="bubble">좌측(내용적기)
+			                        	<div class="corner"></div>
+			                         	<span>10초</span>
+			                      </div>
+			                   </div>
+			                		 --%>                   
+		                   </div>
+	                    
+	               </div>
+              		   <%-- 채팅입력 --%>
+	                   <div id="sendMessage">
+	                      <input id="transCmtId" type="text" name="transCmt">
+	                      <button id="send" onclick="insTransChat()"></button>
+	                   </div>
+		      </div>    
+	        
 		    </div>    
-
 		    
-
+		    <%--	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡ	ㅡㅡ	ㅡ	ㅡ	ㅡ	 --%>
+		    
+		    	 
+		           
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
 
 		    
 
@@ -274,10 +284,6 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="/res/js/detail.js"></script>
 <script>
-
-//구매 확정
-
-
 	if(${transErr != null}) {
 		alert('${transErr}')		
 	}
@@ -297,9 +303,7 @@
 	}
 	
 	
-	
-	
-	
+	var param_trans = 0; // 클릭했을시 나타나는 i_trans 값 받아오기 위한용
 	
 	
 	// 채팅창 닫기
@@ -308,51 +312,16 @@
 		chatView.style.display = 'none'
 	}
 	
-	// 채팅 등록하기
-	function insTransChat() {
-	    var transCmt = transCmtId.value
-	    console.log('transCmt : ' + transCmt)
-	    console.log('param_trans : ' + param_trans)
-	    
-        axios.post('/trans/insTransCmt',{
-			
-	      i_user : `${loginUser.i_user}`, 
-	      i_board : `${data.i_board}`,
-	      saleI_user : `${data.i_user}`,
-	      i_trans : param_trans,
-	      transCmt,
-	        
-     	}).then(function(res) {
-     		transCmtId.value = ''
-     		TransChatView.innerHTML = '';
-     		//transChat(i_trans, saleI_user, i_user)
-     	    transChat(param_trans) //★★★ 안되면 매개변수로 param_trans 넣어보기 ★★★
-    	  
-     	})    		 
-	}
-	
-	
-	
-	var param_trans = 0; // 클릭했을시 나타나는 i_trans 값 받아오기 위한용
 	// 채팅창 열기 및 뿌리기
 	function transChat(i_trans, saleI_user, i_user) {
 		var loginI_user = `${loginUser.i_user}`
 		var dataI_user = `${data.i_user}`
-		
-		param_trans = i_trans	// 글쓰기할때도 사용됨 그래서 param으로 공용으로 사용
-		
-		console.log('EL식 판매자 pk : ' + `${data.i_user}`)
-		console.log('onclick 판매자 pk : ' + saleI_user)
 				
-		if(loginI_user != i_user && dataI_user != loginI_user) {
-			alert('다른사람글은 볼수없어요')
-			return;
-		}
-		
+		param_trans = i_trans	// 글쓰기할때도 사용됨 그래서 param으로 공용으로 사용
 		chatView.style.display = 'flex'
 		console.log('transchat : ' + i_trans)
-	
-		axios.get('/trans/selTransCmt', {
+		
+		 axios.get('/trans/selTransCmt', {
 	          params: {
 	            i_trans : param_trans
 	          }
@@ -360,10 +329,8 @@
 	       }).then(function(res) {
 	    	   refreshSelChat(res.data)
 	       })	
-		 
 	}
 	
-
 	function refreshSelChat(arr) {
 		for (let i = 0; i<arr.length; i++) {
 	         makeChatList(arr[i])
@@ -371,12 +338,11 @@
 	}
 	
 	function makeChatList(arr) {
-		liChatBox = document.createElement('li')
-		liChatBox.setAttribute('class', 'chatBox')
+		divMychat = document.createElement('div')
 		
 		if(`${loginUser.i_user == arr.buyI_user}`) { // 구매자
-			liTransChat = document.createElement('li')	
-			liTransChat.setAttribute('class', 'youChat')
+			
+			divMychat.setAttribute('class', 'message')
 			
 			TransChatView.append(divMychat)
 			
@@ -440,7 +406,27 @@
 		}
 	}
 	
-	
+	        	 
+	function insTransChat() {
+	    var transCmt = transCmtId.value
+	    console.log('transCmt : ' + transCmt)
+	    console.log('param_trans : ' + param_trans)
+	    
+        axios.post('/trans/insTransCmt',{
+			
+	      i_user : `${loginUser.i_user}`, 
+	      i_board : `${data.i_board}`,
+	      saleI_user : `${data.i_user}`,
+	      i_trans : param_trans,
+	      transCmt,
+	        
+     	}).then(function(res) {
+     		transCmtId.value = ''
+     		TransChatView.innerHTML = '';
+     	    transChat(param_trans) //★★★ 안되면 매개변수로 param_trans 넣어보기 ★★★
+    	  
+     	})    		 
+	}
 	
 	    	   
 		
@@ -466,6 +452,23 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+				
 	
 	
 	
@@ -556,7 +559,6 @@
 	}
 	
    function refreshMenu(arr) {
-
       for (let i = 0; i<arr.length; i++) {
          makeCmtList(arr[i])
       }
@@ -581,8 +583,6 @@
       
    }
    
-
-
    
    function makeCmtList(arr) {
       
@@ -780,8 +780,6 @@
          } 
       })
    }
-
-
 		
 	function moveToDetail(i_user) {
 		location.href="/user/myPage?i_user="+i_user
@@ -807,7 +805,6 @@
 		location.href="/board/saleDel?i_board="+i_board;
 		}
 	}
-
 	
 	//찜 하기
 	function ToLike(){
