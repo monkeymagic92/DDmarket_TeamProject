@@ -163,38 +163,48 @@
 		            	</c:forEach>	               
 		            </div>
 		        </div>
+		        
+		        
 		        <div class="ChatList" id="chatView" >
-	                <div id="chatClose" class="p1" onclick="CloChat()">
-	                   	   닫기
+	                <div id="chatClose" onclick="CloChat()">
+	                   	   <img src="/res/img/times-solid.svg" alt="">
 	                </div>
                     <div id="chat-Msg">
-                    	
-	                         <div id="TransChatView" class="message">  
-	                         	<%--	
-			                     <div class="message Mychat">
-			                         <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" alt="">
-			                         <div class="bubble">우측(내용적기)
-			                         	<div class="corner"></div>		                         	
-			                        	 <span>10초</span>
-			                     	</div>
-				                </div>
-				                
-				                
-			                    <div id="TransChatView" class="message">
+                    	<ul id="chatBox" class="chatBox">
+                    	<%--
+			                <li id="TransChatView" class="youChat">
+			                    <div class="youPro">
 			                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" alt="">
-			                        <div class="bubble">좌측(내용적기)
-			                        	<div class="corner"></div>
-			                         	<span>10초</span>
-			                      </div>
-			                   </div>
-			                		 --%>                   
-		                   </div>
-	                    
+			                        <div class="nick">kkdkdkdk</div> 
+			                    </div>
+			                    <div class="bubble">방가	                      
+			                        <span>10초</span>
+			                    </div>
+			                </li>
+		
+			                <li id="TransMyChatView" class="myChat">
+			                    <div class="bubble">안녕하세요
+				                        <span>10초</span>
+			                    </div>
+			                    <div class="myPro">
+			                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" alt="">
+			                        <div class="nick">dhdhdhdhd</div>
+			                    </div>
+			                </li>
+			                 --%>
+			            </ul>
+		                          
+		                         	
+		                         
+	                         	               
+		               
 	               </div>
               		   <%-- 채팅입력 --%>
 	                   <div id="sendMessage">
 	                      <input id="transCmtId" type="text" name="transCmt">
-	                      <button id="send" onclick="insTransChat()"></button>
+	                      <button id="send" onclick="insTransChat()">
+	                      	  <span class="material-icons">send</span>
+	                      </button>
 	                   </div>
 		      </div>    
 	        
@@ -308,7 +318,7 @@
 	
 	// 채팅창 닫기
 	function CloChat() {
-		TransChatView.innerHTML = '';
+		//TransChatView.innerHTML = '';
 		chatView.style.display = 'none'
 	}
 	
@@ -337,6 +347,97 @@
 	      }
 	}
 	
+	// 채팅 되는 공간
+	function makeChatList(arr) {
+		
+		console.log('로그인유저값 : ' + `${loginUser.i_user}`)
+		console.log('구매자값 : ' + arr.buyI_user)
+		
+		var loginI_user = `${loginUser.i_user}`
+		var buyI_user = arr.buyI_user
+		
+		if(loginI_user == buyI_user) { // 구매자
+			
+			console.log('왼쪽')
+			
+			var liYouChat = document.createElement('ul')
+			liYouChat.setAttribute('class', 'youChat')
+			liYouChat.setAttribute('id', 'TransMyChatView')
+			chatBox.append(liYouChat)
+			
+			var divYouPro = document.createElement('div')
+			divYouPro.setAttribute('class', 'youPro')
+			liYouChat.append(divYouPro)
+			
+			var img = document.createElement('img')
+			if(arr.buyProfile_img != null) {
+	            img.setAttribute('src',`/res/img/profile_img/user/\${arr.buyI_user}/\${arr.buyProfile_img}`)
+		    } else {
+		        img.setAttribute('src','/res/img/lion.jpg')	        
+		    }	
+			divYouPro.append(img)
+			
+			var divBuyNick = document.createElement('div')
+			divBuyNick.setAttribute('class', 'nick')
+			divBuyNick.append(arr.buyNick)
+			divYouPro.append(divBuyNick)
+			
+			var divBubble = document.createElement('div')
+			divBubble.setAttribute('class', 'bubble')
+			divBubble.append(arr.transCmt)
+			liYouChat.append(divBubble)
+			
+			var span = document.createElement('span')
+			span.append(arr.r_dt)
+			divBubble.append(span)
+			
+			return;
+			
+		}
+		
+		if(loginI_user != buyI_user) {
+			
+			console.log('오른쪽')
+			
+			var liYouChat = document.createElement('ul')
+			liYouChat.setAttribute('class', 'myChat')
+			liYouChat.setAttribute('id', 'TransChatView')
+			chatBox.append(liYouChat)
+			
+			var divYouPro = document.createElement('div')
+			divYouPro.setAttribute('class', 'youPro')
+			liYouChat.append(divYouPro)
+			
+			var img = document.createElement('img')
+			if(arr.profile_img != null) {
+	            img.setAttribute('src',`/res/img/profile_img/user/\${arr.saleI_user}/\${arr.profile_img}`)
+		    } else {
+		        img.setAttribute('src','/res/img/lion.jpg')	        
+		    }	
+			divYouPro.append(img)
+			
+			var divBuyNick = document.createElement('div')
+			divBuyNick.setAttribute('class', 'nick')
+			divBuyNick.append(arr.nick)
+			divYouPro.append(divBuyNick)
+			
+			var divBubble = document.createElement('div')
+			divBubble.setAttribute('class', 'bubble')
+			divBubble.append(arr.transCmt)
+			liYouChat.append(divBubble)
+			
+			var span = document.createElement('span')
+			span.append(arr.r_dt)
+			divBubble.append(span)
+			
+			return;
+		}
+		
+		
+	}
+	
+	/*
+	 //   지우기    //////////////////////////////////////////////
 	function makeChatList(arr) {
 		divMychat = document.createElement('div')
 		
@@ -405,8 +506,8 @@
 			divBubble.append(span)
 		}
 	}
-	
-	        	 
+	////////////////////////////////////////////////
+	*/        	 
 	function insTransChat() {
 	    var transCmt = transCmtId.value
 	    console.log('transCmt : ' + transCmt)
@@ -422,7 +523,7 @@
 	        
      	}).then(function(res) {
      		transCmtId.value = ''
-     		TransChatView.innerHTML = '';
+     		//TransChatView.innerHTML = '';
      	    transChat(param_trans) //★★★ 안되면 매개변수로 param_trans 넣어보기 ★★★
     	  
      	})    		 

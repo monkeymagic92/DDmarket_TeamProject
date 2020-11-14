@@ -7,9 +7,18 @@ public class TransDMI extends TransVO {
 	private String profile_img;
 	private String addr;
 	private String grade;
+	private String buyNick;
 	
 	
 	
+	
+	
+	public String getBuyNick() {
+		return buyNick;
+	}
+	public void setBuyNick(String buyNick) {
+		this.buyNick = buyNick;
+	}
 	public int getI_user() {
 		return i_user;
 	}
