@@ -43,9 +43,6 @@ public class TransService {
 		return mapper.selTrans(param);
 	}
 	
-	public int updSold(BoardPARAM param) {
-		return mapper.updSold(param);
-	}
 	
 	// 거래취소 
 	public int delTransUser(TransVO vo) {
@@ -69,6 +66,17 @@ public class TransService {
 	// 채팅글 뿌리기
 	public List<TransCmtDMI> selTransCmt(TransCmtDMI vo) {
 		return mapper.selTransCmt(vo);
+	}
+	
+	
+	// 판매자가 거래완료 눌렀을시 원하는값 넣음
+	public int insBuyList(BoardPARAM param) {
+		return mapper.insBuyList(param);
+	}
+	
+	// 판매자가 거래완료 눌렀을시 t_board 에 sold 값 1로 올려줌
+	public int updSold(BoardPARAM param) {
+		return mapper.updSold(param);
 	}
 	
 	
