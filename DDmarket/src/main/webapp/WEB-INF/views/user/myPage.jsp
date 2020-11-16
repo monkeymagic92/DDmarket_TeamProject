@@ -170,7 +170,7 @@
                                 </c:choose>
                               <div class="card-addr"><span class="iconify" data-inline="false" data-icon="el:map-marker" style="color: #6f6a6a; font-size: 16px;"></span><span>${item.addr}</span></div>
                               <div class="card-date"><span class="card-date-text">구매 날짜</span><span class="card-date-num">${item.r_dt}</span></div>
-                              <button class="review" onclick="reviewbtn()">후기쓰기</button>
+                              <button class="review" onclick="reviewbtn(${item.i_board})">후기쓰기</button>
                           </div>
                      </article>
                     </c:forEach>
@@ -265,11 +265,12 @@
 		       </div>
 		       <form id="frm" action="/review/regReview" method="post">
 			       <div class="starPoint">
-			       	<div class="startRadio"></div>
+			       	<div class="startRadio">
+			       </div>
 			       </div>
 		       		<div class="modal-content">
 		       		<input type="hidden" name="i_user" value="${loginUser.i_user}">
-		       		<input type="hidden" name="i_board" value="3">
+		       		<input type="hidden" name="i_board" value="0">
 		       		<input type="hidden" name="rating" value="0">
 					<div class="modal-body">
 						<textarea name="ctnt" id="" class="reviewTxt" cols="50" rows="10" placeholder="후기댓글을 남겨주세요" ></textarea>
@@ -277,8 +278,9 @@
 					<div class="modal-footer">
 						<button type="submit" class="close" onclick="closebtn()">등록</button>
 					</div>
+					</div>
 			   </form>
-        </div>
+       		 </div>
 
         </main>
     </div>
@@ -330,7 +332,9 @@ function Cbtn(){
 }
 var modal = document.querySelector(".myModal");
 
-function reviewbtn() {
+
+function reviewbtn(i_board) {
+	frm.i_board.value = i_board;
 	modal.style.display = "block";
 }
 
