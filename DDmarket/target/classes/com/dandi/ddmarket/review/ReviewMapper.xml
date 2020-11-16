@@ -10,6 +10,10 @@
 			WHERE A.i_board = #{i_board}
 			ORDER BY A.r_dt DESC
 		LIMIT 5
+	</select>	
+	
+	<select id="selWriter_i_user" parameterType="ReviewVO" resultType="ReviewVO">
+		SELECT i_user FROM t_board WHERE i_board = #{i_board};
 	</select>
 	
 	<insert id="insReview" parameterType="ReviewVO">

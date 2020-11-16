@@ -14,4 +14,7 @@ public interface ReviewMapper {
 	List<ReviewPARAM> selReview(ReviewPARAM param);
 	
 	int updGrade(ReviewVO param);
+	
+	ReviewVO selWriter_i_user(ReviewVO param);
+	
 }
