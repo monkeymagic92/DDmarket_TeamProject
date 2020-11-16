@@ -25,13 +25,14 @@ public interface TransMapper {
 	// insert
 	int insTrans(TransDMI vo);  // 구매요청 눌렀을시 해당 유저값 저장
 
-	int updSold(BoardPARAM param);
-	
 	int insTransCmt(TransCmtDMI vo);
+	
+	int insBuyList(BoardPARAM param);
 
 	
 	// update
 	
+	int updSold(BoardPARAM param);	// 판매완료 됬을시 t_baord sold + 1
 	
 	// delete
 	int delTransUser(TransVO vo);	// 구매취소 눌렀을시 해당 유저값 삭제

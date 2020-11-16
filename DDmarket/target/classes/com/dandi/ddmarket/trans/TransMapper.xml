@@ -55,6 +55,14 @@
 	
 	<!-- insert -->
 	
+	
+	<insert id="insBuyList" parameterType="BoardPARAM">
+		INSERT INTO t_user_buyList
+		(i_board, i_user)
+		VALUES
+		(#{i_board}, #{i_user})
+	</insert>
+	
 	<!-- 채팅글입력 -->
 	<insert id="insTransCmt" parameterType="TransCmtDMI">
 		INSERT INTO t_trans_cmt
@@ -74,9 +82,8 @@
 	
 	
 		
-	<!-- update -->
-		
-	<update id="updSold">
+	<!-- update -->		
+	<update id="updSold" parameterType="BoardPARAM">
 		UPDATE t_board
 		SET sold = 1
 		WHERE i_board = #{i_board}

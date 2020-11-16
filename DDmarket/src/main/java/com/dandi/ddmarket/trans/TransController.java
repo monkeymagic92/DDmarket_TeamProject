@@ -2,6 +2,7 @@ package com.dandi.ddmarket.trans;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dandi.ddmarket.CommonUtils;
+import com.dandi.ddmarket.ViewRef;
 import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.trans.model.TransCmtDMI;
-import com.dandi.ddmarket.trans.model.TransCmtVO;
 import com.dandi.ddmarket.trans.model.TransDMI;
 
 @Controller
@@ -68,7 +69,7 @@ public class TransController {
 	// 채팅등록
 	@RequestMapping(value="/insTransCmt", method=RequestMethod.POST) 
     @ResponseBody
-    private String insTransCmt(@RequestBody TransCmtDMI vo, HttpSession hs){
+    public String insTransCmt(@RequestBody TransCmtDMI vo, HttpSession hs){
 		System.out.println("i_transPOST : " + vo.getI_trans());
 		System.out.println(vo.getI_user());
 		System.out.println(vo.getI_board());
@@ -84,5 +85,20 @@ public class TransController {
 		
 		return service.selTransCmt(vo);
 	}
+	
+	
+	// 판매자가 거래완료 눌렀을시 보내주는 값
+	@RequestMapping(value="/transSuccess", method=RequestMethod.GET)
+	public String transSuccess(Model model, HttpServletRequest request,
+			RedirectAttributes ra, BoardPARAM param) {
+		
+		int result = service.insBuyList(param);
+		int result2 = service.updSold(param);
+		ra.addFlashAttribute("transSuccess", "거래완료됬다");
+		return "redirect:/board/detail?i_board="+param.getI_board();
+	}
+	
+		
+	
 	
 }

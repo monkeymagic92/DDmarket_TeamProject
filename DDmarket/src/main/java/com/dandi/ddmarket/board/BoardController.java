@@ -171,7 +171,7 @@ public class BoardController {
 			param.setI_user(i_user);
 		}
 		
-		// 조우현 -_-
+		// 조우현 -_- ㅄ
 //	    int rating = CommonUtils.getIntParameter("rating", request);
 //	    model.addAttribute("reviewList", reviewService.selReview(rparam));
 //	    rparam.setRating(rating);
@@ -186,10 +186,7 @@ public class BoardController {
 	    	model.addAttribute("buyList", "1:1문의");
 	    }
 	    
-	    //userParam = (UserPARAM)hs.getAttribute("loginUser");
 	    
-	    
-	    //model.addAttribute("userI_user", userParam.getI_user());
 	    model.addAttribute("selTrans", transService.selTrans(param)); // 구매요청 누른 유저들
 		model.addAttribute("cmtCount", cmtService.countCmt(param)); // 댓글 갯수
 		model.addAttribute("data", service.selBoard(param));		// 판매글 내용
