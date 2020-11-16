@@ -152,7 +152,7 @@ public class BoardController {
 	// 판매글 상세페이지 (detail)
 	@RequestMapping(value="/detail", method = RequestMethod.GET)
 
-	public String detail(Model model, TransDMI transDmi, ReviewPARAM rparam, BoardPARAM param, CmtVO vo, HttpServletRequest req,
+	public String detail(Model model, UserPARAM userParam,TransDMI transDmi, ReviewPARAM rparam, BoardPARAM param, CmtVO vo, HttpServletRequest req,
 			HttpServletRequest request, HttpSession hs) {
 		
 		int i_user = 0;
@@ -185,7 +185,10 @@ public class BoardController {
 	    	model.addAttribute("buyList", "1:1문의");
 	    }
 	    
+	    //userParam = (UserPARAM)hs.getAttribute("loginUser");
 	    
+	    
+	    //model.addAttribute("userI_user", userParam.getI_user());
 	    model.addAttribute("selTrans", transService.selTrans(param)); // 구매요청 누른 유저들
 		model.addAttribute("cmtCount", cmtService.countCmt(param)); // 댓글 갯수
 		model.addAttribute("data", service.selBoard(param));		// 판매글 내용
