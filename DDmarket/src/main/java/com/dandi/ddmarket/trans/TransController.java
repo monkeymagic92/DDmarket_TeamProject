@@ -23,6 +23,8 @@ import com.dandi.ddmarket.trans.model.TransDMI;
 @Controller
 @RequestMapping("/trans")
 public class TransController {
+	// 지금내거@!@#@#@#
+	
 	
 	@Autowired
 	private TransService service;

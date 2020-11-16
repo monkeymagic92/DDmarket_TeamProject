@@ -162,6 +162,11 @@
                                  <span>${item.grade}</span>
                              </p>
                          </div>      
+                         <div>
+                         	<c:if test="${data.i_user == loginUser.i_user}">
+                         		<button type="button" onclick="transSuccess(${item.i_user}, ${data.i_board})">거래완료</button>
+                         	</c:if> 
+                         </div>
                      </c:forEach>                  
                   </div>
               </div>
@@ -271,7 +276,11 @@
 
   if(${transSuccess != null}) {
 		alert('${transSuccess}')
-	}
+  }
+  function transSuccess(i_user, i_board) {
+	  location.href="/trans/transSuccess?i_user="+i_user+"&i_board="+i_board
+  }
+  
   if(${transErr != null}) {
      alert('${transErr}')      
   }
