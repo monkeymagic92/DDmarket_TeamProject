@@ -34,6 +34,9 @@ public class ReviewController {
 		int result = service.insReview(param);
 		System.out.println("result : " + result);
 		
+		// param 바꿔줘야함
+		service.updGrade(param);
+		
 		return "redirect:/user/myPage?i_tap=2&i_user=" + i_user;
 	}
 	

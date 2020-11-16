@@ -12,4 +12,6 @@ import com.dandi.ddmarket.review.model.ReviewVO;
 public interface ReviewMapper {
 	int insReview(ReviewVO param);
 	List<ReviewPARAM> selReview(ReviewPARAM param);
+	
+	int updGrade(ReviewVO param);
 }

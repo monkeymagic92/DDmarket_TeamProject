@@ -25,6 +25,11 @@ public class ReviewService {
 		return mapper.selReview(param);
 	}
 	
+	public int updGrade(ReviewVO param) {
+		return mapper.updGrade(param);
+	}
+	
+	
 	// 리뷰 글 별점 width 구하는 메소드
 //	public static List<ReviewPARAM> transRating(List<ReviewPARAM> param) {
 //		for(ReviewPARAM vo : param) {
