@@ -150,7 +150,30 @@
                 
                 <c:if test="${i_tap == 3}">
                 <div id="tap_myBuyList">
-                	MY구매
+              	  <c:forEach var="item" items="${myBuyList}">
+                	 <article class="div-wrap-buyList-article">
+                          <div class="card-image">
+                        	  <c:choose>
+                                 <c:when test="${item.thumImage == null}">
+                                    <img src="/res/img/lion.jpg">
+                                 </c:when>
+                                 <c:otherwise>
+                                    <img src="/res/img/board/${item.i_board}/${item.thumImage}">
+                                 </c:otherwise>
+                              </c:choose>
+                          </div>
+                          <div class="card-right">
+                              <div class="card-title">${item.title}</div>
+                       		     <c:choose>
+                                   <c:when test="${item.price == 0}"><div class="card-price">무료</div></c:when>
+                                   <c:otherwise><div class="card-price"><fmt:formatNumber value="${item.price}" pattern="#,###" />원</div></c:otherwise>
+                                </c:choose>
+                              <div class="card-addr"><span class="iconify" data-inline="false" data-icon="el:map-marker" style="color: #6f6a6a; font-size: 16px;"></span><span>${item.addr}</span></div>
+                              <div class="card-date"><span class="card-date-text">구매 날짜</span><span class="card-date-num">${item.r_dt}</span></div>
+                              <button class="review" onclick="reviewbtn(${item.i_board})">후기쓰기</button>
+                          </div>
+                     </article>
+                    </c:forEach>
                 </div>
 	            </c:if>
 	            
@@ -240,13 +263,14 @@
 		          <span class="material-icons" onclick="Cbtn()">clear</span>
 		          <h2 class="title">라이언 덕후 상점과의 거래는 어떠셨나요?</h2>
 		       </div>
-		       <form id="frm" action="/review/ReviewCmt" method="post">
+		       <form id="frm" action="/review/regReview" method="post">
 			       <div class="starPoint">
-			       	<div class="startRadio"></div>
+			       	<div class="startRadio">
+			       </div>
 			       </div>
 		       		<div class="modal-content">
 		       		<input type="hidden" name="i_user" value="${loginUser.i_user}">
-		       		<input type="hidden" name="i_board" value="3">
+		       		<input type="hidden" name="i_board" value="0">
 		       		<input type="hidden" name="rating" value="0">
 					<div class="modal-body">
 						<textarea name="ctnt" id="" class="reviewTxt" cols="50" rows="10" placeholder="후기댓글을 남겨주세요" ></textarea>
@@ -254,8 +278,9 @@
 					<div class="modal-footer">
 						<button type="submit" class="close" onclick="closebtn()">등록</button>
 					</div>
+					</div>
 			   </form>
-        </div>
+       		 </div>
 
         </main>
     </div>
@@ -297,6 +322,7 @@ function radiobox(){
         }
         
     }
+    
 radiobox()
 
 function Cbtn(){
@@ -306,7 +332,9 @@ function Cbtn(){
 }
 var modal = document.querySelector(".myModal");
 
-function reviewbtn() {
+
+function reviewbtn(i_board) {
+	frm.i_board.value = i_board;
 	modal.style.display = "block";
 }
 
@@ -321,7 +349,6 @@ if(txt.length != '' || txt.length != 0){
 	modal.style.display = "none";
 	}
 }
-	
 	
 	
 	////사용자 별점 값 조정
@@ -344,6 +371,8 @@ if(txt.length != '' || txt.length != 0){
 	function moveToTap(i_tap) {
 		location.href = "/user/myPage?i_tap=" + i_tap + "&i_user=${data.i_user}" 
 	}
+	
+	
 	
 	</script>
 </body>

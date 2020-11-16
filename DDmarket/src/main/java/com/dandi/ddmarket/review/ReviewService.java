@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.review.model.ReviewPARAM;
+import com.dandi.ddmarket.review.model.ReviewVO;
 
 @Service
 public class ReviewService {
@@ -15,7 +16,7 @@ public class ReviewService {
 	private ReviewMapper mapper;
 	
 	// 리뷰 작성	
-	public int insReview(ReviewPARAM param) {
+	public int insReview(ReviewVO param) {
 		return mapper.insReview(param);
 	}
 	
@@ -24,12 +25,18 @@ public class ReviewService {
 		return mapper.selReview(param);
 	}
 	
-	// 리뷰 글 별점 width 구하는 메소드
-	public static List<ReviewPARAM> transRating(List<ReviewPARAM> param) {
-		for(ReviewPARAM vo : param) {
-			double star = vo.getRating() / 5 * 75;
-			vo.setStar(star);
-		}
-		return param;
+	public int updGrade(ReviewVO param) {
+		return mapper.updGrade(param);
 	}
+	
+	
+	// 리뷰 글 별점 width 구하는 메소드
+//	public static List<ReviewPARAM> transRating(List<ReviewPARAM> param) {
+//		for(ReviewPARAM vo : param) {
+//			double star = vo.getRating() / 5 * 75;
+//			vo.setStar(star);
+//		}
+//		return param;
+//	}
+	
 }

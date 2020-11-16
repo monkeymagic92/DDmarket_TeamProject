@@ -11,7 +11,16 @@ public class BoardDMI extends BoardVO {
 	private double grade;
 	private String profile_img;
 	private double rating;
+	private int i_buyList;
 	
+	
+	
+	public int getI_buyList() {
+		return i_buyList;
+	}
+	public void setI_buyList(int i_buyList) {
+		this.i_buyList = i_buyList;
+	}
 	public double getRating() {
 		return rating;
 	}
