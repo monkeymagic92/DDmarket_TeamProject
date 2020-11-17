@@ -14,7 +14,7 @@
 
 	<select id="selBoard" resultType="BoardDMI" parameterType="BoardPARAM">
 
-		SELECT A.sold, A.i_user, B.profile_img, A.i_board, B.nick, A.title, A.post, A.addr, A.road, A.r_dt,
+		SELECT A.sold, A.i_user, B.profile_img, A.i_board, B.nick, A.title, A.post, A.addr, A.road, A.r_dt, A.i_cg,
 	    A.ctnt, A.hits, C.cg_nm, A.price, ifnull(D.cnt, 0) as tolike, B.grade,
 	    CASE WHEN E.i_board IS NULL THEN 0 ELSE 1 END AS is_tolike,
 		A.thumImage, A.image_1, A.image_2, A.image_3, A.image_4, A.image_5

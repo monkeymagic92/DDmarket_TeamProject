@@ -65,8 +65,14 @@
             <section class="category">
                 <div class="category-box">
                     <c:forEach items="${categoryList}" var="item">
-                       <input type="checkbox" name="i_cg" id="f-wear${item.i_cg }" value="${item.i_cg }" onclick="count_ck(this);">
-                       <label for="f-wear${item.i_cg }">${item.cg_nm }</label>
+                    	<c:if test="${data.i_cg == item.i_cg}">
+    	                	<input type="checkbox" name="i_cg" id="f-wear${item.i_cg }" value="${item.i_cg }" onclick="count_ck(this);" checked>
+        	                <label for="f-wear${item.i_cg }">${item.cg_nm }</label>	
+                    	</c:if>
+                        <c:if test="${data.i_cg != item.i_cg}">
+                        	<input type="checkbox" name="i_cg" id="f-wear${item.i_cg }" value="${item.i_cg }" onclick="count_ck(this);">
+	                        <label for="f-wear${item.i_cg }">${item.cg_nm }</label>	
+                        </c:if>
                     </c:forEach>
                 </div>
             </section>
