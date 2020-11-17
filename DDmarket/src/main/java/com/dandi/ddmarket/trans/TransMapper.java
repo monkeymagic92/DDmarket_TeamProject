@@ -34,6 +34,8 @@ public interface TransMapper {
 	
 	int updSold(BoardPARAM param);	// 판매완료 됬을시 t_baord sold + 1
 	
+	int updTransCmtChk(TransCmtDMI vo);
+	
 	// delete
 	int delTransUser(TransVO vo);	// 구매취소 눌렀을시 해당 유저값 삭제
 }

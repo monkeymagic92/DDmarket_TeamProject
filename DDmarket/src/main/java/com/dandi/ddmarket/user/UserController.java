@@ -31,6 +31,8 @@ import com.dandi.ddmarket.mail.MailSendService;
 import com.dandi.ddmarket.mail.model.EmailVO;
 import com.dandi.ddmarket.review.model.ReviewPARAM;
 import com.dandi.ddmarket.tap.TapVO;
+import com.dandi.ddmarket.trans.TransService;
+import com.dandi.ddmarket.trans.model.TransCmtDMI;
 import com.dandi.ddmarket.user.model.UserDMI;
 import com.dandi.ddmarket.user.model.UserPARAM;
 import com.dandi.ddmarket.user.model.UserVO;
@@ -48,6 +50,9 @@ public class UserController {
 	
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private TransService transService;
 	
 			
 	/*
@@ -297,7 +302,7 @@ public class UserController {
 	// 마이페이지 (myPage)
 	@RequestMapping(value="/myPage", method = RequestMethod.GET)
 	public String myPage(UserPARAM param, Model model, HttpServletRequest request,
-			HttpSession hs, BoardPARAM bparam, TapVO tparam) {
+			HttpSession hs, BoardPARAM bparam, TapVO tparam, TransCmtDMI vo) {
 		
 		hs.setAttribute("i_tap", CommonUtils.getIntParameter("i_tap", request));
 		
@@ -337,9 +342,22 @@ public class UserController {
 			model.addAttribute("myReviewList", service.selMyReviewList(bparam));
 		}
 		
-		model.addAttribute("data", service.selDetailUser(param));
-		model.addAttribute("tapList", service.selTapList(tparam));
-		model.addAttribute("view",ViewRef.USER_MYPAGE);
+		
+		try {
+			int i_trans = (Integer)hs.getAttribute("transCmtChk");
+			vo.setI_trans(i_trans);
+			model.addAttribute("selTransCmt", transService.selTransCmt(vo));
+			System.out.println("마이페이지 transCmt 값 : " + vo.getI_trans());
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		} finally {
+			model.addAttribute("data", service.selDetailUser(param));
+			model.addAttribute("tapList", service.selTapList(tparam));
+			model.addAttribute("view",ViewRef.USER_MYPAGE);
+		}
+		
+		
 		return ViewRef.DEFAULT_TEMP;
 	}
 	

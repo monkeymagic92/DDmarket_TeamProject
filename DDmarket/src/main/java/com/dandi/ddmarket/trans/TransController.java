@@ -77,7 +77,9 @@ public class TransController {
 		System.out.println(vo.getI_board());
 		System.out.println(vo.getSaleI_user());
 		System.out.println(vo.getTransCmt());
-		int result = service.insTransCmt(vo);
+		hs.setAttribute("transCmtChk", vo.getI_trans());
+		int result = service.insTransCmt(vo);	// DB에 글등록
+		int result2 = service.updTransCmtChk(vo);	// 채팅알람을 위한 chk값 1
 		return String.valueOf(result);
 	}
 	

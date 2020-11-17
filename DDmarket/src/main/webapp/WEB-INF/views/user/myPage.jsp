@@ -61,6 +61,16 @@
                             <c:if test="${data.joinPass == 3}"><span class="profile_info_num" style="color: #2DB400;">NAVER</span></c:if>
                         </div>
                     </div>
+                    <br>
+                    <div>
+                    	<div>밑에 채팅알림</div>
+                   		<h4>채팅알림 for문</h4>
+                   		<c:if test="${selTransCmt.transCmtChk == 1}">
+                   			<div>
+                   				채팅이 도착했어요${selTransCmt.i_board}
+                   			</div>
+                   		</c:if>
+                    </div>
                 </div>
             </section>
             

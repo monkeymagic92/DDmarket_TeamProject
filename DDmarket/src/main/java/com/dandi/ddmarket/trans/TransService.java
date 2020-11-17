@@ -79,5 +79,11 @@ public class TransService {
 		return mapper.updSold(param);
 	}
 	
+	// t_trans_cmt 테이블에 transCmtChk값을 1로 만듬 (채팅알람기능)
+	public int updTransCmtChk(TransCmtDMI vo) {
+		return mapper.updTransCmtChk(vo);
+	}
+	
+	
 	
 }
