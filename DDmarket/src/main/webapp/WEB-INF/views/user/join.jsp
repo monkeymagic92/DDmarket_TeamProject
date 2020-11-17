@@ -85,6 +85,7 @@
                     </div>
                     <div><input type="password" name="user_pw" id="pw_input" placeholder="비밀번호"></div>
                     <div><input type="password" name="user_rpw" id="pw_input2" placeholder="비밀번호 확인"></div>
+                    <input type="hidden" name="joinPass" value="1">
                  </c:if>
                  <c:if test="${userAPI != null}">
                  		<input type="hidden" name="user_id" value="${userAPI.user_id}">
