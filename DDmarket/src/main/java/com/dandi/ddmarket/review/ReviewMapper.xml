@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dandi.ddmarket.review.ReviewMapper">
 	<select id="selReview" parameterType="ReviewPARAM" resultType="ReviewPARAM">
-		SELECT A.i_review, A.i_board, B.i_user, A.ctnt, A.rating, C.nick, SUBSTRING_INDEX(A.r_dt," ",1) AS r_dt, C.profile_img FROM t_review A
+		SELECT A.i_review, A.i_board, A.i_user, A.ctnt, A.rating, C.nick, SUBSTRING_INDEX(A.r_dt," ",1) AS r_dt, C.profile_img FROM t_review A
 		LEFT JOIN t_board B
 		ON A.i_board = B.i_board
 		LEFT JOIN t_user C

@@ -574,7 +574,7 @@
          
          var divSelMore =  document.createElement('div')
          divSelMore.setAttribute('id', 'ajaxSelMore')
-         divSelMore.innerText = '더보기'
+         divSelMore.innerText = '더보기 ▼'
            divSelMore.onclick = function() {
             ajaxSelMore();
          }
