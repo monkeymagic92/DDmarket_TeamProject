@@ -58,6 +58,12 @@
                         <div class="swiper-button-next"></div>
                     </div>            
                     <div id="div-info-right">
+                       
+                             <c:if test="${data.sold == 1}">
+                                  <div id="card-soldOut">판매완료</div>
+                               </c:if> 
+                    
+                    
                         <div class="user-info">
                             <div class="profile-img">
                                <c:if test="${data.profile_img == null}">
@@ -87,11 +93,7 @@
                            <div id="product-price"><fmt:formatNumber value="${data.price}" pattern="#,###" />원</div>
                         </c:if>
                         <c:if test="${data.price == 0 }">
-                        	<div id="product-price">무료</div>
-                       	</c:if>
-                       	<c:if test="${data.sold == 1}">
-                       		<img src="/res/img/soldOut.jpg" class="soldImg">
-                       	</c:if>
+
                            <div id="product-price">무료</div>
                           </c:if>
 
@@ -108,68 +110,38 @@
                         </div>
                         <div id="buttonWrap">
                            <c:if test="${loginUser.i_user == data.i_user }">
+                             
+                             <button onclick="moveToDel(${data.i_board})">삭제하기</button>
                               <button onclick="moveToUpd(${data.i_board})">수정하기</button>
-	                          <button onclick="moveToDel(${data.i_board})">삭제하기</button>
-						      <button id="chatting" onclick="chatBtn()">1:1대화</button>            
+                        <button id="chatting" onclick="chatBtn()">1:1대화</button>            
                            </c:if>
+   
+                                 <c:if test="${loginUser.i_user != data.i_user }">
+                                 <c:if test="${data.sold == 0}">
+                                 <button type="button" onclick="ToLike()">
 
-
-
-                        	<c:if test="${loginUser.i_user != data.i_user }">
-                        		<button type="button" onclick="ToLike()">찜
-                        		<c:if test="${data.is_tolike == 1}">
-                        			<span id="heart" class="iconify icon-btn-heart heart" data-inline="false" data-icon="clarity:heart-solid" style=" font-size: 20px;"></span>
-                        		</c:if>
-                        		<c:if test="${data.is_tolike == 0}">
-	                 	           	<span id="heart" class="iconify icon-btn-heart unheart" data-inline="false" data-icon="clarity:heart-solid" style=" font-size: 20px;"></span>
-               					</c:if>찜 
-                           		</button>
-                           		
-
-								
-                           		<%-- 구매요청 버튼 --%>
-                           		<c:if test="${data.sold == 0}">                           		
-	                          		<form id="transFrm" action="/trans/transRequest" method="post">
-	                           			<input type="hidden" name="i_user" value="${loginUser.i_user }">
-	                           			<input type="hidden" name="i_board" value="${data.i_board }">
-	                           			<input type="hidden" name="saleI_user" value="${data.i_user}">
-	                           			<input type="hidden" name="chk" value="0">
-	                           			<c:if test="${loginUser != null}">
-		                      				<button type="submit" name="chkSubmit" id="chkSubmit" onclick="chkValue()">${transBtn}</button>
-	                      				</c:if>
-	                           		</form>
-                           		</c:if>
-                           		<c:if test="${data.sold == 1}">
-                           			<div></div>
-                           		</c:if>                           		
-                        	</c:if>				
-
-                           <c:if test="${loginUser.i_user != data.i_user }">
-							  <button id="chatting" onclick="chatBtn()">1:1대화</button>
-                              <button type="button" onclick="ToLike()">찜
                               <c:if test="${data.is_tolike == 1}">
                                  <span id="heart" class="iconify icon-btn-heart heart" data-inline="false" data-icon="clarity:heart-solid" style=" font-size: 20px;"></span>
                               </c:if>
                               <c:if test="${data.is_tolike == 0}">
                                      <span id="heart" class="iconify icon-btn-heart unheart" data-inline="false" data-icon="clarity:heart-solid" style=" font-size: 20px;"></span>
-                              </c:if>
-                              </button>
-                                 
-                        
-                                 <%-- 구매요청 버튼 --%>
-                                <form id="transFrm" action="/trans/transRequest" method="post">
-                                    <input type="hidden" name="i_user" value="${loginUser.i_user }">
-                                    <input type="hidden" name="i_board" value="${data.i_board }">
-                                    <input type="hidden" name="saleI_user" value="${data.i_user}">
-                                    <input type="hidden" name="chk" value="0">
-                                    <c:if test="${loginUser != null}">
-                                     <button type="submit" name="chkSubmit" id="chkSubmit" onclick="chkValue()">${transBtn}</button>
-                                  </c:if>
-                                 </form>
-                                 
+                                
+                              </c:if><span id="zzim">찜</span>
+                                 </button>                                 
+                                 <button id="chatting" onclick="chatBtn()">1:1대화</button>
+                                    <%-- 구매요청 버튼 --%>
+                                   <form id="transFrm" action="/trans/transRequest" method="post">
+                                       <input type="hidden" name="i_user" value="${loginUser.i_user }">
+                                       <input type="hidden" name="i_board" value="${data.i_board }">
+                                       <input type="hidden" name="saleI_user" value="${data.i_user}">
+                                       <input type="hidden" name="chk" value="0">
+                                       <c:if test="${loginUser != null}">
+                                        <button type="submit" name="chkSubmit" id="chkSubmit" onclick="chkValue()">${transBtn}</button>
+                                     </c:if>
+                                    </form>
+                                 </c:if>                              
                            </c:if>            
 
-                           
                         </div>
                     </div>
             </section>
@@ -178,17 +150,18 @@
                       
              <%-- 버튼(구매요청 리스트) 눌렀을떄 나오는 부분 --%>      
              <%--   ㅡ   ㅡ   ㅡ   ㅡ   ㅡ   ㅡ   ㅡ   ㅡ   ㅡ   ㅡ   ㅡ   ㅡ   ㅡㅡ   ㅡ   ㅡ   ㅡ    --%>         
-            <div id="ChatBox">
+           <div id="ChatBox">
+
             
               <div id="SaleList">
                   <div id="close" onclick="CloBox()">
-                                        닫기
+                       <img src="/res/img/times-solid.svg" alt="">
                   </div>                                    
                   <div id="Buyers">
                      <c:forEach items="${selTrans}" var="item">
                         <div class="buyer" onclick="transChat(${item.i_trans}, ${item.saleI_user}, ${item.i_user})">  <%-- 구매유저 리스트에서 1:1 채팅 --%>
                             <input class="transValue" type="hidden" value="${item.i_trans}">
-                            <div>${item.i_trans}</div>                            
+                            <!-- <div>${item.i_trans}</div> -->                            
                              <c:if test="${item.profile_img == null }">
                                <img src="/res/img/lion.jpg" onchange="setThumbnail(e)" alt="" class="img">
                             </c:if>
@@ -197,20 +170,18 @@
                             </c:if>
                              <p>
                                  <strong>${item.nick}</strong>
-                                 <span>${item.grade}</span>
                              </p>
-                         </div>      
-                         <div>
-                            <c:if test="${data.i_user == loginUser.i_user}">
-                               <button type="button" onclick="transSuccess(${item.i_user}, ${data.i_board})">거래완료</button>
-                            </c:if> 
+
                          </div>
+                         <div class="Salebtn">
+                         	<button>거래완료</button>
+                         </div>      
                      </c:forEach>                  
                   </div>
               </div>
               <div class="ChatList" id="chatView" >
-                   <div id="chatClose" class="p1" onclick="CloChat()">
-                            닫기
+                   <div id="chatClose" onclick="CloChat()">
+                        <img src="/res/img/times-solid.svg" alt="">
                    </div>
                     <div id="chat-Msg">
                          <div id="TransChatView" class="message">  
@@ -222,7 +193,6 @@
                                   <span>10초</span>
                               </div>
                          </div>
-                         
                          
                           <div id="TransChatView" class="message">
                               <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" alt="">
@@ -237,10 +207,12 @@
                        <%-- 채팅입력 --%>
                       <div id="sendMessage">
                          <input id="transCmtId" type="text" name="transCmt">
-                         <button id="send" onclick="insTransChat()"></button>
+                         <button id="send" onclick="insTransChat()">
+                         	<img src="/res/img/paper-plane-solid.svg" alt="">
+                         </button>
                       </div>
             </div>    
-          </div>    
+          </div>     
           
           <%--   ㅡ   ㅡ   ㅡ   ㅡ   ㅡ   ㅡ   ㅡ   ㅡ   ㅡ   ㅡ   ㅡ   ㅡ   ㅡㅡ   ㅡ   ㅡ   ㅡ    --%>
           
@@ -253,7 +225,8 @@
             <h2 class="h2-section-title" id="h2-section-title"></h2>
             <section id="section-comment">
             
-      
+               
+               <c:if test="${data.sold != 1}">
                <!-- 댓글 등록 -->
                 <form id="frm" action="/cmt/cmtReg" method="post">
                    <br>
@@ -266,6 +239,7 @@
                        <input type="button" id="cmtSubmit" onclick="cmtReg()" value="등록">
                        <button type="button" onclick="clkCmtCancel()">취소</button>   
                </form>
+               </c:if>
 
                <div id="cmtListBox"></div>
                <div id="divSelMoreCtn"></div>
@@ -409,13 +383,10 @@
          divBubble.setAttribute('class', 'bubble')
          divBubble.append(arr.transCmt)
          divMychat.append(divBubble)
-         
-         var divCorner = document.createElement('div')
-         divCorner.setAttribute('class', 'corner')
-         divBubble.append(divCorner)
-         
+           
          var divNick = document.createElement('div')         
          divNick.append(arr.buyNick)
+         divNick.setAttribute('class', 'nick')
          divMychat.append(divNick)
          
          var span = document.createElement('span')
@@ -442,13 +413,12 @@
          divBubble.append(arr.transCmt)
          divMychat.append(divBubble)
          
-         var divCorner = document.createElement('div')
-         divCorner.setAttribute('class', 'corner')
-         divBubble.append(divCorner)
          
          var divNick = document.createElement('div')         
          divNick.append(arr.nick)
          divMychat.append(divNick)
+         divNick.setAttribute('class', 'nick')
+
          
          var span = document.createElement('span')
          span.append(arr.r_dt)
