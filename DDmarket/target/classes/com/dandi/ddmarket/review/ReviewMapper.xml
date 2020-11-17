@@ -2,14 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dandi.ddmarket.review.ReviewMapper">
 	<select id="selReview" parameterType="ReviewPARAM" resultType="ReviewPARAM">
-		SELECT A.i_review, A.i_board, A.i_user, A.ctnt, A.rating,
-			   B.nick
-		FROM t_review A
-		LEFT JOIN t_user B
-			ON A.i_user = B.i_user
-			WHERE A.i_board = #{i_board}
-			ORDER BY A.r_dt DESC
+		SELECT A.i_review, A.i_board, B.i_user, A.ctnt, A.rating, C.nick, SUBSTRING_INDEX(A.r_dt," ",1) AS r_dt, C.profile_img FROM t_review A
+		LEFT JOIN t_board B
+		ON A.i_board = B.i_board
+		LEFT JOIN t_user C
+		ON A.i_user = C.i_user
+		WHERE B.i_user = #{i_user}
+		ORDER BY A.i_review DESC
 		LIMIT 5
+	</select>	
+	
+	<select id="selReviewCnt" parameterType="ReviewPARAM" resultType="Integer">
+		SELECT COUNT(*) FROM t_review A
+		LEFT JOIN t_board B
+		ON A.i_board = B.i_board
+		LEFT JOIN t_user C
+		ON A.i_user = C.i_user
+		WHERE B.i_user = #{i_user}
+		ORDER BY A.i_review DESC
 	</select>	
 	
 	<select id="selWriter_i_user" parameterType="ReviewVO" resultType="ReviewVO">

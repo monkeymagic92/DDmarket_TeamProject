@@ -168,10 +168,11 @@ public class BoardController {
 			param.setI_user(i_user);
 		}
 		
-		// 조우현 -_- ㅄ
-//	    int rating = CommonUtils.getIntParameter("rating", request);
-//	    model.addAttribute("reviewList", reviewService.selReview(rparam));
-//	    rparam.setRating(rating);
+		//리뷰 
+		rparam.setI_user(service.selBoard(param).getI_user());
+	    model.addAttribute("reviewList", reviewService.selReview(rparam));
+	    model.addAttribute("reviewListCnt", reviewService.selReviewCnt(rparam));
+	    
 	    
 	    // 판매글에 접속한 i_user에 chk값이 1, 0에 따라서 버튼이름 변경  (trans기능에 사용) 
 	    int chk = transService.chkTrans(param);
