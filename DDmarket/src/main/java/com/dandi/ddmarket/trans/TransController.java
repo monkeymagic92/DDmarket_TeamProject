@@ -100,7 +100,4 @@ public class TransController {
 		return "redirect:/board/detail?i_board="+param.getI_board();
 	}
 	
-		
-	
-	
 }

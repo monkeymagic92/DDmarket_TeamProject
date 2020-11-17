@@ -89,6 +89,9 @@
                         <c:if test="${data.price == 0 }">
                         	<div id="product-price">무료</div>
                        	</c:if>
+                       	<c:if test="${data.sold == 1}">
+                       		<img src="/res/img/soldOut.jpg" class="soldImg">
+                       	</c:if>
                         <div id="like">
                         	<span class="iconify favorite" data-inline="false" data-icon="fa:heart" style="color: #aeaeae; font-size: 13px;"></span>
                         		&nbsp;&nbsp;${data.tolike}&nbsp;&nbsp;
@@ -120,15 +123,20 @@
 
 								
                            		<%-- 구매요청 버튼 --%>
-                          		<form id="transFrm" action="/trans/transRequest" method="post">
-                           			<input type="hidden" name="i_user" value="${loginUser.i_user }">
-                           			<input type="hidden" name="i_board" value="${data.i_board }">
-                           			<input type="hidden" name="saleI_user" value="${data.i_user}">
-                           			<input type="hidden" name="chk" value="0">
-                           			<c:if test="${loginUser != null}">
-	                      				<button type="submit" name="chkSubmit" id="chkSubmit" onclick="chkValue()">${transBtn}</button>
-                      				</c:if>
-                           		</form>
+                           		<c:if test="${data.sold == 0}">                           		
+	                          		<form id="transFrm" action="/trans/transRequest" method="post">
+	                           			<input type="hidden" name="i_user" value="${loginUser.i_user }">
+	                           			<input type="hidden" name="i_board" value="${data.i_board }">
+	                           			<input type="hidden" name="saleI_user" value="${data.i_user}">
+	                           			<input type="hidden" name="chk" value="0">
+	                           			<c:if test="${loginUser != null}">
+		                      				<button type="submit" name="chkSubmit" id="chkSubmit" onclick="chkValue()">${transBtn}</button>
+	                      				</c:if>
+	                           		</form>
+                           		</c:if>
+                           		<c:if test="${data.sold == 1}">
+                           			<div></div>
+                           		</c:if>                           		
                         	</c:if>				
                            
                         </div>

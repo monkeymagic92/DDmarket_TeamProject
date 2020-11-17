@@ -92,6 +92,12 @@ main {width: 1040px; margin: 250px auto;}
     border-radius: 3px;
 }
 
+.soldImg {
+	width: 100px;
+	height: 100px;
+	
+}
+
 /* 추가한 css*/
 .unheart { color: #fff; }
 .heart { color: #f00;}
