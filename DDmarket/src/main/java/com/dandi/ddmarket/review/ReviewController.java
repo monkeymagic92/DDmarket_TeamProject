@@ -39,7 +39,7 @@ public class ReviewController {
 		System.out.println("i_user2:" + param.getI_user());
 		service.updGrade(param);
 		
-		return "redirect:/user/myPage?i_tap=2&i_user=" + i_user;
+		return "redirect:/user/myPage?i_tap=3&i_user=" + i_user;
 	}
 	
 }
