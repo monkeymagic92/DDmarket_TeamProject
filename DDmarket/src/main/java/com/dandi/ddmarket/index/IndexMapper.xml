@@ -17,6 +17,7 @@
 			GROUP BY i_board
 		) B
 		ON A.i_board = B.i_board
+		WHERE A.sold = 0
 		ORDER BY B.likeNum DESC, r_dt DESC
 		LIMIT 12
 	</select>
@@ -29,6 +30,7 @@
 		LEFT JOIN t_user B
 		ON A.i_user = B.i_user
 		WHERE SUBSTRING_INDEX(A.addr," ",1) in (SELECT SUBSTRING_INDEX(B.addr," ",1) FROM t_user WHERE B.i_user = ${i_user})
+		AND A.sold = 0
 		ORDER BY A.r_dt DESC
 		LIMIT 12
 	</select>
@@ -37,6 +39,7 @@
 	<select id="selNewBoardList" parameterType="BoardPARAM" resultType="BoardVO">
 		SELECT A.i_board, A.thumImage, A.title, A.price, A.r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr
 		FROM t_board A
+		WHERE A.sold = 0
 		ORDER BY A.r_dt DESC
 		LIMIT 12
 	</select>
@@ -50,7 +53,7 @@
 			GROUP BY i_board
 			) B
 		ON A.i_board = B.i_board
-		WHERE A.i_cg = #{i_cg}
+		WHERE A.i_cg = #{i_cg} AND A.sold = 0
 		ORDER BY B.likeNum DESC, r_dt DESC
 		LIMIT 8
 	</select>
@@ -59,7 +62,7 @@
 	<select id="selFreeBoardList" parameterType="BoardPARAM" resultType="BoardVO">
 		SELECT A.i_board, A.thumImage, A.title, A.price, A.r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr
 		FROM t_board A
-		WHERE A.price = 0
+		WHERE A.price = 0 AND A.sold = 0
 		ORDER BY A.r_dt DESC
 		LIMIT 12
 	</select>
@@ -75,23 +78,26 @@
 		ON A.i_board = B.i_board
 		
 		<if test="i_cg > 0 and searchNm_1 == null">
-		WHERE A.i_cg = #{i_cg}
+		WHERE A.i_cg = #{i_cg} AND A.sold = 0
 		</if>
 		<if test="i_cg == 0 and searchNm_1 != null and searchNm_2 != null">
 		WHERE (SUBSTRING_INDEX(A.addr," ",3) LIKE #{searchNm_1} OR A.title LIKE #{searchNm_1})
 		AND (SUBSTRING_INDEX(A.addr," ",3) LIKE #{searchNm_2} OR A.title LIKE #{searchNm_2})
+		AND A.sold = 0
 		</if>
 		<if test="i_cg > 0 and searchNm_1 != null and searchNm_2 != null">
 		WHERE (SUBSTRING_INDEX(A.addr," ",3) LIKE #{searchNm_1} OR A.title LIKE #{searchNm_1})
 		AND (SUBSTRING_INDEX(A.addr," ",3) LIKE #{searchNm_2} OR A.title LIKE #{searchNm_2})
-		AND A.i_cg = #{i_cg}
+		AND A.i_cg = #{i_cg} AND A.sold = 0
 		</if>
 		<if test="i_cg == 0 and searchNm_1 != null and searchNm_2 == null">
 		WHERE (SUBSTRING_INDEX(A.addr," ",3) LIKE #{searchNm_1} OR A.title LIKE #{searchNm_1})
+		AND A.sold = 0
 		</if>
 		<if test="i_cg > 0 and searchNm_1 != null and searchNm_2 == null">
 		WHERE (SUBSTRING_INDEX(A.addr," ",3) LIKE #{searchNm_1} OR A.title LIKE #{searchNm_1})
 		AND A.i_cg = #{i_cg}
+		AND A.sold = 0
 		</if>
 		ORDER BY
 		<if test="searchType == null">
@@ -123,23 +129,27 @@
 		ON A.i_board = B.i_board
 		
 		<if test="i_cg > 0 and searchNm_1 == null">
-		WHERE A.i_cg = #{i_cg}
+		WHERE A.i_cg = #{i_cg} AND A.sold = 0
 		</if>
 		<if test="i_cg == 0 and searchNm_1 != null and searchNm_2 != null">
 		WHERE (SUBSTRING_INDEX(A.addr," ",3) LIKE #{searchNm_1} OR A.title LIKE #{searchNm_1})
 		AND (SUBSTRING_INDEX(A.addr," ",3) LIKE #{searchNm_2} OR A.title LIKE #{searchNm_2})
+		AND A.sold = 0
 		</if>
 		<if test="i_cg > 0 and searchNm_1 != null and searchNm_2 != null">
 		WHERE (SUBSTRING_INDEX(A.addr," ",3) LIKE #{searchNm_1} OR A.title LIKE #{searchNm_1})
 		AND (SUBSTRING_INDEX(A.addr," ",3) LIKE #{searchNm_2} OR A.title LIKE #{searchNm_2})
 		AND A.i_cg = #{i_cg}
+		AND A.sold = 0
 		</if>
 		<if test="i_cg == 0 and searchNm_1 != null and searchNm_2 == null">
 		WHERE (SUBSTRING_INDEX(A.addr," ",3) LIKE #{searchNm_1} OR A.title LIKE #{searchNm_1})
+		AND A.sold = 0
 		</if>
 		<if test="i_cg > 0 and searchNm_1 != null and searchNm_2 == null">
 		WHERE (SUBSTRING_INDEX(A.addr," ",3) LIKE #{searchNm_1} OR A.title LIKE #{searchNm_1})
 		AND A.i_cg = #{i_cg}
+		AND A.sold = 0
 		</if>
 		ORDER BY
 		<if test="searchType == null">
