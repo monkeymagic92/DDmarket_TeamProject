@@ -402,6 +402,10 @@
          
          TransChatView.append(divMychat)
          
+         var divProfile = document.createElement('div')
+         divProfile.setAttribute('class', 'profile')
+         divMychat.append(divProfile)
+         
          var img = document.createElement('img')
          if(arr.buyProfile_img != null) {
                img.setAttribute('src',`/res/img/profile_img/user/\${arr.buyI_user}/\${arr.buyProfile_img}`)
@@ -409,7 +413,7 @@
               img.setAttribute('src','/res/img/lion.jpg')           
           }      
          
-         divMychat.append(img)
+         divProfile.append(img)
          
          var divBubble = document.createElement('div')
          divBubble.setAttribute('class', 'bubble')
@@ -419,7 +423,7 @@
          var divNick = document.createElement('div')         
          divNick.append(arr.buyNick)
          divNick.setAttribute('class', 'nick')
-         divMychat.append(divNick)
+         divProfile.append(divNick)
          
          var span = document.createElement('span')
          span.append(arr.r_dt)
@@ -431,6 +435,10 @@
          
          TransChatView.append(divMychat)
          
+         var divProfile = document.createElement('div')
+         divProfile.setAttribute('class', 'profile')
+         divMychat.append(divProfile)
+         
          var img = document.createElement('img')
          if(arr.buyProfile_img != null) {
                img.setAttribute('src',`/res/img/profile_img/user/\${arr.saleI_user}/\${arr.profile_img}`)
@@ -438,7 +446,7 @@
               img.setAttribute('src','/res/img/lion.jpg')           
           }      
          
-         divMychat.append(img)
+         divProfile.append(img)
          
          var divBubble = document.createElement('div')
          divBubble.setAttribute('class', 'bubble')
@@ -448,7 +456,7 @@
          
          var divNick = document.createElement('div')         
          divNick.append(arr.nick)
-         divMychat.append(divNick)
+         divProfile.append(divNick)
          divNick.setAttribute('class', 'nick')
 
          
