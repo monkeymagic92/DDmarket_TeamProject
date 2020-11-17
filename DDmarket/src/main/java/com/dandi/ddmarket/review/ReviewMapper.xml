@@ -35,14 +35,14 @@
 		ON A.i_board = B.i_board
 		LEFT JOIN t_user C
 		ON A.i_user = C.i_user
-		WHERE B.i_user = 3)
+		WHERE B.i_user = #{i_user})
 		 / 
 		(SELECT COUNT(*) FROM t_review A
 		LEFT JOIN t_board B
 		ON A.i_board = B.i_board
 		LEFT JOIN t_user C
 		ON A.i_user = C.i_user
-		WHERE B.i_user = 3)
+		WHERE B.i_user = #{i_user})
 		
 		WHERE A.i_user = (SELECT i_user FROM t_board WHERE i_board = #{i_board})
 	</update>
