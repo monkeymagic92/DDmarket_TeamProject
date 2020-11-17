@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
     
 <!DOCTYPE html>
 <html>
@@ -79,11 +80,11 @@
                             <div class="profile-desc">
                                 <div class="nick">${data.nick}</div>
                                 <div class="star-ratings-css">
-                                    <div class="star-ratings-css-top" style="width:80%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                                    <div class="star-ratings-css-top" id="grade_1" style="width:0%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                                     <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                                 </div>
                             </div>
-                            <div>${data.grade}</div>
+                           
                             
                             
                             
@@ -160,8 +161,7 @@
                   <div id="Buyers">
                      <c:forEach items="${selTrans}" var="item">
                         <div class="buyer" onclick="transChat(${item.i_trans}, ${item.saleI_user}, ${item.i_user})">  <%-- 구매유저 리스트에서 1:1 채팅 --%>
-                            <input class="transValue" type="hidden" value="${item.i_trans}">
-                            <!-- <div>${item.i_trans}</div> -->                            
+                            <input class="transValue" type="hidden" value="${item.i_trans}">                        
                              <c:if test="${item.profile_img == null }">
                                <img src="/res/img/lion.jpg" onchange="setThumbnail(e)" alt="" class="img">
                             </c:if>
@@ -174,7 +174,7 @@
 
                          </div>
                          <div class="Salebtn">
-                         	<button>거래완료</button>
+                         	<button type="button" onclick="transSuccess(${item.i_user}, ${data.i_board})">거래완료</button>
                          </div>      
                      </c:forEach>                  
                   </div>
@@ -247,26 +247,53 @@
             <h2 class="h2-section-title">판매자 후기</h2>
             <section id="section-review">
                 <div id="div-review-left">
-                    <div class="review-profile-img"><img src="/res/img/yerin.jpg"></div>
-
+                    <div class="review-profile-img">
+						<c:if test="${data.profile_img == null || data.profile_img == ''}">
+                      		<a href="/user/myPage?i_user=${data.i_user}&i_tap=1"><img src="/res/img/yerin.jpg"></a>
+                       	</c:if>
+                       	<c:if test="${data.profile_img != null}">
+                       		<c:choose>
+                       		<c:when test="${fn:contains(data.profile_img, 'http')}">
+                       			<a href="/user/myPage?i_user=${data.i_user}&i_tap=2"><img src="${data.profile_img}"></a>
+                       		</c:when>
+                       		<c:otherwise>                       		
+                          		 <a href="/user/myPage?i_user=${data.i_user}&i_tap=2"><img src="/res/img/profile_img/user/${data.i_user}/${data.profile_img}"></a>                    	
+                       		</c:otherwise>
+                       		</c:choose>
+                       	</c:if>                  
+                    </div>
                     <div class="review-profile-nick">${data.nick}</div>
-
                     <div class="star-ratings-css">
-                        <div class="star-ratings-css-top" style="width:85%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                        <div class="star-ratings-css-top" id="grade_2" style="width:0%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                         <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                     </div>
-                    <div class="review-profile-reviewNum">15명의 후기</div>
+                    <div class="review-profile-reviewNum">${reviewListCnt}명의 후기</div>
                 </div>
+                
                 <div id="div-review-right">
                    <c:forEach items="${reviewList}" var="item" begin="0" >
                     <div id="reviewWrap">
-                        <div class="review-right-profile-img"><img src="/res/img/yerin.jpg"></div>
+                        <div class="review-right-profile-img">
+	                        <c:if test="${item.profile_img == null || item.profile_img == ''}">
+	                      		<a href="/user/myPage?i_user=${item.i_user}&i_tap=1"><img src="/res/img/yerin.jpg"></a>
+	                       	</c:if>
+	                       	<c:if test="${item.profile_img != null}">
+	                       		<c:choose>
+	                       		<c:when test="${fn:contains(item.profile_img, 'http')}">
+	                       			<a href="/user/myPage?i_user=${item.i_user}&i_tap=1"><img src="${item.profile_img}"></a>
+	                       		</c:when>
+	                       		<c:otherwise>                       		
+	                          		 <a href="/user/myPage?i_user=${item.i_user}&i_tap=1"><img src="/res/img/profile_img/user/${item.i_user}/${item.profile_img}"></a>                    	
+	                       		</c:otherwise>
+	                       		</c:choose>
+	                       	</c:if>  
+                        </div>
                         <div class="review-right-profile-desc">
                             <div class="nick">
                                <span>${item.nick}</span>
-                               <span class="rating">${item.rating}</span></div>
+                               <span class="rating"></span></div>
                                 <div class="star-ratings-css">
-                                    <div class="star-ratings-top_1" style="width:${item.rating}"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                                    <div class="star-ratings-top_1" style="width:${item.star}%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                                     <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                                 </div>
                             </div>
@@ -299,6 +326,11 @@
    
    // 구매리스트 창 열기
    function chatBtn() {
+	  if(${loginUser == null}) {
+		  alert('로그인을 해주세요');
+		  location.href = '/user/login';
+		  return false;
+	  }
       ChatBox.style.display = 'flex'
    }
    // 구매리스트 창 닫기
@@ -473,8 +505,11 @@
    }
       
    // 별점   
-   var grade = ${data.grade}/5*125;
-   document.querySelector('.star-ratings-css-top').style.width = grade + "%";
+   var grade = ${data.grade}/5*75;
+   document.querySelector('#grade_1').style.width = grade + "%";
+   
+   var grade2 = ${data.grade}/5*125;
+   document.querySelector('#grade_2').style.width = grade2 + "%";
       
    // 댓글 뿌리기 (첨에 한번 실행 됨)
    function ajaxSelCmt() {
@@ -539,7 +574,7 @@
          
          var divSelMore =  document.createElement('div')
          divSelMore.setAttribute('id', 'ajaxSelMore')
-         divSelMore.innerText = '더보기'
+         divSelMore.innerText = '더보기 ▼'
            divSelMore.onclick = function() {
             ajaxSelMore();
          }
