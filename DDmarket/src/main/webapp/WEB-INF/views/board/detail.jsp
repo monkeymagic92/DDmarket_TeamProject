@@ -93,6 +93,7 @@
                            <div id="product-price"><fmt:formatNumber value="${data.price}" pattern="#,###" />원</div>
                         </c:if>
                         <c:if test="${data.price == 0 }">
+
                            <div id="product-price">무료</div>
                           </c:if>
 
@@ -109,6 +110,7 @@
                         </div>
                         <div id="buttonWrap">
                            <c:if test="${loginUser.i_user == data.i_user }">
+                             
                              <button onclick="moveToDel(${data.i_board})">삭제하기</button>
                               <button onclick="moveToUpd(${data.i_board})">수정하기</button>
                         <button id="chatting" onclick="chatBtn()">1:1대화</button>            
@@ -117,11 +119,13 @@
                                  <c:if test="${loginUser.i_user != data.i_user }">
                                  <c:if test="${data.sold == 0}">
                                  <button type="button" onclick="ToLike()">
+
                               <c:if test="${data.is_tolike == 1}">
                                  <span id="heart" class="iconify icon-btn-heart heart" data-inline="false" data-icon="clarity:heart-solid" style=" font-size: 20px;"></span>
                               </c:if>
                               <c:if test="${data.is_tolike == 0}">
                                      <span id="heart" class="iconify icon-btn-heart unheart" data-inline="false" data-icon="clarity:heart-solid" style=" font-size: 20px;"></span>
+                                
                               </c:if><span id="zzim">찜</span>
                                  </button>                                 
                                  <button id="chatting" onclick="chatBtn()">1:1대화</button>
@@ -137,6 +141,7 @@
                                     </form>
                                  </c:if>                              
                            </c:if>            
+
                         </div>
                     </div>
             </section>
@@ -146,6 +151,7 @@
              <%-- 버튼(구매요청 리스트) 눌렀을떄 나오는 부분 --%>      
              <%--   ㅡ   ㅡ   ㅡ   ㅡ   ㅡ   ㅡ   ㅡ   ㅡ   ㅡ   ㅡ   ㅡ   ㅡ   ㅡㅡ   ㅡ   ㅡ   ㅡ    --%>         
            <div id="ChatBox">
+
             
               <div id="SaleList">
                   <div id="close" onclick="CloBox()">
@@ -165,6 +171,7 @@
                              <p>
                                  <strong>${item.nick}</strong>
                              </p>
+
                          </div>
                          <div class="Salebtn">
                          	<button>거래완료</button>

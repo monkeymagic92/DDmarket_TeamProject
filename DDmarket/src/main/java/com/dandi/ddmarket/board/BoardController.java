@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.dandi.ddmarket.CmtCriteria;
-import com.dandi.ddmarket.CmtPageMaker;
 import com.dandi.ddmarket.CommonUtils;
 import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.ViewRef;
@@ -25,7 +23,6 @@ import com.dandi.ddmarket.review.ReviewService;
 import com.dandi.ddmarket.review.model.ReviewPARAM;
 import com.dandi.ddmarket.trans.TransService;
 import com.dandi.ddmarket.trans.model.TransDMI;
-import com.dandi.ddmarket.trans.model.TransVO;
 import com.dandi.ddmarket.user.UserService;
 import com.dandi.ddmarket.user.model.UserPARAM;
 
@@ -42,9 +39,9 @@ public class BoardController {
 	private CmtService cmtService;		// 댓글 서비스
 	
 	@Autowired
-	private ReviewService reviewService;
+	private ReviewService reviewService;	// 안쓰는중 알아서 적은사람 지우셈
   
-  @Autowired
+    @Autowired
 	private TransService transService;
 	
 	// 판매글 등록,수정
