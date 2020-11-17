@@ -23,6 +23,8 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter{
 		
 		System.out.println("uriArr.length : " + uriArr.length);
 		
+		
+		
 
 		if(uri.equals("/")) {
 			return true;

@@ -18,15 +18,15 @@
                 <div id="div-top-left">
                     <div id="profile_img">
                         <c:if test="${data.profile_img == null || data.profile_img == ''}">
-                      		<a href="/user/myPage?i_user=${data.i_user}&i_tap=1"><img src="/res/img/yerin.jpg"></a>
+                      		<img src="/res/img/yerin.jpg">
                        	</c:if>
                        	<c:if test="${data.profile_img != null}">
                        		<c:choose>
                        		<c:when test="${fn:contains(data.profile_img, 'http')}">
-                       			<a href="/user/myPage?i_user=${data.i_user}"><img src="${data.profile_img}"></a>
+                       			<img src="${data.profile_img}">
                        		</c:when>
                        		<c:otherwise>                       		
-                          		 <a href="/user/myPage?i_user=${data.i_user}"><img src="/res/img/profile_img/user/${data.i_user}/${data.profile_img}"></a>                    	
+                          		 <img src="/res/img/profile_img/user/${data.i_user}/${data.profile_img}">                    	
                        		</c:otherwise>
                        		</c:choose>
                        	</c:if>
@@ -37,7 +37,7 @@
                         <div class="star-ratings-css-top" style="width:120%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                         <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                     </div>
-                    <span id="profile_star_num">${data.grade}</span>         
+                    <br>
                     <button id="profile_btn_change" onclick="moveToInfo()">회원정보변경</button>
                 </div>
                 <div id="div-top-right">
@@ -90,8 +90,8 @@
                	<div id="tap_sellList">
 	                <c:forEach var="item" items="${sellList}">
 	                	<article class="card-wrap">
-	                        <c:if test="${item.sold == 1}"><div class="card-soldOut">판매완료</div></c:if>
 	                        <a href="/board/detail?i_board=${item.i_board}">  
+	                        <c:if test="${item.sold == 1}"><div class="card-soldOut">판매완료</div></c:if>
 	                            <div class="card-pic">
 	                               <c:choose>
 	                                  <c:when test="${item.thumImage == null}">
