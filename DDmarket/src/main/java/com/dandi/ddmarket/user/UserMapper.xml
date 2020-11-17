@@ -72,7 +72,7 @@
 	
 	<!-- 판매글 리스트 -->
 	<select id="selSellList" parameterType="BoardPARAM" resultType="BoardPARAM">
-		SELECT A.i_board, A.thumImage, A.title, A.price, A.r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr
+		SELECT A.i_board, A.thumImage, A.title, A.price, A.r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr, A.sold
 		FROM t_board A
 		WHERE i_user = #{i_user}
 		ORDER BY A.i_board DESC

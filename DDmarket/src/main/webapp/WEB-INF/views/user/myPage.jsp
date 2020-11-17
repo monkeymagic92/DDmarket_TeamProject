@@ -89,7 +89,8 @@
                 <c:if test="${i_tap == 1}">
                	<div id="tap_sellList">
 	                <c:forEach var="item" items="${sellList}">
-	                    <article class="card-wrap">
+	                	<article class="card-wrap">
+	                        <c:if test="${item.sold == 1}"><div class="card-soldOut">판매완료</div></c:if>
 	                        <a href="/board/detail?i_board=${item.i_board}">  
 	                            <div class="card-pic">
 	                               <c:choose>
