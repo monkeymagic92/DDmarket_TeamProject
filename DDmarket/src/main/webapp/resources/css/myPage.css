@@ -154,6 +154,20 @@ z-index: 0;
 #tap_sellList .card-wrap a .card-desc div .card-r_dt { font-size: 10px; color: #BAB6B6; margin-left:4px;}
 #tap_sellList .card-wrap a .card-addr {font-size: 13px; margin: 5px 0 5px 10px; position: relative; color: #3B3B3D;}
 #tap_sellList .card-wrap a .card-addr .icon-map {position: absolute; left: 6px; top: -0.5px;}
+#tap_sellList .card-soldOut {
+	width: 208px;
+	height: 300px;
+	position: absolute;
+	background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+    color: white;
+	font-weight: bolder;
+	font-size: 25px;
+	display:flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
 
 /* 페이징 */
 #paging {display: flex; justify-content: center;}
@@ -198,9 +212,11 @@ z-index: 0;
     padding: 5px;
     margin-left: 700px;
 }
-/* .div-wrap-buyList-article-soldOut::before {background: rgba(0, 0, 0, 0.4); z-index: 1; content:"";
+/*
+#tap_myBuyList .div-wrap-buyList-article-soldOut::before {background: rgba(0, 0, 0, 0.4); z-index: 1; content:"";
     width: 180px; height: 150px; position: absolute; right: 820px;}
-.div-wrap-buyList-article-soldOut .card-soldOut {color: white; position: absolute; font-size: 25px; font-weight: bold; z-index: 2; left: 40px; top:90px;} */
+#tap_myBuyList .div-wrap-buyList-article-soldOut .card-soldOut {color: white; position: absolute; font-size: 25px; font-weight: bold; z-index: 2; left: 40px; top:90px;} 
+*/
 
 /* 거래후기 */
 /* div-wrap-reviewList */

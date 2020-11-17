@@ -12,9 +12,16 @@ public class BoardDMI extends BoardVO {
 	private String profile_img;
 	private double rating;
 	private int i_buyList;
+	private int reviewCnt;
 	
 	
 	
+	public int getReviewCnt() {
+		return reviewCnt;
+	}
+	public void setReviewCnt(int reviewCnt) {
+		this.reviewCnt = reviewCnt;
+	}
 	public int getI_buyList() {
 		return i_buyList;
 	}

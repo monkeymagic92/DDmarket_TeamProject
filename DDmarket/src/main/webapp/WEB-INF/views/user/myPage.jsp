@@ -89,7 +89,8 @@
                 <c:if test="${i_tap == 1}">
                	<div id="tap_sellList">
 	                <c:forEach var="item" items="${sellList}">
-	                    <article class="card-wrap">
+	                	<article class="card-wrap">
+	                        <c:if test="${item.sold == 1}"><div class="card-soldOut">판매완료</div></c:if>
 	                        <a href="/board/detail?i_board=${item.i_board}">  
 	                            <div class="card-pic">
 	                               <c:choose>
@@ -170,7 +171,9 @@
                                 </c:choose>
                               <div class="card-addr"><span class="iconify" data-inline="false" data-icon="el:map-marker" style="color: #6f6a6a; font-size: 16px;"></span><span>${item.addr}</span></div>
                               <div class="card-date"><span class="card-date-text">구매 날짜</span><span class="card-date-num">${item.r_dt}</span></div>
-                              <button class="review" onclick="reviewbtn(${item.i_board})">후기쓰기</button>
+                               <c:if test="${item.reviewCnt == 0}">
+                             		 <button class="review" onclick="reviewbtn(${item.i_board})">후기쓰기</button>
+                          		</c:if>
                           </div>
                      </article>
                     </c:forEach>

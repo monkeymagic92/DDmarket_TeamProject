@@ -72,7 +72,7 @@
 	
 	<!-- 판매글 리스트 -->
 	<select id="selSellList" parameterType="BoardPARAM" resultType="BoardPARAM">
-		SELECT A.i_board, A.thumImage, A.title, A.price, A.r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr
+		SELECT A.i_board, A.thumImage, A.title, A.price, A.r_dt, SUBSTRING_INDEX(A.addr," ",3) AS addr, A.sold
 		FROM t_board A
 		WHERE i_user = #{i_user}
 		ORDER BY A.i_board DESC
@@ -103,7 +103,8 @@
 	
 	<!-- MY구매 리스트 -->
 	<select id="selMyBuyList" parameterType="BoardPARAM" resultType="BoardDMI">
-		SELECT A.i_buyList, A.i_user, A.i_board, C.thumImage, C.title, C.price, C.addr, C.r_dt  FROM t_user_buylist A
+		SELECT A.i_buyList, A.i_user, A.i_board, C.thumImage, C.title, C.price, C.addr, C.r_dt
+		, (SELECT COUNT(*) FROM t_review WHERE i_board = A.i_board) AS reviewCnt FROM t_user_buylist A
 		LEFT JOIN t_user B
 		ON B.i_user = A.i_user
 		LEFT JOIN t_board C
