@@ -518,7 +518,6 @@ section:nth-last-child(2) {margin-bottom:0px;}
 		width: 360px;
 		flex-wrap: wrap;
 		display: flex;
-		justify-content: center;
 		align-items: center;
 	}
 	

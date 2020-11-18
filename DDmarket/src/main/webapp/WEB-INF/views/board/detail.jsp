@@ -173,9 +173,11 @@
                              </p>
 
                          </div>
+                         <c:if test="${data.i_user == loginUser.i_user}">
                          <div class="Salebtn">
                          	<button type="button" onclick="transSuccess(${item.i_user}, ${data.i_board})">거래완료</button>
-                         </div>      
+                         </div>   
+                         </c:if>   
                      </c:forEach>                  
                   </div>
               </div>
