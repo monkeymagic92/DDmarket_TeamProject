@@ -73,7 +73,10 @@
                                            <div class="card-desc">
                                                <h2 class="card-title">${item.title}</h2>
                                                <span class="card-border"></span>
-                                               <div class="card-addr"><span class="iconify icon-map" data-inline="false" data-icon="mdi-light:map-marker" style="color: #f84c4c; font-size: 21px;"></span>${item.addr}</div>
+                                               <div class="card-addr">
+                                               <span class="iconify icon-map" data-inline="false" data-icon="mdi-light:map-marker" style="color: #f84c4c; font-size: 21px;"></span>
+                                               <span class="addr_text">${item.addr}</span>
+                                               </div>
                                                <div>
                                                   <span class="card-price">
                                                      <c:choose>
@@ -132,7 +135,10 @@
                                            <div class="card-desc">
                                                <h2 class="card-title">${item.title}</h2>
                                                <span class="card-border"></span>
-                                               <div class="card-addr"><span class="iconify icon-map" data-inline="false" data-icon="mdi-light:map-marker" style="color: #f84c4c; font-size: 21px;"></span>${item.addr}</div>
+                                               <div class="card-addr">
+                                               <span class="iconify icon-map" data-inline="false" data-icon="mdi-light:map-marker" style="color: #f84c4c; font-size: 21px;"></span>
+                                               <span class="addr_text">${item.addr}</span>
+                                               </div>
                                                <div>
                                                   <span class="card-price">
                                                      <c:choose>
@@ -185,7 +191,10 @@
                                                     <div class="card-desc">
                                                         <h2 class="card-title">${item.title}</h2>
                                                         <span class="card-border"></span>
-                                                        <div class="card-addr"><span class="iconify icon-map" data-inline="false" data-icon="mdi-light:map-marker" style="color: #f84c4c; font-size: 21px;"></span>${item.addr}</div>
+		                                                <div class="card-addr">
+		                                               <span class="iconify icon-map" data-inline="false" data-icon="mdi-light:map-marker" style="color: #f84c4c; font-size: 21px;"></span>
+		                                               <span class="addr_text">${item.addr}</span>
+		                                               </div>
                                                         <div>
                                                            <span class="card-price">
                                                               <c:choose>
@@ -239,7 +248,10 @@
                                            <div class="card-desc">
                                                <h2 class="card-title">${item.title}</h2>
                                                <span class="card-border"></span>
-                                               <div class="card-addr"><span class="iconify icon-map" data-inline="false" data-icon="mdi-light:map-marker" style="color: #f84c4c; font-size: 21px;"></span>${item.addr}</div>
+                                               <div class="card-addr">
+                                               <span class="iconify icon-map" data-inline="false" data-icon="mdi-light:map-marker" style="color: #f84c4c; font-size: 21px;"></span>
+                                               <span class="addr_text">${item.addr}</span>
+                                               </div>
                                                <div>
                                                   <span class="card-price">
                                                      <c:choose>
