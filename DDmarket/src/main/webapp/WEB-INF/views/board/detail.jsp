@@ -114,7 +114,7 @@
                              
                              <button onclick="moveToDel(${data.i_board})">삭제하기</button>
                               <button onclick="moveToUpd(${data.i_board})">수정하기</button>
-                        <button id="chatting" onclick="chatBtn()">1:1대화</button>            
+                        <c:if test="${data.sold != 1}"><button id="chatting" onclick="chatBtn()">1:1대화</button></c:if>       
                            </c:if>
    
                                  <c:if test="${loginUser.i_user != data.i_user }">
