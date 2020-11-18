@@ -105,13 +105,27 @@
 	                            <div class="card-desc">
 	                                <h2 class="card-title">${item.title}</h2>
 	                                <span class="card-border"></span>
-	                                <div class="card-addr"><span class="iconify icon-map" data-inline="false" data-icon="mdi-light:map-marker" style="color: #f84c4c; font-size: 21px;"></span>${item.addr}</div>
+	                                <div class="card-addr">
+	                                <span class="iconify icon-map" data-inline="false" data-icon="mdi-light:map-marker" style="color: #f84c4c; font-size: 21px;"></span>
+	                             	
+	                             	<!-- 글자수 12글자 이상 넘어가면 ...표시 -->                                
+									<c:choose>
+								    <c:when test="${fn:length(item.addr) > 12 }">  
+								    <span class="addr_text">${fn:substring(item.addr, 0, 12)}...</span> 
+								    </c:when>
+								    <c:otherwise>
+								       <span class="addr_text">${item.addr}</span>
+								    </c:otherwise>
+									</c:choose>
+
+	                                </div>
 	                                <div>
 	                                   <span class="card-price">
 	                                      <c:choose>
 	                                         <c:when test="${item.price == 0}"><span class="card-price">무료</span></c:when>
 	                                         <c:otherwise><span class="card-price"><fmt:formatNumber value="${item.price}" pattern="#,###" />원</span></c:otherwise>
 	                                      </c:choose>
+	                                   </span>  
 	                                   <span class="card-r_dt">${item.r_dt}</span>
 	                                </div>
 	                            </div>
