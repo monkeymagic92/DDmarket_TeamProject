@@ -626,6 +626,7 @@ section:nth-last-child(2) {margin-bottom:0px;}
       font-family:"Open Sans", sans-serif; 
       font-weight: bold;
       color:#aab8c2;
+      text-align: center;
   }
   .message .bubble {
   margin-left: 6px;
