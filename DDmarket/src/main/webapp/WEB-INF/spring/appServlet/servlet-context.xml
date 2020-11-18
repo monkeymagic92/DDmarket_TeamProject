@@ -54,9 +54,11 @@
 		<beans:property name="idleTimeout" value="3000" />
 		
 		<!-- 집에서 DB url 연결할때 serverTimezone 에러시 config.properties파일 안에 값 추가해주기 : &amp;serverTimezone=UTC -->					
-		<beans:property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/DDmarket?characterEncoding=UTF-8&amp;serverTimezone=UTC "/>
+		<!--  <beans:property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/DDmarket?characterEncoding=UTF-8&amp;serverTimezone=UTC "/>-->
+		<beans:property name="jdbcUrl" value="jdbc:mysql://49.50.167.74:3306/DDmarket?characterEncoding=UTF-8&amp;serverTimezone=UTC "/>
 		<beans:property name="username" value="root" />
-		<beans:property name="password" value="orcl" />
+		<!-- <beans:property name="password" value="orcl" /> -->
+		<beans:property name="password" value="dngus121!@!" />
 	</beans:bean>
 	
 	<!-- BoardWeb4에서 close() 각 DB연결한 Connection, PreparedStatement, ResultSet close() 해주는 것 -->
