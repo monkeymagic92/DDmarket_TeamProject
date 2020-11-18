@@ -38,7 +38,8 @@
 	
 	<select id="selTransCmt" parameterType="TransCmtDMI" resultType="TransCmtDMI">
 		SELECT C.profile_img as 'profile_img', B.profile_img as 'buyProfile_img', A.i_user as 'buyI_user',
-		A.saleI_user, B.nick as 'buyNick', C.nick , A.transCmtChk, A.transCmt, A.r_dt		
+		A.saleI_user, B.nick as 'buyNick', C.nick , A.transCmtChk, A.transCmt, 
+		date_format(A.r_dt, '%p %h:%i')	AS r_dt	
 		FROM t_trans_cmt A
 
 		LEFT JOIN t_user B 
