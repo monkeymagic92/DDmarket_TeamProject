@@ -38,8 +38,8 @@ section {overflow: hidden; margin:40px auto; background-color: white;}
 .section-cardList .swiper-container .swiper-wrapper .swiper-slide .card-wrap a .card-desc div {width:150px;}
 .section-cardList .swiper-container .swiper-wrapper .swiper-slide .card-wrap a .card-desc div .card-price { font-size: 16px; color: #3B3B3D; margin-right:4px;}
 .section-cardList .swiper-container .swiper-wrapper .swiper-slide .card-wrap a .card-desc div .card-r_dt { font-size: 10px; color: #BAB6B6; margin-left:4px;}
-.section-cardList .swiper-container .swiper-wrapper .swiper-slide .card-wrap a .card-addr {font-size: 13px; margin: 5px 0 5px 10px; position: relative; color: #3B3B3D;}
-.section-cardList .swiper-container .swiper-wrapper .swiper-slide .card-wrap a .card-addr .icon-map {position: absolute; left: 6px; top: -0.5px;}
+.section-cardList .swiper-container .swiper-wrapper .swiper-slide .card-wrap a .card-addr {font-size: 13px; margin: 5px 15px 5px 0px; display:flex; color: #3B3B3D; justify-content: center; align-items: center;}
+.section-cardList .swiper-container .swiper-wrapper .swiper-slide .card-wrap a .card-addr .icon-map {}
 .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
     bottom: 10px;
     left: 0;

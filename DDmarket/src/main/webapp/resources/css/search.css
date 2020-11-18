@@ -73,8 +73,8 @@ main {width: 1030px; margin: 200px auto;}
 #div-wrap-article .card-wrap a .card-desc div {width:150px;}
 #div-wrap-article .card-wrap a .card-desc div .card-price { font-size: 16px; color: #3B3B3D; margin-right:4px;}
 #div-wrap-article .card-wrap a .card-desc div .card-r_dt { font-size: 10px; color: #BAB6B6; margin-left:4px;}
-#div-wrap-article .card-wrap a .card-addr {font-size: 13px; margin: 5px 0 5px 10px; position: relative; color: #3B3B3D;}
-#div-wrap-article .card-wrap a .card-addr .icon-map {position: absolute; left: 6px; top: -0.5px;}
+#div-wrap-article .card-wrap a .card-addr {font-size: 13px; margin: 5px 15px 5px 0px; display:flex; color: #3B3B3D; justify-content: center; align-items: center;}
+#div-wrap-article .card-wrap a .card-addr .icon-map {}
 
 /* div-wrap-page */
 #div-wrap-page {display: flex; justify-content: center;}
