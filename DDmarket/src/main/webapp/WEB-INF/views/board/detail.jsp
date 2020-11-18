@@ -155,8 +155,8 @@
 
             
               <div id="SaleList">
-                  <div id="close" onclick="CloBox()">
-                       <img src="/res/img/times-solid.svg" alt="">
+                  <div id="close" >
+                  	<span class="material-icons" onclick="CloBox()"> close </span>    
                   </div>                                    
                   <div id="Buyers">
                      <c:forEach items="${selTrans}" var="item">
@@ -180,35 +180,18 @@
                   </div>
               </div>
               <div class="ChatList" id="chatView" >
-                   <div id="chatClose" onclick="CloChat()">
-                        <img src="/res/img/times-solid.svg" alt="">
+                   <div id="chatClose" >
+                        <span class="material-icons" onclick="CloChat()"> close </span> 
                    </div>
                     <div id="chat-Msg">
-                         <div id="TransChatView" class="message">  
-                            <%--   
-                           <div class="message Mychat">
-                               <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" alt="">
-                               <div class="bubble">우측(내용적기)
-                                  <div class="corner"></div>                                  
-                                  <span>10초</span>
-                              </div>
-                         </div>
-                         
-                          <div id="TransChatView" class="message">
-                              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2_copy.jpg" alt="">
-                              <div class="bubble">좌측(내용적기)
-                                 <div class="corner"></div>
-                                  <span>10초</span>
-                            </div>
-                         </div>
-                             --%>                   
-                      </div>
+                         <div id="TransChatView" class="message"></div>
                   </div>
                        <%-- 채팅입력 --%>
                       <div id="sendMessage">
-                         <input id="transCmtId" type="text" name="transCmt">
+                      	<textarea id="transCmtId" name="transCmt" onkeydown="insPostChat()"rows="6" cols="20"></textarea>
                          <button id="send" onclick="insTransChat()">
-                         	<img src="/res/img/paper-plane-solid.svg" alt="">
+
+                         	<span class="material-icons">chat_bubble</span>
                          </button>
                       </div>
             </div>    
@@ -312,6 +295,8 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="/res/js/detail.js"></script>
 <script>
+  //새로운 댓글이 달렸는지
+  var isNewCmt = false;
 
   if(${transSuccess != null}) {
       alert('${transSuccess}')
@@ -354,6 +339,7 @@
       TransChatView.innerHTML = ''
       chatView.style.display = 'none'
       SaleList.style.display = 'flex'
+      isNewCmt = false;
    }
    
    // 채팅창 열기 및 뿌리기
@@ -384,6 +370,7 @@
           }).then(function(res) {
              refreshSelChat(res.data)
           })   
+          
    }
    
    function refreshSelChat(arr) {      
@@ -465,12 +452,22 @@
          divBubble.append(span)
          
       }
-      
+      //새로운 댓글이라면
+      if(isNewCmt){
+    	  document.getElementById('chat-Msg').scrollTop = document.getElementById('chat-Msg').scrollHeight;
+      }
+    
    }
-               
+   
+   
    function insTransChat() {
+	   //새로 생성된 댓글
+	   isNewCmt = true;
        var transCmt = transCmtId.value
-       
+       if(transCmt == ''){
+    	   alert('글자를 입력하세요.')
+    	   return
+       }else {    	   
         axios.post('/trans/insTransCmt',{
          
          i_user : `${loginUser.i_user}`, 
@@ -485,8 +482,37 @@
            transChat(param_i_trans, param_saleI_user, param_i_user) //★★★ 안되면 매개변수로 param_trans 넣어보기 ★★★
          
         })           
+       }
+       
    }
    
+   function insPostChat() {
+	   isNewCmt = true;
+	   if(event.keyCode == 13) {
+		   event.preventDefault()
+	   		var transCmt = transCmtId.value
+			if(transCmt == '') {				
+				alert('글자를 입력해주세요.')
+				return
+			} else {
+				
+	        axios.post('/trans/insTransCmt',{
+	         
+	         i_user : `${loginUser.i_user}`, 
+	         i_board : `${data.i_board}`,
+	         saleI_user : `${data.i_user}`,
+	         i_trans : param_i_trans,
+	         transCmt
+	           
+	        }).then(function(res) {
+	           transCmtId.value = ''
+	           TransChatView.innerHTML = ''
+	           transChat(param_i_trans, param_saleI_user, param_i_user) //★★★ 안되면 매개변수로 param_trans 넣어보기 ★★★
+	         
+	        })   
+		}
+	  }
+   }
   
   
    // 댓글 시작
