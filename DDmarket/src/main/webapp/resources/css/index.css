@@ -33,13 +33,13 @@ section {overflow: hidden; margin:40px auto; background-color: white;}
 .section-cardList .swiper-container .swiper-wrapper .swiper-slide .card-wrap a .card-pic {width: 100%; height: 170.44px;}
 .section-cardList .swiper-container .swiper-wrapper .swiper-slide .card-wrap a .card-pic img {width: 100%; height: 100%;}
 .section-cardList .swiper-container .swiper-wrapper .swiper-slide .card-wrap a .card-desc {margin-top: 10px; display:flex; flex-flow:column wrap; justify-content: center; align-items: center; }
-.section-cardList .swiper-container .swiper-wrapper .swiper-slide .card-wrap a .card-desc .card-title {font-style: normal; font-weight: normal; font-size: 16px; color: #3B3B3D;}
+.section-cardList .swiper-container .swiper-wrapper .swiper-slide .card-wrap a .card-desc .card-title {font-style: normal; font-weight: normal; font-size: 16px; color: #3B3B3D; display: inline-block; width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 .section-cardList .swiper-container .swiper-wrapper .swiper-slide .card-wrap a .card-desc .card-border {border-bottom: 1px dashed #A5A2A2; width: 67%; display: block; margin: 5px auto;}
 .section-cardList .swiper-container .swiper-wrapper .swiper-slide .card-wrap a .card-desc div {width:150px;}
 .section-cardList .swiper-container .swiper-wrapper .swiper-slide .card-wrap a .card-desc div .card-price { font-size: 16px; color: #3B3B3D; margin-right:4px;}
 .section-cardList .swiper-container .swiper-wrapper .swiper-slide .card-wrap a .card-desc div .card-r_dt { font-size: 10px; color: #BAB6B6; margin-left:4px;}
-.section-cardList .swiper-container .swiper-wrapper .swiper-slide .card-wrap a .card-addr {font-size: 13px; margin: 5px 15px 5px 0px; display:flex; color: #3B3B3D; justify-content: center; align-items: center;}
-.section-cardList .swiper-container .swiper-wrapper .swiper-slide .card-wrap a .card-addr .icon-map {}
+.section-cardList .swiper-container .swiper-wrapper .swiper-slide .card-wrap a .card-addr {width: 50%; margin: 5px 5px 5px 0px; display:flex; color: #3B3B3D; justify-content: center; align-items: center;}
+.addr_text {font-size: 13px;}
 .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
     bottom: 10px;
     left: 0;
@@ -67,11 +67,10 @@ section {overflow: hidden; margin:40px auto; background-color: white;}
 .tab_container .tab_content .card-wrap a .card-pic {width: 100%; height: 170.44px;}
 .tab_container .tab_content .card-wrap a .card-pic img {width: 100%; height: 100%;}
 .tab_container .tab_content .card-wrap a .card-desc {margin-top: 10px; display:flex; flex-flow:column wrap; justify-content: center; align-items: center; }
-.tab_container .tab_content .card-wrap a .card-desc .card-title {font-style: normal; font-weight: normal; font-size: 16px; color: #3B3B3D;}
-.card-title {display: inline-block; width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+.tab_container .tab_content .card-wrap a .card-desc .card-title {font-style: normal; font-weight: normal; font-size: 16px; color: #3B3B3D; display: inline-block; width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 .tab_container .tab_content .card-wrap a .card-desc .card-border {border-bottom: 1px dashed #A5A2A2; width: 67%; display: block; margin: 5px auto;}
 .tab_container .tab_content .card-wrap a .card-desc div {width:150px;}
 .tab_container .tab_content .card-wrap a .card-desc div .card-price { font-size: 16px; color: #3B3B3D; margin-right:4px;}
 .tab_container .tab_content .card-wrap a .card-desc div .card-r_dt { font-size: 10px; color: #BAB6B6; margin-left:4px;}
-.tab_container .tab_content .card-wrap a .card-addr {font-size: 13px; margin: 5px 0 5px 10px; position: relative; color: #3B3B3D;}
-.tab_container .tab_content .card-wrap a .card-addr .icon-map {position: absolute; left: 6px; top: -0.5px;}
+.tab_container .tab_content .card-wrap a .card-addr {margin: 5px 5px 5px 0px; color: #3B3B3D; display:flex; color: #3B3B3D; justify-content: center; align-items: center;}
+.addr_text {font-size: 13px;}
