@@ -18,7 +18,7 @@
                 <div id="div-top-left">
                     <div id="profile_img">
                         <c:if test="${data.profile_img == null || data.profile_img == ''}">
-                      		<img src="/res/img/yerin.jpg">
+                      		<img src="/res/img/lion.jpg">
                        	</c:if>
                        	<c:if test="${data.profile_img != null}">
                        		<c:choose>
@@ -141,7 +141,7 @@
 	               	 <div id="reviewWrap">
                          <div class="review-right-profile-img">
                             <c:if test="${item.profile_img == null }">
-                       		<a href="/user/myPage?i_user=${item.i_user}&i_tap=1"><img src="/res/img/yerin.jpg" onchange="setThumbnail(e)" alt="" class="img"></a>
+                       		<a href="/user/myPage?i_user=${item.i_user}&i_tap=1"><img src="/res/img/lion.jpg" onchange="setThumbnail(e)" alt="" class="img"></a>
                         	</c:if>
                         	<c:if test="${item.profile_img != null }">
                                 <a href="/user/myPage?i_user=${item.i_user}"><img src="/res/img/profile_img/user/${item.i_user}/${item.profile_img}" class="img"></a>                    	
@@ -200,7 +200,7 @@
 			    	           <div id="reviewWrap">
 			                       <div class="review-right-profile-img">
 					                    <c:if test="${item.profile_img == null }">
-			                       		<a href="/user/myPage?i_user=${item.i_user}&i_tap=1"><img src="/res/img/yerin.jpg" alt="" class="img"></a>
+			                       		<a href="/user/myPage?i_user=${item.i_user}&i_tap=1"><img src="/res/img/lion.jpg" alt="" class="img"></a>
 			                        	</c:if>
 			                        	<c:if test="${item.profile_img != null }">
 			                                <a href="/user/myPage?i_user=${item.i_user}"><img src="/res/img/profile_img/user/${item.i_user}/${item.profile_img}" class="img"></a>                    	
@@ -221,7 +221,7 @@
 	               	 <div id="reviewWrap">
                          <div class="review-right-profile-img">
                             <c:if test="${item.profile_img == null }">
-                       		<a href="/user/myPage?i_user=${item.i_user}&i_tap=1"><img src="/res/img/yerin.jpg" onchange="setThumbnail(e)" alt="" class="img"></a>
+                       		<a href="/user/myPage?i_user=${item.i_user}&i_tap=1"><img src="/res/img/lion.jpg" onchange="setThumbnail(e)" alt="" class="img"></a>
                         	</c:if>
                         	<c:if test="${item.profile_img != null }">
                                 <a href="/user/myPage?i_user=${item.i_user}"><img src="/res/img/profile_img/user/${item.i_user}/${item.profile_img}" class="img"></a>                    	
