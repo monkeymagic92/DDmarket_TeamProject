@@ -22,9 +22,11 @@
             <section id="section-info">
                     <div class="swiper-container">
                         <div class="swiper-wrapper" id="imgSwiper">
-                           <!-- thumeImage 폴더 안만들어짐 (집에서는 학원에서 테스트해보기) -->                           
+                           <!-- thumeImage 폴더 안만들어짐 (집에서는 학원에서 테스트해보기) -->                   
                             <div class="swiper-slide">
-                               <img src="/res/img/board/${data.i_board }/${data.thumImage}">
+                            <c:if test="${data.thumImage != ''}">
+                               <img src="/res/img/board/${data.i_board}/${data.thumImage}">
+                              </c:if>
                             </div>
                             <c:if test="${data.image_1 != null}">
                                <c:if test="${data.image_1 != '' }">
@@ -68,10 +70,10 @@
                         <div class="user-info">
                             <div class="profile-img">
                                <c:if test="${data.profile_img == null}">
-                              <a href="/user/myPage?i_user=${data.i_user}&i_tap=1"><img src="/res/img/yerin.jpg" onchange="setThumbnail(e)" alt="" class="img"></a>
+                              <a href="/user/myPage?i_user=${data.i_user}&i_tap=1"><img src="/res/img/lion.jpg" onchange="setThumbnail(e)" alt="" class="img"></a>
                               </c:if>
                               <c:if test="${data.profile_img != null}">
-                                   <a href="/user/myPage?i_user=${data.i_user}"><img src="/res/img/profile_img/user/${data.i_user}/${data.profile_img}" class="img"></a>                       
+                                   <a href="/user/myPage?i_user=${data.i_user}&i_tap=1"><img src="/res/img/profile_img/user/${data.i_user}/${data.profile_img}" class="img"></a>                       
                               </c:if>
                             </div>
                             
@@ -114,7 +116,7 @@
                              
                              <button onclick="moveToDel(${data.i_board})">삭제하기</button>
                               <button onclick="moveToUpd(${data.i_board})">수정하기</button>
-                        <button id="chatting" onclick="chatBtn()">1:1대화</button>            
+                        <c:if test="${data.sold != 1}"><button id="chatting" onclick="chatBtn()">1:1대화</button></c:if>       
                            </c:if>
    
                                  <c:if test="${loginUser.i_user != data.i_user }">
@@ -173,9 +175,11 @@
                              </p>
 
                          </div>
+                         <c:if test="${data.i_user == loginUser.i_user}">
                          <div class="Salebtn">
                          	<button type="button" onclick="transSuccess(${item.i_user}, ${data.i_board})">거래완료</button>
-                         </div>      
+                         </div>   
+                         </c:if>   
                      </c:forEach>                  
                   </div>
               </div>
@@ -232,7 +236,7 @@
                 <div id="div-review-left">
                     <div class="review-profile-img">
 						<c:if test="${data.profile_img == null || data.profile_img == ''}">
-                      		<a href="/user/myPage?i_user=${data.i_user}&i_tap=1"><img src="/res/img/yerin.jpg"></a>
+                      		<a href="/user/myPage?i_user=${data.i_user}&i_tap=1"><img src="/res/img/lion.jpg"></a>
                        	</c:if>
                        	<c:if test="${data.profile_img != null}">
                        		<c:choose>
@@ -258,7 +262,7 @@
                     <div id="reviewWrap">
                         <div class="review-right-profile-img">
 	                        <c:if test="${item.profile_img == null || item.profile_img == ''}">
-	                      		<a href="/user/myPage?i_user=${item.i_user}&i_tap=1"><img src="/res/img/yerin.jpg"></a>
+	                      		<a href="/user/myPage?i_user=${item.i_user}&i_tap=1"><img src="/res/img/lion.jpg"></a>
 	                       	</c:if>
 	                       	<c:if test="${item.profile_img != null}">
 	                       		<c:choose>
@@ -345,7 +349,7 @@
    // 채팅창 열기 및 뿌리기
    function transChat(i_trans, saleI_user, i_user) {
       if(i_user != `${loginUser.i_user}` && saleI_user != `${loginUser.i_user}`) {
-         alert('닳라달라')
+         
          return false;
       }
          

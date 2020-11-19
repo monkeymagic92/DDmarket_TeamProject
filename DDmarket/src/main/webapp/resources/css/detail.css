@@ -518,7 +518,6 @@ section:nth-last-child(2) {margin-bottom:0px;}
 		width: 360px;
 		flex-wrap: wrap;
 		display: flex;
-		justify-content: center;
 		align-items: center;
 	}
 	
@@ -627,6 +626,7 @@ section:nth-last-child(2) {margin-bottom:0px;}
       font-family:"Open Sans", sans-serif; 
       font-weight: bold;
       color:#aab8c2;
+      text-align: center;
   }
   .message .bubble {
   margin-left: 6px;
@@ -664,6 +664,7 @@ section:nth-last-child(2) {margin-bottom:0px;}
       resize: none; 
       background:#fff;
       border: none;
+      padding-left: 15px;
       width: 310px;
       height: 70px;
       overflow-y: auto;
@@ -698,8 +699,8 @@ section:nth-last-child(2) {margin-bottom:0px;}
   #sendMessage > button > .material-icons {
       font-size: 27px;
       cursor: pointer;
-      width: 40px;
-      height: 40px;
+      width: 30px;
+      height: 30px;
       font-weight: bold;
       display: flex;
       justify-content: center;
@@ -727,11 +728,11 @@ section:nth-last-child(2) {margin-bottom:0px;}
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 27px;
+      font-size: 20px;
       font-weight: bold;
       line-height: 1.2;
       width: 20px;
-      margin-right: 8px;
+      margin-right: 5px;
   }
   
   #chatClose {
@@ -750,9 +751,9 @@ section:nth-last-child(2) {margin-bottom:0px;}
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 27px;
+      font-size: 20px;
       font-weight: bold;
       line-height: 1.2;
       width: 20px;
-      margin-right: 8px;
+      margin-right: 5px;
   }

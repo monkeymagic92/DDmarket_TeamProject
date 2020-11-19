@@ -96,7 +96,7 @@ public class TransController {
 		
 		int result = service.insBuyList(param);
 		int result2 = service.updSold(param);
-		ra.addFlashAttribute("transSuccess", "거래완료됬다");
+		ra.addFlashAttribute("transSuccess", "거래가 완료 되었습니다");
 		return "redirect:/board/detail?i_board="+param.getI_board();
 	}
 	
