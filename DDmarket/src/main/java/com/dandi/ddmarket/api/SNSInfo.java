@@ -6,8 +6,8 @@ import java.net.URLEncoder;
 import java.security.SecureRandom;
 
 public class SNSInfo {
-	//이거만 바꾸면 됨  
-		
+		//이거만 바꾸면 됨  
+		// 배포 uri
 		//private static final String HOST_URI = "http://localhost:8090";
 		private static final String HOST_URI = "http://49.50.167.74:8080";
 		
