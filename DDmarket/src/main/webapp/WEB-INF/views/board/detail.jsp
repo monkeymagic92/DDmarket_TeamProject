@@ -69,13 +69,22 @@
                     
                         <div class="user-info">
                             <div class="profile-img">
-                               <c:if test="${data.profile_img == null}">
-                              <a href="/user/myPage?i_user=${data.i_user}&i_tap=1"><img src="/res/img/lion.jpg" onchange="setThumbnail(e)" alt="" class="img"></a>
-                              </c:if>
-                              <c:if test="${data.profile_img != null}">
-                                   <a href="/user/myPage?i_user=${data.i_user}&i_tap=1"><img src="/res/img/profile_img/user/${data.i_user}/${data.profile_img}" class="img"></a>                       
-                              </c:if>
-                            </div>
+							<c:if
+								test="${data.profile_img == null || data.profile_img == ''}">
+								<img src="/res/img/lion.jpg">
+							</c:if>
+							<c:if test="${data.profile_img != null}">
+								<c:choose>
+									<c:when test="${fn:contains(data.profile_img, 'http')}">
+										<img src="${data.profile_img}">
+									</c:when>
+									<c:otherwise>
+										<img
+											src="/res/img/profile_img/user/${data.i_user}/${data.profile_img}">
+									</c:otherwise>
+								</c:choose>
+							</c:if>
+						</div>
                             
                             <!-- 별 -->
                             
@@ -162,14 +171,33 @@
                   </div>                                    
                   <div id="Buyers">
                      <c:forEach items="${selTrans}" var="item">
+                     	<!-- 
+                     	
+                     	
+                     	
+                     	
+                     	
+                     	
+                     	 -->
                         <div class="buyer" onclick="transChat(${item.i_trans}, ${item.saleI_user}, ${item.i_user})">  <%-- 구매유저 리스트에서 1:1 채팅 --%>
-                            <input class="transValue" type="hidden" value="${item.i_trans}">                        
-                             <c:if test="${item.profile_img == null }">
-                               <img src="/res/img/lion.jpg" onchange="setThumbnail(e)" alt="" class="img">
-                            </c:if>
-                            <c:if test="${item.profile_img != null}">
-                               <img src="/res/img/profile_img/user/${item.i_user}/${item.profile_img}" class="img">
-                            </c:if>
+                            <input class="transValue" type="hidden" value="${item.i_trans}">
+                            
+                            <c:if
+								test="${item.profile_img == null || item.profile_img == ''}">
+								<img src="/res/img/lion.jpg">
+							</c:if>
+							<c:if test="${item.profile_img != null}">
+								<c:choose>
+									<c:when test="${fn:contains(item.profile_img, 'http')}">
+										<img src="${item.profile_img}">
+									</c:when>
+									<c:otherwise>
+										<img
+											src="/res/img/profile_img/user/${item.i_user}/${item.profile_img}">
+									</c:otherwise>
+								</c:choose>
+							</c:if>
+                         
                              <p>
                                  <strong>${item.nick}</strong>
                              </p>
@@ -396,14 +424,19 @@
          var divProfile = document.createElement('div')
          divProfile.setAttribute('class', 'profile')
          divMychat.append(divProfile)
-         
+        
+                  
          var img = document.createElement('img')
          if(arr.buyProfile_img != null) {
-               img.setAttribute('src',`/res/img/profile_img/user/\${arr.buyI_user}/\${arr.buyProfile_img}`)
+               if(arr.buyProfile_img.substring(0,4) === 'http') {
+            	   img.setAttribute('src',arr.buyProfile_img)
+               } else {
+            	   img.setAttribute('src',`/res/img/profile_img/user/\${arr.buyI_user}/\${arr.buyProfile_img}`)
+               }
           } else {
               img.setAttribute('src','/res/img/lion.jpg')           
           }      
-         
+      
          divProfile.append(img)
          
          var divBubble = document.createElement('div')
@@ -422,6 +455,7 @@
          
          
       } else { // 판매자
+    	  
          divMychat.setAttribute('class', 'mychat')
          
          TransChatView.append(divMychat)
@@ -432,9 +466,14 @@
          
          var img = document.createElement('img')
          if(arr.buyProfile_img != null) {
-               img.setAttribute('src',`/res/img/profile_img/user/\${arr.saleI_user}/\${arr.profile_img}`)
+               if(arr.buyProfile_img.substring(0,4) == 'http') {
+            	   img.setAttribute('src',arr.profile_img)
+               } else {
+            	   img.setAttribute('src',`/res/img/profile_img/user/\${arr.saleI_user}/\${arr.profile_img}`)
+               }
           } else {
-              img.setAttribute('src','/res/img/lion.jpg')           
+              img.setAttribute('src','/res/img/lion.jpg')
+              
           }      
          
          divProfile.append(img)
@@ -633,11 +672,29 @@
       
       var profileImg = document.createElement('img')
       profileImg.setAttribute('class', 'profileImg')
+      
       if(arr.profile_img != null) {
-         profileImg.setAttribute('src',`/res/img/profile_img/user/\${arr.i_user}/\${arr.profile_img}`)
+    	  if(arr.profile_img.substring(0,4) === 'http') {
+    		 profileImg.setAttribute('src',arr.profile_img)
+    	  } else {
+	         profileImg.setAttribute('src',`/res/img/profile_img/user/\${arr.i_user}/\${arr.profile_img}`)
+    	  }
       } else {
          profileImg.setAttribute('src','/res/img/lion.jpg')
       }
+      
+      /*
+      if(arr.buyProfile_img != null) {
+          if(arr.buyProfile_img.substring(0,4) === 'http') {
+       	   img.setAttribute('src',arr.profile_img)
+          } else {
+       	   img.setAttribute('src',`/res/img/profile_img/user/\${arr.saleI_user}/\${arr.profile_img}`)
+          }
+     } else {
+         img.setAttribute('src','/res/img/lion.jpg')           
+     }    
+      */
+      
       divCommentProfileImg.append(profileImg)
       divCommentWrap.append(divCommentProfileImg)
       

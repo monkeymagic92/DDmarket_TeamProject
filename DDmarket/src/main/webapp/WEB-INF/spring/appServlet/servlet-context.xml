@@ -59,7 +59,7 @@
 		<beans:property name="jdbcUrl" value="jdbc:mysql://49.50.167.74:3306/DDmarket?characterEncoding=UTF-8&amp;serverTimezone=UTC "/>
 		<beans:property name="username" value="root" />
 		
-		<!--  <beans:property name="password" value="orcl" />-->	
+		<!--  <beans:property name="password" value="orcl" />-->
 		<beans:property name="password" value="dngus121!@!" />
 		
 	</beans:bean>

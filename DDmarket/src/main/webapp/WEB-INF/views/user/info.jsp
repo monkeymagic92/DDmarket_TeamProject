@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,12 +31,21 @@
                 <div class="imgBtn">
                     <div class="pImgbox">
                         <label for="file">
-                        	<c:if test="${loginUser.profile_img == null }">
-                        		<img src="/res/img/lion.jpg" onchange="setThumbnail(e)" alt="" class="img">
-                        	</c:if>
-                        	<c:if test="${loginUser.profile_img != null }">
-                                <img src="/res/img/profile_img/user/${loginUser.i_user }/${loginUser.profile_img}" class="img">                    	
-                        	</c:if>
+                        <c:if
+								test="${loginUser.profile_img == null || loginUser.profile_img == ''}">
+								<img src="/res/img/lion.jpg" onchange="setThumbnail(e)" class="img">
+							</c:if>
+							<c:if test="${loginUser.profile_img != null}">
+								<c:choose>
+									<c:when test="${fn:contains(loginUser.profile_img, 'http')}">
+										<img src="${loginUser.profile_img}"onchange="setThumbnail(e)" class="img">
+									</c:when>
+									<c:otherwise>
+										<img
+											src="/res/img/profile_img/user/${loginUser.i_user}/${loginUser.profile_img}" onchange="setThumbnail(e)" class="img">
+									</c:otherwise>
+								</c:choose>
+							</c:if>
                         </label>
                         <div class="div-cngBtn">
                             <form id="imgFrm" action="/user/imgUpload" method="post" enctype="multipart/form-data" onsubmit="return imgChk()">

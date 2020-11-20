@@ -26,8 +26,7 @@
                         <div class="swiper-button-next"></div>
                     </div>
                 </section>
-                <c:if test="${loginUser == null}"><div class="sub-title"><a href="/index/search?searchType=hot">단디마켓 인기상품</a></div></c:if>
-                <c:if test="${loginUser != null}"><div class="sub-title"><a href="/index/search?searchNm=${fn:substringBefore(loginUser.addr, ' ')}">단디마켓 추천상품</a></div></c:if>
+                <div class="sub-title"><a href="/index/search?searchType=hot">단디마켓 인기상품</a></div>
                 <section id="main-section-hot" class="section-cardList">
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
@@ -43,21 +42,9 @@
                                  <c:set var="hotBoardList_endNum" value="9" />
                               </c:otherwise>
                            </c:choose>
-                           <c:set var="recBoardList_endNum" value="0" />
-                           <c:choose>
-                              <c:when test="${fn:length(recBoardList) <= 4}">
-                                 <c:set var="recBoardList_endNum" value="1" />
-                              </c:when>
-                              <c:when test="${fn:length(recBoardList) <= 8}">
-                                 <c:set var="recBoardList_endNum" value="5" />
-                              </c:when>
-                              <c:otherwise>
-                                 <c:set var="recBoardList_endNum" value="9" />
-                              </c:otherwise>
-                           </c:choose>
-                           <c:forEach var="i" begin="1" end="${loginUser == null ? hotBoardList_endNum : recBoardList_endNum}" step="4">
+                           <c:forEach var="i" begin="1" end="${hotBoardList_endNum}" step="4">
                                  <div class="swiper-slide">
-                               <c:forEach var="item" items="${loginUser == null ? hotBoardList : recBoardList}" begin="${i-1}" end="${i+2}">
+                               <c:forEach var="item" items="${hotBoardList}" begin="${i-1}" end="${i+2}">
                                    <article class="card-wrap">
                                        <a href="/board/detail?i_board=${item.i_board}">  
                                            <div class="card-pic">

@@ -168,6 +168,8 @@ public class UserController {
 			ra.addFlashAttribute("joinErrMsg","서버에러! 회원가입을 다시 시도해 주세요");
 			return "redirect:/" + ViewRef.USER_JOIN;
 		}
+			
+			
 	}
 	
 	

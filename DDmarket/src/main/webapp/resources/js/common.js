@@ -84,7 +84,7 @@ function chkSearch() {
 	
 	// 글자수 20개로 제한
 	if(document.getElementById("header-search-text").value.length > 20) {
-		alert('글자수 20넘음!!');
+		alert('글자수는 20개 이하로 입력해주세요');
 		document.getElementById("header-search-text").value = '';
 		return false;
 	}
@@ -94,7 +94,7 @@ function chkSearch() {
 	let temp = searchNm;
 	let result = temp.match(/ /g);
 	if(result.length > 1) {
-		alert('공백 2개 이상임!!')
+		alert('공백은 한칸만 입력해주세요')
 		return false;
 	}
 }

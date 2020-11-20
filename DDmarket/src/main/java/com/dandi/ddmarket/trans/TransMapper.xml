@@ -58,7 +58,7 @@
 	
 	
 	<insert id="insBuyList" parameterType="BoardPARAM">
-		INSERT INTO t_user_buyList
+		INSERT INTO t_user_buylist
 		(i_board, i_user)
 		VALUES
 		(#{i_board}, #{i_user})

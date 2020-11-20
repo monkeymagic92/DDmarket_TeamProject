@@ -44,12 +44,14 @@ public class IndexController {
 		hs.setAttribute("cgList", service.selCgList(cparam));
 		
 		// 비로그인 - 인기글 목록, 로그인 - 추천글 목록
-		if(SecurityUtils.isLogout(request)) {
-			model.addAttribute("hotBoardList", service.selHotBoardList(param));			
-		} else {
-			param.setI_user(SecurityUtils.getLoginUserPk(request));
-			model.addAttribute("recBoardList", service.selRecBoardList(param));			
-		}
+//		if(SecurityUtils.isLogout(request)) {
+//			model.addAttribute("hotBoardList", service.selHotBoardList(param));			
+//		} else {
+//			param.setI_user(SecurityUtils.getLoginUserPk(request));
+//			model.addAttribute("recBoardList", service.selRecBoardList(param));			
+//		}
+		
+		model.addAttribute("hotBoardList", service.selHotBoardList(param));	
 
 		List<List<BoardVO>> cList = new ArrayList();
 
@@ -74,18 +76,23 @@ public class IndexController {
 		hs.setAttribute("searchNm", request.getParameter("searchNm"));
 		
 		// 1어절, 2어절 경우로 나눠서 검색값을 저장
-		if(hs.getAttribute("searchNm") != null) {
-			if(request.getParameter("searchNm").contains(" ")) {
-				String[] strArr = CommonUtils.getSearchNm(request.getParameter("searchNm"));
-				String pSearch_1 = "%" + strArr[0] + "%";
-				String pSearch_2 = "%" + strArr[1] + "%";		
-				param.setSearchNm_1(pSearch_1);
-				param.setSearchNm_2(pSearch_2);
-			} else {
-				String pSearch_1 = "%" + request.getParameter("searchNm") + "%";
-				param.setSearchNm_1(pSearch_1);
-			}
-		}
+	      if(hs.getAttribute("searchNm") != null) {
+	          if(request.getParameter("searchNm").contains(" ")) {
+	             try {
+	                String[] strArr = CommonUtils.getSearchNm(request.getParameter("searchNm"));
+	                String pSearch_1 = "%" + strArr[0] + "%";
+	                String pSearch_2 = "%" + strArr[1] + "%";      
+	                param.setSearchNm_1(pSearch_1);
+	                param.setSearchNm_2(pSearch_2);      
+	             } catch(Exception e) {
+	                String pSearch_1 = "%" + request.getParameter("searchNm") + "%";
+	                param.setSearchNm_1(pSearch_1);
+	             }
+	          } else {
+	             String pSearch_1 = "%" + request.getParameter("searchNm") + "%";
+	             param.setSearchNm_1(pSearch_1);
+	          }
+	       }
 		
 		// 카테고리 선택 시 i_cg 값을 받는다.
 		int i_cg = CommonUtils.getIntParameter("i_cg", request);
