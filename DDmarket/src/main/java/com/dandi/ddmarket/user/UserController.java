@@ -38,7 +38,7 @@ import com.dandi.ddmarket.user.model.UserVO;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-	static int cerCodeCount = 0; // 인증코드 틀렸을시 카운트 
+	public static int cerCodeCount = 0; // 인증코드 틀렸을시 카운트 
 	
 	@Autowired
 	private UserService service;  // 유저 서비스
@@ -110,7 +110,7 @@ public class UserController {
 			model.addAttribute("isLogin","로그인이 되어있는상태에서는 로그인페이지로 갈수없습니다");
 			return ViewRef.ORIGIN_TEMP;
 		}
-		
+		cerCodeCount = 0;
 		model.addAttribute("view",ViewRef.USER_LOGIN);
 		return ViewRef.MENU_TEMP;
 	}
@@ -121,6 +121,7 @@ public class UserController {
 		int result = service.login(param);
 		
 		if(result == Const.SUCCESS) { // 로그인성공 
+			cerCodeCount = 0;
 			hs.setAttribute(Const.LOGIN_USER, param);
 			return "redirect:/" + ViewRef.INDEX_MAIN;
 		}

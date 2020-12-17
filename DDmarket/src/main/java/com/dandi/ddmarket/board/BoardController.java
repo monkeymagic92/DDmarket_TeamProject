@@ -149,7 +149,8 @@ public class BoardController {
 	// 판매글 상세페이지 (detail)
 	@RequestMapping(value="/detail", method = RequestMethod.GET)
 
-	public String detail(Model model, UserPARAM userParam,TransDMI transDmi, ReviewPARAM rparam, BoardPARAM param, CmtVO vo, HttpServletRequest req,
+	public String detail(Model model, UserPARAM userParam,TransDMI transDmi, ReviewPARAM rparam, 
+			BoardPARAM param, CmtVO vo, HttpServletRequest req,
 			HttpServletRequest request, HttpSession hs) {
 		
 		int i_user = 0;
@@ -236,11 +237,8 @@ public class BoardController {
 					System.out.println("파일 삭제 실패");
 				}	
 			}
-			
 		}
-		
 		return "redirect:/index/main";
-			
 	}
 	
 	//욕 필터

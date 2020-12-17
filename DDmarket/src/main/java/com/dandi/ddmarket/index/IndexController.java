@@ -3,6 +3,7 @@ package com.dandi.ddmarket.index;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -16,12 +17,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.dandi.ddmarket.CommonUtils;
 import com.dandi.ddmarket.Criteria;
 import com.dandi.ddmarket.PageMaker;
-import com.dandi.ddmarket.SecurityUtils;
-
 import com.dandi.ddmarket.ViewRef;
 import com.dandi.ddmarket.board.model.BoardPARAM;
 import com.dandi.ddmarket.board.model.BoardVO;
 import com.dandi.ddmarket.category.model.CategoryVO;
+import com.dandi.ddmarket.user.UserController;
 
 @Controller
 @RequestMapping("/index")
@@ -61,7 +61,7 @@ public class IndexController {
 			cList.add(service.selCgBoardList(param));
 			model.addAttribute("cList", cList);
 		}
-
+		UserController.cerCodeCount = 0;
 		model.addAttribute("newBoardList", service.selNewBoardList(param));
 		model.addAttribute("freeBoardList", service.selFreeBoardList(param));
 		model.addAttribute("view",ViewRef.INDEX_MAIN);
