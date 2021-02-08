@@ -40,15 +40,16 @@ figma : https://www.figma.com/file/89W4GhsedH0Nouec3Ul2tA/DDmarket?node-id=0%3A1
 
 ### Web Preview
 
+Library
 
 
 ### Developer Tools
 
-| Planning | Date-base | Front-end  | Back-end           | API          | Server        |
+| Planning | Data-base | Front-end  | Back-end           | API          | Server        |
 | -------- | --------- | ---------- | ------------------ | ------------ | ------------- |
 | figma    | Maria DB  | HTML+CSS   | Eclips IDE         | kakao login  | Apache Tomcat |
 |          |           | Javascript | Spring Tool Suite  | NAVER login  |               |
-|          |           | jQuery     | JDK                | kakao maps   |               |
+|          |           | jQuery     | JDK                | daum map     |               |
 |          |           | Ajax       | Maven              |              |               |
 
 
