@@ -22,7 +22,7 @@ figma : https://www.figma.com/file/89W4GhsedH0Nouec3Ul2tA/DDmarket?node-id=0%3A1
 그 안에서 따뜻하고 깨끗한 거래 문화를 지향하기 위해 이 웹서비스를 개발하게 되었습니다.</br> 
 - 내가 살고 있는 지역에서 원하는 중고거래 검색 서비스 제공</br>
 - 판매자와 구매자가 1:1 대화를 통해 익명성이 보장되는 거래 서비스 제공</br>
-- SNS 로그인 서비스 제공
+- SNS 로그인 서비스 제공 
 
 ### Project DATE
 
